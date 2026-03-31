@@ -54,7 +54,7 @@ export function ScanCamera() {
   };
 
   return (
-    <View style={{ flex: 1, backgroundColor: '#000' }}>
+    <View style={{ flex: 1, backgroundColor: colors.background }}>
       <CameraView
         ref={cameraRef}
         style={{ flex: 1 }}
@@ -77,6 +77,8 @@ export function ScanCamera() {
               {/* Gallery */}
               <Pressable
                 onPress={pickImage}
+                accessibilityLabel={t('scan.choose_gallery')}
+                accessibilityRole="button"
                 style={{
                   width: 48,
                   height: 48,
@@ -111,6 +113,8 @@ export function ScanCamera() {
               {/* Flip */}
               <Pressable
                 onPress={() => setFacing(f => f === 'back' ? 'front' : 'back')}
+                accessibilityLabel="Flip camera"
+                accessibilityRole="button"
                 style={{
                   width: 48,
                   height: 48,

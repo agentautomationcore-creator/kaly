@@ -5,6 +5,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { useTranslation } from 'react-i18next';
 import { useColors } from '../../src/lib/theme';
 import { Button } from '../../src/components/Button';
+import { StepIndicator } from '../../src/components/StepIndicator';
 import { FONT_SIZE } from '../../src/lib/constants';
 import { Ionicons } from '@expo/vector-icons';
 
@@ -21,6 +22,7 @@ export default function WelcomeScreen() {
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: colors.background, padding: 24 }}>
+      <StepIndicator totalSteps={4} currentStep={1} />
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
         {/* Logo placeholder */}
         <View

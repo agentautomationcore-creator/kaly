@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { useColors } from '../../../lib/theme';
 import { useWeekStats } from '../hooks/useStats';
 import { useDiary } from '../../diary/hooks/useDiary';
+import { useAuthStore } from '../../../stores/authStore';
 import { CalorieRing } from './CalorieRing';
 import { MacroBars } from './MacroBars';
 import { WeeklyBarChart } from './WeeklyBarChart';
@@ -15,9 +16,15 @@ import { FONT_SIZE } from '../../../lib/constants';
 export function StatsScreen() {
   const { t } = useTranslation();
   const colors = useColors();
+  const profile = useAuthStore((s) => s.profile);
   const today = new Date().toISOString().split('T')[0];
   const { data: todayEntries } = useDiary(today);
   const { data: weekStats, isLoading } = useWeekStats();
+
+  const calorieGoal = profile?.daily_calories || 2000;
+  const proteinGoal = calorieGoal * (profile?.protein_pct || 30) / 100 / 4;
+  const carbsGoal = calorieGoal * (profile?.carbs_pct || 40) / 100 / 4;
+  const fatGoal = calorieGoal * (profile?.fat_pct || 30) / 100 / 9;
 
   const todayCal = (todayEntries || []).reduce((s, e) => s + e.total_calories, 0);
   const todayProtein = (todayEntries || []).reduce((s, e) => s + e.total_protein, 0);
@@ -40,12 +47,12 @@ export function StatsScreen() {
         <Text style={{ fontSize: FONT_SIZE.md, fontWeight: '600', color: colors.text, marginBottom: 16 }}>
           {t('stats.today_calories')}
         </Text>
-        <CalorieRing current={todayCal} goal={2000} />
+        <CalorieRing current={todayCal} goal={calorieGoal} />
       </Card>
 
       {/* Macro bars */}
       <Card style={{ marginBottom: 16 }}>
-        <MacroBars protein={todayProtein} carbs={todayCarbs} fat={todayFat} />
+        <MacroBars protein={todayProtein} carbs={todayCarbs} fat={todayFat} proteinGoal={Math.round(proteinGoal)} carbsGoal={Math.round(carbsGoal)} fatGoal={Math.round(fatGoal)} />
       </Card>
 
       {/* Streak */}
@@ -56,7 +63,7 @@ export function StatsScreen() {
         <Text style={{ fontSize: FONT_SIZE.md, fontWeight: '600', color: colors.text, marginBottom: 16 }}>
           {t('stats.weekly')}
         </Text>
-        <WeeklyBarChart days={weekStats?.days || []} />
+        <WeeklyBarChart days={weekStats?.days || []} goal={calorieGoal} />
         {weekStats && weekStats.avgCalories > 0 && (
           <Text style={{ fontSize: FONT_SIZE.sm, color: colors.textSecondary, textAlign: 'center', marginTop: 12 }}>
             {t('stats.avg_calories')}: {Math.round(weekStats.avgCalories)} {t('common.kcal')}

@@ -39,7 +39,7 @@ export function DateNavigator({ date, onDateChange }: DateNavigatorProps) {
 
   return (
     <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingHorizontal: 16, paddingVertical: 12 }}>
-      <Pressable onPress={() => onDateChange(addDays(date, -1))} style={{ padding: 8 }}>
+      <Pressable onPress={() => onDateChange(addDays(date, -1))} style={{ padding: 8, minHeight: 44, minWidth: 44, justifyContent: 'center', alignItems: 'center' }} accessibilityLabel={t('diary.yesterday')} accessibilityRole="button">
         <Ionicons name="chevron-back" size={24} color={colors.text} />
       </Pressable>
 
@@ -49,8 +49,10 @@ export function DateNavigator({ date, onDateChange }: DateNavigatorProps) {
 
       <Pressable
         onPress={() => onDateChange(addDays(date, 1))}
-        style={{ padding: 8 }}
+        style={{ padding: 8, minHeight: 44, minWidth: 44, justifyContent: 'center', alignItems: 'center' }}
         disabled={date >= today}
+        accessibilityLabel={t('diary.tomorrow')}
+        accessibilityRole="button"
       >
         <Ionicons name="chevron-forward" size={24} color={date >= today ? colors.border : colors.text} />
       </Pressable>

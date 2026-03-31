@@ -22,19 +22,23 @@ export function PortionSlider() {
           <Pressable
             key={p}
             onPress={() => setPortionMultiplier(p)}
+            accessibilityLabel={`${t('scan.portion')} ${p}x`}
+            accessibilityRole="button"
             style={{
               flex: 1,
+              minHeight: 44,
               paddingVertical: 10,
               borderRadius: RADIUS.md,
               backgroundColor: portionMultiplier === p ? colors.primary : colors.surface,
               alignItems: 'center',
+              justifyContent: 'center',
             }}
           >
             <Text
               style={{
                 fontSize: 13,
                 fontWeight: '600',
-                color: portionMultiplier === p ? '#FFF' : colors.textSecondary,
+                color: portionMultiplier === p ? '#FFFFFF' : colors.textSecondary,
               }}
             >
               {p}x

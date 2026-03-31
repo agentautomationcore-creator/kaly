@@ -23,7 +23,7 @@ interface MealSectionProps {
   date: string;
 }
 
-export function MealSection({ mealType, entries, date }: MealSectionProps) {
+export const MealSection = React.memo(function MealSection({ mealType, entries, date }: MealSectionProps) {
   const { t } = useTranslation();
   const colors = useColors();
   const router = useRouter();
@@ -47,7 +47,9 @@ export function MealSection({ mealType, entries, date }: MealSectionProps) {
 
         <Pressable
           onPress={() => router.push('/(tabs)/scan')}
-          style={{ padding: 4 }}
+          accessibilityLabel={t('diary.add_food')}
+          accessibilityRole="button"
+          style={{ minHeight: 44, minWidth: 44, justifyContent: 'center', alignItems: 'center' }}
         >
           <Ionicons name="add-circle" size={28} color={colors.primary} />
         </Pressable>
@@ -62,4 +64,4 @@ export function MealSection({ mealType, entries, date }: MealSectionProps) {
       ) : null}
     </Card>
   );
-}
+});

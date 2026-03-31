@@ -1,6 +1,8 @@
 import React, { Component, ErrorInfo, ReactNode } from 'react';
 import { View, Text, Pressable } from 'react-native';
 import * as Sentry from '@sentry/react-native';
+import { lightColors, darkColors, type Colors } from '../lib/theme';
+import { useSettingsStore } from '../stores/settingsStore';
 
 interface Props {
   children: ReactNode;
@@ -11,6 +13,15 @@ interface Props {
 interface State {
   hasError: boolean;
   error: Error | null;
+}
+
+function getColors(): Colors {
+  try {
+    const theme = useSettingsStore.getState().effectiveTheme;
+    return theme === 'dark' ? darkColors : lightColors;
+  } catch {
+    return lightColors;
+  }
 }
 
 export class ErrorBoundary extends Component<Props, State> {
@@ -44,18 +55,20 @@ export class ErrorBoundary extends Component<Props, State> {
     if (this.state.hasError) {
       if (this.props.fallback) return this.props.fallback;
 
+      const colors = getColors();
+
       return (
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', padding: 24 }}>
-          <Text style={{ fontSize: 17, fontWeight: '600', color: '#1A1A1A', marginBottom: 8 }}>
+          <Text style={{ fontSize: 17, fontWeight: '600', color: colors.text, marginBottom: 8 }}>
             Something went wrong
           </Text>
-          <Text style={{ fontSize: 14, color: '#666', textAlign: 'center', marginBottom: 20 }}>
+          <Text style={{ fontSize: 14, color: colors.textSecondary, textAlign: 'center', marginBottom: 20 }}>
             {this.state.error?.message || 'An unexpected error occurred'}
           </Text>
           <Pressable
             onPress={this.handleRetry}
             style={{
-              backgroundColor: '#4CAF50',
+              backgroundColor: colors.primary,
               borderRadius: 12,
               paddingHorizontal: 24,
               paddingVertical: 12,
@@ -63,7 +76,7 @@ export class ErrorBoundary extends Component<Props, State> {
             accessibilityRole="button"
             accessibilityLabel="Retry"
           >
-            <Text style={{ color: '#FFF', fontWeight: '600', fontSize: 15 }}>Retry</Text>
+            <Text style={{ color: '#FFFFFF', fontWeight: '600', fontSize: 15 }}>Retry</Text>
           </Pressable>
         </View>
       );

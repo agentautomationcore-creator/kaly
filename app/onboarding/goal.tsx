@@ -5,6 +5,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { useTranslation } from 'react-i18next';
 import { useColors } from '../../src/lib/theme';
 import { Button } from '../../src/components/Button';
+import { StepIndicator } from '../../src/components/StepIndicator';
 import { FONT_SIZE, RADIUS } from '../../src/lib/constants';
 import { Ionicons } from '@expo/vector-icons';
 
@@ -22,6 +23,7 @@ export default function GoalScreen() {
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: colors.background, padding: 24 }}>
+      <StepIndicator totalSteps={4} currentStep={2} />
       <Text style={{ fontSize: 24, fontWeight: '700', color: colors.text, marginBottom: 8 }}>
         {t('onboarding.goal_title')}
       </Text>

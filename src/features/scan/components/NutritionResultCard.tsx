@@ -144,14 +144,18 @@ export function NutritionResultCard() {
           <Pressable
             key={m}
             onPress={() => setMealType(m)}
+            accessibilityLabel={t(`diary.${m}`)}
+            accessibilityRole="button"
             style={{
               flex: 1,
+              minHeight: 44,
               paddingVertical: 10,
               borderRadius: RADIUS.md,
               backgroundColor: mealType === m ? colors.primaryLight : colors.card,
               borderWidth: 1.5,
               borderColor: mealType === m ? colors.primary : 'transparent',
               alignItems: 'center',
+              justifyContent: 'center',
             }}
           >
             <Text style={{ fontSize: 11, fontWeight: '600', color: mealType === m ? colors.primary : colors.textSecondary }}>

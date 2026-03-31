@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text } from 'react-native';
 import Svg, { Circle } from 'react-native-svg';
-import Animated, { useSharedValue, useAnimatedProps, withTiming } from 'react-native-reanimated';
+import Animated, { useSharedValue, useAnimatedProps, withTiming, cancelAnimation } from 'react-native-reanimated';
 import { useColors } from '../../../lib/theme';
 
 const AnimatedCircle = Animated.createAnimatedComponent(Circle);
@@ -22,6 +22,9 @@ export function CalorieRing({ current, goal, size = 160 }: CalorieRingProps) {
   const progress = useSharedValue(0);
   React.useEffect(() => {
     progress.value = withTiming(percentage, { duration: 800 });
+    return () => {
+      cancelAnimation(progress);
+    };
   }, [percentage]);
 
   const animatedProps = useAnimatedProps(() => ({

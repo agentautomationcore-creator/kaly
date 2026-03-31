@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, Pressable, FlatList } from 'react-native';
+import { View, Text, Pressable } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { Ionicons } from '@expo/vector-icons';
 import { useColors } from '../../../lib/theme';

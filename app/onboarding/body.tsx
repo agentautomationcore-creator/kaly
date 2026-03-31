@@ -5,6 +5,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { useTranslation } from 'react-i18next';
 import { useColors } from '../../src/lib/theme';
 import { Button } from '../../src/components/Button';
+import { StepIndicator } from '../../src/components/StepIndicator';
 import { FONT_SIZE, RADIUS } from '../../src/lib/constants';
 
 const GENDERS = ['male', 'female'] as const;
@@ -25,6 +26,7 @@ export default function BodyScreen() {
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: colors.background }}>
+      <StepIndicator totalSteps={4} currentStep={3} />
       <ScrollView contentContainerStyle={{ padding: 24, paddingBottom: 100 }}>
         <Text style={{ fontSize: 24, fontWeight: '700', color: colors.text, marginBottom: 24 }}>
           {t('onboarding.body_title')}

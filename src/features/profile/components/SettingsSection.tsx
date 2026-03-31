@@ -49,9 +49,13 @@ export function SettingsSection({ profile }: SettingsSectionProps) {
           <Pressable
             key={lang}
             onPress={() => handleLanguageChange(lang)}
+            accessibilityLabel={`${t('profile.language')}: ${LANGUAGE_NAMES[lang] || lang}`}
+            accessibilityRole="button"
             style={{
               paddingHorizontal: 12,
               paddingVertical: 6,
+              minHeight: 44,
+              justifyContent: 'center',
               borderRadius: RADIUS.full,
               backgroundColor: i18n.language === lang ? colors.primaryLight : colors.surface,
               borderWidth: 1.5,
@@ -74,14 +78,18 @@ export function SettingsSection({ profile }: SettingsSectionProps) {
           <Pressable
             key={th}
             onPress={() => handleThemeChange(th)}
+            accessibilityLabel={`${t('profile.theme')}: ${t(`profile.theme_${th}`)}`}
+            accessibilityRole="button"
             style={{
               flex: 1,
+              minHeight: 44,
               paddingVertical: 10,
               borderRadius: RADIUS.md,
               backgroundColor: themeMode === th ? colors.primaryLight : colors.surface,
               borderWidth: 1.5,
               borderColor: themeMode === th ? colors.primary : 'transparent',
               alignItems: 'center',
+              justifyContent: 'center',
             }}
           >
             <Text style={{ fontSize: 12, fontWeight: '500', color: themeMode === th ? colors.primary : colors.text }}>

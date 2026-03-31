@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { View, Text, Pressable } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { Ionicons } from '@expo/vector-icons';
@@ -16,8 +16,10 @@ export function IngredientList({ items, multiplier }: IngredientListProps) {
   const colors = useColors();
   const [expanded, setExpanded] = useState(false);
 
-  const hiddenItems = items.filter((i) => i.hidden);
-  const visibleItems = items.filter((i) => !i.hidden);
+  const { hiddenItems, visibleItems } = useMemo(() => ({
+    hiddenItems: items.filter((i) => i.hidden),
+    visibleItems: items.filter((i) => !i.hidden),
+  }), [items]);
 
   return (
     <View>

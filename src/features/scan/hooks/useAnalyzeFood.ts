@@ -28,11 +28,15 @@ async function analyzeFood(photoUri: string): Promise<ScanResult> {
 
   if (response.status === 429) {
     const data = await response.json();
-    throw new Error(`RATE_LIMIT:${data.limit || 3}`);
+    const err = new Error('RATE_LIMIT') as Error & { limit?: number; remaining?: number };
+    err.limit = data.limit;
+    err.remaining = data.remaining;
+    throw err;
   }
 
   if (!response.ok) {
-    throw new Error('Analysis failed');
+    const data = await response.json().catch(() => ({}));
+    throw new Error(data.error || 'Analysis failed');
   }
 
   const result = await response.json();
