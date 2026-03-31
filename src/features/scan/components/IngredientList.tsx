@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, Pressable } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { Ionicons } from '@expo/vector-icons';
-import { useColors } from '../../../lib/theme';
+import { useColors, type Colors } from '../../../lib/theme';
 import { FONT_SIZE, RADIUS } from '../../../lib/constants';
 import type { FoodItem } from '../types';
 
@@ -62,7 +62,7 @@ export function IngredientList({ items, multiplier }: IngredientListProps) {
   );
 }
 
-function IngredientRow({ item, multiplier, colors, isHidden }: { item: FoodItem; multiplier: number; colors: any; isHidden?: boolean }) {
+function IngredientRow({ item, multiplier, colors, isHidden }: { item: FoodItem; multiplier: number; colors: Colors; isHidden?: boolean }) {
   return (
     <View
       style={{

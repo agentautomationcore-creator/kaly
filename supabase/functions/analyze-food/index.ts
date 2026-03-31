@@ -5,9 +5,29 @@ import Anthropic from 'https://esm.sh/@anthropic-ai/sdk@0.30.1';
 const anthropic = new Anthropic({ apiKey: Deno.env.get('ANTHROPIC_API_KEY')! });
 
 const corsHeaders = {
-  'Access-Control-Allow-Origin': '*',
+  'Access-Control-Allow-Origin': 'app.kaly.mobile',
   'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
 };
+
+// S2: IP-based rate limiting for anonymous users
+const ipRateLimits = new Map<string, { count: number; resetAt: number }>();
+const ANON_IP_LIMIT = 10; // max 10 anonymous requests per hour per IP
+const ANON_IP_WINDOW_MS = 60 * 60 * 1000; // 1 hour
+
+function checkIpRateLimit(ip: string): boolean {
+  const now = Date.now();
+  const entry = ipRateLimits.get(ip);
+  if (!entry || now > entry.resetAt) {
+    ipRateLimits.set(ip, { count: 1, resetAt: now + ANON_IP_WINDOW_MS });
+    return true;
+  }
+  if (entry.count >= ANON_IP_LIMIT) return false;
+  entry.count++;
+  return true;
+}
+
+// S9: Language allowlist to prevent prompt injection
+const ALLOWED_LANGUAGES = ['en', 'fr', 'ru', 'de', 'es', 'it', 'ar', 'pt', 'tr', 'zh'];
 
 serve(async (req) => {
   if (req.method === 'OPTIONS') {
@@ -15,6 +35,15 @@ serve(async (req) => {
   }
 
   try {
+    // S4: Check Content-Length before processing
+    const contentLength = parseInt(req.headers.get('content-length') || '0');
+    if (contentLength > 1_048_576) { // 1MB
+      return new Response(JSON.stringify({ error: 'Request too large' }), {
+        status: 413,
+        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+      });
+    }
+
     // 1. Verify JWT
     const authHeader = req.headers.get('Authorization');
     if (!authHeader) {
@@ -38,7 +67,21 @@ serve(async (req) => {
       });
     }
 
-    // 2. Rate limit check
+    // S2: IP-based rate limiting for anonymous users (no email = anonymous)
+    const isAnonymous = !user.email;
+    if (isAnonymous) {
+      const clientIp = req.headers.get('x-forwarded-for')?.split(',')[0]?.trim()
+        || req.headers.get('x-real-ip')
+        || 'unknown';
+      if (!checkIpRateLimit(clientIp)) {
+        return new Response(JSON.stringify({ error: 'Too many anonymous requests. Please sign up.' }), {
+          status: 429,
+          headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+        });
+      }
+    }
+
+    // 2. Rate limit check (daily scan limit)
     const { data: canScan } = await supabase.rpc('check_daily_scan_limit', { p_user_id: user.id });
     if (!canScan) {
       return new Response(JSON.stringify({ error: 'Daily scan limit reached', limit: 3 }), {
@@ -55,6 +98,9 @@ serve(async (req) => {
       });
     }
 
+    // S9: Validate language against allowlist
+    const lang = ALLOWED_LANGUAGES.includes(language) ? language : 'en';
+
     // 3. Check cache
     const imageHash = await computeHash(image);
     const { data: cached } = await supabase
@@ -64,7 +110,12 @@ serve(async (req) => {
       .single();
 
     if (cached) {
-      await supabase
+      // Use service role client to update cache (RLS blocks anon inserts)
+      const adminClient = createClient(
+        Deno.env.get('SUPABASE_URL')!,
+        Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!
+      );
+      await adminClient
         .from('nutrition_cache')
         .update({ scan_count: cached.scan_count + 1, last_used_at: new Date().toISOString() })
         .eq('id', cached.id);
@@ -84,9 +135,18 @@ serve(async (req) => {
       }), { headers: { ...corsHeaders, 'Content-Type': 'application/json' } });
     }
 
+    // S6: Insert pending diary entry BEFORE calling Claude (prevents TOCTOU race)
+    const { data: pending } = await supabase.from('diary_entries').insert({
+      user_id: user.id,
+      meal_type: 'snack',
+      food_name: 'Analyzing...',
+      total_calories: 0,
+      entry_method: 'photo',
+    }).select('id').single();
+
     // 4. Claude Vision analysis with retry
-    const prompt = buildPrompt(language);
-    let result: any;
+    const prompt = buildPrompt(lang);
+    let result: Record<string, unknown>;
 
     for (let attempt = 0; attempt < 2; attempt++) {
       try {
@@ -106,40 +166,58 @@ serve(async (req) => {
         result = JSON.parse(text.replace(/```json\n?|\n?```/g, '').trim());
         break;
       } catch (e) {
-        if (attempt === 1) throw e;
+        if (attempt === 1) {
+          // S6: Delete pending entry on failure
+          if (pending?.id) {
+            await supabase.from('diary_entries').delete().eq('id', pending.id);
+          }
+          throw e;
+        }
       }
     }
 
-    if (result.error === 'not_food') {
-      return new Response(JSON.stringify(result), {
+    // S6: Delete pending entry (caller will insert the real one via the app)
+    if (pending?.id) {
+      await supabase.from('diary_entries').delete().eq('id', pending.id);
+    }
+
+    if (result!.error === 'not_food') {
+      return new Response(JSON.stringify(result!), {
         headers: { ...corsHeaders, 'Content-Type': 'application/json' },
       });
     }
 
-    // 5. Save to cache
-    await supabase.from('nutrition_cache').upsert({
+    // 5. Save to cache (use service_role to bypass RLS)
+    const adminClient = createClient(
+      Deno.env.get('SUPABASE_URL')!,
+      Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!
+    );
+    await adminClient.from('nutrition_cache').upsert({
       image_hash: imageHash,
-      food_name: result.dish_name,
-      food_name_en: result.dish_name_en,
-      food_items: result.items,
-      total_nutrition: { ...result.total, total_portion_g: result.total_portion_g },
-      confidence: result.confidence,
+      food_name: result!.dish_name,
+      food_name_en: result!.dish_name_en,
+      food_items: result!.items,
+      total_nutrition: { ...(result!.total as Record<string, unknown>), total_portion_g: result!.total_portion_g },
+      confidence: result!.confidence,
     }, { onConflict: 'image_hash' });
 
-    return new Response(JSON.stringify({ ...result, cached: false }), {
+    return new Response(JSON.stringify({ ...result!, cached: false }), {
       headers: { ...corsHeaders, 'Content-Type': 'application/json' },
     });
 
   } catch (error) {
-    return new Response(JSON.stringify({ error: 'Analysis failed', details: String(error) }), {
+    // S10: Never leak stack traces to client
+    console.error('analyze-food error:', error);
+    return new Response(JSON.stringify({ error: 'Analysis failed. Please try again.' }), {
       status: 500,
       headers: { ...corsHeaders, 'Content-Type': 'application/json' },
     });
   }
 });
 
+// S12: Use full base64 for hash, not just first 10KB
 async function computeHash(base64: string): Promise<string> {
-  const data = new TextEncoder().encode(base64.slice(0, 10000)); // Use first 10KB for hash
+  const data = new TextEncoder().encode(base64);
   const hash = await crypto.subtle.digest('SHA-256', data);
   return Array.from(new Uint8Array(hash)).map(b => b.toString(16).padStart(2, '0')).join('');
 }

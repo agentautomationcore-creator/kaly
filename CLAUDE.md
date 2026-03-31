@@ -27,6 +27,11 @@
 ## Языки
 - 10 языков с первого дня: en, fr, ru, de, es, it, ar, pt, tr, zh
 
+## App Store Readiness Notes
+- **KALY_PROJECT_ID** in app.json (lines 72, 83) must be replaced with real EAS project ID after running `eas init`
+- **NSPrivacyCollectedDataTypes** in app.json is empty — must be filled with actual collected data types before App Store submission
+- **EXPO_PUBLIC_SENTRY_DSN** env variable must be set before production builds
+
 ## Pricing
 - Free: 3 скана/день, ручной ввод без лимита
 - Pro: €4.99/мес или €39.99/год

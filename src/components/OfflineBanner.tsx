@@ -1,16 +1,18 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Text } from 'react-native';
+import NetInfo from '@react-native-community/netinfo';
 import { useColors } from '../lib/theme';
-
-// Simple offline detection without @react-native-community/netinfo
-// Uses navigator.onLine on web, always online on native (add netinfo later if needed)
 
 export function OfflineBanner() {
   const colors = useColors();
-  const [isOffline, setIsOffline] = React.useState(false);
+  const [isOffline, setIsOffline] = useState(false);
 
-  // TODO: Add @react-native-community/netinfo for proper offline detection
-  // For now, this is a placeholder component ready to be connected
+  useEffect(() => {
+    const unsubscribe = NetInfo.addEventListener((state) => {
+      setIsOffline(!(state.isConnected && state.isInternetReachable !== false));
+    });
+    return () => unsubscribe();
+  }, []);
 
   if (!isOffline) return null;
 

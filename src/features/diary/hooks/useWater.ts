@@ -1,16 +1,17 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { supabase } from '../../../lib/supabase';
+import { useAuthStore } from '../../../stores/authStore';
 import type { WaterEntry } from '../types';
 
 const GLASS_ML = 250;
 
 export function useWater(date: string) {
   const qc = useQueryClient();
+  const user = useAuthStore((s) => s.user);
 
   const query = useQuery({
     queryKey: ['water', date],
     queryFn: async (): Promise<WaterEntry[]> => {
-      const { data: { user } } = await supabase.auth.getUser();
       if (!user) return [];
 
       const { data, error } = await supabase
@@ -23,11 +24,11 @@ export function useWater(date: string) {
       if (error) throw error;
       return data || [];
     },
+    enabled: !!user,
   });
 
   const addGlass = useMutation({
     mutationFn: async () => {
-      const { data: { user } } = await supabase.auth.getUser();
       if (!user) throw new Error('Not authenticated');
 
       const { error } = await supabase.from('water_log').insert({

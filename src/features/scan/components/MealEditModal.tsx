@@ -6,6 +6,7 @@ import { Modal } from '../../../components/Modal';
 import { Button } from '../../../components/Button';
 import { FONT_SIZE, RADIUS } from '../../../lib/constants';
 import { supabase } from '../../../lib/supabase';
+import { useAuthStore } from '../../../stores/authStore';
 
 const FEEDBACK_TYPES = ['wrong_food', 'wrong_portion', 'wrong_calories', 'missing_ingredient', 'other'] as const;
 
@@ -21,9 +22,9 @@ export function MealEditModal({ visible, onClose, diaryEntryId }: MealEditModalP
   const [type, setType] = useState<string>('wrong_food');
   const [description, setDescription] = useState('');
   const [submitted, setSubmitted] = useState(false);
+  const user = useAuthStore((s) => s.user);
 
   const handleSubmit = async () => {
-    const { data: { user } } = await supabase.auth.getUser();
     if (!user) return;
 
     await supabase.from('ai_feedback').insert({

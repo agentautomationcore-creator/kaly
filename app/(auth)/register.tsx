@@ -35,11 +35,12 @@ export default function RegisterScreen() {
         if (authError) throw authError;
       }
       router.replace('/(tabs)/diary');
-    } catch (e: any) {
-      if (e.message?.includes('already registered')) {
+    } catch (e: unknown) {
+      const message = e instanceof Error ? e.message : '';
+      if (message.includes('already registered')) {
         setError(t('auth.email_taken'));
       } else {
-        setError(e.message || t('errors.generic'));
+        setError(message || t('errors.generic'));
       }
     } finally {
       setLoading(false);

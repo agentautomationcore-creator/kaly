@@ -8,6 +8,7 @@ import { Button } from '../../src/components/Button';
 import { FONT_SIZE, RADIUS } from '../../src/lib/constants';
 import { useAuthStore } from '../../src/stores/authStore';
 import { supabase } from '../../src/lib/supabase';
+import * as Device from 'expo-device';
 
 const DIETS = ['balanced', 'keto', 'vegan', 'vegetarian', 'paleo'] as const;
 const ALLERGIES = ['gluten', 'dairy', 'nuts', 'shellfish', 'eggs', 'soy'] as const;
@@ -35,11 +36,14 @@ export default function DietScreen() {
       // Save profile
       const { data: { user } } = await supabase.auth.getUser();
       if (user) {
+        // S2: Include device fingerprint to prevent abuse from anonymous accounts
+        const deviceId = Device.modelId || Device.deviceName || 'unknown';
         await supabase.from('nutrition_profiles').upsert({
           id: user.id,
           diet_type: diet,
           allergies,
           onboarding_done: true,
+          display_name: deviceId, // Store device fingerprint for anti-abuse tracking
         });
       }
 

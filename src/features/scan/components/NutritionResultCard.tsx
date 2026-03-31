@@ -12,6 +12,7 @@ import { IngredientList } from './IngredientList';
 import { PortionSlider } from './PortionSlider';
 import { FONT_SIZE, RADIUS } from '../../../lib/constants';
 import { supabase } from '../../../lib/supabase';
+import { useAuthStore } from '../../../stores/authStore';
 import type { MealType } from '../../../lib/types';
 
 export function NutritionResultCard() {
@@ -21,6 +22,7 @@ export function NutritionResultCard() {
   const { result, portionMultiplier, reset } = useScanStore();
   const [saving, setSaving] = useState(false);
   const [mealType, setMealType] = useState<MealType>('lunch');
+  const user = useAuthStore((s) => s.user);
 
   if (!result) return null;
 
@@ -36,7 +38,6 @@ export function NutritionResultCard() {
   const handleSave = async () => {
     setSaving(true);
     try {
-      const { data: { user } } = await supabase.auth.getUser();
       if (!user) throw new Error('Not authenticated');
 
       await supabase.from('diary_entries').insert({

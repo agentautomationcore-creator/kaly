@@ -33,8 +33,8 @@ export function SettingsSection({ profile }: SettingsSectionProps) {
     update({ language: lang });
   };
 
-  const handleThemeChange = (theme: string) => {
-    setThemeMode(theme as any);
+  const handleThemeChange = (theme: 'system' | 'light' | 'dark') => {
+    setThemeMode(theme);
     update({ theme });
   };
 

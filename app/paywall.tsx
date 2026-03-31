@@ -1,30 +1,95 @@
-import React, { useState } from 'react';
-import { View, Text, Pressable, ScrollView } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, Text, Pressable, ScrollView, Alert, Linking } from 'react-native';
 import { useRouter } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useTranslation } from 'react-i18next';
 import { Ionicons } from '@expo/vector-icons';
+import Purchases, { PurchasesPackage } from 'react-native-purchases';
 import { useColors } from '../src/lib/theme';
 import { Button } from '../src/components/Button';
 import { Card } from '../src/components/Card';
 import { FONT_SIZE, RADIUS } from '../src/lib/constants';
+import { useAuthStore } from '../src/stores/authStore';
+import { supabase } from '../src/lib/supabase';
 
 type PlanPeriod = 'monthly' | 'annual';
+
+const TERMS_URL = 'https://kaly.app/terms';
+const PRIVACY_URL = 'https://kaly.app/privacy';
 
 export default function PaywallScreen() {
   const { t } = useTranslation();
   const colors = useColors();
   const router = useRouter();
+  const user = useAuthStore((s) => s.user);
   const [period, setPeriod] = useState<PlanPeriod>('monthly');
+  const [packages, setPackages] = useState<PurchasesPackage[]>([]);
+  const [purchasing, setPurchasing] = useState(false);
 
+  useEffect(() => {
+    async function loadOfferings() {
+      try {
+        const offerings = await Purchases.getOfferings();
+        if (offerings.current?.availablePackages) {
+          setPackages(offerings.current.availablePackages);
+        }
+      } catch (err: unknown) {
+        if (__DEV__) console.error('Failed to load offerings:', err);
+      }
+    }
+    loadOfferings();
+  }, []);
+
+  // AS4: Real purchase flow with RevenueCat
   const handlePurchase = async () => {
-    // TODO: RevenueCat purchase flow
-    // For now, just go back
-    router.back();
+    const pkg = packages.find((p) =>
+      period === 'annual'
+        ? p.packageType === 'ANNUAL'
+        : p.packageType === 'MONTHLY'
+    );
+    if (!pkg) {
+      // Fallback if packages not loaded yet
+      Alert.alert('Error', 'Packages not available. Please try again.');
+      return;
+    }
+
+    setPurchasing(true);
+    try {
+      const { customerInfo } = await Purchases.purchasePackage(pkg);
+      // Check if pro entitlement is active
+      if (customerInfo.entitlements.active['pro']) {
+        // Update profile plan in Supabase
+        if (user) {
+          const adminClient = supabase; // Profile update — trigger protects plan field, so use service call or separate endpoint
+          // Note: Plan update should ideally be done server-side via webhook from RevenueCat
+        }
+        router.back();
+      }
+    } catch (err: unknown) {
+      if (err instanceof Error && !err.message.includes('cancelled')) {
+        Alert.alert('Error', 'Purchase failed. Please try again.');
+      }
+    } finally {
+      setPurchasing(false);
+    }
   };
 
+  // AS3: Real restore purchases with RevenueCat
   const handleRestore = async () => {
-    // TODO: RevenueCat restore
+    setPurchasing(true);
+    try {
+      const customerInfo = await Purchases.restorePurchases();
+      if (customerInfo.entitlements.active['pro']) {
+        Alert.alert('Success', 'Your Pro subscription has been restored!');
+        router.back();
+      } else {
+        Alert.alert('Info', 'No active subscription found.');
+      }
+    } catch (err: unknown) {
+      Alert.alert('Error', 'Could not restore purchases. Please try again.');
+    } finally {
+      setPurchasing(false);
+    }
   };
 
   return (
@@ -105,7 +170,7 @@ export default function PaywallScreen() {
         </View>
 
         {/* Trial CTA */}
-        <Button title={t('paywall.trial_cta')} onPress={handlePurchase} />
+        <Button title={t('paywall.trial_cta')} onPress={handlePurchase} loading={purchasing} />
 
         <Text style={{ fontSize: FONT_SIZE.xs, color: colors.textSecondary, textAlign: 'center', marginTop: 8 }}>
           {t('paywall.trial_note')}
@@ -122,11 +187,12 @@ export default function PaywallScreen() {
             <Text style={{ fontSize: 12, color: colors.textSecondary }}>{t('paywall.restore')}</Text>
           </Pressable>
           <Text style={{ fontSize: 12, color: colors.border }}>|</Text>
-          <Pressable>
+          {/* AS5: Terms and Privacy with actual onPress handlers */}
+          <Pressable onPress={() => Linking.openURL(TERMS_URL)}>
             <Text style={{ fontSize: 12, color: colors.textSecondary }}>{t('paywall.terms')}</Text>
           </Pressable>
           <Text style={{ fontSize: 12, color: colors.border }}>|</Text>
-          <Pressable>
+          <Pressable onPress={() => Linking.openURL(PRIVACY_URL)}>
             <Text style={{ fontSize: 12, color: colors.textSecondary }}>{t('paywall.privacy')}</Text>
           </Pressable>
         </View>

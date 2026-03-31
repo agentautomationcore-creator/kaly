@@ -74,19 +74,19 @@ export function ProfileScreen() {
       </Pressable>
 
       {/* Goal */}
-      <GoalEditor profile={profile} />
+      <GoalEditor profile={profile ?? null} />
 
       {/* Body stats */}
-      <BodyEditor profile={profile} />
+      <BodyEditor profile={profile ?? null} />
 
       {/* Diet */}
-      <DietEditor profile={profile} />
+      <DietEditor profile={profile ?? null} />
 
       {/* Weight log */}
       <WeightLog />
 
       {/* Settings */}
-      <SettingsSection profile={profile} />
+      <SettingsSection profile={profile ?? null} />
 
       {/* Sign out */}
       {!isAnonymous && (

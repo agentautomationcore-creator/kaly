@@ -25,15 +25,15 @@ export function BodyEditor({ profile }: BodyEditorProps) {
   const { mutate: update, isPending } = useUpdateProfile();
 
   const handleSave = () => {
-    const h = parseInt(height) || null;
-    const w = parseFloat(weight) || null;
-    const a = parseInt(age) || null;
+    const h = parseInt(height) || undefined;
+    const w = parseFloat(weight) || undefined;
+    const a = parseInt(age) || undefined;
 
-    const updates: any = { height_cm: h, weight_kg: w, age: a };
+    const updates: Partial<NutritionProfile> = { height_cm: h, weight_kg: w, age: a };
 
     // Recalculate TDEE
     if (h && w && a && profile?.gender && profile?.activity_level) {
-      const tdee = calculateTDEE(w, h, a, profile.gender as any, profile.activity_level as any);
+      const tdee = calculateTDEE(w, h, a, profile.gender as 'male' | 'female', profile.activity_level as Parameters<typeof calculateTDEE>[4]);
       const goalMultiplier = profile.goal === 'lose' ? 0.8 : profile.goal === 'gain' ? 1.15 : 1;
       updates.daily_calories = Math.round(tdee * goalMultiplier);
     }

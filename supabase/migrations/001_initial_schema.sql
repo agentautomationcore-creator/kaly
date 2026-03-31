@@ -86,7 +86,8 @@ CREATE TABLE nutrition_cache (
 
 ALTER TABLE nutrition_cache ENABLE ROW LEVEL SECURITY;
 CREATE POLICY "Cache readable by authenticated" ON nutrition_cache FOR SELECT USING (auth.uid() IS NOT NULL);
-CREATE POLICY "Cache insertable by service" ON nutrition_cache FOR INSERT WITH CHECK (true);
+-- Cache insertable only by service_role (Edge Functions use service_role key which bypasses RLS)
+CREATE POLICY "Cache insertable by service role only" ON nutrition_cache FOR INSERT WITH CHECK (false);
 
 -- 4. Water log
 CREATE TABLE water_log (
@@ -141,3 +142,19 @@ BEGIN
   RETURN scan_count < 3;
 END;
 $$ LANGUAGE plpgsql SECURITY DEFINER;
+
+-- S1/S7: Protect plan and trial_start_date from client-side updates
+CREATE OR REPLACE FUNCTION protect_sensitive_fields()
+RETURNS TRIGGER AS $$
+BEGIN
+  IF current_setting('role') != 'service_role' THEN
+    NEW.plan := OLD.plan;
+    NEW.trial_start_date := OLD.trial_start_date;
+  END IF;
+  RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER protect_plan_and_trial
+  BEFORE UPDATE ON nutrition_profiles
+  FOR EACH ROW EXECUTE FUNCTION protect_sensitive_fields();

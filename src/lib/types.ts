@@ -1,6 +1,9 @@
 import type { MealType } from './constants';
 import type { Gender, ActivityLevel, Goal, DietType } from './nutrition';
 
+// Re-export for convenience
+export type { MealType, Gender, ActivityLevel, Goal, DietType };
+
 // ============ Nutrition ============
 
 export interface NutritionTotal {

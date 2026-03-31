@@ -1,12 +1,14 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { supabase } from '../../../lib/supabase';
+import { useAuthStore } from '../../../stores/authStore';
 import type { DiaryEntry } from '../types';
 
 export function useDiary(date: string) {
+  const user = useAuthStore((s) => s.user);
+
   return useQuery({
     queryKey: ['diary', date],
     queryFn: async (): Promise<DiaryEntry[]> => {
-      const { data: { user } } = await supabase.auth.getUser();
       if (!user) return [];
 
       const { data, error } = await supabase
@@ -19,6 +21,7 @@ export function useDiary(date: string) {
       if (error) throw error;
       return data || [];
     },
+    enabled: !!user,
   });
 }
 

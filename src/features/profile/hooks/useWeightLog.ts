@@ -1,12 +1,14 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { supabase } from '../../../lib/supabase';
+import { useAuthStore } from '../../../stores/authStore';
 import type { WeightLogEntry } from '../types';
 
 export function useWeightLog() {
+  const user = useAuthStore((s) => s.user);
+
   return useQuery({
     queryKey: ['weight-log'],
     queryFn: async (): Promise<WeightLogEntry[]> => {
-      const { data: { user } } = await supabase.auth.getUser();
       if (!user) return [];
 
       const { data, error } = await supabase
@@ -19,15 +21,16 @@ export function useWeightLog() {
       if (error) throw error;
       return data || [];
     },
+    enabled: !!user,
   });
 }
 
 export function useLogWeight() {
   const qc = useQueryClient();
+  const user = useAuthStore((s) => s.user);
 
   return useMutation({
     mutationFn: async (weightKg: number) => {
-      const { data: { user } } = await supabase.auth.getUser();
       if (!user) throw new Error('Not authenticated');
 
       const today = new Date().toISOString().split('T')[0];

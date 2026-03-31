@@ -1,12 +1,14 @@
 import { useQuery } from '@tanstack/react-query';
 import { supabase } from '../../../lib/supabase';
+import { useAuthStore } from '../../../stores/authStore';
 import type { DiaryEntry } from '../types';
 
 export function useRecentMeals() {
+  const user = useAuthStore((s) => s.user);
+
   return useQuery({
     queryKey: ['recent-meals'],
     queryFn: async (): Promise<DiaryEntry[]> => {
-      const { data: { user } } = await supabase.auth.getUser();
       if (!user) return [];
 
       const { data, error } = await supabase
@@ -27,6 +29,7 @@ export function useRecentMeals() {
         return true;
       });
     },
+    enabled: !!user,
     staleTime: 1000 * 60 * 10,
   });
 }

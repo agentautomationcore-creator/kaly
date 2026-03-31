@@ -1,8 +1,8 @@
 import { create } from 'zustand';
 import { Appearance } from 'react-native';
-import { MMKV } from 'react-native-mmkv';
+import { createMMKV } from 'react-native-mmkv';
 
-const storage = new MMKV({ id: 'kaly-settings' });
+const storage = createMMKV({ id: 'kaly-settings' });
 
 export type ThemeMode = 'light' | 'dark' | 'system';
 export type Units = 'metric' | 'imperial';
@@ -17,14 +17,22 @@ interface SettingsState {
   setLocale: (locale: string) => void;
 }
 
+// A10: Store subscription reference at module level for cleanup
+let appearanceSubscription: ReturnType<typeof Appearance.addChangeListener> | null = null;
+
 export const useSettingsStore = create<SettingsState>((set) => {
   const savedTheme = (storage.getString('themeMode') as ThemeMode) || 'system';
   const savedUnits = (storage.getString('units') as Units) || 'metric';
   const savedLocale = storage.getString('locale') || 'en';
   const systemTheme = Appearance.getColorScheme() || 'light';
 
+  // A10: Clean up previous subscription if store is re-created
+  if (appearanceSubscription) {
+    appearanceSubscription.remove();
+  }
+
   // Listen for system theme changes
-  Appearance.addChangeListener(({ colorScheme }) => {
+  appearanceSubscription = Appearance.addChangeListener(({ colorScheme }) => {
     const currentMode = (storage.getString('themeMode') as ThemeMode) || 'system';
     if (currentMode === 'system') {
       set({ effectiveTheme: colorScheme || 'light' });
@@ -54,3 +62,11 @@ export const useSettingsStore = create<SettingsState>((set) => {
     },
   };
 });
+
+/** Call this to clean up the Appearance listener (e.g., on app unmount) */
+export function cleanupSettingsStore() {
+  if (appearanceSubscription) {
+    appearanceSubscription.remove();
+    appearanceSubscription = null;
+  }
+}

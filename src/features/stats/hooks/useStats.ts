@@ -1,5 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import { supabase } from '../../../lib/supabase';
+import { useAuthStore } from '../../../stores/authStore';
 import type { DayStats, WeekStats } from '../types';
 
 function getLast7Days(): string[] {
@@ -13,10 +14,11 @@ function getLast7Days(): string[] {
 }
 
 export function useWeekStats() {
+  const user = useAuthStore((s) => s.user);
+
   return useQuery({
     queryKey: ['stats', 'week'],
     queryFn: async (): Promise<WeekStats> => {
-      const { data: { user } } = await supabase.auth.getUser();
       if (!user) return { days: [], avgCalories: 0, streak: 0 };
 
       const days = getLast7Days();
@@ -62,6 +64,7 @@ export function useWeekStats() {
 
       return { days: dayStats, avgCalories, streak };
     },
+    enabled: !!user,
     staleTime: 1000 * 60 * 5,
   });
 }

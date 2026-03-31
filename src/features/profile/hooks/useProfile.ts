@@ -1,12 +1,14 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { supabase } from '../../../lib/supabase';
+import { useAuthStore } from '../../../stores/authStore';
 import type { NutritionProfile } from '../types';
 
 export function useProfile() {
+  const user = useAuthStore((s) => s.user);
+
   return useQuery({
     queryKey: ['profile'],
     queryFn: async (): Promise<NutritionProfile | null> => {
-      const { data: { user } } = await supabase.auth.getUser();
       if (!user) return null;
 
       const { data, error } = await supabase
@@ -18,15 +20,16 @@ export function useProfile() {
       if (error && error.code !== 'PGRST116') throw error;
       return data;
     },
+    enabled: !!user,
   });
 }
 
 export function useUpdateProfile() {
   const qc = useQueryClient();
+  const user = useAuthStore((s) => s.user);
 
   return useMutation({
     mutationFn: async (updates: Partial<NutritionProfile>) => {
-      const { data: { user } } = await supabase.auth.getUser();
       if (!user) throw new Error('Not authenticated');
 
       const { error } = await supabase

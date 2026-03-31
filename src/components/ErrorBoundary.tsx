@@ -1,5 +1,6 @@
 import React, { Component, ErrorInfo, ReactNode } from 'react';
 import { View, Text, Pressable } from 'react-native';
+import * as Sentry from '@sentry/react-native';
 
 interface Props {
   children: ReactNode;
@@ -26,7 +27,13 @@ export class ErrorBoundary extends Component<Props, State> {
     if (__DEV__) {
       console.error(`[ErrorBoundary:${this.props.featureName || 'unknown'}]`, error, errorInfo);
     }
-    // TODO: Report to Sentry
+    // A9: Report to Sentry
+    Sentry.captureException(error, {
+      extra: {
+        featureName: this.props.featureName,
+        componentStack: errorInfo.componentStack,
+      },
+    });
   }
 
   handleRetry = () => {

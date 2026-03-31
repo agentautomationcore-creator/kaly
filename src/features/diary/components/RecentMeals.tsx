@@ -7,6 +7,7 @@ import { useRecentMeals } from '../hooks/useRecentMeals';
 import { Card } from '../../../components/Card';
 import { FONT_SIZE, RADIUS } from '../../../lib/constants';
 import { supabase } from '../../../lib/supabase';
+import { useAuthStore } from '../../../stores/authStore';
 import { useQueryClient } from '@tanstack/react-query';
 import type { DiaryEntry } from '../types';
 
@@ -19,11 +20,11 @@ export function RecentMeals({ date }: RecentMealsProps) {
   const colors = useColors();
   const { data: meals } = useRecentMeals();
   const qc = useQueryClient();
+  const user = useAuthStore((s) => s.user);
 
   if (!meals || meals.length === 0) return null;
 
   const repeatMeal = async (entry: DiaryEntry) => {
-    const { data: { user } } = await supabase.auth.getUser();
     if (!user) return;
 
     await supabase.from('diary_entries').insert({

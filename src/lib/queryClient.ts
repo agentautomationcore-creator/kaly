@@ -1,4 +1,13 @@
 import { QueryClient } from '@tanstack/react-query';
+import { onlineManager } from '@tanstack/react-query';
+import NetInfo from '@react-native-community/netinfo';
+
+// A8: Sync react-query online status with NetInfo
+onlineManager.setEventListener((setOnline) => {
+  return NetInfo.addEventListener((state) => {
+    setOnline(!!state.isConnected);
+  });
+});
 
 export const queryClient = new QueryClient({
   defaultOptions: {
@@ -12,9 +21,3 @@ export const queryClient = new QueryClient({
     },
   },
 });
-
-// TODO: Add MMKV persister for offline support
-// import { createSyncStoragePersister } from '@tanstack/query-sync-storage-persister';
-// import { MMKV } from 'react-native-mmkv';
-// const storage = new MMKV({ id: 'kaly-query-cache' });
-// export const persister = createSyncStoragePersister({ storage: mmkvAdapter });

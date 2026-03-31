@@ -25,7 +25,7 @@ export async function compressImage(uri: string): Promise<string> {
 
   // Read as base64
   const base64 = await FileSystem.readAsStringAsync(result.uri, {
-    encoding: FileSystem.EncodingType.Base64,
+    encoding: 'base64' as const,
   });
 
   return base64;
