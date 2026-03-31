@@ -1,0 +1,47 @@
+import React from 'react';
+import { View, Text, Pressable } from 'react-native';
+import { useTranslation } from 'react-i18next';
+import { useColors } from '../../../lib/theme';
+import { useScanStore } from '../store/scanStore';
+import { FONT_SIZE, RADIUS } from '../../../lib/constants';
+
+const PORTIONS = [0.5, 0.75, 1, 1.25, 1.5, 2];
+
+export function PortionSlider() {
+  const { t } = useTranslation();
+  const colors = useColors();
+  const { portionMultiplier, setPortionMultiplier } = useScanStore();
+
+  return (
+    <View>
+      <Text style={{ fontSize: FONT_SIZE.sm, fontWeight: '600', color: colors.text, marginBottom: 12 }}>
+        {t('scan.portion')}
+      </Text>
+      <View style={{ flexDirection: 'row', gap: 6 }}>
+        {PORTIONS.map((p) => (
+          <Pressable
+            key={p}
+            onPress={() => setPortionMultiplier(p)}
+            style={{
+              flex: 1,
+              paddingVertical: 10,
+              borderRadius: RADIUS.md,
+              backgroundColor: portionMultiplier === p ? colors.primary : colors.surface,
+              alignItems: 'center',
+            }}
+          >
+            <Text
+              style={{
+                fontSize: 13,
+                fontWeight: '600',
+                color: portionMultiplier === p ? '#FFF' : colors.textSecondary,
+              }}
+            >
+              {p}x
+            </Text>
+          </Pressable>
+        ))}
+      </View>
+    </View>
+  );
+}

@@ -1,0 +1,94 @@
+import React, { useState } from 'react';
+import { View, Text, TextInput, Pressable } from 'react-native';
+import { useTranslation } from 'react-i18next';
+import { Ionicons } from '@expo/vector-icons';
+import { useColors } from '../../../lib/theme';
+import { useWeightLog, useLogWeight } from '../hooks/useWeightLog';
+import { Card } from '../../../components/Card';
+import { Button } from '../../../components/Button';
+import { FONT_SIZE, RADIUS } from '../../../lib/constants';
+
+export function WeightLog() {
+  const { t } = useTranslation();
+  const colors = useColors();
+  const { data: entries } = useWeightLog();
+  const { mutate: logWeight, isPending } = useLogWeight();
+  const [weight, setWeight] = useState('');
+  const [showInput, setShowInput] = useState(false);
+
+  const handleLog = () => {
+    const w = parseFloat(weight);
+    if (w > 0) {
+      logWeight(w, { onSuccess: () => { setWeight(''); setShowInput(false); } });
+    }
+  };
+
+  const recent = (entries || []).slice(0, 7);
+  const minW = recent.length > 0 ? Math.min(...recent.map((e) => e.weight_kg)) : 0;
+  const maxW = recent.length > 0 ? Math.max(...recent.map((e) => e.weight_kg)) : 0;
+  const range = maxW - minW || 1;
+
+  return (
+    <Card style={{ marginBottom: 12 }}>
+      <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12 }}>
+        <Text style={{ fontSize: FONT_SIZE.md, fontWeight: '600', color: colors.text }}>
+          {t('profile.weight_log')}
+        </Text>
+        <Pressable onPress={() => setShowInput(!showInput)}>
+          <Ionicons name={showInput ? 'close' : 'add-circle'} size={24} color={colors.primary} />
+        </Pressable>
+      </View>
+
+      {showInput && (
+        <View style={{ flexDirection: 'row', gap: 8, marginBottom: 12 }}>
+          <TextInput
+            value={weight}
+            onChangeText={setWeight}
+            placeholder="kg"
+            placeholderTextColor={colors.textSecondary}
+            keyboardType="numeric"
+            style={{
+              flex: 1,
+              backgroundColor: colors.surface,
+              borderRadius: RADIUS.md,
+              padding: 12,
+              fontSize: FONT_SIZE.md,
+              color: colors.text,
+            }}
+          />
+          <Button title={t('common.save')} onPress={handleLog} loading={isPending} style={{ paddingHorizontal: 20 }} />
+        </View>
+      )}
+
+      {/* Mini chart */}
+      {recent.length > 1 && (
+        <View style={{ flexDirection: 'row', alignItems: 'flex-end', height: 60, gap: 4 }}>
+          {recent.reverse().map((entry, i) => {
+            const h = ((entry.weight_kg - minW) / range) * 40 + 20;
+            return (
+              <View key={entry.id} style={{ flex: 1, alignItems: 'center' }}>
+                <Text style={{ fontSize: 9, color: colors.textSecondary, marginBottom: 2 }}>
+                  {entry.weight_kg}
+                </Text>
+                <View
+                  style={{
+                    width: '80%',
+                    height: h,
+                    borderRadius: 4,
+                    backgroundColor: colors.primaryLight,
+                  }}
+                />
+              </View>
+            );
+          })}
+        </View>
+      )}
+
+      {recent.length === 0 && (
+        <Text style={{ fontSize: FONT_SIZE.sm, color: colors.textSecondary }}>
+          {t('profile.log_weight')}
+        </Text>
+      )}
+    </Card>
+  );
+}

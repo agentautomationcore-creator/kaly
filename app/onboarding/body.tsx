@@ -1,0 +1,115 @@
+import React, { useState } from 'react';
+import { View, Text, TextInput, Pressable, ScrollView } from 'react-native';
+import { useRouter } from 'expo-router';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { useTranslation } from 'react-i18next';
+import { useColors } from '../../src/lib/theme';
+import { Button } from '../../src/components/Button';
+import { FONT_SIZE, RADIUS } from '../../src/lib/constants';
+
+const GENDERS = ['male', 'female'] as const;
+const ACTIVITIES = ['sedentary', 'light', 'moderate', 'active', 'very_active'] as const;
+
+export default function BodyScreen() {
+  const { t } = useTranslation();
+  const colors = useColors();
+  const router = useRouter();
+
+  const [height, setHeight] = useState('');
+  const [weight, setWeight] = useState('');
+  const [age, setAge] = useState('');
+  const [gender, setGender] = useState<string | null>(null);
+  const [activity, setActivity] = useState<string>('moderate');
+
+  const canContinue = height && weight && age && gender;
+
+  return (
+    <SafeAreaView style={{ flex: 1, backgroundColor: colors.background }}>
+      <ScrollView contentContainerStyle={{ padding: 24, paddingBottom: 100 }}>
+        <Text style={{ fontSize: 24, fontWeight: '700', color: colors.text, marginBottom: 24 }}>
+          {t('onboarding.body_title')}
+        </Text>
+
+        {/* Gender */}
+        <Text style={{ fontSize: FONT_SIZE.sm, color: colors.textSecondary, marginBottom: 8, fontWeight: '500' }}>
+          {t('onboarding.gender')}
+        </Text>
+        <View style={{ flexDirection: 'row', gap: 12, marginBottom: 20 }}>
+          {GENDERS.map((g) => (
+            <Pressable
+              key={g}
+              onPress={() => setGender(g)}
+              style={{
+                flex: 1,
+                padding: 14,
+                borderRadius: RADIUS.md,
+                backgroundColor: gender === g ? colors.primaryLight : colors.card,
+                borderWidth: 2,
+                borderColor: gender === g ? colors.primary : 'transparent',
+                alignItems: 'center',
+              }}
+            >
+              <Text style={{ fontWeight: '600', color: gender === g ? colors.primary : colors.text }}>
+                {t(`onboarding.${g}`)}
+              </Text>
+            </Pressable>
+          ))}
+        </View>
+
+        {/* Height, Weight, Age */}
+        {[
+          { label: t('onboarding.height'), value: height, set: setHeight, suffix: 'cm', key: 'height' },
+          { label: t('onboarding.weight'), value: weight, set: setWeight, suffix: 'kg', key: 'weight' },
+          { label: t('onboarding.age'), value: age, set: setAge, suffix: '', key: 'age' },
+        ].map((field) => (
+          <View key={field.key} style={{ marginBottom: 20 }}>
+            <Text style={{ fontSize: FONT_SIZE.sm, color: colors.textSecondary, marginBottom: 8, fontWeight: '500' }}>
+              {field.label} {field.suffix ? `(${field.suffix})` : ''}
+            </Text>
+            <TextInput
+              value={field.value}
+              onChangeText={field.set}
+              keyboardType="numeric"
+              style={{
+                backgroundColor: colors.card,
+                borderRadius: RADIUS.md,
+                padding: 14,
+                fontSize: FONT_SIZE.md,
+                color: colors.text,
+              }}
+              placeholderTextColor={colors.textSecondary}
+            />
+          </View>
+        ))}
+
+        {/* Activity level */}
+        <Text style={{ fontSize: FONT_SIZE.sm, color: colors.textSecondary, marginBottom: 8, fontWeight: '500' }}>
+          {t('onboarding.activity')}
+        </Text>
+        <View style={{ gap: 8 }}>
+          {ACTIVITIES.map((a) => (
+            <Pressable
+              key={a}
+              onPress={() => setActivity(a)}
+              style={{
+                padding: 14,
+                borderRadius: RADIUS.md,
+                backgroundColor: activity === a ? colors.primaryLight : colors.card,
+                borderWidth: 2,
+                borderColor: activity === a ? colors.primary : 'transparent',
+              }}
+            >
+              <Text style={{ fontWeight: '500', color: activity === a ? colors.primary : colors.text }}>
+                {t(`onboarding.activity_${a}`)}
+              </Text>
+            </Pressable>
+          ))}
+        </View>
+      </ScrollView>
+
+      <View style={{ padding: 24, paddingBottom: 40 }}>
+        <Button title={t('onboarding.next')} onPress={() => router.push('/onboarding/diet')} disabled={!canContinue} />
+      </View>
+    </SafeAreaView>
+  );
+}

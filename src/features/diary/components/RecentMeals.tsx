@@ -1,0 +1,82 @@
+import React from 'react';
+import { View, Text, Pressable, FlatList } from 'react-native';
+import { useTranslation } from 'react-i18next';
+import { Ionicons } from '@expo/vector-icons';
+import { useColors } from '../../../lib/theme';
+import { useRecentMeals } from '../hooks/useRecentMeals';
+import { Card } from '../../../components/Card';
+import { FONT_SIZE, RADIUS } from '../../../lib/constants';
+import { supabase } from '../../../lib/supabase';
+import { useQueryClient } from '@tanstack/react-query';
+import type { DiaryEntry } from '../types';
+
+interface RecentMealsProps {
+  date: string;
+}
+
+export function RecentMeals({ date }: RecentMealsProps) {
+  const { t } = useTranslation();
+  const colors = useColors();
+  const { data: meals } = useRecentMeals();
+  const qc = useQueryClient();
+
+  if (!meals || meals.length === 0) return null;
+
+  const repeatMeal = async (entry: DiaryEntry) => {
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) return;
+
+    await supabase.from('diary_entries').insert({
+      user_id: user.id,
+      logged_at: date,
+      meal_type: entry.meal_type,
+      food_name: entry.food_name,
+      food_name_en: entry.food_name_en,
+      food_items: entry.food_items,
+      quantity_g: entry.quantity_g,
+      total_calories: entry.total_calories,
+      total_protein: entry.total_protein,
+      total_carbs: entry.total_carbs,
+      total_fat: entry.total_fat,
+      total_fiber: entry.total_fiber,
+      confidence: entry.confidence,
+      entry_method: entry.entry_method,
+      source_entry_id: entry.id,
+    });
+
+    qc.invalidateQueries({ queryKey: ['diary', date] });
+  };
+
+  return (
+    <Card>
+      <Text style={{ fontSize: FONT_SIZE.md, fontWeight: '600', color: colors.text, marginBottom: 12 }}>
+        {t('diary.recent')}
+      </Text>
+
+      {meals.slice(0, 5).map((entry) => (
+        <Pressable
+          key={entry.id}
+          onPress={() => repeatMeal(entry)}
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            paddingVertical: 10,
+            borderBottomWidth: 0.5,
+            borderBottomColor: colors.border,
+          }}
+        >
+          <View style={{ flex: 1 }}>
+            <Text style={{ fontSize: FONT_SIZE.sm, fontWeight: '500', color: colors.text }} numberOfLines={1}>
+              {entry.food_name}
+            </Text>
+            <Text style={{ fontSize: 11, color: colors.textSecondary }}>
+              {Math.round(entry.total_calories)} {t('common.kcal')}
+            </Text>
+          </View>
+          <Ionicons name="add-circle-outline" size={22} color={colors.primary} />
+        </Pressable>
+      ))}
+    </Card>
+  );
+}
