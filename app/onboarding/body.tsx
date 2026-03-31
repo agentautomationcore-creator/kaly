@@ -5,7 +5,9 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { useTranslation } from 'react-i18next';
 import { useColors } from '../../src/lib/theme';
 import { Button } from '../../src/components/Button';
+import { ConsentModal } from '../../src/components/ConsentModal';
 import { StepIndicator } from '../../src/components/StepIndicator';
+import { useSettingsStore } from '../../src/stores/settingsStore';
 import { FONT_SIZE, RADIUS } from '../../src/lib/constants';
 
 const GENDERS = ['male', 'female'] as const;
@@ -21,8 +23,11 @@ export default function BodyScreen() {
   const [age, setAge] = useState('');
   const [gender, setGender] = useState<string | null>(null);
   const [activity, setActivity] = useState<string>('moderate');
+  const healthConsentGiven = useSettingsStore((s) => s.healthConsentGiven);
+  const setHealthConsent = useSettingsStore((s) => s.setHealthConsent);
+  const [showHealthConsent, setShowHealthConsent] = useState(!healthConsentGiven);
 
-  const canContinue = height && weight && age && gender;
+  const canContinue = height && weight && age && gender && healthConsentGiven;
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: colors.background }}>
@@ -112,6 +117,20 @@ export default function BodyScreen() {
       <View style={{ padding: 24, paddingBottom: 40 }}>
         <Button title={t('onboarding.next')} onPress={() => router.push('/onboarding/diet')} disabled={!canContinue} />
       </View>
+
+      {/* GDPR-2: Health data consent */}
+      <ConsentModal
+        visible={showHealthConsent}
+        type="health"
+        onAccept={() => {
+          setHealthConsent(true);
+          setShowHealthConsent(false);
+        }}
+        onDecline={() => {
+          setShowHealthConsent(false);
+          router.back();
+        }}
+      />
     </SafeAreaView>
   );
 }

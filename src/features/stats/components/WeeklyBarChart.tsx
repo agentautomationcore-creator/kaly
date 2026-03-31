@@ -10,7 +10,7 @@ interface WeeklyBarChartProps {
 
 const DAY_NAMES = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
 
-export function WeeklyBarChart({ days, goal = 2000 }: WeeklyBarChartProps) {
+export const WeeklyBarChart = React.memo(function WeeklyBarChart({ days, goal = 2000 }: WeeklyBarChartProps) {
   const colors = useColors();
   const maxCal = Math.max(goal, ...days.map((d) => d.calories));
   const barHeight = 120;
@@ -53,4 +53,4 @@ export function WeeklyBarChart({ days, goal = 2000 }: WeeklyBarChartProps) {
       })}
     </View>
   );
-}
+});

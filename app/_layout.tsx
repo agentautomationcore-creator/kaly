@@ -1,13 +1,16 @@
 import React, { useEffect } from 'react';
+import { AppState } from 'react-native';
 import { Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import { QueryClientProvider } from '@tanstack/react-query';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import Purchases from 'react-native-purchases';
 import { queryClient } from '../src/lib/queryClient';
 import { useColors, useThemeMode } from '../src/lib/theme';
 import { ErrorBoundary } from '../src/components/ErrorBoundary';
 import { OfflineBanner } from '../src/components/OfflineBanner';
 import { useAuthStore } from '../src/stores/authStore';
+import { supabase } from '../src/lib/supabase';
 import { loadSavedLanguage } from '../src/i18n';
 import '../src/i18n';
 
@@ -19,6 +22,42 @@ export default function RootLayout() {
   useEffect(() => {
     initAuth();
     loadSavedLanguage();
+  }, []);
+
+  // SUB-2: Listen for subscription changes (cancel, renew, expire)
+  useEffect(() => {
+    const syncPlan = async (customerInfo: { entitlements: { active: Record<string, unknown> } }) => {
+      const isPro = !!customerInfo.entitlements.active['pro'];
+      const newPlan = isPro ? 'pro' : 'free';
+      const user = useAuthStore.getState().user;
+      const profile = useAuthStore.getState().profile;
+      if (user && profile && profile.plan !== newPlan) {
+        await supabase
+          .from('nutrition_profiles')
+          .update({ plan: newPlan })
+          .eq('id', user.id);
+        useAuthStore.getState().setProfile({ ...profile, plan: newPlan });
+      }
+    };
+
+    Purchases.addCustomerInfoUpdateListener(syncPlan);
+
+    // Also check on foreground resume
+    const appStateSubscription = AppState.addEventListener('change', async (state) => {
+      if (state === 'active') {
+        try {
+          const customerInfo = await Purchases.getCustomerInfo();
+          await syncPlan(customerInfo);
+        } catch {
+          // SDK not ready yet
+        }
+      }
+    });
+
+    return () => {
+      Purchases.removeCustomerInfoUpdateListener(syncPlan);
+      appStateSubscription.remove();
+    };
   }, []);
 
   return (

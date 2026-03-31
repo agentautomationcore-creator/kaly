@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, Text, Pressable } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { useColors } from '../../../lib/theme';
 import { useScanStore } from '../store/scanStore';
 import { useAnalyzeFood } from '../hooks/useAnalyzeFood';
+import { useSettingsStore } from '../../../stores/settingsStore';
+import { ConsentModal } from '../../../components/ConsentModal';
 import { ScanCamera } from './ScanCamera';
 import { ScanLoading } from './ScanLoading';
 import { NutritionResultCard } from './NutritionResultCard';
@@ -13,6 +15,29 @@ export function ScanScreen() {
   const colors = useColors();
   const { photo, result, isAnalyzing, error, reset, setError } = useScanStore();
   const { mutate: analyze } = useAnalyzeFood();
+  const aiConsentGiven = useSettingsStore((s) => s.aiConsentGiven);
+  const setAiConsent = useSettingsStore((s) => s.setAiConsent);
+  const [showAiConsent, setShowAiConsent] = useState(false);
+
+  // GDPR-1: Show AI consent before first scan
+  if (!aiConsentGiven && !result && !isAnalyzing && !error) {
+    return (
+      <View style={{ flex: 1, backgroundColor: colors.background }}>
+        <ScanCamera />
+        <ConsentModal
+          visible={!aiConsentGiven}
+          type="ai"
+          onAccept={() => {
+            setAiConsent(true);
+          }}
+          onDecline={() => {
+            // Show camera but consent modal will re-appear on next visit
+            setAiConsent(false);
+          }}
+        />
+      </View>
+    );
+  }
 
   if (isAnalyzing) {
     return <ScanLoading />;

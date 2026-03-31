@@ -38,13 +38,16 @@ export class ErrorBoundary extends Component<Props, State> {
     if (__DEV__) {
       console.error(`[ErrorBoundary:${this.props.featureName || 'unknown'}]`, error, errorInfo);
     }
-    // A9: Report to Sentry
-    Sentry.captureException(error, {
-      extra: {
-        featureName: this.props.featureName,
-        componentStack: errorInfo.componentStack,
-      },
-    });
+    // GDPR-3: Only report to Sentry if user has given analytics consent
+    const analyticsConsent = useSettingsStore.getState().analyticsConsentGiven;
+    if (analyticsConsent) {
+      Sentry.captureException(error, {
+        extra: {
+          featureName: this.props.featureName,
+          componentStack: errorInfo.componentStack,
+        },
+      });
+    }
   }
 
   handleRetry = () => {

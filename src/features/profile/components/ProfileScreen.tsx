@@ -1,11 +1,12 @@
-import React from 'react';
-import { ScrollView, View, Text, Pressable, Alert } from 'react-native';
+import React, { useState } from 'react';
+import { ScrollView, View, Text, Pressable, Alert, Share } from 'react-native';
 import { useRouter } from 'expo-router';
 import { useTranslation } from 'react-i18next';
 import { Ionicons } from '@expo/vector-icons';
 import { useColors } from '../../../lib/theme';
 import { useProfile } from '../hooks/useProfile';
 import { useAuthStore } from '../../../stores/authStore';
+import { supabase } from '../../../lib/supabase';
 import { Card } from '../../../components/Card';
 import { Button } from '../../../components/Button';
 import { GoalEditor } from './GoalEditor';
@@ -87,6 +88,32 @@ export function ProfileScreen() {
 
       {/* Settings */}
       <SettingsSection profile={profile ?? null} />
+
+      {/* Data export (GDPR Art. 20) */}
+      {!isAnonymous && (
+        <Button
+          title={t('profile.export_data')}
+          variant="outline"
+          onPress={async () => {
+            try {
+              const { data: { session } } = await supabase.auth.getSession();
+              if (!session) return;
+              const res = await fetch(
+                `${process.env.EXPO_PUBLIC_SUPABASE_URL}/functions/v1/export-data`,
+                {
+                  headers: { Authorization: `Bearer ${session.access_token}` },
+                }
+              );
+              if (!res.ok) throw new Error('Export failed');
+              const json = await res.text();
+              await Share.share({ message: json, title: 'Kaly Data Export' });
+            } catch {
+              Alert.alert(t('common.error'), t('errors.generic'));
+            }
+          }}
+          style={{ marginTop: 12 }}
+        />
+      )}
 
       {/* Sign out */}
       {!isAnonymous && (

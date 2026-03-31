@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, Image } from 'react-native';
+import { View, Text, Image, Pressable, Linking } from 'react-native';
 import { useRouter } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useTranslation } from 'react-i18next';
@@ -8,6 +8,9 @@ import { Button } from '../../src/components/Button';
 import { StepIndicator } from '../../src/components/StepIndicator';
 import { FONT_SIZE } from '../../src/lib/constants';
 import { Ionicons } from '@expo/vector-icons';
+
+const PRIVACY_URL = 'https://kaly.app/privacy';
+const TERMS_URL = 'https://kaly.app/terms';
 
 export default function WelcomeScreen() {
   const { t } = useTranslation();
@@ -62,6 +65,15 @@ export default function WelcomeScreen() {
         <Text style={{ fontSize: 12, color: colors.textSecondary, textAlign: 'center', marginTop: 4 }}>
           {t('welcome.pricing')}
         </Text>
+        <View style={{ flexDirection: 'row', justifyContent: 'center', gap: 8, marginTop: 8 }}>
+          <Pressable onPress={() => Linking.openURL(TERMS_URL)}>
+            <Text style={{ fontSize: 11, color: colors.textSecondary, textDecorationLine: 'underline' }}>{t('paywall.terms')}</Text>
+          </Pressable>
+          <Text style={{ fontSize: 11, color: colors.border }}>|</Text>
+          <Pressable onPress={() => Linking.openURL(PRIVACY_URL)}>
+            <Text style={{ fontSize: 11, color: colors.textSecondary, textDecorationLine: 'underline' }}>{t('paywall.privacy')}</Text>
+          </Pressable>
+        </View>
       </View>
     </SafeAreaView>
   );

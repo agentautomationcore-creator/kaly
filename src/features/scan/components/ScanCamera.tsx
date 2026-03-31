@@ -14,9 +14,10 @@ export function ScanCamera() {
   const { t } = useTranslation();
   const colors = useColors();
   const cameraRef = useRef<CameraView>(null);
+  const isCapturing = useRef(false);
   const [permission, requestPermission] = useCameraPermissions();
   const { setPhoto } = useScanStore();
-  const { mutate: analyze } = useAnalyzeFood();
+  const { mutate: analyze, isPending } = useAnalyzeFood();
   const [facing, setFacing] = useState<'front' | 'back'>('back');
 
   if (!permission) return null;
@@ -34,22 +35,33 @@ export function ScanCamera() {
   }
 
   const takePicture = async () => {
-    if (!cameraRef.current) return;
-    const photo = await cameraRef.current.takePictureAsync({ quality: 0.8 });
-    if (photo?.uri) {
-      setPhoto(photo.uri);
-      analyze(photo.uri);
+    if (!cameraRef.current || isCapturing.current || isPending) return;
+    isCapturing.current = true;
+    try {
+      const photo = await cameraRef.current.takePictureAsync({ quality: 0.8 });
+      if (photo?.uri) {
+        setPhoto(photo.uri);
+        analyze(photo.uri);
+      }
+    } finally {
+      isCapturing.current = false;
     }
   };
 
   const pickImage = async () => {
-    const result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ['images'],
-      quality: 0.8,
-    });
-    if (!result.canceled && result.assets[0]) {
-      setPhoto(result.assets[0].uri);
-      analyze(result.assets[0].uri);
+    if (isCapturing.current || isPending) return;
+    isCapturing.current = true;
+    try {
+      const result = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: ['images'],
+        quality: 0.8,
+      });
+      if (!result.canceled && result.assets[0]) {
+        setPhoto(result.assets[0].uri);
+        analyze(result.assets[0].uri);
+      }
+    } finally {
+      isCapturing.current = false;
     }
   };
 

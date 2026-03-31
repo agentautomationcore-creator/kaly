@@ -12,7 +12,7 @@ interface CalorieRingProps {
   size?: number;
 }
 
-export function CalorieRing({ current, goal, size = 160 }: CalorieRingProps) {
+export const CalorieRing = React.memo(function CalorieRing({ current, goal, size = 160 }: CalorieRingProps) {
   const colors = useColors();
   const strokeWidth = 12;
   const radius = (size - strokeWidth) / 2;
@@ -68,4 +68,4 @@ export function CalorieRing({ current, goal, size = 160 }: CalorieRingProps) {
       </View>
     </View>
   );
-}
+});

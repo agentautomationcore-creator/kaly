@@ -1,7 +1,11 @@
 import { create } from 'zustand';
+import { createMMKV } from 'react-native-mmkv';
 import { supabase } from '../lib/supabase';
-import { FREE_SCANS_PER_DAY, FREE_TRIAL_DAYS } from '../lib/constants';
+import { queryClient } from '../lib/queryClient';
+import { FREE_SCANS_PER_DAY } from '../lib/constants';
 import type { NutritionProfile } from '../lib/types';
+
+const mmkv = createMMKV({ id: 'kaly-settings' });
 
 interface AuthState {
   user: { id: string; email?: string } | null;
@@ -19,6 +23,7 @@ interface AuthState {
   signOut: () => Promise<void>;
   signInAnonymously: () => Promise<void>;
   registerFromAnonymous: (email: string, password: string) => Promise<void>;
+  refreshAndRetry: () => Promise<boolean>;
 
   isPro: () => boolean;
   isTrialActive: () => boolean;
@@ -77,10 +82,23 @@ export const useAuthStore = create<AuthState>((set, get) => ({
     });
   },
 
-  // A1: Sign out and clear store
+  // A1: Sign out and clear store + EDGE-4: clear all caches
   signOut: async () => {
     await supabase.auth.signOut();
+    queryClient.clear();
+    mmkv.clearAll();
     set({ user: null, profile: null, isAnonymous: true });
+  },
+
+  // EDGE-2: Refresh expired session and retry once
+  refreshAndRetry: async () => {
+    const { data, error } = await supabase.auth.refreshSession();
+    if (error || !data.session) {
+      // Session truly expired — sign out
+      await get().signOut();
+      return false;
+    }
+    return true;
   },
 
   // Anonymous sign-in for onboarding
@@ -110,16 +128,14 @@ export const useAuthStore = create<AuthState>((set, get) => ({
   isPro: () => {
     const { profile } = get();
     if (!profile) return false;
-    if (profile.plan === 'pro') return true;
-    return get().isTrialActive();
+    // Synced from entitlements via listener in _layout.tsx
+    return profile.plan === 'pro';
   },
 
   isTrialActive: () => {
+    // Managed by StoreKit. Entitlement 'pro' is active during trial.
     const { profile } = get();
-    if (!profile?.trial_start_date) return false;
-    const trialEnd = new Date(profile.trial_start_date);
-    trialEnd.setDate(trialEnd.getDate() + FREE_TRIAL_DAYS);
-    return new Date() < trialEnd;
+    return profile?.plan === 'pro';
   },
 
   canScan: (todayScans: number) => {

@@ -14,7 +14,7 @@ interface MacroBarsProps {
   fatGoal?: number;
 }
 
-export function MacroBars({
+export const MacroBars = React.memo(function MacroBars({
   protein,
   carbs,
   fat,
@@ -47,4 +47,4 @@ export function MacroBars({
       />
     </View>
   );
-}
+});

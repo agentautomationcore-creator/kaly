@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import { View, Text, ScrollView, Pressable, Alert } from 'react-native';
 import { useRouter } from 'expo-router';
 import { useTranslation } from 'react-i18next';
@@ -172,8 +172,35 @@ export function NutritionResultCard() {
         loading={saving}
       />
 
-      {/* Wrong result */}
-      <Pressable onPress={() => {/* TODO: open feedback modal */}} style={{ alignItems: 'center', marginTop: 16 }}>
+      {/* Wrong result — feedback */}
+      <Pressable
+        onPress={() => {
+          const options = [
+            t('feedback.wrong_food'),
+            t('feedback.wrong_portion'),
+            t('feedback.wrong_calories'),
+            t('feedback.missing_ingredient'),
+            t('feedback.other'),
+          ];
+          Alert.alert(t('feedback.title'), undefined, [
+            ...options.map((label) => ({
+              text: label,
+              onPress: async () => {
+                if (!user) return;
+                await supabase.from('ai_feedback').insert({
+                  user_id: user.id,
+                  food_name: result.dish_name,
+                  feedback_type: label,
+                  original_result: result,
+                });
+                Alert.alert(t('feedback.thanks'));
+              },
+            })),
+            { text: t('common.cancel'), style: 'cancel' as const },
+          ]);
+        }}
+        style={{ alignItems: 'center', marginTop: 16 }}
+      >
         <Text style={{ fontSize: FONT_SIZE.sm, color: colors.danger, fontWeight: '500' }}>
           {t('scan.wrong_result')}
         </Text>

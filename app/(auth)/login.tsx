@@ -3,9 +3,10 @@ import { View, Text, TextInput, Pressable, KeyboardAvoidingView, Platform } from
 import { useRouter } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useTranslation } from 'react-i18next';
+import * as AppleAuthentication from 'expo-apple-authentication';
 import { useColors } from '../../src/lib/theme';
 import { Button } from '../../src/components/Button';
-import { FONT_SIZE, RADIUS } from '../../src/lib/constants';
+import { FONT_SIZE, RADIUS, IS_IOS } from '../../src/lib/constants';
 import { supabase } from '../../src/lib/supabase';
 
 export default function LoginScreen() {
@@ -30,6 +31,42 @@ export default function LoginScreen() {
       router.replace('/(tabs)/diary');
     }
     setLoading(false);
+  };
+
+  const handleAppleSignIn = async () => {
+    try {
+      setLoading(true);
+      setError('');
+      const credential = await AppleAuthentication.signInAsync({
+        requestedScopes: [
+          AppleAuthentication.AppleAuthenticationScope.FULL_NAME,
+          AppleAuthentication.AppleAuthenticationScope.EMAIL,
+        ],
+      });
+
+      if (!credential.identityToken) {
+        throw new Error('No identity token');
+      }
+
+      const { error: authError } = await supabase.auth.signInWithIdToken({
+        provider: 'apple',
+        token: credential.identityToken,
+      });
+
+      if (authError) {
+        setError(authError.message);
+      } else {
+        router.replace('/(tabs)/diary');
+      }
+    } catch (e: unknown) {
+      if (e instanceof Error && e.message.includes('ERR_REQUEST_CANCELED')) {
+        // User cancelled — do nothing
+      } else {
+        setError(t('errors.generic'));
+      }
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -83,6 +120,23 @@ export default function LoginScreen() {
         />
 
         <Button title={t('auth.sign_in')} onPress={handleLogin} loading={loading} />
+
+        {IS_IOS && (
+          <View style={{ marginTop: 16, gap: 12 }}>
+            <View style={{ flexDirection: 'row', alignItems: 'center', gap: 12 }}>
+              <View style={{ flex: 1, height: 1, backgroundColor: colors.border }} />
+              <Text style={{ color: colors.textSecondary, fontSize: FONT_SIZE.sm }}>{t('auth.or')}</Text>
+              <View style={{ flex: 1, height: 1, backgroundColor: colors.border }} />
+            </View>
+            <AppleAuthentication.AppleAuthenticationButton
+              buttonType={AppleAuthentication.AppleAuthenticationButtonType.SIGN_IN}
+              buttonStyle={AppleAuthentication.AppleAuthenticationButtonStyle.BLACK}
+              cornerRadius={RADIUS.md}
+              style={{ height: 48 }}
+              onPress={handleAppleSignIn}
+            />
+          </View>
+        )}
 
         <View style={{ flexDirection: 'row', justifyContent: 'center', marginTop: 24, gap: 4 }}>
           <Text style={{ color: colors.textSecondary, fontSize: FONT_SIZE.sm }}>{t('auth.no_account')}</Text>

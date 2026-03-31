@@ -5,46 +5,94 @@ import { useScanStore } from '../store/scanStore';
 import type { ScanResult } from '../types';
 import i18n from '../../../i18n';
 
-async function analyzeFood(photoUri: string): Promise<ScanResult> {
-  const base64 = await compressImage(photoUri);
+const ANALYZE_TIMEOUT_MS = 30_000;
 
-  const { data: { session } } = await supabase.auth.getSession();
-  if (!session) throw new Error('Not authenticated');
-
-  const response = await fetch(
-    `${process.env.EXPO_PUBLIC_SUPABASE_URL}/functions/v1/analyze-food`,
-    {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${session.access_token}`,
-      },
-      body: JSON.stringify({
-        image: base64,
-        language: i18n.language,
-      }),
-    }
-  );
-
-  if (response.status === 429) {
-    const data = await response.json();
-    const err = new Error('RATE_LIMIT') as Error & { limit?: number; remaining?: number };
-    err.limit = data.limit;
-    err.remaining = data.remaining;
-    throw err;
+/** Validate AI output ranges to prevent cache poisoning */
+function validateScanResult(result: ScanResult): ScanResult {
+  const clamp = (v: number, min: number, max: number) => Math.max(min, Math.min(max, v));
+  result.total.calories = clamp(result.total.calories, 0, 10000);
+  result.total.protein_g = clamp(result.total.protein_g, 0, 1000);
+  result.total.fat_g = clamp(result.total.fat_g, 0, 1000);
+  result.total.carbs_g = clamp(result.total.carbs_g, 0, 1000);
+  result.total.fiber_g = clamp(result.total.fiber_g, 0, 200);
+  for (const item of result.items) {
+    item.calories = clamp(item.calories, 0, 10000);
+    item.protein_g = clamp(item.protein_g, 0, 1000);
+    item.fat_g = clamp(item.fat_g, 0, 1000);
+    item.carbs_g = clamp(item.carbs_g, 0, 1000);
+    item.fiber_g = clamp(item.fiber_g, 0, 200);
+    item.g = clamp(item.g, 0, 5000);
   }
-
-  if (!response.ok) {
-    const data = await response.json().catch(() => ({}));
-    throw new Error(data.error || 'Analysis failed');
-  }
-
-  const result = await response.json();
-  if (result.error === 'not_food') {
-    throw new Error('NOT_FOOD');
-  }
-
+  result.confidence = clamp(result.confidence, 0, 1);
   return result;
+}
+
+let activeAbortController: AbortController | null = null;
+
+async function analyzeFood(photoUri: string): Promise<ScanResult> {
+  // Cancel any previous in-flight request
+  if (activeAbortController) {
+    activeAbortController.abort();
+  }
+  const controller = new AbortController();
+  activeAbortController = controller;
+  const timeout = setTimeout(() => controller.abort(), ANALYZE_TIMEOUT_MS);
+
+  try {
+    const base64 = await compressImage(photoUri);
+
+    const { data: { session } } = await supabase.auth.getSession();
+    if (!session) throw new Error('Not authenticated');
+
+    const response = await fetch(
+      `${process.env.EXPO_PUBLIC_SUPABASE_URL}/functions/v1/analyze-food`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${session.access_token}`,
+        },
+        body: JSON.stringify({
+          image: base64,
+          language: i18n.language,
+        }),
+        signal: controller.signal,
+      }
+    );
+
+    if (response.status === 429) {
+      const data = await response.json();
+      const err = new Error('RATE_LIMIT') as Error & { limit?: number; remaining?: number };
+      err.limit = data.limit;
+      err.remaining = data.remaining;
+      throw err;
+    }
+
+    if (!response.ok) {
+      const data = await response.json().catch(() => ({}));
+      throw new Error(data.error || 'Analysis failed');
+    }
+
+    const result = await response.json();
+    if (result.error === 'not_food') {
+      throw new Error('NOT_FOOD');
+    }
+
+    return validateScanResult(result);
+  } finally {
+    clearTimeout(timeout);
+    if (activeAbortController === controller) {
+      activeAbortController = null;
+    }
+  }
+}
+
+/** Cancel the current analysis request */
+export function cancelAnalysis() {
+  if (activeAbortController) {
+    activeAbortController.abort();
+    activeAbortController = null;
+  }
 }
 
 export function useAnalyzeFood() {

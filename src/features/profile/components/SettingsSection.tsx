@@ -1,8 +1,11 @@
 import React from 'react';
-import { View, Text, Switch, Pressable } from 'react-native';
+import { View, Text, Switch, Pressable, Linking } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { Ionicons } from '@expo/vector-icons';
 import { useColors } from '../../../lib/theme';
+
+const PRIVACY_URL = 'https://kaly.app/privacy';
+const TERMS_URL = 'https://kaly.app/terms';
 import { useUpdateProfile } from '../hooks/useProfile';
 import { useSettingsStore } from '../../../stores/settingsStore';
 import { setLanguage, SUPPORTED_LANGUAGES } from '../../../i18n';
@@ -100,7 +103,7 @@ export function SettingsSection({ profile }: SettingsSectionProps) {
       </View>
 
       {/* Notifications */}
-      <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+      <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
         <Text style={{ fontSize: FONT_SIZE.sm, fontWeight: '500', color: colors.text }}>
           {t('profile.notifications')}
         </Text>
@@ -109,6 +112,20 @@ export function SettingsSection({ profile }: SettingsSectionProps) {
           onValueChange={(v) => update({ notifications: v })}
           trackColor={{ false: colors.border, true: colors.primary }}
         />
+      </View>
+
+      {/* Legal links */}
+      <View style={{ flexDirection: 'row', gap: 16 }}>
+        <Pressable onPress={() => Linking.openURL(PRIVACY_URL)}>
+          <Text style={{ fontSize: FONT_SIZE.xs, color: colors.textSecondary, textDecorationLine: 'underline' }}>
+            {t('paywall.privacy')}
+          </Text>
+        </Pressable>
+        <Pressable onPress={() => Linking.openURL(TERMS_URL)}>
+          <Text style={{ fontSize: FONT_SIZE.xs, color: colors.textSecondary, textDecorationLine: 'underline' }}>
+            {t('paywall.terms')}
+          </Text>
+        </Pressable>
       </View>
     </Card>
   );

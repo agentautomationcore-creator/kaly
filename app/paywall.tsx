@@ -4,7 +4,7 @@ import { useRouter } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useTranslation } from 'react-i18next';
 import { Ionicons } from '@expo/vector-icons';
-import Purchases, { PurchasesPackage } from 'react-native-purchases';
+import Purchases, { PurchasesPackage, CustomerInfo } from 'react-native-purchases';
 import { useColors } from '../src/lib/theme';
 import { Button } from '../src/components/Button';
 import { Card } from '../src/components/Card';
@@ -40,15 +40,42 @@ export default function PaywallScreen() {
     loadOfferings();
   }, []);
 
-  // AS4: Real purchase flow with RevenueCat
+  /** Sync RevenueCat entitlements → Supabase profile.plan */
+  const syncPlanFromCustomerInfo = async (customerInfo: CustomerInfo) => {
+    const isPro = !!customerInfo.entitlements.active['pro'];
+    const newPlan = isPro ? 'pro' : 'free';
+    if (user) {
+      await supabase
+        .from('nutrition_profiles')
+        .update({ plan: newPlan })
+        .eq('id', user.id);
+    }
+    useAuthStore.getState().setProfile({
+      ...useAuthStore.getState().profile!,
+      plan: newPlan,
+    });
+  };
+
+  // Require account before purchasing
   const handlePurchase = async () => {
+    const isAnonymous = useAuthStore.getState().isAnonymous;
+    if (isAnonymous) {
+      Alert.alert(
+        t('auth.create_account'),
+        t('profile.save_data'),
+        [
+          { text: t('common.cancel'), style: 'cancel' },
+          { text: t('auth.create_account'), onPress: () => router.push('/(auth)/register') },
+        ]
+      );
+      return;
+    }
     const pkg = packages.find((p) =>
       period === 'annual'
         ? p.packageType === 'ANNUAL'
         : p.packageType === 'MONTHLY'
     );
     if (!pkg) {
-      // Fallback if packages not loaded yet
       Alert.alert('Error', 'Packages not available. Please try again.');
       return;
     }
@@ -56,13 +83,8 @@ export default function PaywallScreen() {
     setPurchasing(true);
     try {
       const { customerInfo } = await Purchases.purchasePackage(pkg);
-      // Check if pro entitlement is active
       if (customerInfo.entitlements.active['pro']) {
-        // Update profile plan in Supabase
-        if (user) {
-          const adminClient = supabase; // Profile update — trigger protects plan field, so use service call or separate endpoint
-          // Note: Plan update should ideally be done server-side via webhook from RevenueCat
-        }
+        await syncPlanFromCustomerInfo(customerInfo);
         router.back();
       }
     } catch (err: unknown) {
@@ -74,11 +96,12 @@ export default function PaywallScreen() {
     }
   };
 
-  // AS3: Real restore purchases with RevenueCat
+  // Restore and sync entitlements to DB
   const handleRestore = async () => {
     setPurchasing(true);
     try {
       const customerInfo = await Purchases.restorePurchases();
+      await syncPlanFromCustomerInfo(customerInfo);
       if (customerInfo.entitlements.active['pro']) {
         Alert.alert('Success', 'Your Pro subscription has been restored!');
         router.back();
@@ -197,8 +220,8 @@ export default function PaywallScreen() {
           </Pressable>
         </View>
 
-        <Text style={{ fontSize: 11, color: colors.textSecondary, textAlign: 'center', marginTop: 16 }}>
-          {t('paywall.cancel_anytime')}
+        <Text style={{ fontSize: 11, color: colors.textSecondary, textAlign: 'center', marginTop: 16, lineHeight: 16 }}>
+          {t('paywall.auto_renewal_disclosure')}
         </Text>
       </ScrollView>
     </SafeAreaView>

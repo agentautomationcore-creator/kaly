@@ -165,6 +165,7 @@
     "continue_free": "Continue with free",
     "restore": "Restore purchases",
     "cancel_anytime": "Cancel anytime",
+    "auto_renewal_disclosure": "Subscription automatically renews unless auto-renew is turned off at least 24 hours before the end of the current period. Your Apple ID account will be charged for renewal within 24 hours prior to the end of the current period. You can manage and cancel your subscriptions in your App Store account settings.",
     "terms": "Terms of use",
     "privacy": "Privacy policy"
   },
@@ -193,6 +194,15 @@
     "description": "Tell us more (optional)",
     "submit": "Submit feedback",
     "thanks": "Thanks for your feedback!"
+  },
+  "consent": {
+    "ai_title": "AI Food Analysis",
+    "ai_body": "Kaly uses Claude AI (by Anthropic) to analyze your food photos. Your photos are sent to Anthropic's servers for processing. Photos are not stored by Anthropic after analysis. By continuing, you consent to this data processing.",
+    "health_title": "Health Data Processing",
+    "health_body": "Kaly collects health-related data (weight, height, dietary preferences, calorie intake) to provide personalized nutrition tracking. Under GDPR Article 9, we need your explicit consent to process this health data. Your data is stored securely in the EU.",
+    "read_privacy": "Read our Privacy Policy",
+    "accept": "I agree",
+    "decline": "No thanks"
   },
   "common": {
     "loading": "Loading...",

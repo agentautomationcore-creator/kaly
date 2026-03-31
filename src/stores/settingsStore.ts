@@ -12,9 +12,15 @@ interface SettingsState {
   effectiveTheme: 'light' | 'dark';
   units: Units;
   locale: string;
+  aiConsentGiven: boolean;
+  healthConsentGiven: boolean;
+  analyticsConsentGiven: boolean;
   setThemeMode: (mode: ThemeMode) => void;
   setUnits: (units: Units) => void;
   setLocale: (locale: string) => void;
+  setAiConsent: (v: boolean) => void;
+  setHealthConsent: (v: boolean) => void;
+  setAnalyticsConsent: (v: boolean) => void;
 }
 
 // A10: Store subscription reference at module level for cleanup
@@ -24,6 +30,9 @@ export const useSettingsStore = create<SettingsState>((set) => {
   const savedTheme = (storage.getString('themeMode') as ThemeMode) || 'system';
   const savedUnits = (storage.getString('units') as Units) || 'metric';
   const savedLocale = storage.getString('locale') || 'en';
+  const savedAiConsent = storage.getBoolean('aiConsentGiven') ?? false;
+  const savedHealthConsent = storage.getBoolean('healthConsentGiven') ?? false;
+  const savedAnalyticsConsent = storage.getBoolean('analyticsConsentGiven') ?? false;
   const systemTheme = Appearance.getColorScheme() || 'light';
 
   // A10: Clean up previous subscription if store is re-created
@@ -44,6 +53,9 @@ export const useSettingsStore = create<SettingsState>((set) => {
     effectiveTheme: savedTheme === 'system' ? systemTheme : savedTheme,
     units: savedUnits,
     locale: savedLocale,
+    aiConsentGiven: savedAiConsent,
+    healthConsentGiven: savedHealthConsent,
+    analyticsConsentGiven: savedAnalyticsConsent,
 
     setThemeMode: (mode) => {
       storage.set('themeMode', mode);
@@ -59,6 +71,21 @@ export const useSettingsStore = create<SettingsState>((set) => {
     setLocale: (locale) => {
       storage.set('locale', locale);
       set({ locale });
+    },
+
+    setAiConsent: (v) => {
+      storage.set('aiConsentGiven', v);
+      set({ aiConsentGiven: v });
+    },
+
+    setHealthConsent: (v) => {
+      storage.set('healthConsentGiven', v);
+      set({ healthConsentGiven: v });
+    },
+
+    setAnalyticsConsent: (v) => {
+      storage.set('analyticsConsentGiven', v);
+      set({ analyticsConsentGiven: v });
     },
   };
 });

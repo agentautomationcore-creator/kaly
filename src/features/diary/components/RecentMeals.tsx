@@ -15,7 +15,7 @@ interface RecentMealsProps {
   date: string;
 }
 
-export function RecentMeals({ date }: RecentMealsProps) {
+export const RecentMeals = React.memo(function RecentMeals({ date }: RecentMealsProps) {
   const { t } = useTranslation();
   const colors = useColors();
   const { data: meals } = useRecentMeals();
@@ -80,4 +80,4 @@ export function RecentMeals({ date }: RecentMealsProps) {
       ))}
     </Card>
   );
-}
+});

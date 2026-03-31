@@ -9,22 +9,9 @@ const corsHeaders = {
   'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
 };
 
-// S2: IP-based rate limiting for anonymous users
-const ipRateLimits = new Map<string, { count: number; resetAt: number }>();
-const ANON_IP_LIMIT = 10; // max 10 anonymous requests per hour per IP
-const ANON_IP_WINDOW_MS = 60 * 60 * 1000; // 1 hour
-
-function checkIpRateLimit(ip: string): boolean {
-  const now = Date.now();
-  const entry = ipRateLimits.get(ip);
-  if (!entry || now > entry.resetAt) {
-    ipRateLimits.set(ip, { count: 1, resetAt: now + ANON_IP_WINDOW_MS });
-    return true;
-  }
-  if (entry.count >= ANON_IP_LIMIT) return false;
-  entry.count++;
-  return true;
-}
+// SEC-3: Rate limiting via Supabase RPC (not in-memory Map which resets on cold start)
+// Uses per-user JWT-based limiting via check_daily_scan_limit RPC (below)
+// For anonymous users, additional check via user ID (not spoofable IP)
 
 // S9: Language allowlist to prevent prompt injection
 const ALLOWED_LANGUAGES = ['en', 'fr', 'ru', 'de', 'es', 'it', 'ar', 'pt', 'tr', 'zh'];
@@ -67,21 +54,7 @@ serve(async (req) => {
       });
     }
 
-    // S2: IP-based rate limiting for anonymous users (no email = anonymous)
-    const isAnonymous = !user.email;
-    if (isAnonymous) {
-      const clientIp = req.headers.get('x-forwarded-for')?.split(',')[0]?.trim()
-        || req.headers.get('x-real-ip')
-        || 'unknown';
-      if (!checkIpRateLimit(clientIp)) {
-        return new Response(JSON.stringify({ error: 'Too many anonymous requests. Please sign up.' }), {
-          status: 429,
-          headers: { ...corsHeaders, 'Content-Type': 'application/json' },
-        });
-      }
-    }
-
-    // 2. Rate limit check (daily scan limit)
+    // 2. Rate limit check (daily scan limit) — per-user via Supabase RPC
     const { data: canScan } = await supabase.rpc('check_daily_scan_limit', { p_user_id: user.id });
     if (!canScan) {
       return new Response(JSON.stringify({ error: 'Daily scan limit reached', limit: 3 }), {
@@ -152,7 +125,7 @@ serve(async (req) => {
       try {
         const response = await anthropic.messages.create({
           model: 'claude-haiku-4-5-20251001',
-          max_tokens: 1024,
+          max_tokens: 2048,
           messages: [{
             role: 'user',
             content: [
@@ -181,13 +154,35 @@ serve(async (req) => {
       await supabase.from('diary_entries').delete().eq('id', pending.id);
     }
 
+    // SEC-2: Validate AI output ranges to prevent cache poisoning
+    if (result!.total) {
+      const t = result!.total as Record<string, number>;
+      const clamp = (v: number, min: number, max: number) => Math.max(min, Math.min(max, v));
+      t.calories = clamp(t.calories ?? 0, 0, 10000);
+      t.protein_g = clamp(t.protein_g ?? 0, 0, 1000);
+      t.fat_g = clamp(t.fat_g ?? 0, 0, 1000);
+      t.carbs_g = clamp(t.carbs_g ?? 0, 0, 1000);
+      t.fiber_g = clamp(t.fiber_g ?? 0, 0, 200);
+    }
+    if (Array.isArray(result!.items)) {
+      for (const item of result!.items as Array<Record<string, unknown>>) {
+        const clamp = (v: number, min: number, max: number) => Math.max(min, Math.min(max, v));
+        item.calories = clamp((item.calories as number) ?? 0, 0, 10000);
+        item.protein_g = clamp((item.protein_g as number) ?? 0, 0, 1000);
+        item.fat_g = clamp((item.fat_g as number) ?? 0, 0, 1000);
+        item.carbs_g = clamp((item.carbs_g as number) ?? 0, 0, 1000);
+        item.fiber_g = clamp((item.fiber_g as number) ?? 0, 0, 200);
+        item.g = clamp((item.g as number) ?? 0, 0, 5000);
+      }
+    }
+
     if (result!.error === 'not_food') {
       return new Response(JSON.stringify(result!), {
         headers: { ...corsHeaders, 'Content-Type': 'application/json' },
       });
     }
 
-    // 5. Save to cache (use service_role to bypass RLS)
+    // 5. Save to cache via admin client
     const adminClient = createClient(
       Deno.env.get('SUPABASE_URL')!,
       Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!
@@ -232,6 +227,7 @@ RULES:
 - For restaurant dishes, estimate as typically served
 - For packaged food, use standard serving size
 - If the image is NOT food, return: {"error": "not_food", "message": "Not a food image"}
+- If there are too many dishes to analyze (>5), focus on the most visible 3 dishes and add a warning
 
 JSON FORMAT:
 {
