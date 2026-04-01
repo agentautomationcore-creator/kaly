@@ -5,6 +5,7 @@ import { StatusBar } from 'expo-status-bar';
 import { QueryClientProvider } from '@tanstack/react-query';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import Purchases from 'react-native-purchases';
+import { requestTrackingPermissionsAsync } from 'expo-tracking-transparency';
 import { queryClient } from '../src/lib/queryClient';
 import { useColors, useThemeMode } from '../src/lib/theme';
 import { ErrorBoundary } from '../src/components/ErrorBoundary';
@@ -20,15 +21,22 @@ export default function RootLayout() {
   const initAuth = useAuthStore((s) => s.init);
 
   useEffect(() => {
-    initAuth();
-    loadSavedLanguage();
+    const init = async () => {
+      initAuth();
+      loadSavedLanguage();
 
-    const rcKey = Platform.OS === 'ios'
+      if (Platform.OS === 'ios') {
+        await requestTrackingPermissionsAsync();
+      }
+
+      const rcKey = Platform.OS === 'ios'
       ? process.env.EXPO_PUBLIC_REVENUECAT_IOS_KEY
       : process.env.EXPO_PUBLIC_REVENUECAT_ANDROID_KEY;
     if (rcKey) {
       Purchases.configure({ apiKey: rcKey });
     }
+    };
+    init();
   }, []);
 
   // SUB-2: Listen for subscription changes (cancel, renew, expire)

@@ -20,7 +20,8 @@
       "infoPlist": {
         "NSCameraUsageDescription": "Kaly uses the camera to scan your food and calculate calories",
         "NSPhotoLibraryUsageDescription": "Kaly needs photo access to import food images for analysis",
-        "ITSAppUsesNonExemptEncryption": false
+        "ITSAppUsesNonExemptEncryption": false,
+        "NSUserTrackingUsageDescription": "This allows us to provide a better experience and relevant content."
       },
       "privacyManifests": {
         "NSPrivacyAccessedAPITypes": [
@@ -98,7 +99,8 @@
           "icon": "./assets/icon.png",
           "color": "#4CAF50"
         }
-      ]
+      ],
+      "expo-tracking-transparency"
     ],
     "updates": {
       "url": "https://u.expo.dev/67f656ee-fffd-4a8d-93b3-f7268c965730"
