@@ -146,7 +146,7 @@ serve(async (req) => {
               { type: 'text', text: prompt },
             ],
           }],
-        });
+        }, { timeout: 60000 });
 
         const text = response.content[0].type === 'text' ? response.content[0].text : '';
         result = JSON.parse(text.replace(/```json\n?|\n?```/g, '').trim());
