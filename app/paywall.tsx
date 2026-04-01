@@ -48,7 +48,7 @@ export default function PaywallScreen() {
       await supabase
         .from('nutrition_profiles')
         .update({ plan: newPlan })
-        .eq('id', user.id);
+        .eq('user_id', user.id);
     }
     useAuthStore.getState().setProfile({
       ...useAuthStore.getState().profile!,
@@ -187,7 +187,7 @@ export default function PaywallScreen() {
               {t('paywall.annual_price')}
             </Text>
             <View style={{ backgroundColor: colors.success, borderRadius: RADIUS.full, paddingHorizontal: 8, paddingVertical: 2, marginTop: 4 }}>
-              <Text style={{ fontSize: 10, fontWeight: '600', color: '#FFF' }}>{t('paywall.annual_savings')}</Text>
+              <Text style={{ fontSize: 10, fontWeight: '600', color: colors.card }}>{t('paywall.annual_savings')}</Text>
             </View>
           </Pressable>
         </View>

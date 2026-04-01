@@ -35,7 +35,7 @@ export default function RootLayout() {
         await supabase
           .from('nutrition_profiles')
           .update({ plan: newPlan })
-          .eq('id', user.id);
+          .eq('user_id', user.id);
         useAuthStore.getState().setProfile({ ...profile, plan: newPlan });
       }
     };
