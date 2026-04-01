@@ -49,16 +49,16 @@ export function WaterTracker({ date, goalGlasses = 8 }: WaterTrackerProps) {
         <Pressable
           onPress={() => addGlass.mutate()}
           style={{
-            width: 36,
-            height: 36,
-            borderRadius: 18,
+            width: 44,
+            height: 44,
+            borderRadius: 22,
             backgroundColor: colors.info,
             justifyContent: 'center',
             alignItems: 'center',
           }}
           accessibilityLabel={t('diary.add_water')}
         >
-          <Ionicons name="add" size={20} color="#FFF" />
+          <Ionicons name="add" size={20} color={colors.card} />
         </Pressable>
       </View>
     </Card>
