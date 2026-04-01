@@ -38,8 +38,8 @@ serve(async (req) => {
     const [profile, diary, water, weight, feedback] = await Promise.all([
       supabase.from('nutrition_profiles').select('*').eq('id', user.id).single(),
       supabase.from('diary_entries').select('*').eq('user_id', user.id).order('created_at', { ascending: false }),
-      supabase.from('water_entries').select('*').eq('user_id', user.id).order('date', { ascending: false }),
-      supabase.from('weight_entries').select('*').eq('user_id', user.id).order('logged_at', { ascending: false }),
+      supabase.from('water_log').select('*').eq('user_id', user.id).order('date', { ascending: false }),
+      supabase.from('weight_log').select('*').eq('user_id', user.id).order('logged_at', { ascending: false }),
       supabase.from('ai_feedback').select('*').eq('user_id', user.id),
     ]);
 
