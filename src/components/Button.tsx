@@ -33,7 +33,7 @@ export function Button({
     colors.surface;
 
   const textColor =
-    variant === 'primary' || variant === 'danger' ? '#FFFFFF' :
+    variant === 'primary' || variant === 'danger' ? colors.card :
     variant === 'outline' ? colors.primary :
     colors.text;
 

@@ -71,7 +71,7 @@ export class ErrorBoundary extends Component<Props, State> {
             accessibilityRole="button"
             accessibilityLabel={i18n.t('common.retry')}
           >
-            <Text style={{ color: '#FFFFFF', fontWeight: '600', fontSize: 15 }}>{i18n.t('common.retry')}</Text>
+            <Text style={{ color: colors.card, fontWeight: '600', fontSize: 15 }}>{i18n.t('common.retry')}</Text>
           </Pressable>
         </View>
       );

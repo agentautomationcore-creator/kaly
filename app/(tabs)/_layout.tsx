@@ -30,7 +30,7 @@ function ScanFAB() {
       accessibilityRole="button"
       accessibilityLabel="Scan food"
     >
-      <Ionicons name="camera" size={28} color="#FFFFFF" />
+      <Ionicons name="camera" size={28} color={colors.card} />
     </Pressable>
   );
 }

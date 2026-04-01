@@ -85,7 +85,7 @@ export function DailyDiary({ date: dateProp }: DailyDiaryProps) {
             {t('diary.emptyDescription')}
           </Text>
           <Pressable onPress={() => router.push('/(tabs)/scan')} style={{ backgroundColor: colors.primary, paddingHorizontal: 24, paddingVertical: 12, borderRadius: 12 }}>
-            <Text style={{ color: '#FFFFFF', fontWeight: '600' }}>{t('diary.logFirstMeal')}</Text>
+            <Text style={{ color: colors.card, fontWeight: '600' }}>{t('diary.logFirstMeal')}</Text>
           </Pressable>
         </View>
       )}

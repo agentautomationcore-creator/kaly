@@ -39,7 +39,7 @@ export default function WelcomeScreen() {
             marginBottom: 24,
           }}
         >
-          <Ionicons name="restaurant" size={40} color="#FFFFFF" />
+          <Ionicons name="restaurant" size={40} color={colors.card} />
         </View>
 
         <Text style={{ fontSize: 28, fontWeight: '800', color: colors.text, textAlign: 'center', marginBottom: 8 }}>

@@ -18,7 +18,7 @@ export function Card({ children, style }: CardProps) {
         borderRadius: RADIUS.lg,
         padding: 16,
         ...(Platform.OS === 'ios'
-          ? { shadowColor: '#000', shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.08, shadowRadius: 8 }
+          ? { shadowColor: colors.text, shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.08, shadowRadius: 8 }
           : { elevation: 2 }),
         ...style,
       }}

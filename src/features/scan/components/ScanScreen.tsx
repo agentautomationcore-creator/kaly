@@ -59,7 +59,7 @@ export function ScanScreen() {
               onPress={() => { setError(null); analyze(photo); }}
               style={{ backgroundColor: colors.primary, paddingHorizontal: 24, paddingVertical: 12, borderRadius: 12 }}
             >
-              <Text style={{ color: '#FFFFFF', fontWeight: '600' }}>{t('common.retry')}</Text>
+              <Text style={{ color: colors.card, fontWeight: '600' }}>{t('common.retry')}</Text>
             </Pressable>
           )}
           <Pressable
