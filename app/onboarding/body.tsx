@@ -8,6 +8,8 @@ import { Button } from '../../src/components/Button';
 import { ConsentModal } from '../../src/components/ConsentModal';
 import { StepIndicator } from '../../src/components/StepIndicator';
 import { useSettingsStore } from '../../src/stores/settingsStore';
+import { useAuthStore } from '../../src/stores/authStore';
+import { supabase } from '../../src/lib/supabase';
 import { FONT_SIZE, RADIUS } from '../../src/lib/constants';
 
 const GENDERS = ['male', 'female'] as const;
@@ -122,9 +124,16 @@ export default function BodyScreen() {
       <ConsentModal
         visible={showHealthConsent}
         type="health"
-        onAccept={() => {
+        onAccept={async () => {
           setHealthConsent(true);
           setShowHealthConsent(false);
+          const user = useAuthStore.getState().user;
+          if (user) {
+            await supabase.from('nutrition_profiles').update({
+              health_consent_given: true,
+              health_consent_at: new Date().toISOString(),
+            }).eq('id', user.id);
+          }
         }}
         onDecline={() => {
           setShowHealthConsent(false);

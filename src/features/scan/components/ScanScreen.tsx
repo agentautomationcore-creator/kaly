@@ -5,6 +5,8 @@ import { useColors } from '../../../lib/theme';
 import { useScanStore } from '../store/scanStore';
 import { useAnalyzeFood } from '../hooks/useAnalyzeFood';
 import { useSettingsStore } from '../../../stores/settingsStore';
+import { useAuthStore } from '../../../stores/authStore';
+import { supabase } from '../../../lib/supabase';
 import { ConsentModal } from '../../../components/ConsentModal';
 import { ScanCamera } from './ScanCamera';
 import { ScanLoading } from './ScanLoading';
@@ -27,8 +29,15 @@ export function ScanScreen() {
         <ConsentModal
           visible={!aiConsentGiven}
           type="ai"
-          onAccept={() => {
+          onAccept={async () => {
             setAiConsent(true);
+            const user = useAuthStore.getState().user;
+            if (user) {
+              await supabase.from('nutrition_profiles').update({
+                ai_consent_given: true,
+                ai_consent_at: new Date().toISOString(),
+              }).eq('id', user.id);
+            }
           }}
           onDecline={() => {
             // Show camera but consent modal will re-appear on next visit

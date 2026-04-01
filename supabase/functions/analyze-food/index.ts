@@ -54,6 +54,19 @@ serve(async (req) => {
       });
     }
 
+    // GDPR Art.9: Verify health + AI consent before processing
+    const { data: consentProfile } = await supabase
+      .from('nutrition_profiles')
+      .select('health_consent_given, ai_consent_given')
+      .eq('id', user.id)
+      .single();
+    if (!consentProfile?.health_consent_given || !consentProfile?.ai_consent_given) {
+      return new Response(JSON.stringify({ error: 'Consent required' }), {
+        status: 403,
+        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+      });
+    }
+
     // 2. Rate limit check (daily scan limit) — per-user via Supabase RPC
     const { data: canScan } = await supabase.rpc('check_daily_scan_limit', { p_user_id: user.id });
     if (!canScan) {
