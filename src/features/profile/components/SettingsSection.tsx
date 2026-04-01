@@ -4,8 +4,8 @@ import { useTranslation } from 'react-i18next';
 import { Ionicons } from '@expo/vector-icons';
 import { useColors } from '../../../lib/theme';
 
-const PRIVACY_URL = 'https://doclear.app/kaly-privacy';
-const TERMS_URL = 'https://doclear.app/kaly-privacy';
+const PRIVACY_URL = 'https://kaly.app/privacy';
+const TERMS_URL = 'https://kaly.app/terms';
 import { useUpdateProfile } from '../hooks/useProfile';
 import { useSettingsStore } from '../../../stores/settingsStore';
 import { useAuthStore } from '../../../stores/authStore';
@@ -31,7 +31,7 @@ export function SettingsSection({ profile }: SettingsSectionProps) {
   const { t, i18n } = useTranslation();
   const colors = useColors();
   const { mutate: update } = useUpdateProfile();
-  const { themeMode, setThemeMode, healthConsentGiven, setHealthConsent, aiConsentGiven, setAiConsent } = useSettingsStore();
+  const { themeMode, setThemeMode, healthConsentGiven, setHealthConsent, aiConsentGiven, setAiConsent, analyticsConsentGiven, setAnalyticsConsent } = useSettingsStore();
 
   const handleLanguageChange = (lang: string) => {
     setLanguage(lang);
@@ -139,7 +139,7 @@ export function SettingsSection({ profile }: SettingsSectionProps) {
           trackColor={{ false: colors.border, true: colors.primary }}
         />
       </View>
-      <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
+      <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12 }}>
         <Text style={{ fontSize: FONT_SIZE.sm, fontWeight: '500', color: colors.text }}>
           {t('profile.health_data')}
         </Text>
@@ -155,6 +155,16 @@ export function SettingsSection({ profile }: SettingsSectionProps) {
               }).eq('id', user.id);
             }
           }}
+          trackColor={{ false: colors.border, true: colors.primary }}
+        />
+      </View>
+      <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
+        <Text style={{ fontSize: FONT_SIZE.sm, fontWeight: '500', color: colors.text }}>
+          {t('profile.analytics')}
+        </Text>
+        <Switch
+          value={analyticsConsentGiven}
+          onValueChange={(v) => setAnalyticsConsent(v)}
           trackColor={{ false: colors.border, true: colors.primary }}
         />
       </View>

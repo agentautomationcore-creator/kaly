@@ -41,7 +41,7 @@ export function DietEditor({ profile }: DietEditorProps) {
             <Text style={{ fontSize: FONT_SIZE.sm, color: colors.textSecondary }}>{t('profile.edit_diet')}</Text>
             <Text style={{ fontSize: FONT_SIZE.md, fontWeight: '600', color: colors.text }}>
               {t(`onboarding.diet_${profile?.diet_type || 'balanced'}`)}
-              {profile?.allergies?.length ? ` · ${profile.allergies.length} allergies` : ''}
+              {profile?.allergies?.length ? ` · ${t('profile.allergies_count', { count: profile.allergies.length })}` : ''}
             </Text>
           </View>
           <Ionicons name="chevron-forward" size={20} color={colors.textSecondary} />

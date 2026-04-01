@@ -77,7 +77,7 @@ export function NutritionResultCard() {
     <ScrollView style={{ flex: 1, backgroundColor: colors.background }} contentContainerStyle={{ padding: 16, paddingBottom: 100 }}>
       {/* Header */}
       <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
-        <Pressable onPress={reset} style={{ padding: 8 }}>
+        <Pressable onPress={reset} style={{ padding: 8, minHeight: 44, minWidth: 44, justifyContent: 'center', alignItems: 'center' }} accessibilityRole="button" accessibilityLabel={t('common.close')}>
           <Ionicons name="arrow-back" size={24} color={colors.text} />
         </Pressable>
         <Text style={{ fontSize: 18, fontWeight: '700', color: colors.text }}>{t('scan.result_title')}</Text>

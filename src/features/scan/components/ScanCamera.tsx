@@ -127,7 +127,7 @@ export function ScanCamera() {
               {/* Flip */}
               <Pressable
                 onPress={() => setFacing(f => f === 'back' ? 'front' : 'back')}
-                accessibilityLabel="Flip camera"
+                accessibilityLabel={t('scan.flip_camera')}
                 accessibilityRole="button"
                 style={{
                   width: 48,

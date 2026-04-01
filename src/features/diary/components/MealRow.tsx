@@ -26,12 +26,15 @@ export function MealRow({ entry }: MealRowProps) {
   return (
     <Pressable
       onLongPress={handleDelete}
+      accessibilityRole="button"
+      accessibilityLabel={`${entry.food_name} ${Math.round(entry.total_calories)} ${t('common.kcal')}`}
       style={{
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
         paddingVertical: 10,
         paddingHorizontal: 12,
+        minHeight: 44,
         borderRadius: RADIUS.sm,
         backgroundColor: colors.surface,
       }}
@@ -51,7 +54,7 @@ export function MealRow({ entry }: MealRowProps) {
             {Math.round(entry.total_calories)} {t('common.kcal')}
           </Text>
           <Text style={{ fontSize: 10, color: colors.textSecondary }}>
-            P{Math.round(entry.total_protein)} C{Math.round(entry.total_carbs)} F{Math.round(entry.total_fat)}
+            {t('common.protein_short')}{Math.round(entry.total_protein)} {t('common.carbs_short')}{Math.round(entry.total_carbs)} {t('common.fat_short')}{Math.round(entry.total_fat)}
           </Text>
         </View>
         {entry.entry_method === 'photo' && (

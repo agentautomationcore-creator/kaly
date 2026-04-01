@@ -25,6 +25,8 @@ export function Modal({ visible, onClose, title, children, style }: ModalProps) 
       <Pressable
         style={{ flex: 1, backgroundColor: 'rgba(0,0,0,0.5)', justifyContent: 'center', padding: 24 }}
         onPress={onClose}
+        accessibilityRole="button"
+        accessibilityLabel="Close modal"
       >
         <Pressable
           style={{

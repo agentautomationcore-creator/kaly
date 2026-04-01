@@ -75,7 +75,10 @@
     "add_to": "Ajouter au {{meal}}",
     "scan_limit": "Limite quotidienne atteinte ({{limit}}/jour)",
     "upgrade_for_more": "Passez à Pro pour des scans illimités",
-    "grant_camera": "Autoriser l'accès à la caméra"
+    "grant_camera": "Autoriser l'accès à la caméra",
+    "ingredients_count": "{{count}} ingrédients",
+    "scan_food": "Scanner",
+    "flip_camera": "Retourner la caméra"
   },
   "diary": {
     "title": "Aujourd'hui",
@@ -143,8 +146,10 @@
     "privacy": "Confidentialite",
     "ai_analysis": "Analyse IA",
     "health_data": "Traitement donnees de sante",
+    "analytics": "Analyses d'utilisation",
     "export_data": "Exporter les données (CSV)",
     "export_share_title": "Export des données Kaly",
+    "allergies_count": "{{count}} allergies",
     "delete_account": "Supprimer le compte",
     "delete_confirm": "Toutes vos données seront définitivement supprimées. Cette action est irréversible.",
     "sign_out": "Déconnexion",
@@ -208,9 +213,15 @@
   },
   "consent": {
     "ai_title": "Analyse par IA",
-    "ai_body": "Vos photos de repas sont analysées par Claude AI pour estimer les nutriments.",
+    "ai_what": "Ce qui se passe avec vos photos :",
+    "ai_bullet_1": "Les photos sont envoyées à Claude AI (Anthropic) pour analyse",
+    "ai_bullet_2": "Les photos ne sont pas conservées après l'analyse",
+    "ai_bullet_3": "Vous pouvez retirer votre consentement dans les Paramètres",
     "health_title": "Données de santé",
-    "health_body": "Vos données nutritionnelles sont stockées de manière sécurisée et ne sont jamais partagées.",
+    "health_what": "Données de santé collectées :",
+    "health_bullet_1": "Poids, taille, préférences alimentaires, apport calorique",
+    "health_bullet_2": "Stockées en toute sécurité dans l'UE (RGPD Art. 9)",
+    "health_bullet_3": "Utilisées uniquement pour le suivi nutritionnel",
     "read_privacy": "Lire notre politique de confidentialité",
     "accept": "J'accepte",
     "decline": "Refuser"
@@ -226,13 +237,17 @@
     "close": "Fermer",
     "kcal": "kcal",
     "g": "g",
-    "ml": "ml"
+    "ml": "ml",
+    "protein_short": "P",
+    "carbs_short": "C",
+    "fat_short": "F"
   },
   "errors": {
     "analysis_failed": "L'analyse a échoué. Réessayez.",
     "no_camera": "Caméra non disponible",
     "network": "Pas de connexion internet",
-    "generic": "Une erreur est survenue"
+    "generic": "Une erreur est survenue",
+    "offline_banner": "Hors ligne — les données seront synchronisées"
   },
   "notifications": {
     "breakfast_title": "Bonjour !",

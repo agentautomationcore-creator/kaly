@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, Text } from 'react-native';
+import { useTranslation } from 'react-i18next';
 import { useColors } from '../../../lib/theme';
 import type { DayStats } from '../types';
 
@@ -8,9 +9,8 @@ interface WeeklyBarChartProps {
   goal?: number;
 }
 
-const DAY_NAMES = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
-
 export const WeeklyBarChart = React.memo(function WeeklyBarChart({ days, goal = 2000 }: WeeklyBarChartProps) {
+  const { i18n } = useTranslation();
   const colors = useColors();
   const maxCal = Math.max(goal, ...days.map((d) => d.calories));
   const barHeight = 120;
@@ -21,7 +21,7 @@ export const WeeklyBarChart = React.memo(function WeeklyBarChart({ days, goal = 
         const h = maxCal > 0 ? (day.calories / maxCal) * barHeight : 0;
         const isToday = day.date === new Date().toISOString().split('T')[0];
         const isOver = day.calories > goal;
-        const dayName = new Date(day.date).toLocaleDateString('en', { weekday: 'short' }).slice(0, 3);
+        const dayName = new Date(day.date).toLocaleDateString(i18n.language, { weekday: 'short' }).slice(0, 3);
 
         return (
           <View key={day.date} style={{ alignItems: 'center', flex: 1 }}>

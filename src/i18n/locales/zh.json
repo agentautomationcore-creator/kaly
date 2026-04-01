@@ -75,7 +75,10 @@
     "add_to": "添加到{{meal}}",
     "scan_limit": "已达每日扫描上限（{{limit}}/天）",
     "upgrade_for_more": "升级到 Pro 享受无限扫描",
-    "grant_camera": "允许访问相机"
+    "grant_camera": "允许访问相机",
+    "ingredients_count": "{{count}} 种成分",
+    "scan_food": "扫描食物",
+    "flip_camera": "切换摄像头"
   },
   "diary": {
     "title": "今天",
@@ -143,8 +146,10 @@
     "privacy": "隐私",
     "ai_analysis": "AI 分析",
     "health_data": "健康数据处理",
+    "analytics": "使用分析",
     "export_data": "导出数据（CSV）",
     "export_share_title": "Kaly 数据导出",
+    "allergies_count": "{{count}} 个过敏",
     "delete_account": "删除账号",
     "delete_confirm": "你的所有数据将被永久删除，此操作无法撤销。",
     "sign_out": "退出登录",
@@ -208,9 +213,15 @@
   },
   "consent": {
     "ai_title": "AI 分析",
-    "ai_body": "您的餐食照片由 Claude AI 分析以估算营养成分。",
+    "ai_what": "您的照片会怎样处理：",
+    "ai_bullet_1": "照片发送至 Claude AI（Anthropic）进行分析",
+    "ai_bullet_2": "分析后照片不会被保存",
+    "ai_bullet_3": "您可以在设置中撤回同意",
     "health_title": "健康数据",
-    "health_body": "您的营养数据安全存储，绝不共享。",
+    "health_what": "我们收集哪些健康数据：",
+    "health_bullet_1": "体重、身高、饮食偏好、卡路里摄入",
+    "health_bullet_2": "安全存储在欧盟（GDPR第9条）",
+    "health_bullet_3": "仅用于营养追踪",
     "read_privacy": "阅读隐私政策",
     "accept": "我同意",
     "decline": "拒绝"
@@ -226,13 +237,17 @@
     "close": "关闭",
     "kcal": "kcal",
     "g": "g",
-    "ml": "ml"
+    "ml": "ml",
+    "protein_short": "P",
+    "carbs_short": "C",
+    "fat_short": "F"
   },
   "errors": {
     "analysis_failed": "分析失败，请重试。",
     "no_camera": "相机不可用",
     "network": "无网络连接",
-    "generic": "出了点问题"
+    "generic": "出了点问题",
+    "offline_banner": "离线 — 连接后数据将同步"
   },
   "notifications": {
     "breakfast_title": "早上好！",

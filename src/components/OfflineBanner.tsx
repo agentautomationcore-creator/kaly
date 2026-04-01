@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text } from 'react-native';
+import { useTranslation } from 'react-i18next';
 import NetInfo from '@react-native-community/netinfo';
 import { useColors } from '../lib/theme';
 
 export function OfflineBanner() {
+  const { t } = useTranslation();
   const colors = useColors();
   const [isOffline, setIsOffline] = useState(false);
 
@@ -26,7 +28,7 @@ export function OfflineBanner() {
       }}
     >
       <Text style={{ fontSize: 13, color: colors.warning, fontWeight: '500' }}>
-        Offline — data will sync when connected
+        {t('errors.offline_banner')}
       </Text>
     </View>
   );

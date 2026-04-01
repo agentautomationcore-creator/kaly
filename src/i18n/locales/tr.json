@@ -75,7 +75,10 @@
     "add_to": "{{meal}} öğününe ekle",
     "scan_limit": "Günlük tarama limitine ulaşıldı ({{limit}}/gün)",
     "upgrade_for_more": "Sınırsız tarama için Pro'ya geç",
-    "grant_camera": "Kamera erişimine izin ver"
+    "grant_camera": "Kamera erişimine izin ver",
+    "ingredients_count": "{{count}} malzeme",
+    "scan_food": "Tara",
+    "flip_camera": "Kamerayı çevir"
   },
   "diary": {
     "title": "Bugün",
@@ -143,8 +146,10 @@
     "privacy": "Gizlilik",
     "ai_analysis": "Yapay Zeka Analizi",
     "health_data": "Saglik verisi isleme",
+    "analytics": "Kullanım analitiği",
     "export_data": "Verileri dışa aktar (CSV)",
     "export_share_title": "Kaly Veri Dışa Aktarımı",
+    "allergies_count": "{{count}} alerji",
     "delete_account": "Hesabı sil",
     "delete_confirm": "Tüm verilerin kalıcı olarak silinecek. Bu işlem geri alınamaz.",
     "sign_out": "Çıkış yap",
@@ -208,9 +213,15 @@
   },
   "consent": {
     "ai_title": "Yapay Zeka Analizi",
-    "ai_body": "Yemek fotoğraflarınız besin değerlerini tahmin etmek için Claude AI tarafından analiz edilir.",
+    "ai_what": "Fotoğraflarınıza ne olur:",
+    "ai_bullet_1": "Fotoğraflar analiz için Claude AI'ya (Anthropic) gönderilir",
+    "ai_bullet_2": "Fotoğraflar analiz sonrası saklanmaz",
+    "ai_bullet_3": "Onayınızı Ayarlar'dan geri çekebilirsiniz",
     "health_title": "Sağlık verileri",
-    "health_body": "Beslenme verileriniz güvenli bir şekilde saklanır ve asla paylaşılmaz.",
+    "health_what": "Hangi sağlık verilerini topluyoruz:",
+    "health_bullet_1": "Kilo, boy, diyet tercihleri, kalori alımı",
+    "health_bullet_2": "AB'de güvenle saklanır (KVKK Md. 9)",
+    "health_bullet_3": "Yalnızca beslenme takibi için kullanılır",
     "read_privacy": "Gizlilik politikasını oku",
     "accept": "Kabul ediyorum",
     "decline": "Reddet"
@@ -226,13 +237,17 @@
     "close": "Kapat",
     "kcal": "kcal",
     "g": "g",
-    "ml": "ml"
+    "ml": "ml",
+    "protein_short": "P",
+    "carbs_short": "C",
+    "fat_short": "F"
   },
   "errors": {
     "analysis_failed": "Analiz başarısız. Lütfen tekrar dene.",
     "no_camera": "Kamera kullanılamıyor",
     "network": "İnternet bağlantısı yok",
-    "generic": "Bir şeyler ters gitti"
+    "generic": "Bir şeyler ters gitti",
+    "offline_banner": "Çevrimdışı — veriler bağlandığında senkronize edilecek"
   },
   "notifications": {
     "breakfast_title": "Günaydın!",

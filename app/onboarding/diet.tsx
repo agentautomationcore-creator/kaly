@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, Pressable, ScrollView } from 'react-native';
+import { View, Text, Pressable, ScrollView, Alert } from 'react-native';
 import { useRouter } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useTranslation } from 'react-i18next';
@@ -50,7 +50,7 @@ export default function DietScreen() {
 
       router.replace('/(tabs)/diary');
     } catch (e) {
-      // TODO: show error
+      Alert.alert(t('common.error'), t('errors.generic'));
     } finally {
       setLoading(false);
     }

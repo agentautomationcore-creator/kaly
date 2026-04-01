@@ -75,7 +75,10 @@
     "add_to": "أضف إلى {{meal}}",
     "scan_limit": "تم بلوغ الحد اليومي للمسح ({{limit}}/يوم)",
     "upgrade_for_more": "ترقّ إلى Pro لمسح غير محدود",
-    "grant_camera": "السماح بالوصول إلى الكاميرا"
+    "grant_camera": "السماح بالوصول إلى الكاميرا",
+    "ingredients_count": "{{count}} مكونات",
+    "scan_food": "مسح الطعام",
+    "flip_camera": "قلب الكاميرا"
   },
   "diary": {
     "title": "اليوم",
@@ -143,8 +146,10 @@
     "privacy": "الخصوصية",
     "ai_analysis": "تحليل الذكاء الاصطناعي",
     "health_data": "معالجة البيانات الصحية",
+    "analytics": "تحليلات الاستخدام",
     "export_data": "تصدير البيانات (CSV)",
     "export_share_title": "تصدير بيانات Kaly",
+    "allergies_count": "{{count}} حساسيات",
     "delete_account": "حذف الحساب",
     "delete_confirm": "سيتم حذف جميع بياناتك نهائياً. لا يمكن التراجع عن هذا الإجراء.",
     "sign_out": "تسجيل الخروج",
@@ -208,9 +213,15 @@
   },
   "consent": {
     "ai_title": "تحليل بالذكاء الاصطناعي",
-    "ai_body": "يتم تحليل صور وجباتك بواسطة Claude AI لتقدير العناصر الغذائية.",
+    "ai_what": "ما يحدث لصورك:",
+    "ai_bullet_1": "تُرسل الصور إلى Claude AI (Anthropic) للتحليل",
+    "ai_bullet_2": "لا يتم حفظ الصور بعد التحليل",
+    "ai_bullet_3": "يمكنك سحب موافقتك في الإعدادات",
     "health_title": "بيانات صحية",
-    "health_body": "يتم تخزين بياناتك الغذائية بشكل آمن ولا تتم مشاركتها أبدًا.",
+    "health_what": "البيانات الصحية التي نجمعها:",
+    "health_bullet_1": "الوزن، الطول، التفضيلات الغذائية، السعرات",
+    "health_bullet_2": "مخزنة بأمان في الاتحاد الأوروبي (GDPR المادة 9)",
+    "health_bullet_3": "تُستخدم فقط لتتبع التغذية",
     "read_privacy": "اقرأ سياسة الخصوصية",
     "accept": "أوافق",
     "decline": "رفض"
@@ -226,13 +237,17 @@
     "close": "إغلاق",
     "kcal": "kcal",
     "g": "g",
-    "ml": "ml"
+    "ml": "ml",
+    "protein_short": "P",
+    "carbs_short": "C",
+    "fat_short": "F"
   },
   "errors": {
     "analysis_failed": "فشل التحليل. يرجى المحاولة مجدداً.",
     "no_camera": "الكاميرا غير متاحة",
     "network": "لا يوجد اتصال بالإنترنت",
-    "generic": "حدث خطأ ما"
+    "generic": "حدث خطأ ما",
+    "offline_banner": "غير متصل — ستتم مزامنة البيانات"
   },
   "notifications": {
     "breakfast_title": "صباح الخير!",

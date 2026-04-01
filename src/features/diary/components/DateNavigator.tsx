@@ -48,7 +48,7 @@ export function DateNavigator({ date, onDateChange }: DateNavigatorProps) {
           <Ionicons name="chevron-back" size={24} color={colors.text} />
         </Pressable>
 
-        <Pressable onPress={() => setShowPicker(!showPicker)} style={{ alignItems: 'center', flexDirection: 'row', gap: 6 }}>
+        <Pressable onPress={() => setShowPicker(!showPicker)} style={{ alignItems: 'center', flexDirection: 'row', gap: 6, minHeight: 44, justifyContent: 'center' }} accessibilityRole="button" accessibilityLabel={label}>
           <Text style={{ fontSize: 18, fontWeight: '700', color: colors.text }}>{label}</Text>
           <Ionicons name={showPicker ? 'chevron-up' : 'calendar-outline'} size={16} color={colors.textSecondary} />
         </Pressable>
@@ -73,9 +73,13 @@ export function DateNavigator({ date, onDateChange }: DateNavigatorProps) {
               <Pressable
                 key={d}
                 onPress={() => { onDateChange(d); setShowPicker(false); }}
+                accessibilityRole="button"
+                accessibilityLabel={dayLabel}
                 style={{
                   paddingVertical: 6,
                   paddingHorizontal: 8,
+                  minHeight: 44,
+                  justifyContent: 'center',
                   borderRadius: 8,
                   backgroundColor: isSelected ? colors.primaryLight : 'transparent',
                 }}

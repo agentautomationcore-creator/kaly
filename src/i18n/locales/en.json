@@ -75,7 +75,10 @@
     "add_to": "Add to {{meal}}",
     "scan_limit": "Daily scan limit reached ({{limit}}/day)",
     "upgrade_for_more": "Upgrade to Pro for unlimited scans",
-    "grant_camera": "Grant camera access"
+    "grant_camera": "Grant camera access",
+    "ingredients_count": "{{count}} ingredients",
+    "scan_food": "Scan food",
+    "flip_camera": "Flip camera"
   },
   "diary": {
     "title": "Today",
@@ -143,8 +146,10 @@
     "privacy": "Privacy",
     "ai_analysis": "AI Analysis",
     "health_data": "Health Data Processing",
+    "analytics": "Usage Analytics",
     "export_data": "Export data (CSV)",
     "export_share_title": "Kaly Data Export",
+    "allergies_count": "{{count}} allergies",
     "delete_account": "Delete account",
     "delete_confirm": "All your data will be permanently deleted. This cannot be undone.",
     "sign_out": "Sign out",
@@ -208,9 +213,15 @@
   },
   "consent": {
     "ai_title": "AI Food Analysis",
-    "ai_body": "Kaly uses Claude AI (by Anthropic) to analyze your food photos. Your photos are sent to Anthropic's servers for processing. Photos are not stored by Anthropic after analysis. By continuing, you consent to this data processing.",
+    "ai_what": "What happens with your photos:",
+    "ai_bullet_1": "Photos are sent to Claude AI (Anthropic) for analysis",
+    "ai_bullet_2": "Photos are not stored after analysis",
+    "ai_bullet_3": "You can withdraw consent anytime in Settings",
     "health_title": "Health Data Processing",
-    "health_body": "Kaly collects health-related data (weight, height, dietary preferences, calorie intake) to provide personalized nutrition tracking. Under GDPR Article 9, we need your explicit consent to process this health data. Your data is stored securely in the EU.",
+    "health_what": "What health data we collect:",
+    "health_bullet_1": "Weight, height, dietary preferences, calorie intake",
+    "health_bullet_2": "Stored securely in the EU (GDPR Art. 9)",
+    "health_bullet_3": "Used only for personalized nutrition tracking",
     "read_privacy": "Read our Privacy Policy",
     "accept": "I agree",
     "decline": "No thanks"
@@ -226,13 +237,17 @@
     "close": "Close",
     "kcal": "kcal",
     "g": "g",
-    "ml": "ml"
+    "ml": "ml",
+    "protein_short": "P",
+    "carbs_short": "C",
+    "fat_short": "F"
   },
   "errors": {
     "analysis_failed": "Analysis failed. Please try again.",
     "no_camera": "Camera not available",
     "network": "No internet connection",
-    "generic": "Something went wrong"
+    "generic": "Something went wrong",
+    "offline_banner": "Offline — data will sync when connected"
   },
   "notifications": {
     "breakfast_title": "Good morning!",

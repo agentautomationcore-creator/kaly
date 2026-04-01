@@ -10,7 +10,6 @@ import { Button } from '../src/components/Button';
 import { Card } from '../src/components/Card';
 import { FONT_SIZE, RADIUS } from '../src/lib/constants';
 import { useAuthStore } from '../src/stores/authStore';
-import { supabase } from '../src/lib/supabase';
 
 type PlanPeriod = 'monthly' | 'annual';
 
@@ -40,20 +39,14 @@ export default function PaywallScreen() {
     loadOfferings();
   }, []);
 
-  /** Sync RevenueCat entitlements → Supabase profile.plan */
-  const syncPlanFromCustomerInfo = async (customerInfo: CustomerInfo) => {
+  /** Sync RevenueCat entitlements → Zustand (DB sync via RevenueCat webhook with service_role) */
+  const syncPlanFromCustomerInfo = (customerInfo: CustomerInfo) => {
     const isPro = !!customerInfo.entitlements.active['pro'];
     const newPlan = isPro ? 'pro' : 'free';
-    if (user) {
-      await supabase
-        .from('nutrition_profiles')
-        .update({ plan: newPlan })
-        .eq('user_id', user.id);
+    const profile = useAuthStore.getState().profile;
+    if (profile) {
+      useAuthStore.getState().setProfile({ ...profile, plan: newPlan });
     }
-    useAuthStore.getState().setProfile({
-      ...useAuthStore.getState().profile!,
-      plan: newPlan,
-    });
   };
 
   // Require account before purchasing
@@ -119,7 +112,7 @@ export default function PaywallScreen() {
     <SafeAreaView style={{ flex: 1, backgroundColor: colors.background }}>
       <ScrollView contentContainerStyle={{ padding: 24, paddingBottom: 60 }}>
         {/* Close button */}
-        <Pressable onPress={() => router.back()} style={{ alignSelf: 'flex-end', padding: 8 }}>
+        <Pressable onPress={() => router.back()} style={{ alignSelf: 'flex-end', padding: 8, minHeight: 44, minWidth: 44, justifyContent: 'center', alignItems: 'center' }} accessibilityRole="button" accessibilityLabel={t('common.close')}>
           <Ionicons name="close" size={28} color={colors.text} />
         </Pressable>
 
@@ -200,22 +193,21 @@ export default function PaywallScreen() {
         </Text>
 
         {/* Continue free */}
-        <Pressable onPress={() => router.back()} style={{ alignItems: 'center', marginTop: 20 }}>
+        <Pressable onPress={() => router.back()} style={{ alignItems: 'center', marginTop: 20, minHeight: 44, justifyContent: 'center' }} accessibilityRole="button" accessibilityLabel={t('paywall.continue_free')}>
           <Text style={{ fontSize: FONT_SIZE.sm, color: colors.textSecondary }}>{t('paywall.continue_free')}</Text>
         </Pressable>
 
         {/* Restore + links */}
-        <View style={{ flexDirection: 'row', justifyContent: 'center', gap: 16, marginTop: 24 }}>
-          <Pressable onPress={handleRestore}>
+        <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center', gap: 16, marginTop: 24 }}>
+          <Pressable onPress={handleRestore} style={{ minHeight: 44, justifyContent: 'center' }} accessibilityRole="button" accessibilityLabel={t('paywall.restore')}>
             <Text style={{ fontSize: 12, color: colors.textSecondary }}>{t('paywall.restore')}</Text>
           </Pressable>
           <Text style={{ fontSize: 12, color: colors.border }}>|</Text>
-          {/* AS5: Terms and Privacy with actual onPress handlers */}
-          <Pressable onPress={() => Linking.openURL(TERMS_URL)}>
+          <Pressable onPress={() => Linking.openURL(TERMS_URL)} style={{ minHeight: 44, justifyContent: 'center' }} accessibilityRole="link" accessibilityLabel={t('paywall.terms')}>
             <Text style={{ fontSize: 12, color: colors.textSecondary }}>{t('paywall.terms')}</Text>
           </Pressable>
           <Text style={{ fontSize: 12, color: colors.border }}>|</Text>
-          <Pressable onPress={() => Linking.openURL(PRIVACY_URL)}>
+          <Pressable onPress={() => Linking.openURL(PRIVACY_URL)} style={{ minHeight: 44, justifyContent: 'center' }} accessibilityRole="link" accessibilityLabel={t('paywall.privacy')}>
             <Text style={{ fontSize: 12, color: colors.textSecondary }}>{t('paywall.privacy')}</Text>
           </Pressable>
         </View>

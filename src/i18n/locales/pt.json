@@ -75,7 +75,10 @@
     "add_to": "Adicionar a {{meal}}",
     "scan_limit": "Limite diário de escaneamentos atingido ({{limit}}/dia)",
     "upgrade_for_more": "Assine o Pro para escaneamentos ilimitados",
-    "grant_camera": "Permitir acesso à câmera"
+    "grant_camera": "Permitir acesso à câmera",
+    "ingredients_count": "{{count}} ingredientes",
+    "scan_food": "Escanear",
+    "flip_camera": "Virar câmera"
   },
   "diary": {
     "title": "Hoje",
@@ -143,8 +146,10 @@
     "privacy": "Privacidade",
     "ai_analysis": "Analise IA",
     "health_data": "Processamento de dados de saude",
+    "analytics": "Análise de uso",
     "export_data": "Exportar dados (CSV)",
     "export_share_title": "Exportação de dados Kaly",
+    "allergies_count": "{{count}} alergias",
     "delete_account": "Excluir conta",
     "delete_confirm": "Todos os seus dados serão excluídos permanentemente. Essa ação não pode ser desfeita.",
     "sign_out": "Sair",
@@ -208,9 +213,15 @@
   },
   "consent": {
     "ai_title": "Análise com IA",
-    "ai_body": "Suas fotos de refeições são analisadas pelo Claude AI para estimar nutrientes.",
+    "ai_what": "O que acontece com suas fotos:",
+    "ai_bullet_1": "Fotos são enviadas ao Claude AI (Anthropic) para análise",
+    "ai_bullet_2": "Fotos não são armazenadas após a análise",
+    "ai_bullet_3": "Você pode revogar o consentimento nas Configurações",
     "health_title": "Dados de saúde",
-    "health_body": "Seus dados nutricionais são armazenados com segurança e nunca compartilhados.",
+    "health_what": "Quais dados de saúde coletamos:",
+    "health_bullet_1": "Peso, altura, preferências alimentares, calorias",
+    "health_bullet_2": "Armazenados com segurança na UE (RGPD Art. 9)",
+    "health_bullet_3": "Usados apenas para acompanhamento nutricional",
     "read_privacy": "Ler política de privacidade",
     "accept": "Eu aceito",
     "decline": "Recusar"
@@ -226,13 +237,17 @@
     "close": "Fechar",
     "kcal": "kcal",
     "g": "g",
-    "ml": "ml"
+    "ml": "ml",
+    "protein_short": "P",
+    "carbs_short": "C",
+    "fat_short": "F"
   },
   "errors": {
     "analysis_failed": "A análise falhou. Tente novamente.",
     "no_camera": "Câmera não disponível",
     "network": "Sem conexão com a internet",
-    "generic": "Algo deu errado"
+    "generic": "Algo deu errado",
+    "offline_banner": "Offline — dados serão sincronizados"
   },
   "notifications": {
     "breakfast_title": "Bom dia!",

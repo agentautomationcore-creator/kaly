@@ -28,7 +28,7 @@ export function IngredientList({ items, multiplier }: IngredientListProps) {
         style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12 }}
       >
         <Text style={{ fontSize: FONT_SIZE.md, fontWeight: '600', color: colors.text }}>
-          {items.length} ingredients
+          {t('scan.ingredients_count', { count: items.length })}
         </Text>
         <Ionicons name={expanded ? 'chevron-up' : 'chevron-down'} size={20} color={colors.textSecondary} />
       </Pressable>
@@ -46,7 +46,7 @@ export function IngredientList({ items, multiplier }: IngredientListProps) {
       {expanded && (
         <View style={{ gap: 8 }}>
           {visibleItems.map((item, i) => (
-            <IngredientRow key={i} item={item} multiplier={multiplier} colors={colors} />
+            <IngredientRow key={i} item={item} multiplier={multiplier} colors={colors} t={t} />
           ))}
           {hiddenItems.length > 0 && (
             <>
@@ -54,7 +54,7 @@ export function IngredientList({ items, multiplier }: IngredientListProps) {
                 ⚠️ {t('scan.hidden_ingredients')}
               </Text>
               {hiddenItems.map((item, i) => (
-                <IngredientRow key={`h-${i}`} item={item} multiplier={multiplier} colors={colors} isHidden />
+                <IngredientRow key={`h-${i}`} item={item} multiplier={multiplier} colors={colors} isHidden t={t} />
               ))}
             </>
           )}
@@ -64,7 +64,7 @@ export function IngredientList({ items, multiplier }: IngredientListProps) {
   );
 }
 
-function IngredientRow({ item, multiplier, colors, isHidden }: { item: FoodItem; multiplier: number; colors: Colors; isHidden?: boolean }) {
+function IngredientRow({ item, multiplier, colors, isHidden, t }: { item: FoodItem; multiplier: number; colors: Colors; isHidden?: boolean; t: (key: string) => string }) {
   return (
     <View
       style={{
@@ -86,7 +86,7 @@ function IngredientRow({ item, multiplier, colors, isHidden }: { item: FoodItem;
         </Text>
       </View>
       <Text style={{ fontSize: FONT_SIZE.sm, fontWeight: '600', color: colors.text }}>
-        {Math.round(item.calories * multiplier)} kcal
+        {Math.round(item.calories * multiplier)} {t('common.kcal')}
       </Text>
     </View>
   );

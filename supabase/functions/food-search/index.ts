@@ -16,11 +16,11 @@ async function checkUserRateLimit(supabase: any, userId: string): Promise<boolea
     });
     if (error) {
       console.error('Rate limit check failed:', error.message);
-      return true; // fail open on DB error
+      return false; // fail-closed on DB error
     }
     return data === true;
   } catch {
-    return true;
+    return false;
   }
 }
 
@@ -67,7 +67,7 @@ serve(async (req) => {
 
     const url = new URL(req.url);
     const query = url.searchParams.get('q');
-    if (!query || query.length < 2) {
+    if (!query || query.length < 2 || query.length > 200) {
       return new Response(JSON.stringify({ products: [] }), {
         headers: { ...corsHeaders, 'Content-Type': 'application/json' },
       });

@@ -7,6 +7,7 @@ import { useColors } from '../../src/lib/theme';
 import { useRouter } from 'expo-router';
 
 function ScanFAB() {
+  const { t } = useTranslation();
   const colors = useColors();
   const router = useRouter();
 
@@ -28,7 +29,7 @@ function ScanFAB() {
         elevation: 8,
       }}
       accessibilityRole="button"
-      accessibilityLabel="Scan food"
+      accessibilityLabel={t('scan.scan_food')}
     >
       <Ionicons name="camera" size={28} color={colors.card} />
     </Pressable>

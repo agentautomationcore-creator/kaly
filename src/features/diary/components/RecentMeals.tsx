@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, Pressable } from 'react-native';
+import { View, Text, Pressable, Alert } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { Ionicons } from '@expo/vector-icons';
 import { useColors } from '../../../lib/theme';
@@ -27,25 +27,29 @@ export const RecentMeals = React.memo(function RecentMeals({ date }: RecentMeals
   const repeatMeal = async (entry: DiaryEntry) => {
     if (!user) return;
 
-    await supabase.from('diary_entries').insert({
-      user_id: user.id,
-      logged_at: date,
-      meal_type: entry.meal_type,
-      food_name: entry.food_name,
-      food_name_en: entry.food_name_en,
-      food_items: entry.food_items,
-      quantity_g: entry.quantity_g,
-      total_calories: entry.total_calories,
-      total_protein: entry.total_protein,
-      total_carbs: entry.total_carbs,
-      total_fat: entry.total_fat,
-      total_fiber: entry.total_fiber,
-      confidence: entry.confidence,
-      entry_method: entry.entry_method,
-      source_entry_id: entry.id,
-    });
-
-    qc.invalidateQueries({ queryKey: ['diary', date] });
+    try {
+      const { error } = await supabase.from('diary_entries').insert({
+        user_id: user.id,
+        logged_at: date,
+        meal_type: entry.meal_type,
+        food_name: entry.food_name,
+        food_name_en: entry.food_name_en,
+        food_items: entry.food_items,
+        quantity_g: entry.quantity_g,
+        total_calories: entry.total_calories,
+        total_protein: entry.total_protein,
+        total_carbs: entry.total_carbs,
+        total_fat: entry.total_fat,
+        total_fiber: entry.total_fiber,
+        confidence: entry.confidence,
+        entry_method: entry.entry_method,
+        source_entry_id: entry.id,
+      });
+      if (error) throw error;
+      qc.invalidateQueries({ queryKey: ['diary', date] });
+    } catch {
+      Alert.alert(t('common.error'), t('errors.generic'));
+    }
   };
 
   return (

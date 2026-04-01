@@ -75,7 +75,10 @@
     "add_to": "Zu {{meal}} hinzufügen",
     "scan_limit": "Tägliches Scan-Limit erreicht ({{limit}}/Tag)",
     "upgrade_for_more": "Upgrade auf Pro für unbegrenzte Scans",
-    "grant_camera": "Kamerazugriff erlauben"
+    "grant_camera": "Kamerazugriff erlauben",
+    "ingredients_count": "{{count}} Zutaten",
+    "scan_food": "Scannen",
+    "flip_camera": "Kamera wechseln"
   },
   "diary": {
     "title": "Heute",
@@ -143,8 +146,10 @@
     "privacy": "Datenschutz",
     "ai_analysis": "KI-Analyse",
     "health_data": "Gesundheitsdatenverarbeitung",
+    "analytics": "Nutzungsanalyse",
     "export_data": "Daten exportieren (CSV)",
     "export_share_title": "Kaly Datenexport",
+    "allergies_count": "{{count}} Allergien",
     "delete_account": "Konto löschen",
     "delete_confirm": "Alle deine Daten werden unwiderruflich gelöscht. Dies kann nicht rückgängig gemacht werden.",
     "sign_out": "Abmelden",
@@ -208,9 +213,15 @@
   },
   "consent": {
     "ai_title": "KI-Analyse",
-    "ai_body": "Ihre Essensfotos werden von Claude AI analysiert, um Nährstoffe zu schätzen.",
+    "ai_what": "Was mit Ihren Fotos passiert:",
+    "ai_bullet_1": "Fotos werden an Claude AI (Anthropic) zur Analyse gesendet",
+    "ai_bullet_2": "Fotos werden nach der Analyse nicht gespeichert",
+    "ai_bullet_3": "Sie können die Einwilligung jederzeit in den Einstellungen widerrufen",
     "health_title": "Gesundheitsdaten",
-    "health_body": "Ihre Ernährungsdaten werden sicher gespeichert und niemals weitergegeben.",
+    "health_what": "Welche Gesundheitsdaten wir erfassen:",
+    "health_bullet_1": "Gewicht, Größe, Ernährungspräferenzen, Kalorienaufnahme",
+    "health_bullet_2": "Sicher in der EU gespeichert (DSGVO Art. 9)",
+    "health_bullet_3": "Nur für die Ernährungsverfolgung verwendet",
     "read_privacy": "Datenschutzrichtlinie lesen",
     "accept": "Ich akzeptiere",
     "decline": "Ablehnen"
@@ -226,13 +237,17 @@
     "close": "Schließen",
     "kcal": "kcal",
     "g": "g",
-    "ml": "ml"
+    "ml": "ml",
+    "protein_short": "P",
+    "carbs_short": "C",
+    "fat_short": "F"
   },
   "errors": {
     "analysis_failed": "Analyse fehlgeschlagen. Bitte versuche es erneut.",
     "no_camera": "Kamera nicht verfügbar",
     "network": "Keine Internetverbindung",
-    "generic": "Etwas ist schiefgelaufen"
+    "generic": "Etwas ist schiefgelaufen",
+    "offline_banner": "Offline — Daten werden bei Verbindung synchronisiert"
   },
   "notifications": {
     "breakfast_title": "Guten Morgen!",

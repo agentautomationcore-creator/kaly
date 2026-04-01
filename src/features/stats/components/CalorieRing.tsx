@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, Text } from 'react-native';
+import { useTranslation } from 'react-i18next';
 import Svg, { Circle } from 'react-native-svg';
 import Animated, { useSharedValue, useAnimatedProps, withTiming, cancelAnimation } from 'react-native-reanimated';
 import { useColors } from '../../../lib/theme';
@@ -13,6 +14,7 @@ interface CalorieRingProps {
 }
 
 export const CalorieRing = React.memo(function CalorieRing({ current, goal, size = 160 }: CalorieRingProps) {
+  const { t } = useTranslation();
   const colors = useColors();
   const strokeWidth = 12;
   const radius = (size - strokeWidth) / 2;
@@ -64,7 +66,7 @@ export const CalorieRing = React.memo(function CalorieRing({ current, goal, size
         <Text style={{ fontSize: 36, fontWeight: '800', color: isOver ? colors.danger : colors.primary }}>
           {Math.round(current)}
         </Text>
-        <Text style={{ fontSize: 13, color: colors.textSecondary }}>/ {goal} kcal</Text>
+        <Text style={{ fontSize: 13, color: colors.textSecondary }}>/ {goal} {t('common.kcal')}</Text>
       </View>
     </View>
   );

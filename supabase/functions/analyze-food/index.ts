@@ -139,11 +139,12 @@ serve(async (req) => {
         const response = await anthropic.messages.create({
           model: 'claude-haiku-4-5-20251001',
           max_tokens: 2048,
+          system: prompt,
           messages: [{
             role: 'user',
             content: [
               { type: 'image', source: { type: 'base64', media_type: 'image/jpeg', data: image } },
-              { type: 'text', text: prompt },
+              { type: 'text', text: 'Analyze this food photo.' },
             ],
           }],
         }, { timeout: 60000 });

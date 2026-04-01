@@ -11,7 +11,6 @@ import { useColors, useThemeMode } from '../src/lib/theme';
 import { ErrorBoundary } from '../src/components/ErrorBoundary';
 import { OfflineBanner } from '../src/components/OfflineBanner';
 import { useAuthStore } from '../src/stores/authStore';
-import { supabase } from '../src/lib/supabase';
 import { loadSavedLanguage } from '../src/i18n';
 import '../src/i18n';
 
@@ -41,16 +40,11 @@ export default function RootLayout() {
 
   // SUB-2: Listen for subscription changes (cancel, renew, expire)
   useEffect(() => {
-    const syncPlan = async (customerInfo: { entitlements: { active: Record<string, unknown> } }) => {
+    const syncPlan = (customerInfo: { entitlements: { active: Record<string, unknown> } }) => {
       const isPro = !!customerInfo.entitlements.active['pro'];
       const newPlan = isPro ? 'pro' : 'free';
-      const user = useAuthStore.getState().user;
       const profile = useAuthStore.getState().profile;
-      if (user && profile && profile.plan !== newPlan) {
-        await supabase
-          .from('nutrition_profiles')
-          .update({ plan: newPlan })
-          .eq('user_id', user.id);
+      if (profile && profile.plan !== newPlan) {
         useAuthStore.getState().setProfile({ ...profile, plan: newPlan });
       }
     };
