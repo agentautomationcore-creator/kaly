@@ -74,7 +74,8 @@
     "confidence": "Güven",
     "add_to": "{{meal}} öğününe ekle",
     "scan_limit": "Günlük tarama limitine ulaşıldı ({{limit}}/gün)",
-    "upgrade_for_more": "Sınırsız tarama için Pro'ya geç"
+    "upgrade_for_more": "Sınırsız tarama için Pro'ya geç",
+    "grant_camera": "Kamera erişimine izin ver"
   },
   "diary": {
     "title": "Bugün",
@@ -85,6 +86,9 @@
     "add_food": "Yemek ekle",
     "empty": "Henüz kayıtlı öğün yok",
     "empty_hint": "Taramak veya eklemek için + simgesine dokun",
+    "emptyTitle": "Henüz öğün yok",
+    "emptyDescription": "Kalori takibine başlamak için yemeğinin fotoğrafını çek",
+    "logFirstMeal": "İlk öğününü kaydet",
     "total": "Toplam",
     "remaining": "{{count}} kcal kaldı",
     "over": "{{count}} kcal hedefin üzerinde",
@@ -137,6 +141,7 @@
     "theme_system": "Sistem",
     "notifications": "Bildirimler",
     "export_data": "Verileri dışa aktar (CSV)",
+    "export_share_title": "Kaly Veri Dışa Aktarımı",
     "delete_account": "Hesabı sil",
     "delete_confirm": "Tüm verilerin kalıcı olarak silinecek. Bu işlem geri alınamaz.",
     "sign_out": "Çıkış yap",
@@ -162,6 +167,7 @@
     "continue_free": "Ücretsiz devam et",
     "restore": "Satın alımları geri yükle",
     "cancel_anytime": "İstediğin zaman iptal et",
+    "auto_renewal_disclosure": "Abonelik, mevcut dönemin bitiminden en az 24 saat önce otomatik yenileme kapatılmadığı sürece otomatik olarak yenilenir.",
     "terms": "Kullanım koşulları",
     "privacy": "Gizlilik politikası",
     "store_unavailable": "Mağaza kullanılamıyor. Daha sonra tekrar deneyin.",

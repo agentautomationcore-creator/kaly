@@ -29,7 +29,7 @@ export function ScanCamera() {
         <Text style={{ fontSize: FONT_SIZE.md, color: colors.textSecondary, textAlign: 'center', marginTop: 16, marginBottom: 24 }}>
           {t('errors.no_camera')}
         </Text>
-        <Button title="Grant camera access" onPress={requestPermission} />
+        <Button title={t('scan.grant_camera')} onPress={requestPermission} />
       </View>
     );
   }

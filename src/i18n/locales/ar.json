@@ -74,7 +74,8 @@
     "confidence": "الثقة",
     "add_to": "أضف إلى {{meal}}",
     "scan_limit": "تم بلوغ الحد اليومي للمسح ({{limit}}/يوم)",
-    "upgrade_for_more": "ترقّ إلى Pro لمسح غير محدود"
+    "upgrade_for_more": "ترقّ إلى Pro لمسح غير محدود",
+    "grant_camera": "السماح بالوصول إلى الكاميرا"
   },
   "diary": {
     "title": "اليوم",
@@ -85,6 +86,9 @@
     "add_food": "أضف طعام",
     "empty": "لم تُسجّل وجبات بعد",
     "empty_hint": "اضغط + للمسح أو إضافة طعام",
+    "emptyTitle": "لا وجبات بعد",
+    "emptyDescription": "التقط صورة لوجبتك لبدء تتبع السعرات الحرارية",
+    "logFirstMeal": "سجّل وجبتك الأولى",
     "total": "الإجمالي",
     "remaining": "{{count}} kcal متبقية",
     "over": "{{count}} kcal فوق الهدف",
@@ -137,6 +141,7 @@
     "theme_system": "النظام",
     "notifications": "الإشعارات",
     "export_data": "تصدير البيانات (CSV)",
+    "export_share_title": "تصدير بيانات Kaly",
     "delete_account": "حذف الحساب",
     "delete_confirm": "سيتم حذف جميع بياناتك نهائياً. لا يمكن التراجع عن هذا الإجراء.",
     "sign_out": "تسجيل الخروج",
@@ -162,6 +167,7 @@
     "continue_free": "المتابعة مجاناً",
     "restore": "استعادة المشتريات",
     "cancel_anytime": "ألغِ في أي وقت",
+    "auto_renewal_disclosure": "يتم تجديد الاشتراك تلقائيًا ما لم يتم إيقاف التجديد التلقائي قبل 24 ساعة على الأقل من نهاية الفترة الحالية.",
     "terms": "شروط الاستخدام",
     "privacy": "سياسة الخصوصية",
     "store_unavailable": "المتجر غير متاح. حاول مرة أخرى لاحقاً.",

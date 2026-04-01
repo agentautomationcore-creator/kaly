@@ -114,7 +114,7 @@ export function ProfileScreen() {
               } finally {
                 clearTimeout(timeout);
               }
-              await Share.share({ message: json, title: 'Kaly Data Export' });
+              await Share.share({ message: json, title: t('profile.export_share_title') });
             } catch {
               Alert.alert(t('common.error'), t('errors.generic'));
             }

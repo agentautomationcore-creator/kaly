@@ -74,7 +74,8 @@
     "confidence": "Affidabilità",
     "add_to": "Aggiungi a {{meal}}",
     "scan_limit": "Limite giornaliero di scansioni raggiunto ({{limit}}/giorno)",
-    "upgrade_for_more": "Passa a Pro per scansioni illimitate"
+    "upgrade_for_more": "Passa a Pro per scansioni illimitate",
+    "grant_camera": "Consenti accesso alla fotocamera"
   },
   "diary": {
     "title": "Oggi",
@@ -85,6 +86,9 @@
     "add_food": "Aggiungi cibo",
     "empty": "Nessun pasto registrato",
     "empty_hint": "Tocca + per scansionare o aggiungere cibo",
+    "emptyTitle": "Nessun pasto",
+    "emptyDescription": "Scatta una foto del tuo pasto per iniziare a contare le calorie",
+    "logFirstMeal": "Registra il tuo primo pasto",
     "total": "Totale",
     "remaining": "{{count}} kcal rimanenti",
     "over": "{{count}} kcal oltre l'obiettivo",
@@ -137,6 +141,7 @@
     "theme_system": "Sistema",
     "notifications": "Notifiche",
     "export_data": "Esporta dati (CSV)",
+    "export_share_title": "Esportazione dati Kaly",
     "delete_account": "Elimina account",
     "delete_confirm": "Tutti i tuoi dati verranno eliminati definitivamente. Questa azione è irreversibile.",
     "sign_out": "Esci",
@@ -162,6 +167,7 @@
     "continue_free": "Continua gratis",
     "restore": "Ripristina acquisti",
     "cancel_anytime": "Cancella quando vuoi",
+    "auto_renewal_disclosure": "L'abbonamento si rinnova automaticamente a meno che il rinnovo automatico non venga disattivato almeno 24 ore prima della fine del periodo corrente.",
     "terms": "Termini di utilizzo",
     "privacy": "Informativa sulla privacy",
     "store_unavailable": "Store non disponibile. Riprova più tardi.",

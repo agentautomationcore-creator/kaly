@@ -74,7 +74,8 @@
     "confidence": "Konfidenz",
     "add_to": "Zu {{meal}} hinzufügen",
     "scan_limit": "Tägliches Scan-Limit erreicht ({{limit}}/Tag)",
-    "upgrade_for_more": "Upgrade auf Pro für unbegrenzte Scans"
+    "upgrade_for_more": "Upgrade auf Pro für unbegrenzte Scans",
+    "grant_camera": "Kamerazugriff erlauben"
   },
   "diary": {
     "title": "Heute",
@@ -85,6 +86,9 @@
     "add_food": "Essen hinzufügen",
     "empty": "Noch keine Mahlzeiten eingetragen",
     "empty_hint": "Tippe auf + zum Scannen oder Hinzufügen",
+    "emptyTitle": "Noch keine Mahlzeiten",
+    "emptyDescription": "Fotografiere deine Mahlzeit, um Kalorien zu tracken",
+    "logFirstMeal": "Erste Mahlzeit erfassen",
     "total": "Gesamt",
     "remaining": "{{count}} kcal übrig",
     "over": "{{count}} kcal über Ziel",
@@ -137,6 +141,7 @@
     "theme_system": "System",
     "notifications": "Benachrichtigungen",
     "export_data": "Daten exportieren (CSV)",
+    "export_share_title": "Kaly Datenexport",
     "delete_account": "Konto löschen",
     "delete_confirm": "Alle deine Daten werden unwiderruflich gelöscht. Dies kann nicht rückgängig gemacht werden.",
     "sign_out": "Abmelden",
@@ -162,6 +167,7 @@
     "continue_free": "Kostenlos fortfahren",
     "restore": "Käufe wiederherstellen",
     "cancel_anytime": "Jederzeit kündbar",
+    "auto_renewal_disclosure": "Das Abonnement verlängert sich automatisch, sofern die automatische Verlängerung nicht mindestens 24 Stunden vor Ende des aktuellen Zeitraums deaktiviert wird.",
     "terms": "Nutzungsbedingungen",
     "privacy": "Datenschutzerklärung",
     "store_unavailable": "Store nicht verfügbar. Bitte versuche es später erneut.",

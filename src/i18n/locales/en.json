@@ -74,7 +74,8 @@
     "confidence": "Confidence",
     "add_to": "Add to {{meal}}",
     "scan_limit": "Daily scan limit reached ({{limit}}/day)",
-    "upgrade_for_more": "Upgrade to Pro for unlimited scans"
+    "upgrade_for_more": "Upgrade to Pro for unlimited scans",
+    "grant_camera": "Grant camera access"
   },
   "diary": {
     "title": "Today",
@@ -140,6 +141,7 @@
     "theme_system": "System",
     "notifications": "Notifications",
     "export_data": "Export data (CSV)",
+    "export_share_title": "Kaly Data Export",
     "delete_account": "Delete account",
     "delete_confirm": "All your data will be permanently deleted. This cannot be undone.",
     "sign_out": "Sign out",

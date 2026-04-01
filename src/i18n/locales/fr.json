@@ -74,7 +74,8 @@
     "confidence": "Confiance",
     "add_to": "Ajouter au {{meal}}",
     "scan_limit": "Limite quotidienne atteinte ({{limit}}/jour)",
-    "upgrade_for_more": "Passez à Pro pour des scans illimités"
+    "upgrade_for_more": "Passez à Pro pour des scans illimités",
+    "grant_camera": "Autoriser l'accès à la caméra"
   },
   "diary": {
     "title": "Aujourd'hui",
@@ -85,6 +86,9 @@
     "add_food": "Ajouter un aliment",
     "empty": "Aucun repas enregistré",
     "empty_hint": "Appuyez sur + pour scanner ou ajouter",
+    "emptyTitle": "Aucun repas",
+    "emptyDescription": "Prenez une photo de votre repas pour commencer à suivre vos calories",
+    "logFirstMeal": "Enregistrez votre premier repas",
     "total": "Total",
     "remaining": "{{count}} kcal restantes",
     "over": "{{count}} kcal au-dessus de l'objectif",
@@ -137,6 +141,7 @@
     "theme_system": "Système",
     "notifications": "Notifications",
     "export_data": "Exporter les données (CSV)",
+    "export_share_title": "Export des données Kaly",
     "delete_account": "Supprimer le compte",
     "delete_confirm": "Toutes vos données seront définitivement supprimées. Cette action est irréversible.",
     "sign_out": "Déconnexion",
@@ -162,6 +167,7 @@
     "continue_free": "Continuer gratuitement",
     "restore": "Restaurer les achats",
     "cancel_anytime": "Annulez à tout moment",
+    "auto_renewal_disclosure": "L'abonnement se renouvelle automatiquement sauf si le renouvellement automatique est désactivé au moins 24 heures avant la fin de la période en cours. Votre identifiant Apple sera facturé dans les 24 heures précédant la fin de la période en cours. Vous pouvez gérer et annuler vos abonnements dans les paramètres de votre compte App Store.",
     "terms": "Conditions d'utilisation",
     "privacy": "Politique de confidentialité",
     "store_unavailable": "Boutique indisponible. Réessayez plus tard.",

@@ -74,7 +74,8 @@
     "confidence": "置信度",
     "add_to": "添加到{{meal}}",
     "scan_limit": "已达每日扫描上限（{{limit}}/天）",
-    "upgrade_for_more": "升级到 Pro 享受无限扫描"
+    "upgrade_for_more": "升级到 Pro 享受无限扫描",
+    "grant_camera": "允许访问相机"
   },
   "diary": {
     "title": "今天",
@@ -85,6 +86,9 @@
     "add_food": "添加食物",
     "empty": "还没有记录任何餐食",
     "empty_hint": "点击 + 扫描或添加食物",
+    "emptyTitle": "暂无餐食",
+    "emptyDescription": "拍摄你的餐食照片开始追踪卡路里",
+    "logFirstMeal": "记录你的第一餐",
     "total": "合计",
     "remaining": "剩余 {{count}} kcal",
     "over": "超出目标 {{count}} kcal",
@@ -137,6 +141,7 @@
     "theme_system": "跟随系统",
     "notifications": "通知",
     "export_data": "导出数据（CSV）",
+    "export_share_title": "Kaly 数据导出",
     "delete_account": "删除账号",
     "delete_confirm": "你的所有数据将被永久删除，此操作无法撤销。",
     "sign_out": "退出登录",
@@ -162,6 +167,7 @@
     "continue_free": "继续使用免费版",
     "restore": "恢复购买",
     "cancel_anytime": "随时取消",
+    "auto_renewal_disclosure": "订阅将自动续订，除非在当前期间结束前至少24小时关闭自动续订。",
     "terms": "使用条款",
     "privacy": "隐私政策",
     "store_unavailable": "商店不可用，请稍后重试。",
