@@ -12,7 +12,9 @@ export async function compressImage(uri: string): Promise<string> {
     throw new Error('IMAGE_TOO_LARGE');
   }
 
-  // Resize to max 1024px on longest side
+  // GDPR-5: Resize strips EXIF metadata (GPS, camera info) from output JPEG.
+  // expo-image-manipulator's manipulateAsync does NOT preserve EXIF in output.
+  // This is critical: food photos with GPS should NOT be sent to Claude API.
   let result = await ImageManipulator.manipulateAsync(
     uri,
     [{ resize: { width: MAX_DIMENSION } }],
@@ -24,13 +26,13 @@ export async function compressImage(uri: string): Promise<string> {
   if (info.exists && info.size && info.size > MAX_SIZE_BYTES) {
     // Compress more aggressively
     result = await ImageManipulator.manipulateAsync(
-      uri,
+      result.uri,
       [{ resize: { width: 768 } }],
       { compress: 0.5, format: ImageManipulator.SaveFormat.JPEG }
     );
   }
 
-  // Read as base64
+  // Read as base64 (EXIF-free JPEG)
   const base64 = await FileSystem.readAsStringAsync(result.uri, {
     encoding: 'base64' as const,
   });
