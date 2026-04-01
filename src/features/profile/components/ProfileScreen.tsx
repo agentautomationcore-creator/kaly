@@ -98,14 +98,22 @@ export function ProfileScreen() {
             try {
               const { data: { session } } = await supabase.auth.getSession();
               if (!session) return;
-              const res = await fetch(
-                `${process.env.EXPO_PUBLIC_SUPABASE_URL}/functions/v1/export-data`,
-                {
-                  headers: { Authorization: `Bearer ${session.access_token}` },
-                }
-              );
-              if (!res.ok) throw new Error('Export failed');
-              const json = await res.text();
+              const controller = new AbortController();
+              const timeout = setTimeout(() => controller.abort(), 30000);
+              let json: string;
+              try {
+                const res = await fetch(
+                  `${process.env.EXPO_PUBLIC_SUPABASE_URL}/functions/v1/export-data`,
+                  {
+                    headers: { Authorization: `Bearer ${session.access_token}` },
+                    signal: controller.signal,
+                  }
+                );
+                if (!res.ok) throw new Error('Export failed');
+                json = await res.text();
+              } finally {
+                clearTimeout(timeout);
+              }
               await Share.share({ message: json, title: 'Kaly Data Export' });
             } catch {
               Alert.alert(t('common.error'), t('errors.generic'));

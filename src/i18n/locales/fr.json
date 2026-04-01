@@ -163,7 +163,13 @@
     "restore": "Restaurer les achats",
     "cancel_anytime": "Annulez à tout moment",
     "terms": "Conditions d'utilisation",
-    "privacy": "Politique de confidentialité"
+    "privacy": "Politique de confidentialité",
+    "store_unavailable": "Boutique indisponible. Réessayez plus tard.",
+    "purchase_failed": "L'achat a échoué. Veuillez réessayer.",
+    "restored": "Achats restaurés",
+    "restored_desc": "Votre abonnement Pro a été restauré !",
+    "no_purchases": "Aucun abonnement actif trouvé.",
+    "restore_failed": "Impossible de restaurer les achats. Veuillez réessayer."
   },
   "auth": {
     "sign_in": "Se connecter",
@@ -191,9 +197,19 @@
     "submit": "Envoyer",
     "thanks": "Merci pour votre retour !"
   },
+  "consent": {
+    "ai_title": "Analyse par IA",
+    "ai_body": "Vos photos de repas sont analysées par Claude AI pour estimer les nutriments.",
+    "health_title": "Données de santé",
+    "health_body": "Vos données nutritionnelles sont stockées de manière sécurisée et ne sont jamais partagées.",
+    "read_privacy": "Lire notre politique de confidentialité",
+    "accept": "J'accepte",
+    "decline": "Refuser"
+  },
   "common": {
     "loading": "Chargement...",
     "error": "Erreur",
+    "info": "Info",
     "retry": "Réessayer",
     "cancel": "Annuler",
     "save": "Enregistrer",

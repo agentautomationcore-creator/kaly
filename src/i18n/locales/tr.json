@@ -163,7 +163,13 @@
     "restore": "Satın alımları geri yükle",
     "cancel_anytime": "İstediğin zaman iptal et",
     "terms": "Kullanım koşulları",
-    "privacy": "Gizlilik politikası"
+    "privacy": "Gizlilik politikası",
+    "store_unavailable": "Mağaza kullanılamıyor. Daha sonra tekrar deneyin.",
+    "purchase_failed": "Satın alma başarısız. Lütfen tekrar deneyin.",
+    "restored": "Satın alımlar geri yüklendi",
+    "restored_desc": "Pro aboneliğiniz geri yüklendi!",
+    "no_purchases": "Aktif abonelik bulunamadı.",
+    "restore_failed": "Satın alımlar geri yüklenemedi. Lütfen tekrar deneyin."
   },
   "auth": {
     "sign_in": "Giriş yap",
@@ -191,9 +197,19 @@
     "submit": "Geri bildirim gönder",
     "thanks": "Geri bildirimin için teşekkürler!"
   },
+  "consent": {
+    "ai_title": "Yapay Zeka Analizi",
+    "ai_body": "Yemek fotoğraflarınız besin değerlerini tahmin etmek için Claude AI tarafından analiz edilir.",
+    "health_title": "Sağlık verileri",
+    "health_body": "Beslenme verileriniz güvenli bir şekilde saklanır ve asla paylaşılmaz.",
+    "read_privacy": "Gizlilik politikasını oku",
+    "accept": "Kabul ediyorum",
+    "decline": "Reddet"
+  },
   "common": {
     "loading": "Yükleniyor...",
     "error": "Hata",
+    "info": "Bilgi",
     "retry": "Tekrar dene",
     "cancel": "İptal",
     "save": "Kaydet",

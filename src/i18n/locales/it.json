@@ -163,7 +163,13 @@
     "restore": "Ripristina acquisti",
     "cancel_anytime": "Cancella quando vuoi",
     "terms": "Termini di utilizzo",
-    "privacy": "Informativa sulla privacy"
+    "privacy": "Informativa sulla privacy",
+    "store_unavailable": "Store non disponibile. Riprova più tardi.",
+    "purchase_failed": "Acquisto non riuscito. Riprova.",
+    "restored": "Acquisti ripristinati",
+    "restored_desc": "Il tuo abbonamento Pro è stato ripristinato!",
+    "no_purchases": "Nessun abbonamento attivo trovato.",
+    "restore_failed": "Impossibile ripristinare gli acquisti. Riprova."
   },
   "auth": {
     "sign_in": "Accedi",
@@ -191,9 +197,19 @@
     "submit": "Invia feedback",
     "thanks": "Grazie per il tuo feedback!"
   },
+  "consent": {
+    "ai_title": "Analisi con IA",
+    "ai_body": "Le tue foto dei pasti vengono analizzate da Claude AI per stimare i nutrienti.",
+    "health_title": "Dati sulla salute",
+    "health_body": "I tuoi dati nutrizionali sono conservati in modo sicuro e mai condivisi.",
+    "read_privacy": "Leggi l'informativa sulla privacy",
+    "accept": "Accetto",
+    "decline": "Rifiuta"
+  },
   "common": {
     "loading": "Caricamento...",
     "error": "Errore",
+    "info": "Info",
     "retry": "Riprova",
     "cancel": "Annulla",
     "save": "Salva",

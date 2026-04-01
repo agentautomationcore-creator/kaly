@@ -76,7 +76,7 @@ export default function PaywallScreen() {
         : p.packageType === 'MONTHLY'
     );
     if (!pkg) {
-      Alert.alert('Error', 'Packages not available. Please try again.');
+      Alert.alert(t('common.error'), t('paywall.store_unavailable'));
       return;
     }
 
@@ -89,7 +89,7 @@ export default function PaywallScreen() {
       }
     } catch (err: unknown) {
       if (err instanceof Error && !err.message.includes('cancelled')) {
-        Alert.alert('Error', 'Purchase failed. Please try again.');
+        Alert.alert(t('common.error'), t('paywall.purchase_failed'));
       }
     } finally {
       setPurchasing(false);
@@ -103,13 +103,13 @@ export default function PaywallScreen() {
       const customerInfo = await Purchases.restorePurchases();
       await syncPlanFromCustomerInfo(customerInfo);
       if (customerInfo.entitlements.active['pro']) {
-        Alert.alert('Success', 'Your Pro subscription has been restored!');
+        Alert.alert(t('paywall.restored'), t('paywall.restored_desc'));
         router.back();
       } else {
-        Alert.alert('Info', 'No active subscription found.');
+        Alert.alert(t('common.info'), t('paywall.no_purchases'));
       }
     } catch (err: unknown) {
-      Alert.alert('Error', 'Could not restore purchases. Please try again.');
+      Alert.alert(t('common.error'), t('paywall.restore_failed'));
     } finally {
       setPurchasing(false);
     }

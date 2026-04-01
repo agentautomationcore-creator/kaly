@@ -167,7 +167,13 @@
     "cancel_anytime": "Cancel anytime",
     "auto_renewal_disclosure": "Subscription automatically renews unless auto-renew is turned off at least 24 hours before the end of the current period. Your Apple ID account will be charged for renewal within 24 hours prior to the end of the current period. You can manage and cancel your subscriptions in your App Store account settings.",
     "terms": "Terms of use",
-    "privacy": "Privacy policy"
+    "privacy": "Privacy policy",
+    "store_unavailable": "Packages not available. Please try again.",
+    "purchase_failed": "Purchase failed. Please try again.",
+    "restored": "Success",
+    "restored_desc": "Your Pro subscription has been restored!",
+    "no_purchases": "No active subscription found.",
+    "restore_failed": "Could not restore purchases. Please try again."
   },
   "auth": {
     "sign_in": "Sign in",
@@ -207,6 +213,7 @@
   "common": {
     "loading": "Loading...",
     "error": "Error",
+    "info": "Info",
     "retry": "Retry",
     "cancel": "Cancel",
     "save": "Save",

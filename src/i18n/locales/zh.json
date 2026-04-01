@@ -163,7 +163,13 @@
     "restore": "恢复购买",
     "cancel_anytime": "随时取消",
     "terms": "使用条款",
-    "privacy": "隐私政策"
+    "privacy": "隐私政策",
+    "store_unavailable": "商店不可用，请稍后重试。",
+    "purchase_failed": "购买失败，请重试。",
+    "restored": "购买已恢复",
+    "restored_desc": "您的 Pro 订阅已恢复！",
+    "no_purchases": "未找到有效订阅。",
+    "restore_failed": "无法恢复购买，请重试。"
   },
   "auth": {
     "sign_in": "登录",
@@ -191,9 +197,19 @@
     "submit": "提交反馈",
     "thanks": "感谢你的反馈！"
   },
+  "consent": {
+    "ai_title": "AI 分析",
+    "ai_body": "您的餐食照片由 Claude AI 分析以估算营养成分。",
+    "health_title": "健康数据",
+    "health_body": "您的营养数据安全存储，绝不共享。",
+    "read_privacy": "阅读隐私政策",
+    "accept": "我同意",
+    "decline": "拒绝"
+  },
   "common": {
     "loading": "加载中...",
     "error": "错误",
+    "info": "信息",
     "retry": "重试",
     "cancel": "取消",
     "save": "保存",

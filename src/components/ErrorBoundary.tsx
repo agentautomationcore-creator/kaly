@@ -1,6 +1,6 @@
 import React, { Component, ErrorInfo, ReactNode } from 'react';
 import { View, Text, Pressable } from 'react-native';
-import * as Sentry from '@sentry/react-native';
+import i18n from '../i18n';
 import { lightColors, darkColors, type Colors } from '../lib/theme';
 import { useSettingsStore } from '../stores/settingsStore';
 
@@ -38,16 +38,8 @@ export class ErrorBoundary extends Component<Props, State> {
     if (__DEV__) {
       console.error(`[ErrorBoundary:${this.props.featureName || 'unknown'}]`, error, errorInfo);
     }
-    // GDPR-3: Only report to Sentry if user has given analytics consent
-    const analyticsConsent = useSettingsStore.getState().analyticsConsentGiven;
-    if (analyticsConsent) {
-      Sentry.captureException(error, {
-        extra: {
-          featureName: this.props.featureName,
-          componentStack: errorInfo.componentStack,
-        },
-      });
-    }
+    // TODO: Replace with production crash reporting service
+    console.error(`[ErrorBoundary:${this.props.featureName || 'unknown'}] crash captured`, error);
   }
 
   handleRetry = () => {
@@ -63,10 +55,10 @@ export class ErrorBoundary extends Component<Props, State> {
       return (
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', padding: 24 }}>
           <Text style={{ fontSize: 17, fontWeight: '600', color: colors.text, marginBottom: 8 }}>
-            Something went wrong
+            {i18n.t('errors.generic')}
           </Text>
           <Text style={{ fontSize: 14, color: colors.textSecondary, textAlign: 'center', marginBottom: 20 }}>
-            {this.state.error?.message || 'An unexpected error occurred'}
+            {this.state.error?.message || i18n.t('errors.generic')}
           </Text>
           <Pressable
             onPress={this.handleRetry}
@@ -77,9 +69,9 @@ export class ErrorBoundary extends Component<Props, State> {
               paddingVertical: 12,
             }}
             accessibilityRole="button"
-            accessibilityLabel="Retry"
+            accessibilityLabel={i18n.t('common.retry')}
           >
-            <Text style={{ color: '#FFFFFF', fontWeight: '600', fontSize: 15 }}>Retry</Text>
+            <Text style={{ color: '#FFFFFF', fontWeight: '600', fontSize: 15 }}>{i18n.t('common.retry')}</Text>
           </Pressable>
         </View>
       );

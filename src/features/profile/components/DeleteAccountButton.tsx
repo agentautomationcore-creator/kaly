@@ -26,18 +26,25 @@ export function DeleteAccountButton() {
             const { data: { session } } = await supabase.auth.getSession();
             if (!session) throw new Error('Not authenticated');
 
-            const response = await fetch(
-              `${process.env.EXPO_PUBLIC_SUPABASE_URL}/functions/v1/delete-account`,
-              {
-                method: 'POST',
-                headers: {
-                  Authorization: `Bearer ${session.access_token}`,
-                  'Content-Type': 'application/json',
-                },
-              }
-            );
+            const controller = new AbortController();
+            const timeout = setTimeout(() => controller.abort(), 30000);
+            try {
+              const response = await fetch(
+                `${process.env.EXPO_PUBLIC_SUPABASE_URL}/functions/v1/delete-account`,
+                {
+                  method: 'POST',
+                  headers: {
+                    Authorization: `Bearer ${session.access_token}`,
+                    'Content-Type': 'application/json',
+                  },
+                  signal: controller.signal,
+                }
+              );
 
-            if (!response.ok) throw new Error('Delete failed');
+              if (!response.ok) throw new Error('Delete failed');
+            } finally {
+              clearTimeout(timeout);
+            }
 
             await signOut();
             router.replace('/onboarding/welcome');
