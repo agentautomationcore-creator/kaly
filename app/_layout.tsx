@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { AppState } from 'react-native';
+import { AppState, Platform } from 'react-native';
 import { Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import { QueryClientProvider } from '@tanstack/react-query';
@@ -22,6 +22,13 @@ export default function RootLayout() {
   useEffect(() => {
     initAuth();
     loadSavedLanguage();
+
+    const rcKey = Platform.OS === 'ios'
+      ? process.env.EXPO_PUBLIC_REVENUECAT_IOS_KEY
+      : process.env.EXPO_PUBLIC_REVENUECAT_ANDROID_KEY;
+    if (rcKey) {
+      Purchases.configure({ apiKey: rcKey });
+    }
   }, []);
 
   // SUB-2: Listen for subscription changes (cancel, renew, expire)
