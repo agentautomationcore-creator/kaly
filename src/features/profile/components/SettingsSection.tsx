@@ -4,10 +4,12 @@ import { useTranslation } from 'react-i18next';
 import { Ionicons } from '@expo/vector-icons';
 import { useColors } from '../../../lib/theme';
 
-const PRIVACY_URL = 'https://kaly.app/privacy';
-const TERMS_URL = 'https://kaly.app/terms';
+const PRIVACY_URL = 'https://doclear.app/kaly-privacy';
+const TERMS_URL = 'https://doclear.app/kaly-privacy';
 import { useUpdateProfile } from '../hooks/useProfile';
 import { useSettingsStore } from '../../../stores/settingsStore';
+import { useAuthStore } from '../../../stores/authStore';
+import { supabase } from '../../../lib/supabase';
 import { setLanguage, SUPPORTED_LANGUAGES } from '../../../i18n';
 import { Card } from '../../../components/Card';
 import { FONT_SIZE, RADIUS } from '../../../lib/constants';
@@ -29,7 +31,7 @@ export function SettingsSection({ profile }: SettingsSectionProps) {
   const { t, i18n } = useTranslation();
   const colors = useColors();
   const { mutate: update } = useUpdateProfile();
-  const { themeMode, setThemeMode } = useSettingsStore();
+  const { themeMode, setThemeMode, healthConsentGiven, setHealthConsent, aiConsentGiven, setAiConsent } = useSettingsStore();
 
   const handleLanguageChange = (lang: string) => {
     setLanguage(lang);
@@ -110,6 +112,49 @@ export function SettingsSection({ profile }: SettingsSectionProps) {
         <Switch
           value={profile?.notifications ?? true}
           onValueChange={(v) => update({ notifications: v })}
+          trackColor={{ false: colors.border, true: colors.primary }}
+        />
+      </View>
+
+      {/* Privacy — Consent Withdrawal (Art. 7 GDPR) */}
+      <Text style={{ fontSize: FONT_SIZE.sm, color: colors.textSecondary, fontWeight: '500', marginBottom: 8 }}>
+        {t('profile.privacy')}
+      </Text>
+      <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12 }}>
+        <Text style={{ fontSize: FONT_SIZE.sm, fontWeight: '500', color: colors.text }}>
+          {t('profile.ai_analysis')}
+        </Text>
+        <Switch
+          value={aiConsentGiven}
+          onValueChange={async (v) => {
+            setAiConsent(v);
+            const user = useAuthStore.getState().user;
+            if (user) {
+              await supabase.from('nutrition_profiles').update({
+                ai_consent_given: v,
+                ai_consent_at: v ? new Date().toISOString() : null,
+              }).eq('id', user.id);
+            }
+          }}
+          trackColor={{ false: colors.border, true: colors.primary }}
+        />
+      </View>
+      <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
+        <Text style={{ fontSize: FONT_SIZE.sm, fontWeight: '500', color: colors.text }}>
+          {t('profile.health_data')}
+        </Text>
+        <Switch
+          value={healthConsentGiven}
+          onValueChange={async (v) => {
+            setHealthConsent(v);
+            const user = useAuthStore.getState().user;
+            if (user) {
+              await supabase.from('nutrition_profiles').update({
+                health_consent_given: v,
+                health_consent_at: v ? new Date().toISOString() : null,
+              }).eq('id', user.id);
+            }
+          }}
           trackColor={{ false: colors.border, true: colors.primary }}
         />
       </View>
