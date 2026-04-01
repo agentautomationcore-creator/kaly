@@ -77,7 +77,7 @@ export function ScanCamera() {
           {/* Top hint */}
           <View style={{ alignItems: 'center', marginTop: 60 }}>
             <View style={{ backgroundColor: 'rgba(0,0,0,0.5)', paddingHorizontal: 20, paddingVertical: 10, borderRadius: RADIUS.full }}>
-              <Text style={{ color: '#FFF', fontSize: FONT_SIZE.sm, fontWeight: '500' }}>
+              <Text style={{ color: colors.card, fontSize: FONT_SIZE.sm, fontWeight: '500' }}>
                 {t('scan.point_camera')}
               </Text>
             </View>
@@ -100,26 +100,28 @@ export function ScanCamera() {
                   alignItems: 'center',
                 }}
               >
-                <Ionicons name="images" size={24} color="#FFF" />
+                <Ionicons name="images" size={24} color={colors.card} />
               </Pressable>
 
               {/* Shutter */}
               <Pressable
                 onPress={takePicture}
+                disabled={isCapturing.current || isPending}
                 style={{
                   width: 72,
                   height: 72,
                   borderRadius: 36,
-                  backgroundColor: '#FFF',
+                  backgroundColor: colors.card,
                   borderWidth: 4,
                   borderColor: colors.primary,
                   justifyContent: 'center',
                   alignItems: 'center',
+                  opacity: isPending ? 0.5 : 1,
                 }}
                 accessibilityRole="button"
                 accessibilityLabel={t('scan.take_photo')}
               >
-                <View style={{ width: 56, height: 56, borderRadius: 28, backgroundColor: '#FFF' }} />
+                <View style={{ width: 56, height: 56, borderRadius: 28, backgroundColor: colors.card }} />
               </Pressable>
 
               {/* Flip */}
@@ -136,7 +138,7 @@ export function ScanCamera() {
                   alignItems: 'center',
                 }}
               >
-                <Ionicons name="camera-reverse" size={24} color="#FFF" />
+                <Ionicons name="camera-reverse" size={24} color={colors.card} />
               </Pressable>
             </View>
           </View>
