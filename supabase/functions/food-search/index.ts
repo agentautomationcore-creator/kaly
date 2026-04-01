@@ -6,21 +6,22 @@ const corsHeaders = {
   'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
 };
 
-// S5: Rate limiting 30 req/min per user
-const userRateLimits = new Map<string, { count: number; resetAt: number }>();
-const USER_LIMIT = 30;
-const USER_WINDOW_MS = 60 * 1000; // 1 minute
-
-function checkUserRateLimit(userId: string): boolean {
-  const now = Date.now();
-  const entry = userRateLimits.get(userId);
-  if (!entry || now > entry.resetAt) {
-    userRateLimits.set(userId, { count: 1, resetAt: now + USER_WINDOW_MS });
+// S5: Rate limiting 30 req/min per user — persistent via Supabase RPC
+async function checkUserRateLimit(supabase: any, userId: string): Promise<boolean> {
+  try {
+    const { data, error } = await supabase.rpc('check_rate_limit', {
+      p_key: `food-search:${userId}`,
+      p_max_count: 30,
+      p_window_seconds: 60,
+    });
+    if (error) {
+      console.error('Rate limit check failed:', error.message);
+      return true; // fail open on DB error
+    }
+    return data === true;
+  } catch {
     return true;
   }
-  if (entry.count >= USER_LIMIT) return false;
-  entry.count++;
-  return true;
 }
 
 serve(async (req) => {
@@ -52,8 +53,12 @@ serve(async (req) => {
       });
     }
 
-    // S5: Check rate limit
-    if (!checkUserRateLimit(user.id)) {
+    // S5: Check rate limit (persistent via Supabase RPC)
+    const serviceClient = createClient(
+      Deno.env.get('SUPABASE_URL')!,
+      Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!,
+    );
+    if (!(await checkUserRateLimit(serviceClient, user.id))) {
       return new Response(JSON.stringify({ error: 'Too many requests. Please wait.' }), {
         status: 429,
         headers: { ...corsHeaders, 'Content-Type': 'application/json' },
