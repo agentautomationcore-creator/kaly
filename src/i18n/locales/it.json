@@ -77,6 +77,7 @@
     "upgrade_for_more": "Passa a Pro per scansioni illimitate",
     "grant_camera": "Consenti accesso alla fotocamera",
     "ingredients_count": "{{count}} ingredienti",
+    "add_item": "Aggiungi ingrediente",
     "scan_food": "Scansiona",
     "flip_camera": "Capovolgi fotocamera"
   },
@@ -104,7 +105,8 @@
     "repeat": "Aggiungi di nuovo",
     "water": "Acqua",
     "water_goal": "{{current}} / {{goal}} bicchieri",
-    "add_water": "Aggiungi bicchiere"
+    "add_water": "Aggiungi bicchiere",
+    "repeat_yesterday": "Ripeti pasto di ieri"
   },
   "stats": {
     "title": "Statistiche",
@@ -155,6 +157,7 @@
     "sign_out": "Esci",
     "create_account": "Crea account",
     "save_data": "Salva i tuoi dati — crea un account gratuito",
+    "show_streak": "Mostra serie di giorni",
     "about": "Informazioni",
     "version": "Versione {{version}}",
     "disclaimer": "Kaly usa l'IA per stimare il contenuto nutrizionale. I risultati sono approssimativi. Non è un consiglio medico."
@@ -225,6 +228,17 @@
     "read_privacy": "Leggi l'informativa sulla privacy",
     "accept": "Accetto",
     "decline": "Rifiuta"
+  },
+  "barcode": {
+    "scan_barcode": "Scansiona codice",
+    "point_at_barcode": "Punta verso il codice",
+    "camera_needed": "Accesso fotocamera necessario",
+    "not_found": "Prodotto non trovato",
+    "not_found_desc": "Prodotto non trovato_DESC",
+    "result_title": "Prodotto trovato",
+    "portion": "Porzione",
+    "custom_portion": "Personalizzato (grammi)",
+    "scan_again": "Scansiona un altro codice"
   },
   "common": {
     "loading": "Caricamento...",

@@ -12,6 +12,9 @@ import { useAuthStore } from '../../../stores/authStore';
 import { supabase } from '../../../lib/supabase';
 import { setLanguage, SUPPORTED_LANGUAGES } from '../../../i18n';
 import { Card } from '../../../components/Card';
+import { grantAnalyticsConsent, revokeAnalyticsConsent } from '../../../lib/analytics';
+import { initSentryIfConsented } from '../../../lib/sentry';
+import { scheduleWaterReminders, cancelWaterReminders, areWaterRemindersEnabled, requestNotificationPermission } from '../../../lib/waterReminders';
 import { FONT_SIZE, RADIUS } from '../../../lib/constants';
 import type { NutritionProfile } from '../types';
 
@@ -31,7 +34,7 @@ export function SettingsSection({ profile }: SettingsSectionProps) {
   const { t, i18n } = useTranslation();
   const colors = useColors();
   const { mutate: update } = useUpdateProfile();
-  const { themeMode, setThemeMode, healthConsentGiven, setHealthConsent, aiConsentGiven, setAiConsent, analyticsConsentGiven, setAnalyticsConsent } = useSettingsStore();
+  const { themeMode, setThemeMode, healthConsentGiven, setHealthConsent, aiConsentGiven, setAiConsent, analyticsConsentGiven, setAnalyticsConsent, showStreak, setShowStreak } = useSettingsStore();
 
   const handleLanguageChange = (lang: string) => {
     setLanguage(lang);
@@ -116,6 +119,37 @@ export function SettingsSection({ profile }: SettingsSectionProps) {
         />
       </View>
 
+      {/* Water reminders */}
+      <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
+        <Text style={{ fontSize: FONT_SIZE.sm, fontWeight: '500', color: colors.text }}>
+          {t('profile.water_reminders')}
+        </Text>
+        <Switch
+          value={areWaterRemindersEnabled()}
+          onValueChange={async (v) => {
+            if (v) {
+              const granted = await requestNotificationPermission();
+              if (granted) await scheduleWaterReminders();
+            } else {
+              await cancelWaterReminders();
+            }
+          }}
+          trackColor={{ false: colors.border, true: colors.primary }}
+        />
+      </View>
+
+      {/* Streak toggle */}
+      <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
+        <Text style={{ fontSize: FONT_SIZE.sm, fontWeight: '500', color: colors.text }}>
+          {t('profile.show_streak')}
+        </Text>
+        <Switch
+          value={showStreak}
+          onValueChange={setShowStreak}
+          trackColor={{ false: colors.border, true: colors.primary }}
+        />
+      </View>
+
       {/* Privacy — Consent Withdrawal (Art. 7 GDPR) */}
       <Text style={{ fontSize: FONT_SIZE.sm, color: colors.textSecondary, fontWeight: '500', marginBottom: 8 }}>
         {t('profile.privacy')}
@@ -164,7 +198,15 @@ export function SettingsSection({ profile }: SettingsSectionProps) {
         </Text>
         <Switch
           value={analyticsConsentGiven}
-          onValueChange={(v) => setAnalyticsConsent(v)}
+          onValueChange={(v) => {
+            setAnalyticsConsent(v);
+            if (v) {
+              grantAnalyticsConsent();
+              initSentryIfConsented();
+            } else {
+              revokeAnalyticsConsent();
+            }
+          }}
           trackColor={{ false: colors.border, true: colors.primary }}
         />
       </View>

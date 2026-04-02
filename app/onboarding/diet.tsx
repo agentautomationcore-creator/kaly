@@ -8,7 +8,12 @@ import { Button } from '../../src/components/Button';
 import { StepIndicator } from '../../src/components/StepIndicator';
 import { FONT_SIZE, RADIUS } from '../../src/lib/constants';
 import { useAuthStore } from '../../src/stores/authStore';
+import { useOnboardingStore } from '../../src/stores/onboardingStore';
 import { supabase } from '../../src/lib/supabase';
+import { captureException } from '../../src/lib/sentry';
+import { track } from '../../src/lib/analytics';
+import { calculateTDEE, calculateDailyTarget, calculateMacroSplit } from '../../src/lib/nutrition';
+import type { Gender, ActivityLevel, Goal, DietType } from '../../src/lib/nutrition';
 import * as Device from 'expo-device';
 
 const DIETS = ['balanced', 'keto', 'vegan', 'vegetarian', 'paleo'] as const;
@@ -34,23 +39,54 @@ export default function DietScreen() {
       // Sign in anonymously first
       await signInAnonymously();
 
-      // Save profile
+      // Save profile with TDEE calculation
       const { data: { user } } = await supabase.auth.getUser();
       if (user) {
-        // S2: Include device fingerprint to prevent abuse from anonymous accounts
+        const ob = useOnboardingStore.getState();
         const deviceId = Device.modelId || Device.deviceName || 'unknown';
+
+        // Calculate TDEE and macros from onboarding data
+        let dailyCalories = 2000;
+        let proteinPct = 30;
+        let carbsPct = 40;
+        let fatPct = 30;
+
+        if (ob.weightKg && ob.heightCm && ob.age && ob.gender) {
+          const tdee = calculateTDEE(ob.weightKg, ob.heightCm, ob.age, ob.gender, ob.activityLevel);
+          dailyCalories = calculateDailyTarget(tdee, ob.goal || 'maintain');
+          const dietKey = diet as DietType;
+          const macros = calculateMacroSplit(dailyCalories, dietKey);
+          proteinPct = Math.round((macros.protein_g * 4 / dailyCalories) * 100);
+          carbsPct = Math.round((macros.carbs_g * 4 / dailyCalories) * 100);
+          fatPct = 100 - proteinPct - carbsPct;
+        }
+
         await supabase.from('nutrition_profiles').upsert({
           id: user.id,
           diet_type: diet,
           allergies,
           onboarding_done: true,
-          display_name: deviceId, // Store device fingerprint for anti-abuse tracking
+          display_name: deviceId,
+          goal: ob.goal || 'maintain',
+          height_cm: ob.heightCm,
+          weight_kg: ob.weightKg,
+          age: ob.age,
+          gender: ob.gender,
+          activity_level: ob.activityLevel,
+          daily_calories: dailyCalories,
+          protein_pct: proteinPct,
+          carbs_pct: carbsPct,
+          fat_pct: fatPct,
         });
+
+        useOnboardingStore.getState().reset();
       }
 
+      track('onboarding_completed');
       router.replace('/(tabs)/diary');
     } catch (e) {
       Alert.alert(t('common.error'), t('errors.generic'));
+      captureException(e, { feature: 'onboarding_diet' });
     } finally {
       setLoading(false);
     }

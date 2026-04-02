@@ -9,6 +9,8 @@ import { FONT_SIZE, RADIUS } from '../../../lib/constants';
 import { supabase } from '../../../lib/supabase';
 import { useAuthStore } from '../../../stores/authStore';
 import { useQueryClient } from '@tanstack/react-query';
+import { captureException } from '../../../lib/sentry';
+import { track } from '../../../lib/analytics';
 import type { DiaryEntry } from '../types';
 
 interface RecentMealsProps {
@@ -46,9 +48,11 @@ export const RecentMeals = React.memo(function RecentMeals({ date }: RecentMeals
         source_entry_id: entry.id,
       });
       if (error) throw error;
+      track('meal_repeated');
       qc.invalidateQueries({ queryKey: ['diary', date] });
-    } catch {
+    } catch (e) {
       Alert.alert(t('common.error'), t('errors.generic'));
+      captureException(e, { feature: 'repeat_meal' });
     }
   };
 

@@ -1,12 +1,17 @@
 import React from 'react';
-import { View, Text, Pressable } from 'react-native';
+import { View, Text, Pressable, Alert } from 'react-native';
 import { useRouter } from 'expo-router';
 import { useTranslation } from 'react-i18next';
 import { Ionicons } from '@expo/vector-icons';
+import { useQueryClient } from '@tanstack/react-query';
 import { useColors } from '../../../lib/theme';
 import { Card } from '../../../components/Card';
 import { MealRow } from './MealRow';
 import { FONT_SIZE } from '../../../lib/constants';
+import { supabase } from '../../../lib/supabase';
+import { useAuthStore } from '../../../stores/authStore';
+import { captureException } from '../../../lib/sentry';
+import { track } from '../../../lib/analytics';
 import type { DiaryEntry } from '../types';
 import type { MealType } from '../../../lib/types';
 
@@ -21,14 +26,48 @@ interface MealSectionProps {
   mealType: MealType;
   entries: DiaryEntry[];
   date: string;
+  yesterdayEntries?: DiaryEntry[];
 }
 
-export const MealSection = React.memo(function MealSection({ mealType, entries, date }: MealSectionProps) {
+export const MealSection = React.memo(function MealSection({ mealType, entries, date, yesterdayEntries }: MealSectionProps) {
   const { t } = useTranslation();
   const colors = useColors();
   const router = useRouter();
+  const user = useAuthStore((s) => s.user);
+  const qc = useQueryClient();
 
   const totalCal = entries.reduce((s, e) => s + e.total_calories, 0);
+  const yesterdayCal = (yesterdayEntries || []).reduce((s, e) => s + e.total_calories, 0);
+
+  const handleRepeatYesterday = async () => {
+    if (!user || !yesterdayEntries?.length) return;
+    try {
+      for (const entry of yesterdayEntries) {
+        await supabase.from('diary_entries').insert({
+          user_id: user.id,
+          logged_at: date,
+          meal_type: entry.meal_type,
+          food_name: entry.food_name,
+          food_name_en: entry.food_name_en,
+          food_items: entry.food_items,
+          quantity_g: entry.quantity_g,
+          total_calories: entry.total_calories,
+          total_protein: entry.total_protein,
+          total_carbs: entry.total_carbs,
+          total_fat: entry.total_fat,
+          total_fiber: entry.total_fiber,
+          confidence: entry.confidence,
+          entry_method: entry.entry_method,
+          source_entry_id: entry.id,
+        });
+      }
+      track('meal_repeated');
+      qc.invalidateQueries({ queryKey: ['diary', date] });
+    } catch (e) {
+      Alert.alert(t('common.error'), t('errors.generic'));
+      captureException(e, { feature: 'repeat_yesterday' });
+    }
+  };
 
   return (
     <Card>
@@ -61,6 +100,18 @@ export const MealSection = React.memo(function MealSection({ mealType, entries, 
             <MealRow key={entry.id} entry={entry} />
           ))}
         </View>
+      ) : yesterdayEntries && yesterdayEntries.length > 0 ? (
+        <Pressable
+          onPress={handleRepeatYesterday}
+          style={{ flexDirection: 'row', alignItems: 'center', gap: 8, paddingVertical: 8, minHeight: 44 }}
+          accessibilityRole="button"
+          accessibilityLabel={t('diary.repeat_yesterday')}
+        >
+          <Ionicons name="refresh" size={16} color={colors.primary} />
+          <Text style={{ fontSize: FONT_SIZE.sm, color: colors.primary, flex: 1 }}>
+            {t('diary.repeat_yesterday')} ({Math.round(yesterdayCal)} {t('common.kcal')})
+          </Text>
+        </Pressable>
       ) : null}
     </Card>
   );

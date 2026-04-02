@@ -3,6 +3,7 @@ import { View, Text, Pressable } from 'react-native';
 import i18n from '../i18n';
 import { lightColors, darkColors, type Colors } from '../lib/theme';
 import { useSettingsStore } from '../stores/settingsStore';
+import { captureException } from '../lib/sentry';
 
 interface Props {
   children: ReactNode;
@@ -38,8 +39,7 @@ export class ErrorBoundary extends Component<Props, State> {
     if (__DEV__) {
       console.error(`[ErrorBoundary:${this.props.featureName || 'unknown'}]`, error, errorInfo);
     }
-    // TODO: Replace with production crash reporting service
-    console.error(`[ErrorBoundary:${this.props.featureName || 'unknown'}] crash captured`, error);
+    captureException(error, { feature: this.props.featureName || 'unknown', componentStack: errorInfo.componentStack });
   }
 
   handleRetry = () => {

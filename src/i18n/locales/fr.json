@@ -77,6 +77,7 @@
     "upgrade_for_more": "Passez à Pro pour des scans illimités",
     "grant_camera": "Autoriser l'accès à la caméra",
     "ingredients_count": "{{count}} ingrédients",
+    "add_item": "Ajouter un ingrédient",
     "scan_food": "Scanner",
     "flip_camera": "Retourner la caméra"
   },
@@ -104,7 +105,8 @@
     "repeat": "Ajouter à nouveau",
     "water": "Eau",
     "water_goal": "{{current}} / {{goal}} verres",
-    "add_water": "Ajouter un verre"
+    "add_water": "Ajouter un verre",
+    "repeat_yesterday": "Répéter le repas d'hier"
   },
   "stats": {
     "title": "Statistiques",
@@ -155,6 +157,7 @@
     "sign_out": "Déconnexion",
     "create_account": "Créer un compte",
     "save_data": "Sauvegardez vos données — créez un compte gratuit",
+    "show_streak": "Afficher la série de jours",
     "about": "À propos",
     "version": "Version {{version}}",
     "disclaimer": "Kaly utilise l'IA pour estimer le contenu nutritionnel. Les résultats sont approximatifs. Pas un avis médical."
@@ -225,6 +228,17 @@
     "read_privacy": "Lire notre politique de confidentialité",
     "accept": "J'accepte",
     "decline": "Refuser"
+  },
+  "barcode": {
+    "scan_barcode": "Scanner un code-barres",
+    "point_at_barcode": "Pointez vers un code-barres",
+    "camera_needed": "Accès caméra requis pour scanner",
+    "not_found": "Produit non trouvé",
+    "not_found_desc": "Produit non trouvé_DESC",
+    "result_title": "Produit trouvé",
+    "portion": "Taille de la portion",
+    "custom_portion": "Personnalisé (grammes)",
+    "scan_again": "Scanner un autre code-barres"
   },
   "common": {
     "loading": "Chargement...",

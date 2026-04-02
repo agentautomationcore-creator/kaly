@@ -77,6 +77,7 @@
     "upgrade_for_more": "Sınırsız tarama için Pro'ya geç",
     "grant_camera": "Kamera erişimine izin ver",
     "ingredients_count": "{{count}} malzeme",
+    "add_item": "Malzeme ekle",
     "scan_food": "Tara",
     "flip_camera": "Kamerayı çevir"
   },
@@ -104,7 +105,8 @@
     "repeat": "Tekrar ekle",
     "water": "Su",
     "water_goal": "{{current}} / {{goal}} bardak",
-    "add_water": "Bardak ekle"
+    "add_water": "Bardak ekle",
+    "repeat_yesterday": "Dünkü öğünü tekrarla"
   },
   "stats": {
     "title": "İstatistikler",
@@ -155,6 +157,7 @@
     "sign_out": "Çıkış yap",
     "create_account": "Hesap oluştur",
     "save_data": "Verilerini kaydet — ücretsiz hesap oluştur",
+    "show_streak": "Gün serisini göster",
     "about": "Hakkında",
     "version": "Sürüm {{version}}",
     "disclaimer": "Kaly, besin içeriğini tahmin etmek için yapay zekâ kullanır. Sonuçlar yaklaşıktır. Tıbbi tavsiye değildir."
@@ -225,6 +228,17 @@
     "read_privacy": "Gizlilik politikasını oku",
     "accept": "Kabul ediyorum",
     "decline": "Reddet"
+  },
+  "barcode": {
+    "scan_barcode": "Barkod tara",
+    "point_at_barcode": "Barkoda doğrultun",
+    "camera_needed": "Kamera erişimi gerekli",
+    "not_found": "Ürün bulunamadı",
+    "not_found_desc": "Ürün bulunamadı_DESC",
+    "result_title": "Ürün bulundu",
+    "portion": "Porsiyon",
+    "custom_portion": "Özel (gram)",
+    "scan_again": "Başka barkod tara"
   },
   "common": {
     "loading": "Yükleniyor...",

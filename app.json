@@ -100,7 +100,14 @@
           "color": "#4CAF50"
         }
       ],
-      "expo-tracking-transparency"
+      "expo-tracking-transparency",
+      [
+        "@sentry/react-native/expo",
+        {
+          "organization": "doclear",
+          "project": "kaly"
+        }
+      ]
     ],
     "updates": {
       "url": "https://u.expo.dev/67f656ee-fffd-4a8d-93b3-f7268c965730"

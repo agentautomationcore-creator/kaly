@@ -8,6 +8,7 @@ import { Card } from '../../../components/Card';
 import { Modal } from '../../../components/Modal';
 import { Button } from '../../../components/Button';
 import { FONT_SIZE, RADIUS } from '../../../lib/constants';
+import { track } from '../../../lib/analytics';
 import type { NutritionProfile } from '../types';
 
 const GOALS = ['lose', 'maintain', 'gain'] as const;
@@ -24,7 +25,7 @@ export function GoalEditor({ profile }: GoalEditorProps) {
   const { mutate: update, isPending } = useUpdateProfile();
 
   const handleSave = () => {
-    update({ goal: selected }, { onSuccess: () => setVisible(false) });
+    update({ goal: selected }, { onSuccess: () => { track('goal_set', { goal: selected }); setVisible(false); } });
   };
 
   return (

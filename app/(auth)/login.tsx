@@ -8,6 +8,7 @@ import { useColors } from '../../src/lib/theme';
 import { Button } from '../../src/components/Button';
 import { FONT_SIZE, RADIUS, IS_IOS } from '../../src/lib/constants';
 import { supabase } from '../../src/lib/supabase';
+import { captureException } from '../../src/lib/sentry';
 
 export default function LoginScreen() {
   const { t } = useTranslation();
@@ -63,6 +64,7 @@ export default function LoginScreen() {
         // User cancelled — do nothing
       } else {
         setError(t('errors.generic'));
+        captureException(e, { feature: 'apple_sign_in' });
       }
     } finally {
       setLoading(false);

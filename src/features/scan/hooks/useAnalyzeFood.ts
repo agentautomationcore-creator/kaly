@@ -2,6 +2,8 @@ import { useMutation } from '@tanstack/react-query';
 import { supabase } from '../../../lib/supabase';
 import { compressImage } from '../../../lib/imageUtils';
 import { useScanStore } from '../store/scanStore';
+import { captureException } from '../../../lib/sentry';
+import { track } from '../../../lib/analytics';
 import type { ScanResult } from '../types';
 import i18n from '../../../i18n';
 
@@ -103,12 +105,17 @@ export function useAnalyzeFood() {
     onMutate: () => {
       setAnalyzing(true);
       setError(null);
+      track('scan_food');
     },
     onSuccess: (data) => {
       setResult(data);
+      track('scan_result', { confidence: data.confidence, items_count: data.items.length });
     },
     onError: (error: Error) => {
       setError(error.message);
+      if (error.message !== 'NOT_FOOD' && error.message !== 'RATE_LIMIT') {
+        captureException(error, { feature: 'analyze_food' });
+      }
     },
   });
 }

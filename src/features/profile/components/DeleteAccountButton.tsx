@@ -6,6 +6,8 @@ import { useColors } from '../../../lib/theme';
 import { useAuthStore } from '../../../stores/authStore';
 import { supabase } from '../../../lib/supabase';
 import { Button } from '../../../components/Button';
+import { captureException } from '../../../lib/sentry';
+import { track } from '../../../lib/analytics';
 
 export function DeleteAccountButton() {
   const { t } = useTranslation();
@@ -46,10 +48,12 @@ export function DeleteAccountButton() {
               clearTimeout(timeout);
             }
 
+            track('account_deleted');
             await signOut();
             router.replace('/onboarding/welcome');
           } catch (e) {
             Alert.alert(t('common.error'), t('errors.generic'));
+            captureException(e, { feature: 'delete_account' });
           } finally {
             setLoading(false);
           }

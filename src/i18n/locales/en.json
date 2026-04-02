@@ -77,6 +77,7 @@
     "upgrade_for_more": "Upgrade to Pro for unlimited scans",
     "grant_camera": "Grant camera access",
     "ingredients_count": "{{count}} ingredients",
+    "add_item": "Add ingredient",
     "scan_food": "Scan food",
     "flip_camera": "Flip camera"
   },
@@ -104,7 +105,8 @@
     "repeat": "Add again",
     "water": "Water",
     "water_goal": "{{current}} / {{goal}} glasses",
-    "add_water": "Add glass"
+    "add_water": "Add glass",
+    "repeat_yesterday": "Repeat yesterday's meal"
   },
   "stats": {
     "title": "Statistics",
@@ -155,6 +157,8 @@
     "sign_out": "Sign out",
     "create_account": "Create account",
     "save_data": "Save your data — create a free account",
+    "water_reminders": "Water reminders",
+    "show_streak": "Show day streak",
     "about": "About",
     "version": "Version {{version}}",
     "disclaimer": "Kaly uses AI to estimate nutritional content. Results are approximate. Not medical advice."
@@ -225,6 +229,17 @@
     "read_privacy": "Read our Privacy Policy",
     "accept": "I agree",
     "decline": "No thanks"
+  },
+  "barcode": {
+    "scan_barcode": "Scan barcode",
+    "point_at_barcode": "Point at a barcode",
+    "camera_needed": "Camera access is needed to scan barcodes",
+    "not_found": "Product not found",
+    "not_found_desc": "This product is not in our database. Try scanning again.",
+    "result_title": "Product found",
+    "portion": "Portion size",
+    "custom_portion": "Custom (grams)",
+    "scan_again": "Scan another barcode"
   },
   "common": {
     "loading": "Loading...",

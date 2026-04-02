@@ -16,6 +16,8 @@ import { WeightLog } from './WeightLog';
 import { SettingsSection } from './SettingsSection';
 import { DeleteAccountButton } from './DeleteAccountButton';
 import { ListSkeleton } from '../../../components/LoadingSkeleton';
+import { captureException } from '../../../lib/sentry';
+import { track } from '../../../lib/analytics';
 import { FONT_SIZE, RADIUS } from '../../../lib/constants';
 
 export function ProfileScreen() {
@@ -114,9 +116,11 @@ export function ProfileScreen() {
               } finally {
                 clearTimeout(timeout);
               }
+              track('data_exported');
               await Share.share({ message: json, title: t('profile.export_share_title') });
-            } catch {
+            } catch (e) {
               Alert.alert(t('common.error'), t('errors.generic'));
+              captureException(e, { feature: 'data_export' });
             }
           }}
           style={{ marginTop: 12 }}

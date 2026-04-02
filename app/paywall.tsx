@@ -10,6 +10,8 @@ import { Button } from '../src/components/Button';
 import { Card } from '../src/components/Card';
 import { FONT_SIZE, RADIUS } from '../src/lib/constants';
 import { useAuthStore } from '../src/stores/authStore';
+import { captureException } from '../src/lib/sentry';
+import { track } from '../src/lib/analytics';
 
 type PlanPeriod = 'monthly' | 'annual';
 
@@ -26,6 +28,10 @@ export default function PaywallScreen() {
   const [purchasing, setPurchasing] = useState(false);
 
   useEffect(() => {
+    track('paywall_shown');
+  }, []);
+
+  useEffect(() => {
     async function loadOfferings() {
       try {
         const offerings = await Purchases.getOfferings();
@@ -34,6 +40,7 @@ export default function PaywallScreen() {
         }
       } catch (err: unknown) {
         if (__DEV__) console.error('Failed to load offerings:', err);
+        captureException(err, { feature: 'paywall_load_offerings' });
       }
     }
     loadOfferings();
@@ -78,11 +85,13 @@ export default function PaywallScreen() {
       const { customerInfo } = await Purchases.purchasePackage(pkg);
       if (customerInfo.entitlements.active['pro']) {
         await syncPlanFromCustomerInfo(customerInfo);
+        track('subscription_started', { period });
         router.back();
       }
     } catch (err: unknown) {
       if (err instanceof Error && !err.message.includes('cancelled')) {
         Alert.alert(t('common.error'), t('paywall.purchase_failed'));
+        captureException(err, { feature: 'paywall_purchase', period });
       }
     } finally {
       setPurchasing(false);
@@ -103,6 +112,7 @@ export default function PaywallScreen() {
       }
     } catch (err: unknown) {
       Alert.alert(t('common.error'), t('paywall.restore_failed'));
+      captureException(err, { feature: 'paywall_restore' });
     } finally {
       setPurchasing(false);
     }

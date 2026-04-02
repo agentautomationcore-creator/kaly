@@ -15,12 +15,14 @@ interface SettingsState {
   aiConsentGiven: boolean;
   healthConsentGiven: boolean;
   analyticsConsentGiven: boolean;
+  showStreak: boolean;
   setThemeMode: (mode: ThemeMode) => void;
   setUnits: (units: Units) => void;
   setLocale: (locale: string) => void;
   setAiConsent: (v: boolean) => void;
   setHealthConsent: (v: boolean) => void;
   setAnalyticsConsent: (v: boolean) => void;
+  setShowStreak: (v: boolean) => void;
 }
 
 // A10: Store subscription reference at module level for cleanup
@@ -33,6 +35,7 @@ export const useSettingsStore = create<SettingsState>((set) => {
   const savedAiConsent = storage.getBoolean('aiConsentGiven') ?? false;
   const savedHealthConsent = storage.getBoolean('healthConsentGiven') ?? false;
   const savedAnalyticsConsent = storage.getBoolean('analyticsConsentGiven') ?? false;
+  const savedShowStreak = storage.getBoolean('showStreak') ?? false;
   const systemTheme = Appearance.getColorScheme() || 'light';
 
   // A10: Clean up previous subscription if store is re-created
@@ -56,6 +59,7 @@ export const useSettingsStore = create<SettingsState>((set) => {
     aiConsentGiven: savedAiConsent,
     healthConsentGiven: savedHealthConsent,
     analyticsConsentGiven: savedAnalyticsConsent,
+    showStreak: savedShowStreak,
 
     setThemeMode: (mode) => {
       storage.set('themeMode', mode);
@@ -86,6 +90,11 @@ export const useSettingsStore = create<SettingsState>((set) => {
     setAnalyticsConsent: (v) => {
       storage.set('analyticsConsentGiven', v);
       set({ analyticsConsentGiven: v });
+    },
+
+    setShowStreak: (v) => {
+      storage.set('showStreak', v);
+      set({ showStreak: v });
     },
   };
 });

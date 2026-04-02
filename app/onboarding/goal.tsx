@@ -8,6 +8,8 @@ import { Button } from '../../src/components/Button';
 import { StepIndicator } from '../../src/components/StepIndicator';
 import { FONT_SIZE, RADIUS } from '../../src/lib/constants';
 import { Ionicons } from '@expo/vector-icons';
+import { useOnboardingStore } from '../../src/stores/onboardingStore';
+import type { Goal } from '../../src/lib/nutrition';
 
 const GOALS = [
   { key: 'lose', icon: 'trending-down' as const },
@@ -19,6 +21,7 @@ export default function GoalScreen() {
   const { t } = useTranslation();
   const colors = useColors();
   const router = useRouter();
+  const setGoal = useOnboardingStore((s) => s.setGoal);
   const [selected, setSelected] = useState<string | null>(null);
 
   return (
@@ -60,7 +63,7 @@ export default function GoalScreen() {
 
       <Button
         title={t('onboarding.next')}
-        onPress={() => router.push('/onboarding/body')}
+        onPress={() => { if (selected) setGoal(selected as Goal); router.push('/onboarding/body'); }}
         disabled={!selected}
       />
     </SafeAreaView>

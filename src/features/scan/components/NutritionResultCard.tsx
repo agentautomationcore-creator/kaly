@@ -13,13 +13,15 @@ import { PortionSlider } from './PortionSlider';
 import { FONT_SIZE, RADIUS } from '../../../lib/constants';
 import { supabase } from '../../../lib/supabase';
 import { useAuthStore } from '../../../stores/authStore';
+import { captureException } from '../../../lib/sentry';
+import { track } from '../../../lib/analytics';
 import type { MealType } from '../../../lib/types';
 
 export function NutritionResultCard() {
   const { t } = useTranslation();
   const colors = useColors();
   const router = useRouter();
-  const { result, portionMultiplier, reset } = useScanStore();
+  const { result, portionMultiplier, reset, isEdited } = useScanStore();
   const [saving, setSaving] = useState(false);
   const [mealType, setMealType] = useState<MealType>('lunch');
   const user = useAuthStore((s) => s.user);
@@ -62,12 +64,15 @@ export function NutritionResultCard() {
         total_fiber: fiber,
         confidence: result.confidence,
         entry_method: 'photo',
+        edited: isEdited,
       });
 
+      track('meal_logged', { meal_type: mealType, entry_method: 'photo' });
       reset();
       router.replace('/(tabs)/diary');
     } catch (e) {
       Alert.alert(t('common.error'), t('errors.generic'));
+      captureException(e, { feature: 'save_meal' });
     } finally {
       setSaving(false);
     }
@@ -193,6 +198,7 @@ export function NutritionResultCard() {
                   feedback_type: label,
                   original_result: result,
                 });
+                track('feedback_submitted', { feedback_type: label });
                 Alert.alert(t('feedback.thanks'));
               },
             })),

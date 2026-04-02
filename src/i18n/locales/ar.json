@@ -77,6 +77,7 @@
     "upgrade_for_more": "ترقّ إلى Pro لمسح غير محدود",
     "grant_camera": "السماح بالوصول إلى الكاميرا",
     "ingredients_count": "{{count}} مكونات",
+    "add_item": "إضافة مكوّن",
     "scan_food": "مسح الطعام",
     "flip_camera": "قلب الكاميرا"
   },
@@ -104,7 +105,8 @@
     "repeat": "أضف مجدداً",
     "water": "الماء",
     "water_goal": "{{current}} / {{goal}} أكواب",
-    "add_water": "أضف كوب"
+    "add_water": "أضف كوب",
+    "repeat_yesterday": "تكرار وجبة الأمس"
   },
   "stats": {
     "title": "الإحصائيات",
@@ -155,6 +157,7 @@
     "sign_out": "تسجيل الخروج",
     "create_account": "إنشاء حساب",
     "save_data": "احفظ بياناتك — أنشئ حساباً مجانياً",
+    "show_streak": "إظهار سلسلة الأيام",
     "about": "حول التطبيق",
     "version": "الإصدار {{version}}",
     "disclaimer": "يستخدم Kaly الذكاء الاصطناعي لتقدير المحتوى الغذائي. النتائج تقريبية. ليس نصيحة طبية."
@@ -225,6 +228,17 @@
     "read_privacy": "اقرأ سياسة الخصوصية",
     "accept": "أوافق",
     "decline": "رفض"
+  },
+  "barcode": {
+    "scan_barcode": "مسح الباركود",
+    "point_at_barcode": "وجّه نحو الباركود",
+    "camera_needed": "يحتاج إذن الكاميرا",
+    "not_found": "المنتج غير موجود",
+    "not_found_desc": "المنتج غير موجود_DESC",
+    "result_title": "تم العثور على المنتج",
+    "portion": "حجم الحصة",
+    "custom_portion": "مخصص (غرام)",
+    "scan_again": "مسح باركود آخر"
   },
   "common": {
     "loading": "جارٍ التحميل...",

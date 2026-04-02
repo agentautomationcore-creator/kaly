@@ -77,6 +77,7 @@
     "upgrade_for_more": "升级到 Pro 享受无限扫描",
     "grant_camera": "允许访问相机",
     "ingredients_count": "{{count}} 种成分",
+    "add_item": "添加食材",
     "scan_food": "扫描食物",
     "flip_camera": "切换摄像头"
   },
@@ -104,7 +105,8 @@
     "repeat": "再次添加",
     "water": "饮水",
     "water_goal": "{{current}} / {{goal}} 杯",
-    "add_water": "添加一杯"
+    "add_water": "添加一杯",
+    "repeat_yesterday": "重复昨天的餐食"
   },
   "stats": {
     "title": "统计",
@@ -155,6 +157,7 @@
     "sign_out": "退出登录",
     "create_account": "创建账号",
     "save_data": "保存你的数据 — 创建免费账号",
+    "show_streak": "显示连续天数",
     "about": "关于",
     "version": "版本 {{version}}",
     "disclaimer": "Kaly 使用 AI 估算营养成分，结果为近似值，非医疗建议。"
@@ -225,6 +228,17 @@
     "read_privacy": "阅读隐私政策",
     "accept": "我同意",
     "decline": "拒绝"
+  },
+  "barcode": {
+    "scan_barcode": "扫描条形码",
+    "point_at_barcode": "对准条形码",
+    "camera_needed": "需要相机权限",
+    "not_found": "未找到产品",
+    "not_found_desc": "未找到产品_DESC",
+    "result_title": "已找到产品",
+    "portion": "份量",
+    "custom_portion": "自定义（克）",
+    "scan_again": "扫描另一个条形码"
   },
   "common": {
     "loading": "加载中...",

@@ -20,7 +20,7 @@ export function AddMealSheet({ visible, onClose }: AddMealSheetProps) {
   const options = [
     { icon: 'camera' as const, label: t('scan.take_photo'), action: () => { onClose(); router.push('/(tabs)/scan'); } },
     { icon: 'images' as const, label: t('scan.choose_gallery'), action: () => { onClose(); router.push('/(tabs)/scan'); } },
-    // Manual entry and search are Phase 2
+    { icon: 'barcode-outline' as const, label: t('barcode.scan_barcode'), action: () => { onClose(); router.push('/barcode'); } },
   ];
 
   return (

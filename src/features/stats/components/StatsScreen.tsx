@@ -5,6 +5,7 @@ import { useColors } from '../../../lib/theme';
 import { useWeekStats } from '../hooks/useStats';
 import { useDiary } from '../../diary/hooks/useDiary';
 import { useAuthStore } from '../../../stores/authStore';
+import { useSettingsStore } from '../../../stores/settingsStore';
 import { CalorieRing } from './CalorieRing';
 import { MacroBars } from './MacroBars';
 import { WeeklyBarChart } from './WeeklyBarChart';
@@ -17,6 +18,7 @@ export function StatsScreen() {
   const { t } = useTranslation();
   const colors = useColors();
   const profile = useAuthStore((s) => s.profile);
+  const showStreak = useSettingsStore((s) => s.showStreak);
   const today = new Date().toISOString().split('T')[0];
   const { data: todayEntries } = useDiary(today);
   const { data: weekStats, isLoading } = useWeekStats();
@@ -55,8 +57,8 @@ export function StatsScreen() {
         <MacroBars protein={todayProtein} carbs={todayCarbs} fat={todayFat} proteinGoal={Math.round(proteinGoal)} carbsGoal={Math.round(carbsGoal)} fatGoal={Math.round(fatGoal)} />
       </Card>
 
-      {/* Streak */}
-      <StreakCounter count={weekStats?.streak || 0} />
+      {/* Streak — only shown if enabled in settings */}
+      {showStreak && <StreakCounter count={weekStats?.streak || 0} />}
 
       {/* Weekly chart */}
       <Card style={{ marginTop: 16 }}>

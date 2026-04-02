@@ -7,6 +7,8 @@ import { useColors } from '../../src/lib/theme';
 import { Button } from '../../src/components/Button';
 import { FONT_SIZE, RADIUS } from '../../src/lib/constants';
 import { useAuthStore } from '../../src/stores/authStore';
+import { captureException } from '../../src/lib/sentry';
+import { track } from '../../src/lib/analytics';
 
 export default function RegisterScreen() {
   const { t } = useTranslation();
@@ -34,6 +36,7 @@ export default function RegisterScreen() {
         const { error: authError } = await supabase.auth.signUp({ email, password });
         if (authError) throw authError;
       }
+      track('registration_completed');
       router.replace('/(tabs)/diary');
     } catch (e: unknown) {
       const message = e instanceof Error ? e.message : '';
@@ -41,6 +44,7 @@ export default function RegisterScreen() {
         setError(t('auth.email_taken'));
       } else {
         setError(message || t('errors.generic'));
+        captureException(e, { feature: 'register' });
       }
     } finally {
       setLoading(false);

@@ -12,6 +12,8 @@ import { ErrorBoundary } from '../src/components/ErrorBoundary';
 import { OfflineBanner } from '../src/components/OfflineBanner';
 import { useAuthStore } from '../src/stores/authStore';
 import { loadSavedLanguage } from '../src/i18n';
+import { initAnalytics, track } from '../src/lib/analytics';
+import { initSentryIfConsented } from '../src/lib/sentry';
 import '../src/i18n';
 
 export default function RootLayout() {
@@ -27,6 +29,11 @@ export default function RootLayout() {
       if (Platform.OS === 'ios') {
         await requestTrackingPermissionsAsync();
       }
+
+      // Init analytics & error tracking ONLY after consent (GDPR)
+      initSentryIfConsented();
+      initAnalytics().catch(() => {});
+      track('app_opened');
 
       const rcKey = Platform.OS === 'ios'
       ? process.env.EXPO_PUBLIC_REVENUECAT_IOS_KEY
@@ -57,8 +64,8 @@ export default function RootLayout() {
         try {
           const customerInfo = await Purchases.getCustomerInfo();
           await syncPlan(customerInfo);
-        } catch {
-          // SDK not ready yet
+        } catch (e) {
+          // SDK not ready yet — don't report, expected during cold start
         }
       }
     });
@@ -87,6 +94,7 @@ export default function RootLayout() {
             <Stack.Screen name="onboarding" options={{ gestureEnabled: false }} />
             <Stack.Screen name="(auth)" />
             <Stack.Screen name="paywall" options={{ presentation: 'modal' }} />
+            <Stack.Screen name="barcode" options={{ presentation: 'modal', animation: 'slide_from_bottom' }} />
           </Stack>
         </QueryClientProvider>
       </GestureHandlerRootView>

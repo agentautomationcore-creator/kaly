@@ -33,7 +33,8 @@ export const CalorieRing = React.memo(function CalorieRing({ current, goal, size
     strokeDashoffset: circumference * (1 - progress.value),
   }));
 
-  const isOver = current > goal;
+  // Neutral color when over goal — no guilt-tripping
+  const ringColor = current > goal ? '#94A3B8' : colors.primary;
 
   return (
     <View style={{ width: size, height: size, alignItems: 'center', justifyContent: 'center' }}>
@@ -52,7 +53,7 @@ export const CalorieRing = React.memo(function CalorieRing({ current, goal, size
           cx={size / 2}
           cy={size / 2}
           r={radius}
-          stroke={isOver ? colors.danger : colors.primary}
+          stroke={ringColor}
           strokeWidth={strokeWidth}
           fill="none"
           strokeLinecap="round"
@@ -63,7 +64,7 @@ export const CalorieRing = React.memo(function CalorieRing({ current, goal, size
         />
       </Svg>
       <View style={{ position: 'absolute', alignItems: 'center' }}>
-        <Text style={{ fontSize: 36, fontWeight: '800', color: isOver ? colors.danger : colors.primary }}>
+        <Text style={{ fontSize: 36, fontWeight: '800', color: ringColor }}>
           {Math.round(current)}
         </Text>
         <Text style={{ fontSize: 13, color: colors.textSecondary }}>/ {goal} {t('common.kcal')}</Text>

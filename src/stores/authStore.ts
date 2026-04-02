@@ -3,6 +3,8 @@ import { createMMKV } from 'react-native-mmkv';
 import { supabase } from '../lib/supabase';
 import { queryClient } from '../lib/queryClient';
 import { FREE_SCANS_PER_DAY } from '../lib/constants';
+import { identify, resetAnalytics } from '../lib/analytics';
+import { setSentryUser } from '../lib/sentry';
 import type { NutritionProfile } from '../lib/types';
 
 const mmkv = createMMKV({ id: 'kaly-settings' });
@@ -49,6 +51,12 @@ export const useAuthStore = create<AuthState>((set, get) => ({
         const isAnon = !session.user.email;
         set({ user, isAnonymous: isAnon });
 
+        // Set user context for analytics & error tracking
+        setSentryUser(session.user.id);
+        if (!isAnon) {
+          identify(session.user.id, { email: session.user.email });
+        }
+
         // Load profile
         const { data } = await supabase
           .from('nutrition_profiles')
@@ -84,6 +92,8 @@ export const useAuthStore = create<AuthState>((set, get) => ({
 
   // A1: Sign out and clear store + EDGE-4: clear all caches
   signOut: async () => {
+    resetAnalytics();
+    setSentryUser(null);
     await supabase.auth.signOut();
     queryClient.clear();
     mmkv.clearAll();

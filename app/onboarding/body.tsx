@@ -10,7 +10,9 @@ import { StepIndicator } from '../../src/components/StepIndicator';
 import { useSettingsStore } from '../../src/stores/settingsStore';
 import { useAuthStore } from '../../src/stores/authStore';
 import { supabase } from '../../src/lib/supabase';
+import { useOnboardingStore } from '../../src/stores/onboardingStore';
 import { FONT_SIZE, RADIUS } from '../../src/lib/constants';
+import type { Gender, ActivityLevel } from '../../src/lib/nutrition';
 
 const GENDERS = ['male', 'female'] as const;
 const ACTIVITIES = ['sedentary', 'light', 'moderate', 'active', 'very_active'] as const;
@@ -117,7 +119,16 @@ export default function BodyScreen() {
       </ScrollView>
 
       <View style={{ padding: 24, paddingBottom: 40 }}>
-        <Button title={t('onboarding.next')} onPress={() => router.push('/onboarding/diet')} disabled={!canContinue} />
+        <Button title={t('onboarding.next')} onPress={() => {
+          useOnboardingStore.getState().setBody({
+            gender: gender as Gender,
+            heightCm: parseFloat(height),
+            weightKg: parseFloat(weight),
+            age: parseInt(age, 10),
+            activityLevel: activity as ActivityLevel,
+          });
+          router.push('/onboarding/diet');
+        }} disabled={!canContinue} />
       </View>
 
       {/* GDPR-2: Health data consent */}

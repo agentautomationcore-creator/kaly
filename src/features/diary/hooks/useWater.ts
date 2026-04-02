@@ -1,6 +1,7 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { supabase } from '../../../lib/supabase';
 import { useAuthStore } from '../../../stores/authStore';
+import { track } from '../../../lib/analytics';
 import type { WaterEntry } from '../types';
 
 const GLASS_ML = 250;
@@ -39,6 +40,7 @@ export function useWater(date: string) {
       if (error) throw error;
     },
     onSuccess: () => {
+      track('water_logged');
       qc.invalidateQueries({ queryKey: ['water', date] });
     },
   });

@@ -12,6 +12,7 @@ import { MealSection } from './MealSection';
 import { WaterTracker } from './WaterTracker';
 import { RecentMeals } from './RecentMeals';
 import { ListSkeleton } from '../../../components/LoadingSkeleton';
+import { useYesterdayMeals } from '../hooks/useYesterdayMeals';
 import { FONT_SIZE } from '../../../lib/constants';
 import type { MealType } from '../../../lib/types';
 
@@ -29,6 +30,7 @@ export function DailyDiary({ date: dateProp }: DailyDiaryProps) {
   const { selectedDate, setSelectedDate } = useDiaryStore();
   const currentDate = dateProp || selectedDate;
   const { data: entries, isLoading } = useDiary(currentDate);
+  const { data: yesterdayMeals } = useYesterdayMeals();
   const calorieGoal = profile?.daily_calories || 2000;
 
   const entriesByMeal = MEALS.reduce((acc, meal) => {
@@ -67,6 +69,7 @@ export function DailyDiary({ date: dateProp }: DailyDiaryProps) {
               mealType={meal}
               entries={entriesByMeal[meal] || []}
               date={currentDate}
+              yesterdayEntries={yesterdayMeals?.[meal]}
             />
           ))}
         </View>

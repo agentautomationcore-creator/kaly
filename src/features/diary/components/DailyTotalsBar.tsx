@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { useColors } from '../../../lib/theme';
-import { ProgressBar } from '../../../components/ProgressBar';
+import { CalorieRing } from '../../stats/components/CalorieRing';
 import { Card } from '../../../components/Card';
 import { FONT_SIZE } from '../../../lib/constants';
 
@@ -19,30 +19,20 @@ export function DailyTotalsBar({ calories, protein, carbs, fat, calorieGoal = 20
   const colors = useColors();
   const remaining = calorieGoal - calories;
 
+  // Neutral color for "over" text — no guilt-tripping
+  const overColor = remaining >= 0 ? colors.success : '#94A3B8';
+
   return (
     <Card style={{ marginHorizontal: 16, marginBottom: 16 }}>
-      {/* Calorie summary */}
-      <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: 12 }}>
-        <View>
-          <Text style={{ fontSize: 32, fontWeight: '800', color: colors.primary }}>{Math.round(calories)}</Text>
-          <Text style={{ fontSize: FONT_SIZE.xs, color: colors.textSecondary }}>{t('common.kcal')}</Text>
-        </View>
-        <Text style={{ fontSize: FONT_SIZE.sm, color: remaining >= 0 ? colors.success : colors.danger, fontWeight: '500' }}>
+      {/* Calorie ring + remaining */}
+      <View style={{ alignItems: 'center', marginBottom: 12 }}>
+        <CalorieRing current={calories} goal={calorieGoal} size={140} />
+        <Text style={{ fontSize: FONT_SIZE.sm, color: overColor, fontWeight: '500', marginTop: 8 }}>
           {remaining >= 0
             ? t('diary.remaining', { count: Math.round(remaining) })
             : t('diary.over', { count: Math.abs(Math.round(remaining)) })}
         </Text>
       </View>
-
-      {/* Calorie progress */}
-      <ProgressBar
-        value={calories}
-        max={calorieGoal}
-        color={calories > calorieGoal ? colors.danger : colors.primary}
-        showValue={false}
-        height={6}
-        style={{ marginBottom: 16 }}
-      />
 
       {/* Macros */}
       <View style={{ flexDirection: 'row', gap: 16 }}>
