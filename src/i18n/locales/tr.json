@@ -45,6 +45,9 @@
     "allergy_shellfish": "Kabuklu deniz ürünleri",
     "allergy_eggs": "Yumurta",
     "allergy_soy": "Soya",
+    "invalid_weight": "Geçersiz kilo (1-300)",
+    "invalid_height": "Geçersiz boy (1-300)",
+    "invalid_age": "Geçersiz yaş (12-120)",
     "next": "İleri",
     "skip": "Atla",
     "done": "Takibe başla!"
@@ -78,6 +81,7 @@
     "grant_camera": "Kamera erişimine izin ver",
     "ingredients_count": "{{count}} malzeme",
     "add_item": "Malzeme ekle",
+    "open_settings": "Ayarları Aç",
     "scan_food": "Tara",
     "flip_camera": "Kamerayı çevir"
   },
@@ -157,6 +161,7 @@
     "sign_out": "Çıkış yap",
     "create_account": "Hesap oluştur",
     "save_data": "Verilerini kaydet — ücretsiz hesap oluştur",
+    "water_reminders": "Su hatırlatıcıları",
     "show_streak": "Gün serisini göster",
     "about": "Hakkında",
     "version": "Sürüm {{version}}",
@@ -234,11 +239,12 @@
     "point_at_barcode": "Barkoda doğrultun",
     "camera_needed": "Kamera erişimi gerekli",
     "not_found": "Ürün bulunamadı",
-    "not_found_desc": "Ürün bulunamadı_DESC",
+    "not_found_desc": "Bu ürün veritabanımızda yok. Tekrar taramayı deneyin.",
     "result_title": "Ürün bulundu",
     "portion": "Porsiyon",
     "custom_portion": "Özel (gram)",
-    "scan_again": "Başka barkod tara"
+    "scan_again": "Tekrar tara",
+    "enter_manually": "Manuel giriş"
   },
   "common": {
     "loading": "Yükleniyor...",

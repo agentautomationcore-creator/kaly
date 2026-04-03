@@ -68,13 +68,16 @@ export async function lookupBarcode(barcode: string): Promise<BarcodeProduct | n
     const p = data.product;
     const n = p.nutriments || {};
 
+    // SEC-3: Clamp values from external API to sane ranges
+    const clamp = (v: number, min: number, max: number) => Math.max(min, Math.min(max, v));
+
     const product: BarcodeProduct = {
       barcode,
       name: p.product_name || p.product_name_en || barcode,
-      calories100g: n['energy-kcal_100g'] ?? n['energy-kcal'] ?? 0,
-      protein100g: n.proteins_100g ?? 0,
-      fat100g: n.fat_100g ?? 0,
-      carbs100g: n.carbohydrates_100g ?? 0,
+      calories100g: clamp(n['energy-kcal_100g'] ?? n['energy-kcal'] ?? 0, 0, 1000),
+      protein100g: clamp(n.proteins_100g ?? 0, 0, 100),
+      fat100g: clamp(n.fat_100g ?? 0, 0, 100),
+      carbs100g: clamp(n.carbohydrates_100g ?? 0, 0, 100),
       imageUrl: p.image_front_small_url,
       source: 'openfoodfacts',
     };

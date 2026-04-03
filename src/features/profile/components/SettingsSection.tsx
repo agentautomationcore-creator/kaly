@@ -116,6 +116,7 @@ export function SettingsSection({ profile }: SettingsSectionProps) {
           value={profile?.notifications ?? true}
           onValueChange={(v) => update({ notifications: v })}
           trackColor={{ false: colors.border, true: colors.primary }}
+          accessibilityLabel={t('profile.notifications')}
         />
       </View>
 
@@ -135,6 +136,7 @@ export function SettingsSection({ profile }: SettingsSectionProps) {
             }
           }}
           trackColor={{ false: colors.border, true: colors.primary }}
+          accessibilityLabel={t('profile.water_reminders')}
         />
       </View>
 
@@ -147,6 +149,7 @@ export function SettingsSection({ profile }: SettingsSectionProps) {
           value={showStreak}
           onValueChange={setShowStreak}
           trackColor={{ false: colors.border, true: colors.primary }}
+          accessibilityLabel={t('profile.show_streak')}
         />
       </View>
 
@@ -171,6 +174,7 @@ export function SettingsSection({ profile }: SettingsSectionProps) {
             }
           }}
           trackColor={{ false: colors.border, true: colors.primary }}
+          accessibilityLabel={t('profile.ai_analysis')}
         />
       </View>
       <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12 }}>
@@ -190,6 +194,7 @@ export function SettingsSection({ profile }: SettingsSectionProps) {
             }
           }}
           trackColor={{ false: colors.border, true: colors.primary }}
+          accessibilityLabel={t('profile.health_data')}
         />
       </View>
       <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
@@ -208,17 +213,18 @@ export function SettingsSection({ profile }: SettingsSectionProps) {
             }
           }}
           trackColor={{ false: colors.border, true: colors.primary }}
+          accessibilityLabel={t('profile.analytics')}
         />
       </View>
 
       {/* Legal links */}
       <View style={{ flexDirection: 'row', gap: 16 }}>
-        <Pressable onPress={() => Linking.openURL(PRIVACY_URL)}>
+        <Pressable onPress={() => Linking.openURL(PRIVACY_URL)} style={{ minHeight: 44, paddingVertical: 12, justifyContent: 'center' }} accessibilityRole="link" accessibilityLabel={t('paywall.privacy')}>
           <Text style={{ fontSize: FONT_SIZE.xs, color: colors.textSecondary, textDecorationLine: 'underline' }}>
             {t('paywall.privacy')}
           </Text>
         </Pressable>
-        <Pressable onPress={() => Linking.openURL(TERMS_URL)}>
+        <Pressable onPress={() => Linking.openURL(TERMS_URL)} style={{ minHeight: 44, paddingVertical: 12, justifyContent: 'center' }} accessibilityRole="link" accessibilityLabel={t('paywall.terms')}>
           <Text style={{ fontSize: FONT_SIZE.xs, color: colors.textSecondary, textDecorationLine: 'underline' }}>
             {t('paywall.terms')}
           </Text>

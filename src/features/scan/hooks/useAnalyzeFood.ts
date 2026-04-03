@@ -2,6 +2,7 @@ import { useMutation } from '@tanstack/react-query';
 import { supabase } from '../../../lib/supabase';
 import { compressImage } from '../../../lib/imageUtils';
 import { useScanStore } from '../store/scanStore';
+import { useAuthStore } from '../../../stores/authStore';
 import { captureException } from '../../../lib/sentry';
 import { track } from '../../../lib/analytics';
 import type { ScanResult } from '../types';
@@ -46,13 +47,13 @@ async function analyzeFood(photoUri: string): Promise<ScanResult> {
     const { data: { session } } = await supabase.auth.getSession();
     if (!session) throw new Error('Not authenticated');
 
-    const response = await fetch(
+    const makeRequest = async (token: string) => fetch(
       `${process.env.EXPO_PUBLIC_SUPABASE_URL}/functions/v1/analyze-food`,
       {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${session.access_token}`,
+          Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({
           image: base64,
@@ -61,6 +62,19 @@ async function analyzeFood(photoUri: string): Promise<ScanResult> {
         signal: controller.signal,
       }
     );
+
+    let response = await makeRequest(session.access_token);
+
+    // AUTH-3: Retry once on 401 with refreshed token
+    if (response.status === 401) {
+      const refreshed = await useAuthStore.getState().refreshAndRetry();
+      if (refreshed) {
+        const { data: { session: newSession } } = await supabase.auth.getSession();
+        if (newSession) {
+          response = await makeRequest(newSession.access_token);
+        }
+      }
+    }
 
     if (response.status === 429) {
       const data = await response.json();

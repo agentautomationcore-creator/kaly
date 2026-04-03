@@ -45,6 +45,9 @@
     "allergy_shellfish": "贝壳类海鲜",
     "allergy_eggs": "鸡蛋",
     "allergy_soy": "大豆",
+    "invalid_weight": "体重无效 (1-300)",
+    "invalid_height": "身高无效 (1-300)",
+    "invalid_age": "年龄无效 (12-120)",
     "next": "下一步",
     "skip": "跳过",
     "done": "开始追踪！"
@@ -78,6 +81,7 @@
     "grant_camera": "允许访问相机",
     "ingredients_count": "{{count}} 种成分",
     "add_item": "添加食材",
+    "open_settings": "打开设置",
     "scan_food": "扫描食物",
     "flip_camera": "切换摄像头"
   },
@@ -157,6 +161,7 @@
     "sign_out": "退出登录",
     "create_account": "创建账号",
     "save_data": "保存你的数据 — 创建免费账号",
+    "water_reminders": "喝水提醒",
     "show_streak": "显示连续天数",
     "about": "关于",
     "version": "版本 {{version}}",
@@ -234,11 +239,12 @@
     "point_at_barcode": "对准条形码",
     "camera_needed": "需要相机权限",
     "not_found": "未找到产品",
-    "not_found_desc": "未找到产品_DESC",
+    "not_found_desc": "该产品不在我们的数据库中，请重新扫描。",
     "result_title": "已找到产品",
     "portion": "份量",
     "custom_portion": "自定义（克）",
-    "scan_again": "扫描另一个条形码"
+    "scan_again": "重新扫描",
+    "enter_manually": "手动输入"
   },
   "common": {
     "loading": "加载中...",

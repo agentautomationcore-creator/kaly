@@ -182,7 +182,7 @@ function EditableIngredientRow({ item, multiplier, colors, isHidden, onUpdate, o
             style={{ fontSize: FONT_SIZE.sm, fontWeight: '500', color: colors.text, padding: 0, borderBottomWidth: 1, borderColor: colors.primary }}
           />
         ) : (
-          <Pressable onPress={() => setEditingName(true)} style={{ minHeight: 24 }}>
+          <Pressable onPress={() => setEditingName(true)} style={{ minHeight: 44, justifyContent: 'center' }} accessibilityRole="button" accessibilityLabel={t('common.edit') || item.name}>
             <Text style={{ fontSize: FONT_SIZE.sm, fontWeight: '500', color: colors.text }}>
               {isHidden ? '⚠️ ' : ''}{item.name}
             </Text>
@@ -215,7 +215,7 @@ function EditableIngredientRow({ item, multiplier, colors, isHidden, onUpdate, o
       {/* Delete button */}
       <Pressable
         onPress={onRemove}
-        style={{ width: 32, height: 32, justifyContent: 'center', alignItems: 'center' }}
+        style={{ width: 44, height: 44, justifyContent: 'center', alignItems: 'center' }}
         accessibilityRole="button"
         accessibilityLabel={t('common.delete')}
       >

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, Pressable, ScrollView } from 'react-native';
+import { View, Text, TextInput, Pressable, ScrollView, Alert } from 'react-native';
 import { useRouter } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useTranslation } from 'react-i18next';
@@ -53,11 +53,13 @@ export default function BodyScreen() {
               style={{
                 flex: 1,
                 padding: 14,
+                minHeight: 44,
                 borderRadius: RADIUS.md,
                 backgroundColor: gender === g ? colors.primaryLight : colors.card,
                 borderWidth: 2,
                 borderColor: gender === g ? colors.primary : 'transparent',
                 alignItems: 'center',
+                justifyContent: 'center',
               }}
             >
               <Text style={{ fontWeight: '600', color: gender === g ? colors.primary : colors.text }}>
@@ -120,11 +122,26 @@ export default function BodyScreen() {
 
       <View style={{ padding: 24, paddingBottom: 40 }}>
         <Button title={t('onboarding.next')} onPress={() => {
+          const w = parseFloat(weight);
+          const h = parseFloat(height);
+          const a = parseInt(age, 10);
+          if (w <= 0 || w > 300) {
+            Alert.alert(t('common.error'), t('onboarding.invalid_weight'));
+            return;
+          }
+          if (h <= 0 || h > 300) {
+            Alert.alert(t('common.error'), t('onboarding.invalid_height'));
+            return;
+          }
+          if (a < 12 || a > 120) {
+            Alert.alert(t('common.error'), t('onboarding.invalid_age'));
+            return;
+          }
           useOnboardingStore.getState().setBody({
             gender: gender as Gender,
-            heightCm: parseFloat(height),
-            weightKg: parseFloat(weight),
-            age: parseInt(age, 10),
+            heightCm: h,
+            weightKg: w,
+            age: a,
             activityLevel: activity as ActivityLevel,
           });
           router.push('/onboarding/diet');

@@ -45,6 +45,9 @@
     "allergy_shellfish": "مأكولات بحرية",
     "allergy_eggs": "بيض",
     "allergy_soy": "صويا",
+    "invalid_weight": "وزن غير صالح (1-300)",
+    "invalid_height": "طول غير صالح (1-300)",
+    "invalid_age": "عمر غير صالح (12-120)",
     "next": "التالي",
     "skip": "تخطي",
     "done": "ابدأ التتبّع!"
@@ -78,6 +81,7 @@
     "grant_camera": "السماح بالوصول إلى الكاميرا",
     "ingredients_count": "{{count}} مكونات",
     "add_item": "إضافة مكوّن",
+    "open_settings": "فتح الإعدادات",
     "scan_food": "مسح الطعام",
     "flip_camera": "قلب الكاميرا"
   },
@@ -157,6 +161,7 @@
     "sign_out": "تسجيل الخروج",
     "create_account": "إنشاء حساب",
     "save_data": "احفظ بياناتك — أنشئ حساباً مجانياً",
+    "water_reminders": "تذكير بشرب الماء",
     "show_streak": "إظهار سلسلة الأيام",
     "about": "حول التطبيق",
     "version": "الإصدار {{version}}",
@@ -234,11 +239,12 @@
     "point_at_barcode": "وجّه نحو الباركود",
     "camera_needed": "يحتاج إذن الكاميرا",
     "not_found": "المنتج غير موجود",
-    "not_found_desc": "المنتج غير موجود_DESC",
+    "not_found_desc": "هذا المنتج غير موجود في قاعدة البيانات. حاول المسح مرة أخرى.",
     "result_title": "تم العثور على المنتج",
     "portion": "حجم الحصة",
     "custom_portion": "مخصص (غرام)",
-    "scan_again": "مسح باركود آخر"
+    "scan_again": "مسح مرة أخرى",
+    "enter_manually": "إدخال يدوي"
   },
   "common": {
     "loading": "جارٍ التحميل...",

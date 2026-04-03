@@ -36,9 +36,9 @@ export function BarcodeResult({ product, onDone, onScanAgain }: BarcodeResultPro
 
   const ratio = portionG / 100;
   const cal = Math.round(product.calories100g * ratio);
-  const protein = +(product.protein100g * ratio).toFixed(1);
-  const fat = +(product.fat100g * ratio).toFixed(1);
-  const carbs = +(product.carbs100g * ratio).toFixed(1);
+  const protein = Math.round(product.protein100g * ratio * 10) / 10;
+  const fat = Math.round(product.fat100g * ratio * 10) / 10;
+  const carbs = Math.round(product.carbs100g * ratio * 10) / 10;
 
   const meals: MealType[] = ['breakfast', 'lunch', 'dinner', 'snack'];
 

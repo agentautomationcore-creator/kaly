@@ -8,7 +8,11 @@ const MAX_INPUT_SIZE_BYTES = 20 * 1024 * 1024; // 20MB — reject before attempt
 export async function compressImage(uri: string): Promise<string> {
   // PERF-6: Check file size BEFORE compression to prevent OOM on huge files
   const inputInfo = await FileSystem.getInfoAsync(uri);
-  if (inputInfo.exists && inputInfo.size && inputInfo.size > MAX_INPUT_SIZE_BYTES) {
+  // AI-5: Reject empty/0-byte files
+  if (!inputInfo.exists || !inputInfo.size || inputInfo.size === 0) {
+    throw new Error('EMPTY_FILE');
+  }
+  if (inputInfo.size > MAX_INPUT_SIZE_BYTES) {
     throw new Error('IMAGE_TOO_LARGE');
   }
 

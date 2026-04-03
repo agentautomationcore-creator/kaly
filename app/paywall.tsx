@@ -9,7 +9,9 @@ import { useColors } from '../src/lib/theme';
 import { Button } from '../src/components/Button';
 import { Card } from '../src/components/Card';
 import { FONT_SIZE, RADIUS } from '../src/lib/constants';
+import NetInfo from '@react-native-community/netinfo';
 import { useAuthStore } from '../src/stores/authStore';
+import { supabase } from '../src/lib/supabase';
 import { captureException } from '../src/lib/sentry';
 import { track } from '../src/lib/analytics';
 
@@ -46,13 +48,25 @@ export default function PaywallScreen() {
     loadOfferings();
   }, []);
 
-  /** Sync RevenueCat entitlements → Zustand (DB sync via RevenueCat webhook with service_role) */
-  const syncPlanFromCustomerInfo = (customerInfo: CustomerInfo) => {
+  /** Sync RevenueCat entitlements → Zustand + DB fallback (primary sync via RevenueCat webhook) */
+  const syncPlanFromCustomerInfo = async (customerInfo: CustomerInfo) => {
     const isPro = !!customerInfo.entitlements.active['pro'];
     const newPlan = isPro ? 'pro' : 'free';
     const profile = useAuthStore.getState().profile;
     if (profile) {
       useAuthStore.getState().setProfile({ ...profile, plan: newPlan });
+    }
+    // SEC-8: Server sync fallback — if webhook is delayed, ensure DB reflects purchase
+    if (user) {
+      try {
+        await supabase.rpc('sync_plan_from_purchase', {
+          p_user_id: user.id,
+          p_entitlement: newPlan,
+        });
+      } catch (err) {
+        // Non-blocking — webhook will eventually sync
+        captureException(err, { feature: 'paywall_sync_fallback' });
+      }
     }
   };
 
@@ -70,6 +84,13 @@ export default function PaywallScreen() {
       );
       return;
     }
+    // B13: Check network before purchase
+    const netState = await NetInfo.fetch();
+    if (!netState.isConnected) {
+      Alert.alert(t('common.error'), t('errors.network'));
+      return;
+    }
+
     const pkg = packages.find((p) =>
       period === 'annual'
         ? p.packageType === 'ANNUAL'

@@ -66,11 +66,11 @@ export default function WelcomeScreen() {
           {t('welcome.pricing')}
         </Text>
         <View style={{ flexDirection: 'row', justifyContent: 'center', gap: 8, marginTop: 8 }}>
-          <Pressable onPress={() => Linking.openURL(TERMS_URL)}>
+          <Pressable onPress={() => Linking.openURL(TERMS_URL)} style={{ minHeight: 44, justifyContent: 'center', paddingVertical: 12 }} accessibilityRole="link" accessibilityLabel={t('paywall.terms')}>
             <Text style={{ fontSize: 11, color: colors.textSecondary, textDecorationLine: 'underline' }}>{t('paywall.terms')}</Text>
           </Pressable>
-          <Text style={{ fontSize: 11, color: colors.border }}>|</Text>
-          <Pressable onPress={() => Linking.openURL(PRIVACY_URL)}>
+          <Text style={{ fontSize: 11, color: colors.border, alignSelf: 'center' }}>|</Text>
+          <Pressable onPress={() => Linking.openURL(PRIVACY_URL)} style={{ minHeight: 44, justifyContent: 'center', paddingVertical: 12 }} accessibilityRole="link" accessibilityLabel={t('paywall.privacy')}>
             <Text style={{ fontSize: 11, color: colors.textSecondary, textDecorationLine: 'underline' }}>{t('paywall.privacy')}</Text>
           </Pressable>
         </View>

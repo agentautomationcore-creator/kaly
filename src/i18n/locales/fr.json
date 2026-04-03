@@ -45,6 +45,9 @@
     "allergy_shellfish": "Fruits de mer",
     "allergy_eggs": "Œufs",
     "allergy_soy": "Soja",
+    "invalid_weight": "Poids invalide (1-300)",
+    "invalid_height": "Taille invalide (1-300)",
+    "invalid_age": "Âge invalide (12-120)",
     "next": "Suivant",
     "skip": "Passer",
     "done": "C'est parti !"
@@ -78,6 +81,7 @@
     "grant_camera": "Autoriser l'accès à la caméra",
     "ingredients_count": "{{count}} ingrédients",
     "add_item": "Ajouter un ingrédient",
+    "open_settings": "Ouvrir les réglages",
     "scan_food": "Scanner",
     "flip_camera": "Retourner la caméra"
   },
@@ -157,6 +161,7 @@
     "sign_out": "Déconnexion",
     "create_account": "Créer un compte",
     "save_data": "Sauvegardez vos données — créez un compte gratuit",
+    "water_reminders": "Rappels d'hydratation",
     "show_streak": "Afficher la série de jours",
     "about": "À propos",
     "version": "Version {{version}}",
@@ -234,11 +239,12 @@
     "point_at_barcode": "Pointez vers un code-barres",
     "camera_needed": "Accès caméra requis pour scanner",
     "not_found": "Produit non trouvé",
-    "not_found_desc": "Produit non trouvé_DESC",
+    "not_found_desc": "Ce produit n'est pas dans notre base de données. Essayez de scanner à nouveau.",
     "result_title": "Produit trouvé",
     "portion": "Taille de la portion",
     "custom_portion": "Personnalisé (grammes)",
-    "scan_again": "Scanner un autre code-barres"
+    "scan_again": "Scanner à nouveau",
+    "enter_manually": "Saisir manuellement"
   },
   "common": {
     "loading": "Chargement...",

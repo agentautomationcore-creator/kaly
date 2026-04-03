@@ -15,6 +15,7 @@ import { supabase } from '../../../lib/supabase';
 import { useAuthStore } from '../../../stores/authStore';
 import { captureException } from '../../../lib/sentry';
 import { track } from '../../../lib/analytics';
+import { formatNumber } from '../../../lib/formatNumber';
 import type { MealType } from '../../../lib/types';
 
 export function NutritionResultCard() {
@@ -30,10 +31,10 @@ export function NutritionResultCard() {
 
   const m = portionMultiplier;
   const cal = Math.round(result.total.calories * m);
-  const protein = +(result.total.protein_g * m).toFixed(1);
-  const carbs = +(result.total.carbs_g * m).toFixed(1);
-  const fat = +(result.total.fat_g * m).toFixed(1);
-  const fiber = +(result.total.fiber_g * m).toFixed(1);
+  const protein = Math.round(result.total.protein_g * m * 10) / 10;
+  const carbs = Math.round(result.total.carbs_g * m * 10) / 10;
+  const fat = Math.round(result.total.fat_g * m * 10) / 10;
+  const fiber = Math.round(result.total.fiber_g * m * 10) / 10;
 
   const meals: MealType[] = ['breakfast', 'lunch', 'dinner', 'snack'];
 
@@ -51,10 +52,10 @@ export function NutritionResultCard() {
           ...item,
           g: Math.round(item.g * m),
           calories: Math.round(item.calories * m),
-          protein_g: +(item.protein_g * m).toFixed(1),
-          fat_g: +(item.fat_g * m).toFixed(1),
-          carbs_g: +(item.carbs_g * m).toFixed(1),
-          fiber_g: +(item.fiber_g * m).toFixed(1),
+          protein_g: Math.round(item.protein_g * m * 10) / 10,
+          fat_g: Math.round(item.fat_g * m * 10) / 10,
+          carbs_g: Math.round(item.carbs_g * m * 10) / 10,
+          fiber_g: Math.round(item.fiber_g * m * 10) / 10,
         })),
         quantity_g: Math.round(result.total_portion_g * m),
         total_calories: cal,
@@ -128,7 +129,15 @@ export function NutritionResultCard() {
 
       {/* Ingredients */}
       <Card style={{ marginBottom: 16 }}>
-        <IngredientList items={result.items} multiplier={m} />
+        {result.items.length === 0 ? (
+          <View style={{ padding: 16, alignItems: 'center' }}>
+            <Text style={{ fontSize: FONT_SIZE.sm, color: colors.warning, textAlign: 'center' }}>
+              {t('scan.no_ingredients')}
+            </Text>
+          </View>
+        ) : (
+          <IngredientList items={result.items} multiplier={m} />
+        )}
       </Card>
 
       {/* Warnings */}

@@ -1,5 +1,5 @@
 import React, { useState, useRef, useCallback } from 'react';
-import { View, Text, Pressable, Alert, ActivityIndicator } from 'react-native';
+import { View, Text, Pressable, Alert, ActivityIndicator, Linking } from 'react-native';
 import { useRouter } from 'expo-router';
 import { useTranslation } from 'react-i18next';
 import { CameraView, useCameraPermissions } from 'expo-camera';
@@ -40,7 +40,19 @@ export function BarcodeScanner() {
         t('barcode.not_found'),
         t('barcode.not_found_desc'),
         [
-          { text: t('common.cancel'), onPress: () => { setScanning(true); lastScanned.current = ''; } },
+          { text: t('barcode.scan_again'), onPress: () => { setScanning(true); lastScanned.current = ''; } },
+          { text: t('barcode.enter_manually'), onPress: () => {
+            // Set a manual entry product with the scanned barcode
+            setProduct({
+              barcode: result.data,
+              name: '',
+              calories100g: 0,
+              protein100g: 0,
+              fat100g: 0,
+              carbs100g: 0,
+              source: 'manual',
+            });
+          }},
         ]
       );
     }
@@ -57,14 +69,19 @@ export function BarcodeScanner() {
   }
 
   if (!permission?.granted) {
+    const canAsk = permission?.canAskAgain !== false;
     return (
       <SafeAreaView style={{ flex: 1, backgroundColor: colors.background, justifyContent: 'center', alignItems: 'center', padding: 24 }}>
         <Ionicons name="barcode-outline" size={48} color={colors.textSecondary} />
         <Text style={{ fontSize: FONT_SIZE.md, color: colors.text, textAlign: 'center', marginVertical: 16 }}>
           {t('barcode.camera_needed')}
         </Text>
-        <Button title={t('scan.grant_camera')} onPress={requestPermission} />
-        <Pressable onPress={() => router.back()} style={{ marginTop: 16, minHeight: 44, justifyContent: 'center' }}>
+        {canAsk ? (
+          <Button title={t('scan.grant_camera')} onPress={requestPermission} />
+        ) : (
+          <Button title={t('scan.open_settings')} onPress={() => Linking.openSettings()} />
+        )}
+        <Pressable onPress={() => router.back()} style={{ marginTop: 16, minHeight: 44, justifyContent: 'center' }} accessibilityRole="button" accessibilityLabel={t('common.cancel')}>
           <Text style={{ color: colors.textSecondary }}>{t('common.cancel')}</Text>
         </Pressable>
       </SafeAreaView>
@@ -81,9 +98,9 @@ export function BarcodeScanner() {
       />
 
       {/* Overlay */}
-      <View style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, justifyContent: 'center', alignItems: 'center' }}>
+      <View style={{ position: 'absolute', top: 0, start: 0, end: 0, bottom: 0, justifyContent: 'center', alignItems: 'center' }}>
         {/* Scanning frame */}
-        <View style={{ width: 260, height: 160, borderWidth: 2, borderColor: '#fff', borderRadius: 12, opacity: 0.7 }} />
+        <View style={{ width: 260, height: 160, borderWidth: 2, borderColor: '#fff', borderRadius: 12, opacity: 0.7 }} accessibilityLabel={t('barcode.point_at_barcode')} />
         <Text style={{ color: '#fff', fontSize: FONT_SIZE.sm, marginTop: 16, opacity: 0.8 }}>
           {t('barcode.point_at_barcode')}
         </Text>
@@ -97,7 +114,7 @@ export function BarcodeScanner() {
       </View>
 
       {/* Close button */}
-      <SafeAreaView style={{ position: 'absolute', top: 0, left: 0, right: 0 }} edges={['top']}>
+      <SafeAreaView style={{ position: 'absolute', top: 0, start: 0, end: 0 }} edges={['top']}>
         <Pressable
           onPress={() => router.back()}
           style={{ alignSelf: 'flex-end', margin: 16, width: 44, height: 44, borderRadius: 22, backgroundColor: 'rgba(0,0,0,0.5)', justifyContent: 'center', alignItems: 'center' }}

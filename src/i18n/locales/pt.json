@@ -45,6 +45,9 @@
     "allergy_shellfish": "Frutos do mar",
     "allergy_eggs": "Ovos",
     "allergy_soy": "Soja",
+    "invalid_weight": "Peso inválido (1-300)",
+    "invalid_height": "Altura inválida (1-300)",
+    "invalid_age": "Idade inválida (12-120)",
     "next": "Próximo",
     "skip": "Pular",
     "done": "Começar a contar!"
@@ -78,6 +81,7 @@
     "grant_camera": "Permitir acesso à câmera",
     "ingredients_count": "{{count}} ingredientes",
     "add_item": "Adicionar ingrediente",
+    "open_settings": "Abrir Configurações",
     "scan_food": "Escanear",
     "flip_camera": "Virar câmera"
   },
@@ -157,6 +161,7 @@
     "sign_out": "Sair",
     "create_account": "Criar conta",
     "save_data": "Salve seus dados — crie uma conta gratuita",
+    "water_reminders": "Lembretes de água",
     "show_streak": "Mostrar sequência de dias",
     "about": "Sobre",
     "version": "Versão {{version}}",
@@ -234,11 +239,12 @@
     "point_at_barcode": "Aponte para o código",
     "camera_needed": "Acesso à câmera necessário",
     "not_found": "Produto não encontrado",
-    "not_found_desc": "Produto não encontrado_DESC",
+    "not_found_desc": "Este produto não está em nosso banco de dados. Tente escanear novamente.",
     "result_title": "Produto encontrado",
     "portion": "Tamanho da porção",
     "custom_portion": "Personalizado (gramas)",
-    "scan_again": "Escanear outro código"
+    "scan_again": "Escanear novamente",
+    "enter_manually": "Inserir manualmente"
   },
   "common": {
     "loading": "Carregando...",

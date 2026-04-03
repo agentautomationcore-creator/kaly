@@ -64,7 +64,9 @@ export function ScanLoading() {
 
       <Pressable
         onPress={handleCancel}
-        style={{ alignSelf: 'center', marginTop: 24, backgroundColor: colors.surface, paddingHorizontal: 24, paddingVertical: 12, borderRadius: RADIUS.md }}
+        style={{ alignSelf: 'center', marginTop: 24, backgroundColor: colors.surface, paddingHorizontal: 24, paddingVertical: 12, borderRadius: RADIUS.md, minHeight: 44, justifyContent: 'center' }}
+        accessibilityRole="button"
+        accessibilityLabel={t('common.cancel')}
       >
         <Text style={{ color: colors.text, fontWeight: '600' }}>{t('common.cancel')}</Text>
       </Pressable>

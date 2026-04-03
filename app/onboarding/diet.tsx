@@ -108,10 +108,12 @@ export default function DietScreen() {
               onPress={() => setDiet(d)}
               style={{
                 padding: 14,
+                minHeight: 44,
                 borderRadius: RADIUS.md,
                 backgroundColor: diet === d ? colors.primaryLight : colors.card,
                 borderWidth: 2,
                 borderColor: diet === d ? colors.primary : 'transparent',
+                justifyContent: 'center',
               }}
             >
               <Text style={{ fontWeight: '500', color: diet === d ? colors.primary : colors.text }}>
@@ -123,7 +125,7 @@ export default function DietScreen() {
 
         {/* Allergies */}
         <Text style={{ fontSize: FONT_SIZE.md, fontWeight: '600', color: colors.text, marginBottom: 12 }}>
-          {t('onboarding.diet_title').split('&')[1]?.trim() || 'Allergies'}
+          {t('onboarding.allergies_title')}
         </Text>
         <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 8 }}>
           {ALLERGIES.map((a) => {
@@ -135,10 +137,12 @@ export default function DietScreen() {
                 style={{
                   paddingHorizontal: 16,
                   paddingVertical: 10,
+                  minHeight: 44,
                   borderRadius: RADIUS.full,
                   backgroundColor: isSelected ? colors.dangerLight : colors.card,
                   borderWidth: 1.5,
                   borderColor: isSelected ? colors.danger : 'transparent',
+                  justifyContent: 'center',
                 }}
               >
                 <Text style={{ fontWeight: '500', color: isSelected ? colors.danger : colors.text, fontSize: FONT_SIZE.sm }}>

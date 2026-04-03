@@ -56,6 +56,14 @@
             "NSPrivacyCollectedDataTypePurposes": [
               "NSPrivacyCollectedDataTypePurposeAppFunctionality"
             ]
+          },
+          {
+            "NSPrivacyCollectedDataType": "NSPrivacyCollectedDataTypeEmailAddress",
+            "NSPrivacyCollectedDataTypeLinked": true,
+            "NSPrivacyCollectedDataTypeTracking": false,
+            "NSPrivacyCollectedDataTypePurposes": [
+              "NSPrivacyCollectedDataTypePurposeAppFunctionality"
+            ]
           }
         ],
         "NSPrivacyTracking": false
@@ -97,7 +105,8 @@
         "expo-notifications",
         {
           "icon": "./assets/icon.png",
-          "color": "#4CAF50"
+          "color": "#4CAF50",
+          "notificationPermissionText": "Kaly sends water reminders and meal logging prompts to help you stay on track with your nutrition goals."
         }
       ],
       "expo-tracking-transparency",

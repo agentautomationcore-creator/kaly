@@ -21,16 +21,17 @@ export function ScanScreen() {
   const setAiConsent = useSettingsStore((s) => s.setAiConsent);
   const [showAiConsent, setShowAiConsent] = useState(false);
 
-  // GDPR-1: Show AI consent before first scan
+  // GDPR-1: Show AI consent modal on first scan attempt (non-blocking for barcode/manual)
   if (!aiConsentGiven && !result && !isAnalyzing && !error) {
     return (
       <View style={{ flex: 1, backgroundColor: colors.background }}>
         <ScanCamera />
         <ConsentModal
-          visible={!aiConsentGiven}
+          visible={!aiConsentGiven && !showAiConsent}
           type="ai"
           onAccept={async () => {
             setAiConsent(true);
+            setShowAiConsent(false);
             const user = useAuthStore.getState().user;
             if (user) {
               await supabase.from('nutrition_profiles').update({
@@ -40,8 +41,8 @@ export function ScanScreen() {
             }
           }}
           onDecline={() => {
-            // Show camera but consent modal will re-appear on next visit
-            setAiConsent(false);
+            // B14: Allow barcode/manual entry even without AI consent
+            setShowAiConsent(true);
           }}
         />
       </View>
@@ -66,14 +67,18 @@ export function ScanScreen() {
           {!isRateLimit && photo && (
             <Pressable
               onPress={() => { setError(null); analyze(photo); }}
-              style={{ backgroundColor: colors.primary, paddingHorizontal: 24, paddingVertical: 12, borderRadius: 12 }}
+              style={{ backgroundColor: colors.primary, paddingHorizontal: 24, paddingVertical: 12, borderRadius: 12, minHeight: 44, justifyContent: 'center' }}
+              accessibilityRole="button"
+              accessibilityLabel={t('common.retry')}
             >
               <Text style={{ color: colors.card, fontWeight: '600' }}>{t('common.retry')}</Text>
             </Pressable>
           )}
           <Pressable
             onPress={reset}
-            style={{ backgroundColor: colors.surface, paddingHorizontal: 24, paddingVertical: 12, borderRadius: 12 }}
+            style={{ backgroundColor: colors.surface, paddingHorizontal: 24, paddingVertical: 12, borderRadius: 12, minHeight: 44, justifyContent: 'center' }}
+            accessibilityRole="button"
+            accessibilityLabel={t('common.cancel')}
           >
             <Text style={{ color: colors.text, fontWeight: '600' }}>{t('common.cancel')}</Text>
           </Pressable>

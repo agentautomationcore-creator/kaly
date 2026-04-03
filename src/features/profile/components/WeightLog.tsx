@@ -4,6 +4,8 @@ import { useTranslation } from 'react-i18next';
 import { Ionicons } from '@expo/vector-icons';
 import { useColors } from '../../../lib/theme';
 import { useWeightLog, useLogWeight } from '../hooks/useWeightLog';
+import { useSettingsStore } from '../../../stores/settingsStore';
+import { kgToLbs, lbsToKg } from '../../../lib/nutrition';
 import { Card } from '../../../components/Card';
 import { Button } from '../../../components/Button';
 import { FONT_SIZE, RADIUS } from '../../../lib/constants';
@@ -13,13 +15,20 @@ export function WeightLog() {
   const colors = useColors();
   const { data: entries } = useWeightLog();
   const { mutate: logWeight, isPending } = useLogWeight();
+  const units = useSettingsStore((s) => s.units);
+  const isImperial = units === 'imperial';
   const [weight, setWeight] = useState('');
   const [showInput, setShowInput] = useState(false);
+
+  const displayWeight = (kg: number) => isImperial ? kgToLbs(kg) : kg;
+  const unitLabel = isImperial ? 'lbs' : 'kg';
 
   const handleLog = () => {
     const w = parseFloat(weight);
     if (w > 0) {
-      logWeight(w, { onSuccess: () => { setWeight(''); setShowInput(false); } });
+      // B7: Convert imperial input to kg for storage
+      const weightKg = isImperial ? lbsToKg(w) : w;
+      logWeight(weightKg, { onSuccess: () => { setWeight(''); setShowInput(false); } });
     }
   };
 
@@ -34,7 +43,7 @@ export function WeightLog() {
         <Text style={{ fontSize: FONT_SIZE.md, fontWeight: '600', color: colors.text }}>
           {t('profile.weight_log')}
         </Text>
-        <Pressable onPress={() => setShowInput(!showInput)}>
+        <Pressable onPress={() => setShowInput(!showInput)} style={{ minHeight: 44, minWidth: 44, justifyContent: 'center', alignItems: 'center' }} accessibilityRole="button" accessibilityLabel={showInput ? t('common.close') : t('diary.add_food')}>
           <Ionicons name={showInput ? 'close' : 'add-circle'} size={24} color={colors.primary} />
         </Pressable>
       </View>
@@ -44,7 +53,7 @@ export function WeightLog() {
           <TextInput
             value={weight}
             onChangeText={setWeight}
-            placeholder="kg"
+            placeholder={unitLabel}
             placeholderTextColor={colors.textSecondary}
             keyboardType="numeric"
             style={{
@@ -68,7 +77,7 @@ export function WeightLog() {
             return (
               <View key={entry.id} style={{ flex: 1, alignItems: 'center' }}>
                 <Text style={{ fontSize: 9, color: colors.textSecondary, marginBottom: 2 }}>
-                  {entry.weight_kg}
+                  {displayWeight(entry.weight_kg)}
                 </Text>
                 <View
                   style={{

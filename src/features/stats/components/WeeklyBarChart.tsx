@@ -13,6 +13,17 @@ interface WeeklyBarChartProps {
 export const WeeklyBarChart = React.memo(function WeeklyBarChart({ days, goal = 2000 }: WeeklyBarChartProps) {
   const { t, i18n } = useTranslation();
   const colors = useColors();
+  // B6: Empty state
+  if (!days.length || days.every((d) => d.calories === 0)) {
+    return (
+      <View style={{ alignItems: 'center', padding: 24 }}>
+        <Text style={{ fontSize: FONT_SIZE.sm, color: colors.textSecondary, textAlign: 'center' }}>
+          {t('stats.no_data')}
+        </Text>
+      </View>
+    );
+  }
+
   const maxCal = Math.max(goal * 1.2, ...days.map((d) => d.calories));
   const barHeight = 120;
 

@@ -48,11 +48,12 @@ export function WaterTracker({ date, goalGlasses = 8 }: WaterTrackerProps) {
 
         <Pressable
           onPress={() => addGlass.mutate()}
+          disabled={addGlass.isPending}
           style={{
             width: 44,
             height: 44,
             borderRadius: 22,
-            backgroundColor: colors.info,
+            backgroundColor: addGlass.isPending ? colors.border : colors.info,
             justifyContent: 'center',
             alignItems: 'center',
           }}

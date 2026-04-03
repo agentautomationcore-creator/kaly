@@ -39,6 +39,7 @@
     "diet_vegan": "Vegan",
     "diet_vegetarian": "Vegetarian",
     "diet_paleo": "Paleo",
+    "allergies_title": "Allergies",
     "allergy_gluten": "Gluten",
     "allergy_dairy": "Dairy",
     "allergy_nuts": "Nuts",
@@ -47,7 +48,10 @@
     "allergy_soy": "Soy",
     "next": "Next",
     "skip": "Skip",
-    "done": "Start tracking!"
+    "done": "Start tracking!",
+    "invalid_weight": "Please enter a valid weight (1-300 kg)",
+    "invalid_height": "Please enter a valid height (1-300 cm)",
+    "invalid_age": "Please enter a valid age (12-120)"
   },
   "tabs": {
     "diary": "Diary",
@@ -76,8 +80,10 @@
     "scan_limit": "Daily scan limit reached ({{limit}}/day)",
     "upgrade_for_more": "Upgrade to Pro for unlimited scans",
     "grant_camera": "Grant camera access",
+    "open_settings": "Open Settings",
     "ingredients_count": "{{count}} ingredients",
     "add_item": "Add ingredient",
+    "no_ingredients": "Could not identify ingredients. Try again or enter manually.",
     "scan_food": "Scan food",
     "flip_camera": "Flip camera"
   },
@@ -120,7 +126,8 @@
     "carbs": "Carbs",
     "fat": "Fat",
     "fiber": "Fiber",
-    "goal": "Goal"
+    "goal": "Goal",
+    "no_data": "Not enough data for chart. Start logging meals!"
   },
   "profile": {
     "title": "Profile",
@@ -236,6 +243,8 @@
     "camera_needed": "Camera access is needed to scan barcodes",
     "not_found": "Product not found",
     "not_found_desc": "This product is not in our database. Try scanning again.",
+    "scan_again": "Scan again",
+    "enter_manually": "Enter manually",
     "result_title": "Product found",
     "portion": "Portion size",
     "custom_portion": "Custom (grams)",

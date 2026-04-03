@@ -9,6 +9,9 @@ import { StepIndicator } from '../../src/components/StepIndicator';
 import { FONT_SIZE, RADIUS } from '../../src/lib/constants';
 import { Ionicons } from '@expo/vector-icons';
 import { useOnboardingStore } from '../../src/stores/onboardingStore';
+import { useAuthStore } from '../../src/stores/authStore';
+import { supabase } from '../../src/lib/supabase';
+import { captureException } from '../../src/lib/sentry';
 import type { Goal } from '../../src/lib/nutrition';
 
 const GOALS = [
@@ -22,7 +25,33 @@ export default function GoalScreen() {
   const colors = useColors();
   const router = useRouter();
   const setGoal = useOnboardingStore((s) => s.setGoal);
+  const signInAnonymously = useAuthStore((s) => s.signInAnonymously);
   const [selected, setSelected] = useState<string | null>(null);
+  const [skipping, setSkipping] = useState(false);
+
+  const handleSkip = async () => {
+    setSkipping(true);
+    try {
+      await signInAnonymously();
+      const { data: { user } } = await supabase.auth.getUser();
+      if (user) {
+        await supabase.from('nutrition_profiles').upsert({
+          id: user.id,
+          goal: 'maintain',
+          daily_calories: 2000,
+          protein_pct: 30,
+          carbs_pct: 45,
+          fat_pct: 25,
+          onboarding_done: true,
+        });
+      }
+      router.replace('/(tabs)/diary');
+    } catch (e) {
+      captureException(e, { feature: 'onboarding_skip' });
+    } finally {
+      setSkipping(false);
+    }
+  };
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: colors.background, padding: 24 }}>
@@ -61,11 +90,24 @@ export default function GoalScreen() {
         ))}
       </View>
 
-      <Button
-        title={t('onboarding.next')}
-        onPress={() => { if (selected) setGoal(selected as Goal); router.push('/onboarding/body'); }}
-        disabled={!selected}
-      />
+      <View style={{ gap: 12 }}>
+        <Button
+          title={t('onboarding.next')}
+          onPress={() => { if (selected) setGoal(selected as Goal); router.push('/onboarding/body'); }}
+          disabled={!selected}
+        />
+        <Pressable
+          onPress={handleSkip}
+          disabled={skipping}
+          style={{ alignItems: 'center', minHeight: 44, justifyContent: 'center' }}
+          accessibilityRole="button"
+          accessibilityLabel={t('onboarding.skip')}
+        >
+          <Text style={{ fontSize: FONT_SIZE.sm, color: colors.textSecondary }}>
+            {t('onboarding.skip')}
+          </Text>
+        </Pressable>
+      </View>
     </SafeAreaView>
   );
 }

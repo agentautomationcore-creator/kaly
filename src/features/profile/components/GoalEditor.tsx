@@ -9,6 +9,8 @@ import { Modal } from '../../../components/Modal';
 import { Button } from '../../../components/Button';
 import { FONT_SIZE, RADIUS } from '../../../lib/constants';
 import { track } from '../../../lib/analytics';
+import { calculateTDEE, calculateDailyTarget, calculateMacroSplit } from '../../../lib/nutrition';
+import type { Gender, ActivityLevel, Goal as GoalType, DietType } from '../../../lib/nutrition';
 import type { NutritionProfile } from '../types';
 
 const GOALS = ['lose', 'maintain', 'gain'] as const;
@@ -25,7 +27,25 @@ export function GoalEditor({ profile }: GoalEditorProps) {
   const { mutate: update, isPending } = useUpdateProfile();
 
   const handleSave = () => {
-    update({ goal: selected }, { onSuccess: () => { track('goal_set', { goal: selected }); setVisible(false); } });
+    // GOAL-4: Recalculate daily calories and macros when goal changes
+    const updates: Record<string, unknown> = { goal: selected };
+    if (profile?.weight_kg && profile?.height_cm && profile?.age && profile?.gender) {
+      const tdee = calculateTDEE(
+        profile.weight_kg,
+        profile.height_cm,
+        profile.age,
+        profile.gender as Gender,
+        (profile.activity_level || 'moderate') as ActivityLevel
+      );
+      const dailyCalories = calculateDailyTarget(tdee, selected as GoalType);
+      const diet = (profile.diet_type || 'balanced') as DietType;
+      const macros = calculateMacroSplit(dailyCalories, diet);
+      const proteinPct = Math.round((macros.protein_g * 4 / dailyCalories) * 100);
+      const carbsPct = Math.round((macros.carbs_g * 4 / dailyCalories) * 100);
+      const fatPct = 100 - proteinPct - carbsPct;
+      Object.assign(updates, { daily_calories: dailyCalories, protein_pct: proteinPct, carbs_pct: carbsPct, fat_pct: fatPct });
+    }
+    update(updates, { onSuccess: () => { track('goal_set', { goal: selected }); setVisible(false); } });
   };
 
   return (

@@ -5,6 +5,7 @@ import { queryClient } from '../lib/queryClient';
 import { FREE_SCANS_PER_DAY } from '../lib/constants';
 import { identify, resetAnalytics } from '../lib/analytics';
 import { setSentryUser } from '../lib/sentry';
+import { cleanupSettingsStore } from './settingsStore';
 import type { NutritionProfile } from '../lib/types';
 
 const mmkv = createMMKV({ id: 'kaly-settings' });
@@ -54,7 +55,8 @@ export const useAuthStore = create<AuthState>((set, get) => ({
         // Set user context for analytics & error tracking
         setSentryUser(session.user.id);
         if (!isAnon) {
-          identify(session.user.id, { email: session.user.email });
+          // SEC-12: Don't send email to PostHog — only user_id for analytics
+          identify(session.user.id, {});
         }
 
         // Load profile
@@ -94,6 +96,7 @@ export const useAuthStore = create<AuthState>((set, get) => ({
   signOut: async () => {
     resetAnalytics();
     setSentryUser(null);
+    cleanupSettingsStore();
     await supabase.auth.signOut();
     queryClient.clear();
     mmkv.clearAll();
