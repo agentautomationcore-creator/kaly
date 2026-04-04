@@ -22,23 +22,28 @@ export function MealEditModal({ visible, onClose, diaryEntryId }: MealEditModalP
   const [type, setType] = useState<string>('wrong_food');
   const [description, setDescription] = useState('');
   const [submitted, setSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const user = useAuthStore((s) => s.user);
 
   const handleSubmit = async () => {
-    if (!user) return;
+    if (!user || isSubmitting) return;
+    setIsSubmitting(true);
+    try {
+      await supabase.from('ai_feedback').insert({
+        user_id: user.id,
+        diary_entry_id: diaryEntryId || null,
+        feedback_type: type,
+        description: description || null,
+      });
 
-    await supabase.from('ai_feedback').insert({
-      user_id: user.id,
-      diary_entry_id: diaryEntryId || null,
-      feedback_type: type,
-      description: description || null,
-    });
-
-    setSubmitted(true);
-    setTimeout(() => {
-      setSubmitted(false);
-      onClose();
-    }, 1500);
+      setSubmitted(true);
+      setTimeout(() => {
+        setSubmitted(false);
+        onClose();
+      }, 1500);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -57,6 +62,7 @@ export function MealEditModal({ visible, onClose, diaryEntryId }: MealEditModalP
               <Pressable
                 key={ft}
                 onPress={() => setType(ft)}
+                accessibilityRole="button"
                 style={{
                   padding: 12,
                   minHeight: 44,
@@ -78,6 +84,7 @@ export function MealEditModal({ visible, onClose, diaryEntryId }: MealEditModalP
             onChangeText={setDescription}
             placeholder={t('feedback.description')}
             placeholderTextColor={colors.textSecondary}
+            accessibilityLabel={t('scan.feedback_input')}
             multiline
             numberOfLines={3}
             style={{
@@ -92,7 +99,7 @@ export function MealEditModal({ visible, onClose, diaryEntryId }: MealEditModalP
             }}
           />
 
-          <Button title={t('feedback.submit')} onPress={handleSubmit} />
+          <Button title={t('feedback.submit')} onPress={handleSubmit} disabled={isSubmitting} />
         </View>
       )}
     </Modal>

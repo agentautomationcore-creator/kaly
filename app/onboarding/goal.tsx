@@ -65,10 +65,13 @@ export default function GoalScreen() {
           <Pressable
             key={g.key}
             onPress={() => setSelected(g.key)}
+            accessibilityRole="button"
+            accessibilityLabel={t(`onboarding.goal_${g.key}`)}
             style={{
               flexDirection: 'row',
               alignItems: 'center',
               padding: 16,
+              minHeight: 44,
               borderRadius: RADIUS.lg,
               backgroundColor: selected === g.key ? colors.primaryLight : colors.card,
               borderWidth: 2,

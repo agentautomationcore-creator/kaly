@@ -89,7 +89,9 @@
     "ingredient_grams": "克数",
     "no_ingredients": "无法识别食材。请重试或手动输入。",
     "not_food_detected": "不是食物",
-    "not_food_hint": "将相机对准一盘食物"
+    "not_food_hint": "将相机对准一盘食物",
+    "upgrade_button": "升级到 Pro",
+    "feedback_input": "您的反馈"
   },
   "diary": {
     "title": "今天",
@@ -131,7 +133,8 @@
     "fat": "脂肪",
     "fiber": "膳食纤维",
     "goal": "目标",
-    "no_data": "图表数据不足。开始记录您的用餐吧！"
+    "no_data": "图表数据不足。开始记录您的用餐吧！",
+    "weight_input": "输入体重"
   },
   "profile": {
     "title": "我的",

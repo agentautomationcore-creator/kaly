@@ -89,7 +89,9 @@
     "ingredient_grams": "Grammes",
     "no_ingredients": "Impossible d'identifier les ingrédients. Réessayez ou saisissez manuellement.",
     "not_food_detected": "Ce n'est pas de la nourriture",
-    "not_food_hint": "Dirigez la caméra vers une assiette de nourriture"
+    "not_food_hint": "Dirigez la caméra vers une assiette de nourriture",
+    "upgrade_button": "Passer à Pro",
+    "feedback_input": "Votre commentaire"
   },
   "diary": {
     "title": "Aujourd'hui",
@@ -131,7 +133,8 @@
     "fat": "Lipides",
     "fiber": "Fibres",
     "goal": "Objectif",
-    "no_data": "Pas assez de données pour le graphique. Commencez à enregistrer vos repas !"
+    "no_data": "Pas assez de données pour le graphique. Commencez à enregistrer vos repas !",
+    "weight_input": "Saisir le poids"
   },
   "profile": {
     "title": "Profil",

@@ -89,7 +89,9 @@
     "ingredient_grams": "Gram",
     "no_ingredients": "Malzemeler tanımlanamadı. Tekrar deneyin veya elle girin.",
     "not_food_detected": "Yiyecek değil",
-    "not_food_hint": "Kamerayı bir yemek tabağına doğrultun"
+    "not_food_hint": "Kamerayı bir yemek tabağına doğrultun",
+    "upgrade_button": "Pro'ya yükselt",
+    "feedback_input": "Geri bildiriminiz"
   },
   "diary": {
     "title": "Bugün",
@@ -131,7 +133,8 @@
     "fat": "Yağ",
     "fiber": "Lif",
     "goal": "Hedef",
-    "no_data": "Grafik için yeterli veri yok. Öğünlerinizi kaydetmeye başlayın!"
+    "no_data": "Grafik için yeterli veri yok. Öğünlerinizi kaydetmeye başlayın!",
+    "weight_input": "Kilo girin"
   },
   "profile": {
     "title": "Profil",

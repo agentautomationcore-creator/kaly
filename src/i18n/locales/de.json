@@ -89,7 +89,9 @@
     "ingredient_grams": "Gramm",
     "no_ingredients": "Zutaten konnten nicht erkannt werden. Versuchen Sie es erneut oder geben Sie sie manuell ein.",
     "not_food_detected": "Kein Essen",
-    "not_food_hint": "Richten Sie die Kamera auf einen Teller mit Essen"
+    "not_food_hint": "Richten Sie die Kamera auf einen Teller mit Essen",
+    "upgrade_button": "Auf Pro upgraden",
+    "feedback_input": "Ihr Feedback"
   },
   "diary": {
     "title": "Heute",
@@ -131,7 +133,8 @@
     "fat": "Fett",
     "fiber": "Ballaststoffe",
     "goal": "Ziel",
-    "no_data": "Nicht genug Daten für das Diagramm. Beginnen Sie mit der Erfassung Ihrer Mahlzeiten!"
+    "no_data": "Nicht genug Daten für das Diagramm. Beginnen Sie mit der Erfassung Ihrer Mahlzeiten!",
+    "weight_input": "Gewicht eingeben"
   },
   "profile": {
     "title": "Profil",

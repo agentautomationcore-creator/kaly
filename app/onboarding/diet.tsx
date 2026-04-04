@@ -106,6 +106,7 @@ export default function DietScreen() {
             <Pressable
               key={d}
               onPress={() => setDiet(d)}
+              accessibilityRole="button"
               style={{
                 padding: 14,
                 minHeight: 44,
@@ -134,6 +135,7 @@ export default function DietScreen() {
               <Pressable
                 key={a}
                 onPress={() => toggleAllergy(a)}
+                accessibilityRole="switch"
                 style={{
                   paddingHorizontal: 16,
                   paddingVertical: 10,

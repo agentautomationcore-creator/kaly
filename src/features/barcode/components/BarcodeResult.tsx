@@ -142,6 +142,8 @@ export function BarcodeResult({ product, onDone, onScanAgain }: BarcodeResultPro
               <Pressable
                 key={g}
                 onPress={() => { setPortionG(g); setCustomPortion(''); }}
+                accessibilityRole="button"
+                accessibilityLabel={`${g} ${t('units.g')}`}
                 style={{
                   paddingHorizontal: 16,
                   paddingVertical: 10,

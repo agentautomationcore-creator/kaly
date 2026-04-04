@@ -54,8 +54,10 @@ export function DietEditor({ profile }: DietEditorProps) {
             <Pressable
               key={d}
               onPress={() => setDiet(d)}
+              accessibilityRole="button"
               style={{
                 padding: 12,
+                minHeight: 44,
                 borderRadius: RADIUS.md,
                 backgroundColor: diet === d ? colors.primaryLight : colors.surface,
                 borderWidth: 1.5,
@@ -76,6 +78,7 @@ export function DietEditor({ profile }: DietEditorProps) {
               <Pressable
                 key={a}
                 onPress={() => toggleAllergy(a)}
+                accessibilityRole="switch"
                 style={{
                   paddingHorizontal: 14,
                   paddingVertical: 8,

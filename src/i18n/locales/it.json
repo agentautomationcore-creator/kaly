@@ -89,7 +89,9 @@
     "ingredient_grams": "Grammi",
     "no_ingredients": "Impossibile identificare gli ingredienti. Riprova o inserisci manualmente.",
     "not_food_detected": "Non è cibo",
-    "not_food_hint": "Punta la fotocamera verso un piatto di cibo"
+    "not_food_hint": "Punta la fotocamera verso un piatto di cibo",
+    "upgrade_button": "Passa a Pro",
+    "feedback_input": "Il tuo feedback"
   },
   "diary": {
     "title": "Oggi",
@@ -131,7 +133,8 @@
     "fat": "Grassi",
     "fiber": "Fibre",
     "goal": "Obiettivo",
-    "no_data": "Non ci sono abbastanza dati per il grafico. Inizia a registrare i pasti!"
+    "no_data": "Non ci sono abbastanza dati per il grafico. Inizia a registrare i pasti!",
+    "weight_input": "Inserisci peso"
   },
   "profile": {
     "title": "Profilo",

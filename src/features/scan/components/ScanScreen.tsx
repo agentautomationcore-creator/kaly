@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, Pressable } from 'react-native';
 import { useTranslation } from 'react-i18next';
+import { useRouter } from 'expo-router';
 import { useColors } from '../../../lib/theme';
 import { useScanStore } from '../store/scanStore';
 import { useAnalyzeFood } from '../hooks/useAnalyzeFood';
@@ -15,6 +16,7 @@ import { NutritionResultCard } from './NutritionResultCard';
 export function ScanScreen() {
   const { t } = useTranslation();
   const colors = useColors();
+  const router = useRouter();
   const { photo, result, isAnalyzing, error, reset, setError } = useScanStore();
   const { mutate: analyze } = useAnalyzeFood();
   const aiConsentGiven = useSettingsStore((s) => s.aiConsentGiven);
@@ -64,6 +66,27 @@ export function ScanScreen() {
         <Text style={{ color: colors.textSecondary, textAlign: 'center', marginBottom: 24 }}>
           {isRateLimit ? t('scan.upgrade_for_more') : isNotFood ? t('scan.not_food_hint') : t('errors.generic')}
         </Text>
+        {isRateLimit && (
+          <Pressable
+            onPress={() => router.push('/paywall')}
+            style={{
+              backgroundColor: colors.primary,
+              paddingHorizontal: 24,
+              paddingVertical: 12,
+              borderRadius: 12,
+              minHeight: 44,
+              alignItems: 'center',
+              justifyContent: 'center',
+              marginTop: 12,
+            }}
+            accessibilityRole="button"
+            accessibilityLabel={t('scan.upgrade_button')}
+          >
+            <Text style={{ color: '#FFFFFF', fontWeight: '600', fontSize: 16 }}>
+              {t('scan.upgrade_button')}
+            </Text>
+          </Pressable>
+        )}
         <View style={{ flexDirection: 'row', gap: 12 }}>
           {!isRateLimit && photo && (
             <Pressable

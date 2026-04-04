@@ -178,6 +178,8 @@ export default function PaywallScreen() {
         <View style={{ flexDirection: 'row', backgroundColor: colors.surface, borderRadius: RADIUS.lg, padding: 4, marginBottom: 24 }}>
           <Pressable
             onPress={() => setPeriod('monthly')}
+            accessibilityRole="button"
+            accessibilityLabel={t('paywall.monthly')}
             style={{
               flex: 1,
               paddingVertical: 12,
@@ -196,6 +198,8 @@ export default function PaywallScreen() {
 
           <Pressable
             onPress={() => setPeriod('annual')}
+            accessibilityRole="radio"
+            accessibilityLabel={t('paywall.annual')}
             style={{
               flex: 1,
               paddingVertical: 12,

@@ -89,7 +89,9 @@
     "ingredient_name": "Ingredient name",
     "ingredient_grams": "Grams",
     "not_food_detected": "Not food",
-    "not_food_hint": "Point the camera at a plate of food or a meal"
+    "not_food_hint": "Point the camera at a plate of food or a meal",
+    "upgrade_button": "Upgrade to Pro",
+    "feedback_input": "Your feedback"
   },
   "diary": {
     "title": "Today",
@@ -131,7 +133,8 @@
     "fat": "Fat",
     "fiber": "Fiber",
     "goal": "Goal",
-    "no_data": "Not enough data for chart. Start logging meals!"
+    "no_data": "Not enough data for chart. Start logging meals!",
+    "weight_input": "Enter weight"
   },
   "profile": {
     "title": "Profile",

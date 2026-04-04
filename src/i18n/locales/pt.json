@@ -89,7 +89,9 @@
     "ingredient_grams": "Gramas",
     "no_ingredients": "Não foi possível identificar os ingredientes. Tente novamente ou insira manualmente.",
     "not_food_detected": "Não é comida",
-    "not_food_hint": "Aponte a câmera para um prato de comida"
+    "not_food_hint": "Aponte a câmera para um prato de comida",
+    "upgrade_button": "Atualizar para Pro",
+    "feedback_input": "Seu comentário"
   },
   "diary": {
     "title": "Hoje",
@@ -131,7 +133,8 @@
     "fat": "Gordura",
     "fiber": "Fibra",
     "goal": "Meta",
-    "no_data": "Dados insuficientes para o gráfico. Comece a registrar suas refeições!"
+    "no_data": "Dados insuficientes para o gráfico. Comece a registrar suas refeições!",
+    "weight_input": "Inserir peso"
   },
   "profile": {
     "title": "Perfil",

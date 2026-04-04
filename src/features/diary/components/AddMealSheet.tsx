@@ -30,11 +30,14 @@ export function AddMealSheet({ visible, onClose }: AddMealSheetProps) {
           <Pressable
             key={opt.label}
             onPress={opt.action}
+            accessibilityRole="button"
+            accessibilityLabel={opt.label}
             style={{
               flexDirection: 'row',
               alignItems: 'center',
               gap: 16,
               padding: 16,
+              minHeight: 44,
               borderRadius: RADIUS.md,
               backgroundColor: colors.surface,
             }}

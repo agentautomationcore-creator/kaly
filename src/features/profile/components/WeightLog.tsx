@@ -56,6 +56,7 @@ export function WeightLog() {
             placeholder={unitLabel}
             placeholderTextColor={colors.textSecondary}
             keyboardType="numeric"
+            accessibilityLabel={t('stats.weight_input')}
             style={{
               flex: 1,
               backgroundColor: colors.surface,

@@ -50,6 +50,8 @@ export default function BodyScreen() {
             <Pressable
               key={g}
               onPress={() => setGender(g)}
+              accessibilityRole="button"
+              accessibilityLabel={t(`onboarding.${g}`)}
               style={{
                 flex: 1,
                 padding: 14,
@@ -105,8 +107,11 @@ export default function BodyScreen() {
             <Pressable
               key={a}
               onPress={() => setActivity(a)}
+              accessibilityRole="button"
+              accessibilityLabel={t(`onboarding.activity_${a}`)}
               style={{
                 padding: 14,
+                minHeight: 44,
                 borderRadius: RADIUS.md,
                 backgroundColor: activity === a ? colors.primaryLight : colors.card,
                 borderWidth: 2,

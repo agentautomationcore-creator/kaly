@@ -68,6 +68,7 @@ export function GoalEditor({ profile }: GoalEditorProps) {
             <Pressable
               key={g}
               onPress={() => setSelected(g)}
+              accessibilityRole="button"
               style={{
                 padding: 14,
                 borderRadius: RADIUS.md,

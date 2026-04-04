@@ -1,5 +1,5 @@
-import React from 'react';
-import { View, ViewStyle } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, ViewStyle, AccessibilityInfo } from 'react-native';
 import Animated, {
   useSharedValue,
   useAnimatedStyle,
@@ -19,19 +19,26 @@ interface SkeletonProps {
 
 export function Skeleton({ width = '100%', height = 16, borderRadius = RADIUS.sm, style }: SkeletonProps) {
   const colors = useColors();
+  const [reduceMotion, setReduceMotion] = useState(false);
   const opacity = useSharedValue(0.3);
 
-  React.useEffect(() => {
-    opacity.value = withRepeat(
-      withSequence(
-        withTiming(0.7, { duration: 800 }),
-        withTiming(0.3, { duration: 800 })
-      ),
-      -1
-    );
+  useEffect(() => {
+    AccessibilityInfo.isReduceMotionEnabled().then(setReduceMotion);
   }, []);
 
-  const animatedStyle = useAnimatedStyle(() => ({ opacity: opacity.value }));
+  useEffect(() => {
+    if (!reduceMotion) {
+      opacity.value = withRepeat(
+        withSequence(
+          withTiming(0.7, { duration: 800 }),
+          withTiming(0.3, { duration: 800 })
+        ),
+        -1
+      );
+    }
+  }, [reduceMotion]);
+
+  const animatedStyle = useAnimatedStyle(() => reduceMotion ? { opacity: 0.5 } : { opacity: opacity.value });
 
   return (
     <Animated.View
