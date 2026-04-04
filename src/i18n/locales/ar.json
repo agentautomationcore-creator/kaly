@@ -102,7 +102,7 @@
     "lunch": "الغداء",
     "dinner": "العشاء",
     "snack": "وجبة خفيفة",
-    "add_food": "أضف طعام",
+    "add_food": "إضافة طعام",
     "empty": "لم تُسجّل وجبات بعد",
     "empty_hint": "اضغط + للمسح أو إضافة طعام",
     "emptyTitle": "لا وجبات بعد",
@@ -278,7 +278,8 @@
     "protein_short": "P",
     "carbs_short": "C",
     "fat_short": "F",
-    "close_modal": "إغلاق"
+    "close_modal": "إغلاق",
+    "clear": "مسح"
   },
   "errors": {
     "analysis_failed": "فشل التحليل. يرجى المحاولة مجدداً.",
@@ -316,5 +317,19 @@
   "validation": {
     "invalid_weight": "يجب أن يكون الوزن بين 20 و300 كغ",
     "invalid_age": "يجب أن يكون العمر بين 12 و120"
+  },
+  "food_search": {
+    "placeholder": "ابحث عن طعام...",
+    "no_results": "لا توجد نتائج",
+    "enter_manually": "إدخال يدوي"
+  },
+  "manual_entry": {
+    "title": "إضافة طعام",
+    "food_name": "الاسم",
+    "food_name_placeholder": "مثال: صدر دجاج",
+    "macros": "المغذيات (اختياري)",
+    "serving_size": "حجم الحصة",
+    "name_required": "أدخل اسم الطعام",
+    "missing_nutrition": "البيانات الغذائية غير مكتملة."
   }
 }

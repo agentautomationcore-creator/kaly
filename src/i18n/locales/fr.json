@@ -278,7 +278,8 @@
     "protein_short": "P",
     "carbs_short": "C",
     "fat_short": "F",
-    "close_modal": "Fermer"
+    "close_modal": "Fermer",
+    "clear": "Effacer"
   },
   "errors": {
     "analysis_failed": "L'analyse a échoué. Réessayez.",
@@ -316,5 +317,19 @@
   "validation": {
     "invalid_weight": "Le poids doit être entre 20 et 300 kg",
     "invalid_age": "L'âge doit être entre 12 et 120"
+  },
+  "food_search": {
+    "placeholder": "Rechercher un aliment...",
+    "no_results": "Aucun résultat",
+    "enter_manually": "Saisir manuellement"
+  },
+  "manual_entry": {
+    "title": "Ajouter un aliment",
+    "food_name": "Nom de l'aliment",
+    "food_name_placeholder": "ex. Blanc de poulet",
+    "macros": "Macros (optionnel)",
+    "serving_size": "Taille de portion",
+    "name_required": "Veuillez entrer un nom",
+    "missing_nutrition": "Données nutritionnelles incomplètes."
   }
 }

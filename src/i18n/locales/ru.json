@@ -278,7 +278,8 @@
     "protein_short": "P",
     "carbs_short": "C",
     "fat_short": "F",
-    "close_modal": "Закрыть"
+    "close_modal": "Закрыть",
+    "clear": "Очистить"
   },
   "errors": {
     "analysis_failed": "Анализ не удался. Попробуйте снова.",
@@ -316,5 +317,19 @@
   "validation": {
     "invalid_weight": "Вес должен быть от 20 до 300 кг",
     "invalid_age": "Возраст должен быть от 12 до 120"
+  },
+  "food_search": {
+    "placeholder": "Поиск еды или продукта...",
+    "no_results": "Ничего не найдено",
+    "enter_manually": "Ввести вручную"
+  },
+  "manual_entry": {
+    "title": "Добавить еду",
+    "food_name": "Название",
+    "food_name_placeholder": "напр. Куриная грудка",
+    "macros": "Макронутриенты (необязательно)",
+    "serving_size": "Размер порции",
+    "name_required": "Введите название",
+    "missing_nutrition": "Данные о питании неполные."
   }
 }

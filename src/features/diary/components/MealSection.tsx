@@ -86,7 +86,7 @@ export const MealSection = React.memo(function MealSection({ mealType, entries, 
         </View>
 
         <Pressable
-          onPress={() => router.push('/(tabs)/scan')}
+          onPress={() => router.push({ pathname: '/food-search', params: { mealType } })}
           accessibilityLabel={t('diary.add_food')}
           accessibilityRole="button"
           style={{ minHeight: MIN_TOUCH, minWidth: 44, justifyContent: 'center', alignItems: 'center' }}

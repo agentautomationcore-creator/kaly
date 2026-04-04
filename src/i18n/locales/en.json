@@ -278,7 +278,8 @@
     "protein_short": "P",
     "carbs_short": "C",
     "fat_short": "F",
-    "close_modal": "Close modal"
+    "close_modal": "Close modal",
+    "clear": "Clear"
   },
   "errors": {
     "analysis_failed": "Analysis failed. Please try again.",
@@ -316,5 +317,19 @@
   "validation": {
     "invalid_weight": "Weight must be between 20 and 300 kg",
     "invalid_age": "Age must be between 12 and 120"
+  },
+  "food_search": {
+    "placeholder": "Search food or product...",
+    "no_results": "No results found",
+    "enter_manually": "Enter manually"
+  },
+  "manual_entry": {
+    "title": "Add food",
+    "food_name": "Food name",
+    "food_name_placeholder": "e.g. Chicken breast",
+    "macros": "Macros (optional)",
+    "serving_size": "Serving size",
+    "name_required": "Please enter a food name",
+    "missing_nutrition": "Nutrition data incomplete. Please verify or enter manually."
   }
 }

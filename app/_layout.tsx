@@ -95,6 +95,8 @@ export default function RootLayout() {
             <Stack.Screen name="(auth)" />
             <Stack.Screen name="paywall" options={{ presentation: 'modal' }} />
             <Stack.Screen name="barcode" options={{ presentation: 'modal', animation: 'slide_from_bottom' }} />
+            <Stack.Screen name="food-search" options={{ presentation: 'modal', animation: 'slide_from_bottom' }} />
+            <Stack.Screen name="manual-entry" options={{ presentation: 'modal', animation: 'slide_from_bottom' }} />
           </Stack>
         </QueryClientProvider>
       </GestureHandlerRootView>

@@ -278,7 +278,8 @@
     "protein_short": "P",
     "carbs_short": "C",
     "fat_short": "F",
-    "close_modal": "Fechar"
+    "close_modal": "Fechar",
+    "clear": "Limpar"
   },
   "errors": {
     "analysis_failed": "A análise falhou. Tente novamente.",
@@ -316,5 +317,19 @@
   "validation": {
     "invalid_weight": "O peso deve estar entre 20 e 300 kg",
     "invalid_age": "A idade deve estar entre 12 e 120"
+  },
+  "food_search": {
+    "placeholder": "Buscar alimento...",
+    "no_results": "Nenhum resultado",
+    "enter_manually": "Inserir manualmente"
+  },
+  "manual_entry": {
+    "title": "Adicionar comida",
+    "food_name": "Nome",
+    "food_name_placeholder": "ex. Peito de frango",
+    "macros": "Macros (opcional)",
+    "serving_size": "Tamanho da porção",
+    "name_required": "Insira um nome",
+    "missing_nutrition": "Dados nutricionais incompletos."
   }
 }

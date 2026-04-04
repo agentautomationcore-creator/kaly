@@ -102,7 +102,7 @@
     "lunch": "Öğle yemeği",
     "dinner": "Akşam yemeği",
     "snack": "Atıştırmalık",
-    "add_food": "Yemek ekle",
+    "add_food": "Yiyecek ekle",
     "empty": "Henüz kayıtlı öğün yok",
     "empty_hint": "Taramak veya eklemek için + simgesine dokun",
     "emptyTitle": "Henüz öğün yok",
@@ -278,7 +278,8 @@
     "protein_short": "P",
     "carbs_short": "C",
     "fat_short": "F",
-    "close_modal": "Kapat"
+    "close_modal": "Kapat",
+    "clear": "Temizle"
   },
   "errors": {
     "analysis_failed": "Analiz başarısız. Lütfen tekrar dene.",
@@ -316,5 +317,19 @@
   "validation": {
     "invalid_weight": "Ağırlık 20 ile 300 kg arasında olmalıdır",
     "invalid_age": "Yaş 12 ile 120 arasında olmalıdır"
+  },
+  "food_search": {
+    "placeholder": "Yiyecek ara...",
+    "no_results": "Sonuç bulunamadı",
+    "enter_manually": "Manuel giriş"
+  },
+  "manual_entry": {
+    "title": "Yiyecek ekle",
+    "food_name": "Ad",
+    "food_name_placeholder": "örn. Tavuk göğsü",
+    "macros": "Makrolar (isteğe bağlı)",
+    "serving_size": "Porsiyon",
+    "name_required": "Lütfen bir ad girin",
+    "missing_nutrition": "Besin verileri eksik."
   }
 }

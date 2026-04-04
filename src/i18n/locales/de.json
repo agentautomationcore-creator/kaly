@@ -278,7 +278,8 @@
     "protein_short": "P",
     "carbs_short": "C",
     "fat_short": "F",
-    "close_modal": "Schließen"
+    "close_modal": "Schließen",
+    "clear": "Löschen"
   },
   "errors": {
     "analysis_failed": "Analyse fehlgeschlagen. Bitte versuche es erneut.",
@@ -316,5 +317,19 @@
   "validation": {
     "invalid_weight": "Gewicht muss zwischen 20 und 300 kg liegen",
     "invalid_age": "Alter muss zwischen 12 und 120 liegen"
+  },
+  "food_search": {
+    "placeholder": "Lebensmittel suchen...",
+    "no_results": "Keine Ergebnisse",
+    "enter_manually": "Manuell eingeben"
+  },
+  "manual_entry": {
+    "title": "Essen hinzufügen",
+    "food_name": "Name",
+    "food_name_placeholder": "z.B. Hähnchenbrust",
+    "macros": "Makros (optional)",
+    "serving_size": "Portionsgröße",
+    "name_required": "Bitte Name eingeben",
+    "missing_nutrition": "Nährwertdaten unvollständig."
   }
 }

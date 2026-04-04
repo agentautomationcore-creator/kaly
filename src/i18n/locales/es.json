@@ -278,7 +278,8 @@
     "protein_short": "P",
     "carbs_short": "C",
     "fat_short": "F",
-    "close_modal": "Cerrar"
+    "close_modal": "Cerrar",
+    "clear": "Borrar"
   },
   "errors": {
     "analysis_failed": "El análisis falló. Por favor, inténtalo de nuevo.",
@@ -316,5 +317,19 @@
   "validation": {
     "invalid_weight": "El peso debe estar entre 20 y 300 kg",
     "invalid_age": "La edad debe estar entre 12 y 120"
+  },
+  "food_search": {
+    "placeholder": "Buscar alimento...",
+    "no_results": "Sin resultados",
+    "enter_manually": "Ingresar manualmente"
+  },
+  "manual_entry": {
+    "title": "Añadir comida",
+    "food_name": "Nombre",
+    "food_name_placeholder": "ej. Pechuga de pollo",
+    "macros": "Macros (opcional)",
+    "serving_size": "Tamaño de porción",
+    "name_required": "Ingrese un nombre",
+    "missing_nutrition": "Datos nutricionales incompletos."
   }
 }
