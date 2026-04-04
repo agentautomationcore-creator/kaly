@@ -134,7 +134,9 @@
     "fiber": "Ballaststoffe",
     "goal": "Ziel",
     "no_data": "Nicht genug Daten für das Diagramm. Beginnen Sie mit der Erfassung Ihrer Mahlzeiten!",
-    "weight_input": "Gewicht eingeben"
+    "weight_input": "Gewicht eingeben",
+    "steps": "Schritte",
+    "active_calories": "Aktive Kal."
   },
   "profile": {
     "title": "Profil",
@@ -303,7 +305,9 @@
     "units": "Einheiten",
     "toggle_units": "Einheiten wechseln",
     "metric": "Metrisch (kg, cm)",
-    "imperial": "Imperial (lb, ft)"
+    "imperial": "Imperial (lb, ft)",
+    "apple_health": "Apple Health",
+    "apple_health_hint": "Mahlzeiten, Wasser und Gewicht synchronisieren"
   },
   "validation": {
     "invalid_weight": "Gewicht muss zwischen 20 und 300 kg liegen",

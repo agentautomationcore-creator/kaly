@@ -62,7 +62,9 @@ export function MealEditModal({ visible, onClose, diaryEntryId }: MealEditModalP
               <Pressable
                 key={ft}
                 onPress={() => setType(ft)}
+                disabled={isSubmitting}
                 accessibilityRole="button"
+                accessibilityLabel={t(`feedback.${ft}`)}
                 style={{
                   padding: 12,
                   minHeight: 44,
@@ -85,6 +87,7 @@ export function MealEditModal({ visible, onClose, diaryEntryId }: MealEditModalP
             placeholder={t('feedback.description')}
             placeholderTextColor={colors.textSecondary}
             accessibilityLabel={t('scan.feedback_input')}
+            editable={!isSubmitting}
             multiline
             numberOfLines={3}
             style={{

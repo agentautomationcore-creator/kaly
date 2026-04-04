@@ -58,6 +58,14 @@
             ]
           },
           {
+            "NSPrivacyCollectedDataTypeIdentifier": "NSPrivacyCollectedDataTypeHealthAndFitness",
+            "NSPrivacyCollectedDataTypeLinked": false,
+            "NSPrivacyCollectedDataTypeTracking": false,
+            "NSPrivacyCollectedDataTypePurposes": [
+              "NSPrivacyCollectedDataTypePurposeAppFunctionality"
+            ]
+          },
+          {
             "NSPrivacyCollectedDataType": "NSPrivacyCollectedDataTypeEmailAddress",
             "NSPrivacyCollectedDataTypeLinked": true,
             "NSPrivacyCollectedDataTypeTracking": false,
@@ -86,6 +94,14 @@
     },
     "plugins": [
       "expo-router",
+      [
+        "react-native-health",
+        {
+          "isClinicalDataEnabled": false,
+          "healthSharePermission": "Kaly uses Apple Health to sync your nutrition data and show your activity",
+          "healthUpdatePermission": "Kaly saves your meals, water intake, and weight to Apple Health"
+        }
+      ],
       "expo-font",
       "expo-localization",
       "expo-apple-authentication",

@@ -134,7 +134,9 @@
     "fiber": "Fibres",
     "goal": "Objectif",
     "no_data": "Pas assez de données pour le graphique. Commencez à enregistrer vos repas !",
-    "weight_input": "Saisir le poids"
+    "weight_input": "Saisir le poids",
+    "steps": "Pas",
+    "active_calories": "Cal. actives"
   },
   "profile": {
     "title": "Profil",
@@ -159,9 +161,9 @@
     "theme_dark": "Sombre",
     "theme_system": "Système",
     "notifications": "Notifications",
-    "privacy": "Confidentialite",
+    "privacy": "Confidentialité",
     "ai_analysis": "Analyse IA",
-    "health_data": "Traitement donnees de sante",
+    "health_data": "Traitement données de santé",
     "analytics": "Analyses d'utilisation",
     "export_data": "Exporter les données (CSV)",
     "export_share_title": "Export des données Kaly",
@@ -303,7 +305,9 @@
     "units": "Unités",
     "toggle_units": "Changer les unités",
     "metric": "Métrique (kg, cm)",
-    "imperial": "Impérial (lb, pi)"
+    "imperial": "Impérial (lb, pi)",
+    "apple_health": "Apple Health",
+    "apple_health_hint": "Synchroniser repas, eau et poids"
   },
   "validation": {
     "invalid_weight": "Le poids doit être entre 20 et 300 kg",

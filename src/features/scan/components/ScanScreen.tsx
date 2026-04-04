@@ -3,6 +3,7 @@ import { View, Text, Pressable } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { useRouter } from 'expo-router';
 import { useColors } from '../../../lib/theme';
+import { FONT_SIZE } from '../../../lib/constants';
 import { useScanStore } from '../store/scanStore';
 import { useAnalyzeFood } from '../hooks/useAnalyzeFood';
 import { useSettingsStore } from '../../../stores/settingsStore';
@@ -60,7 +61,7 @@ export function ScanScreen() {
     const isNotFood = error === 'NOT_FOOD' || (typeof error === 'string' && error.includes('not_food'));
     return (
       <View style={{ flex: 1, backgroundColor: colors.background, justifyContent: 'center', alignItems: 'center', padding: 24 }}>
-        <Text style={{ color: colors.danger, fontSize: 18, fontWeight: '600', marginBottom: 12 }}>
+        <Text style={{ color: colors.danger, fontSize: FONT_SIZE.lg, fontWeight: '600', marginBottom: 12 }}>
           {isRateLimit ? t('scan.scan_limit', { limit: 3 }) : isNotFood ? t('scan.not_food_detected') : t('errors.analysis_failed')}
         </Text>
         <Text style={{ color: colors.textSecondary, textAlign: 'center', marginBottom: 24 }}>
@@ -82,7 +83,7 @@ export function ScanScreen() {
             accessibilityRole="button"
             accessibilityLabel={t('scan.upgrade_button')}
           >
-            <Text style={{ color: '#FFFFFF', fontWeight: '600', fontSize: 16 }}>
+            <Text style={{ color: colors.card, fontWeight: '600', fontSize: 16 }}>
               {t('scan.upgrade_button')}
             </Text>
           </Pressable>

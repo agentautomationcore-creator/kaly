@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
-import { View, Text, Pressable } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, Text, Pressable, AccessibilityInfo } from 'react-native';
+import Animated, { FadeInDown, FadeInUp } from 'react-native-reanimated';
 import { useRouter } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useTranslation } from 'react-i18next';
@@ -16,7 +17,7 @@ import type { Goal } from '../../src/lib/nutrition';
 
 const GOALS = [
   { key: 'lose', icon: 'trending-down' as const },
-  { key: 'maintain', icon: 'remove' as const },
+  { key: 'maintain', icon: 'pause' as const },
   { key: 'gain', icon: 'trending-up' as const },
 ];
 
@@ -28,6 +29,8 @@ export default function GoalScreen() {
   const signInAnonymously = useAuthStore((s) => s.signInAnonymously);
   const [selected, setSelected] = useState<string | null>(null);
   const [skipping, setSkipping] = useState(false);
+  const [reduceMotion, setReduceMotion] = useState(false);
+  useEffect(() => { AccessibilityInfo.isReduceMotionEnabled().then(setReduceMotion); }, []);
 
   const handleSkip = async () => {
     setSkipping(true);
@@ -56,9 +59,9 @@ export default function GoalScreen() {
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: colors.background, padding: 24 }}>
       <StepIndicator totalSteps={4} currentStep={2} />
-      <Text style={{ fontSize: 24, fontWeight: '700', color: colors.text, marginBottom: 8 }}>
+      <Animated.Text entering={reduceMotion ? undefined : FadeInDown.duration(500).delay(100)} style={{ fontSize: FONT_SIZE.xl, fontWeight: '700', color: colors.text, marginBottom: 8 }}>
         {t('onboarding.goal_title')}
-      </Text>
+      </Animated.Text>
 
       <View style={{ flex: 1, justifyContent: 'center', gap: 12 }}>
         {GOALS.map((g) => (
@@ -102,7 +105,7 @@ export default function GoalScreen() {
         <Pressable
           onPress={handleSkip}
           disabled={skipping}
-          style={{ alignItems: 'center', minHeight: 44, justifyContent: 'center' }}
+          style={{ alignItems: 'center', minHeight: 44, justifyContent: 'center', opacity: skipping ? 0.5 : 1 }}
           accessibilityRole="button"
           accessibilityLabel={t('onboarding.skip')}
         >

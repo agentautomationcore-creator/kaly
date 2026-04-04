@@ -13,6 +13,7 @@ import { supabase } from '../../../lib/supabase';
 import { useAuthStore } from '../../../stores/authStore';
 import { captureException } from '../../../lib/sentry';
 import { track } from '../../../lib/analytics';
+import { useHealthKit } from '../../../hooks/useHealthKit';
 import { useQueryClient } from '@tanstack/react-query';
 import type { BarcodeProduct } from '../hooks/useBarcodeLookup';
 import type { MealType } from '../../../lib/types';
@@ -36,6 +37,7 @@ export function BarcodeResult({ product, onDone, onScanAgain }: BarcodeResultPro
   const [saving, setSaving] = useState(false);
   const [productName, setProductName] = useState(product.name);
   const isManual = product.source === 'manual';
+  const { saveCalories } = useHealthKit();
 
   const ratio = portionG / 100;
   const cal = Math.round(product.calories100g * ratio);
@@ -79,6 +81,7 @@ export function BarcodeResult({ product, onDone, onScanAgain }: BarcodeResultPro
       });
 
       track('meal_logged', { meal_type: mealType, entry_method: 'barcode' });
+      try { await saveCalories(cal); } catch (e) { if (__DEV__) console.log('[HealthKit] Save calories failed:', e); }
       qc.invalidateQueries({ queryKey: ['diary'] });
       onDone();
     } catch (e) {
@@ -97,7 +100,7 @@ export function BarcodeResult({ product, onDone, onScanAgain }: BarcodeResultPro
           <Pressable onPress={onScanAgain} style={{ padding: 8, minHeight: 44, minWidth: 44, justifyContent: 'center', alignItems: 'center' }} accessibilityRole="button" accessibilityLabel={t('common.close')}>
             <Ionicons name="arrow-back" size={24} color={colors.text} />
           </Pressable>
-          <Text style={{ fontSize: 18, fontWeight: '700', color: colors.text }}>{t('barcode.result_title')}</Text>
+          <Text style={{ fontSize: FONT_SIZE.lg, fontWeight: '700', color: colors.text }}>{t('barcode.result_title')}</Text>
           <View style={{ width: 40 }} />
         </View>
 
@@ -113,7 +116,7 @@ export function BarcodeResult({ product, onDone, onScanAgain }: BarcodeResultPro
               style={{ fontSize: 20, fontWeight: '700', color: colors.text, marginBottom: 8, borderBottomWidth: 1, borderColor: colors.primary, paddingBottom: 4 }}
             />
           ) : (
-            <Text style={{ fontSize: 20, fontWeight: '700', color: colors.text, marginBottom: 8 }}>
+            <Text style={{ fontSize: FONT_SIZE.xl, fontWeight: '700', color: colors.text, marginBottom: 8 }} numberOfLines={2}>
               {product.name}
             </Text>
           )}

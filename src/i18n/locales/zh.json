@@ -134,7 +134,9 @@
     "fiber": "膳食纤维",
     "goal": "目标",
     "no_data": "图表数据不足。开始记录您的用餐吧！",
-    "weight_input": "输入体重"
+    "weight_input": "输入体重",
+    "steps": "步数",
+    "active_calories": "活动卡路里"
   },
   "profile": {
     "title": "我的",
@@ -303,7 +305,9 @@
     "units": "单位",
     "toggle_units": "切换单位",
     "metric": "公制 (kg, cm)",
-    "imperial": "英制 (磅, 英尺)"
+    "imperial": "英制 (磅, 英尺)",
+    "apple_health": "Apple Health",
+    "apple_health_hint": "同步餐食、饮水和体重"
   },
   "validation": {
     "invalid_weight": "体重必须在20到300公斤之间",

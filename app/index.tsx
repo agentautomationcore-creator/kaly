@@ -40,6 +40,16 @@ export default function Index() {
     router.replace('/(tabs)/diary');
   }, [user, isLoading]);
 
+  // Safety timeout: if stuck on splash for 10s, fallback to welcome
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      if (isLoading || !user) {
+        router.replace('/onboarding/welcome');
+      }
+    }, 10000);
+    return () => clearTimeout(timeout);
+  }, []);
+
   return (
     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: colors.background }}>
       <ActivityIndicator size="large" color={colors.primary} />

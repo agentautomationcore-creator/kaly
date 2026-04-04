@@ -4,6 +4,7 @@ import i18n from '../i18n';
 import { lightColors, darkColors, type Colors } from '../lib/theme';
 import { useSettingsStore } from '../stores/settingsStore';
 import { captureException } from '../lib/sentry';
+import { FONT_SIZE, RADIUS, SPACING } from '../lib/constants';
 
 interface Props {
   children: ReactNode;
@@ -53,27 +54,27 @@ export class ErrorBoundary extends Component<Props, State> {
       const colors = getColors();
 
       return (
-        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', padding: 24 }}>
-          <Text style={{ fontSize: 17, fontWeight: '600', color: colors.text, marginBottom: 8 }}>
+        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', padding: SPACING.xl }}>
+          <Text style={{ fontSize: FONT_SIZE.lg, fontWeight: '600', color: colors.text, marginBottom: 8 }}>
             {i18n.t('errors.generic')}
           </Text>
-          <Text style={{ fontSize: 14, color: colors.textSecondary, textAlign: 'center', marginBottom: 20 }}>
+          <Text style={{ fontSize: FONT_SIZE.sm, color: colors.textSecondary, textAlign: 'center', marginBottom: 20 }}>
             {this.state.error?.message || i18n.t('errors.generic')}
           </Text>
           <Pressable
             onPress={this.handleRetry}
             style={{
               backgroundColor: colors.primary,
-              borderRadius: 12,
-              paddingHorizontal: 24,
-              paddingVertical: 12,
+              borderRadius: RADIUS.md,
+              paddingHorizontal: SPACING.xl,
+              paddingVertical: SPACING.md,
               minHeight: 44,
               justifyContent: 'center',
             }}
             accessibilityRole="button"
             accessibilityLabel={i18n.t('common.retry')}
           >
-            <Text style={{ color: colors.card, fontWeight: '600', fontSize: 15 }}>{i18n.t('common.retry')}</Text>
+            <Text style={{ color: colors.card, fontWeight: '600', fontSize: FONT_SIZE.md }}>{i18n.t('common.retry')}</Text>
           </Pressable>
         </View>
       );

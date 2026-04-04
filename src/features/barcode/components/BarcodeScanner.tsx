@@ -63,7 +63,7 @@ export function BarcodeScanner() {
     return (
       <BarcodeResult
         product={product}
-        onDone={() => router.back()}
+        onDone={() => { if (router.canGoBack()) router.back(); else router.replace('/(tabs)/diary'); }}
         onScanAgain={() => { setProduct(null); setScanning(true); lastScanned.current = ''; }}
       />
     );
@@ -82,7 +82,7 @@ export function BarcodeScanner() {
         ) : (
           <Button title={t('scan.open_settings')} onPress={() => Linking.openSettings()} />
         )}
-        <Pressable onPress={() => router.back()} style={{ marginTop: 16, minHeight: 44, justifyContent: 'center' }} accessibilityRole="button" accessibilityLabel={t('common.cancel')}>
+        <Pressable onPress={() => { if (router.canGoBack()) router.back(); else router.replace('/(tabs)/diary'); }} style={{ marginTop: 16, minHeight: 44, justifyContent: 'center' }} accessibilityRole="button" accessibilityLabel={t('common.cancel')}>
           <Text style={{ color: colors.textSecondary }}>{t('common.cancel')}</Text>
         </Pressable>
       </SafeAreaView>
@@ -117,8 +117,8 @@ export function BarcodeScanner() {
       {/* Close button */}
       <SafeAreaView style={{ position: 'absolute', top: 0, start: 0, end: 0 }} edges={['top']}>
         <Pressable
-          onPress={() => router.back()}
-          style={{ alignSelf: 'flex-end', margin: 16, width: 44, height: 44, borderRadius: 22, backgroundColor: 'rgba(0,0,0,0.5)', justifyContent: 'center', alignItems: 'center' }}
+          onPress={() => { if (router.canGoBack()) router.back(); else router.replace('/(tabs)/diary'); }}
+          style={{ alignSelf: 'flex-end', margin: 16, width: 44, height: 44, borderRadius: 22, backgroundColor: colors.overlay, justifyContent: 'center', alignItems: 'center' }}
           accessibilityRole="button"
           accessibilityLabel={t('common.close')}
         >

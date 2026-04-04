@@ -18,7 +18,7 @@ interface ConsentModalProps {
 function BulletPoint({ text, colors }: { text: string; colors: ReturnType<typeof useColors> }) {
   return (
     <View style={{ flexDirection: 'row', alignItems: 'flex-start', marginBottom: 8 }}>
-      <Text style={{ fontSize: 14, color: colors.primary, marginEnd: 8, lineHeight: 20 }}>{'\u2022'}</Text>
+      <Text style={{ fontSize: FONT_SIZE.sm, color: colors.primary, marginEnd: 8, lineHeight: 20 }}>{'\u2022'}</Text>
       <Text style={{ fontSize: FONT_SIZE.sm, color: colors.textSecondary, lineHeight: 20, flex: 1 }}>{text}</Text>
     </View>
   );
@@ -34,7 +34,7 @@ export function ConsentModal({ visible, type, onAccept, onDecline }: ConsentModa
   return (
     <Modal visible={visible} onClose={onDecline}>
       <View style={{ padding: 24 }}>
-        <Text style={{ fontSize: 20, fontWeight: '700', color: colors.text, marginBottom: 16 }}>
+        <Text style={{ fontSize: FONT_SIZE.xl, fontWeight: '700', color: colors.text, marginBottom: 16 }}>
           {title}
         </Text>
 

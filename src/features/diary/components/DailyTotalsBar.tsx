@@ -21,7 +21,7 @@ export function DailyTotalsBar({ calories, protein, carbs, fat, calorieGoal = 20
   const remaining = calorieGoal - calories;
 
   // Neutral color for "over" text — no guilt-tripping
-  const overColor = remaining >= 0 ? colors.success : '#64748B';
+  const overColor = remaining >= 0 ? colors.success : colors.overGoal;
 
   return (
     <Card style={{ marginHorizontal: 16, marginBottom: 16 }}>
@@ -50,10 +50,10 @@ function MacroChip({ label, value, unit, color }: { label: string; value: number
   return (
     <View style={{ flex: 1, alignItems: 'center' }}>
       <View style={{ width: 4, height: 4, borderRadius: 2, backgroundColor: color, marginBottom: 4 }} />
-      <Text style={{ fontSize: 15, fontWeight: '700', color: colors.text }}>
+      <Text style={{ fontSize: FONT_SIZE.md, fontWeight: '700', color: colors.text }}>
         {formatNumber(Math.round(value))}{unit}
       </Text>
-      <Text style={{ fontSize: 11, color: colors.textSecondary }}>{label}</Text>
+      <Text style={{ fontSize: FONT_SIZE.xs, color: colors.textSecondary }}>{label}</Text>
     </View>
   );
 }

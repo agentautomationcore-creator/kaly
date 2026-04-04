@@ -9,6 +9,7 @@ import { kgToLbs, lbsToKg } from '../../../lib/nutrition';
 import { Card } from '../../../components/Card';
 import { Button } from '../../../components/Button';
 import { FONT_SIZE, RADIUS } from '../../../lib/constants';
+import { useHealthKit } from '../../../hooks/useHealthKit';
 
 export function WeightLog() {
   const { t } = useTranslation();
@@ -19,16 +20,17 @@ export function WeightLog() {
   const isImperial = units === 'imperial';
   const [weight, setWeight] = useState('');
   const [showInput, setShowInput] = useState(false);
+  const { saveWeight: saveWeightToHealth } = useHealthKit();
 
   const displayWeight = (kg: number) => isImperial ? kgToLbs(kg) : kg;
-  const unitLabel = isImperial ? 'lbs' : 'kg';
+  const unitLabel = isImperial ? t('units.lbs') : t('units.kg');
 
   const handleLog = () => {
     const w = parseFloat(weight);
     if (w > 0) {
       // B7: Convert imperial input to kg for storage
       const weightKg = isImperial ? lbsToKg(w) : w;
-      logWeight(weightKg, { onSuccess: () => { setWeight(''); setShowInput(false); } });
+      logWeight(weightKg, { onSuccess: () => { setWeight(''); setShowInput(false); saveWeightToHealth(weightKg).catch(() => {}); } });
     }
   };
 

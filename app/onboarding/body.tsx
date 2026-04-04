@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
-import { View, Text, TextInput, Pressable, ScrollView, Alert } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, Text, TextInput, Pressable, ScrollView, Alert, KeyboardAvoidingView, Platform, AccessibilityInfo } from 'react-native';
+import Animated, { FadeInDown } from 'react-native-reanimated';
 import { useRouter } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useTranslation } from 'react-i18next';
@@ -32,14 +33,17 @@ export default function BodyScreen() {
   const [showHealthConsent, setShowHealthConsent] = useState(!healthConsentGiven);
 
   const canContinue = height && weight && age && gender && healthConsentGiven;
+  const [reduceMotion, setReduceMotion] = useState(false);
+  useEffect(() => { AccessibilityInfo.isReduceMotionEnabled().then(setReduceMotion); }, []);
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: colors.background }}>
       <StepIndicator totalSteps={4} currentStep={3} />
-      <ScrollView contentContainerStyle={{ padding: 24, paddingBottom: 100 }}>
-        <Text style={{ fontSize: 24, fontWeight: '700', color: colors.text, marginBottom: 24 }}>
+      <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
+      <ScrollView contentContainerStyle={{ padding: 24, paddingBottom: 100 }} keyboardShouldPersistTaps="handled">
+        <Animated.Text entering={reduceMotion ? undefined : FadeInDown.duration(500).delay(100)} style={{ fontSize: FONT_SIZE.xl, fontWeight: '700', color: colors.text, marginBottom: 24 }}>
           {t('onboarding.body_title')}
-        </Text>
+        </Animated.Text>
 
         {/* Gender */}
         <Text style={{ fontSize: FONT_SIZE.sm, color: colors.textSecondary, marginBottom: 8, fontWeight: '500' }}>
@@ -73,9 +77,9 @@ export default function BodyScreen() {
 
         {/* Height, Weight, Age */}
         {[
-          { label: t('onboarding.height'), value: height, set: setHeight, suffix: t('units.cm'), key: 'height' },
-          { label: t('onboarding.weight'), value: weight, set: setWeight, suffix: t('units.kg'), key: 'weight' },
-          { label: t('onboarding.age'), value: age, set: setAge, suffix: '', key: 'age' },
+          { label: t('onboarding.height'), value: height, set: setHeight, suffix: t('units.cm'), key: 'height', placeholder: '170' },
+          { label: t('onboarding.weight'), value: weight, set: setWeight, suffix: t('units.kg'), key: 'weight', placeholder: '70' },
+          { label: t('onboarding.age'), value: age, set: setAge, suffix: '', key: 'age', placeholder: '25' },
         ].map((field) => (
           <View key={field.key} style={{ marginBottom: 20 }}>
             <Text style={{ fontSize: FONT_SIZE.sm, color: colors.textSecondary, marginBottom: 8, fontWeight: '500' }}>
@@ -93,6 +97,7 @@ export default function BodyScreen() {
                 fontSize: FONT_SIZE.md,
                 color: colors.text,
               }}
+              placeholder={field.placeholder}
               placeholderTextColor={colors.textSecondary}
             />
           </View>
@@ -125,6 +130,7 @@ export default function BodyScreen() {
           ))}
         </View>
       </ScrollView>
+      </KeyboardAvoidingView>
 
       <View style={{ padding: 24, paddingBottom: 40 }}>
         <Button title={t('onboarding.next')} onPress={() => {
@@ -158,7 +164,7 @@ export default function BodyScreen() {
           accessibilityRole="button"
           accessibilityLabel={t('onboarding.skip')}
         >
-          <Text style={{ fontSize: 14, color: colors.textSecondary }}>{t('onboarding.skip')}</Text>
+          <Text style={{ fontSize: FONT_SIZE.sm, color: colors.textSecondary }}>{t('onboarding.skip')}</Text>
         </Pressable>
       </View>
 
@@ -179,7 +185,7 @@ export default function BodyScreen() {
         }}
         onDecline={() => {
           setShowHealthConsent(false);
-          router.back();
+          if (router.canGoBack()) router.back(); else router.replace('/onboarding/welcome');
         }}
       />
     </SafeAreaView>

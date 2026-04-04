@@ -114,7 +114,7 @@ export default function RegisterScreen() {
           </Pressable>
         </View>
 
-        <Pressable onPress={() => router.back()} style={{ marginTop: 16, alignItems: 'center', minHeight: 44, justifyContent: 'center' }}>
+        <Pressable onPress={() => { if (router.canGoBack()) router.back(); else router.replace('/onboarding/welcome'); }} style={{ marginTop: 16, alignItems: 'center', minHeight: 44, justifyContent: 'center' }}>
           <Text style={{ color: colors.textSecondary, fontSize: FONT_SIZE.sm }}>{t('auth.back')}</Text>
         </Pressable>
       </KeyboardAvoidingView>

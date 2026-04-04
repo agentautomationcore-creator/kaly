@@ -5,6 +5,7 @@ import Svg, { Circle } from 'react-native-svg';
 import Animated, { useSharedValue, useAnimatedProps, withTiming, cancelAnimation } from 'react-native-reanimated';
 import { useColors } from '../../../lib/theme';
 import { formatNumber } from '../../../lib/formatNumber';
+import { FONT_SIZE } from '../../../lib/constants';
 
 const AnimatedCircle = Animated.createAnimatedComponent(Circle);
 
@@ -44,8 +45,8 @@ export const CalorieRing = React.memo(function CalorieRing({ current, goal, size
   }));
 
   // Neutral color when over goal — no guilt-tripping
-  const ringColor = current > goal ? '#94A3B8' : colors.primary;
-  const textColor = current > goal ? '#64748B' : colors.primary;
+  const ringColor = current > goal ? colors.overGoalRing : colors.primary;
+  const textColor = current > goal ? colors.overGoal : colors.primary;
 
   return (
     <View style={{ width: size, height: size, alignItems: 'center', justifyContent: 'center' }}>
@@ -75,10 +76,10 @@ export const CalorieRing = React.memo(function CalorieRing({ current, goal, size
         />
       </Svg>
       <View style={{ position: 'absolute', alignItems: 'center' }}>
-        <Text style={{ fontSize: 36, fontWeight: '800', color: textColor }}>
+        <Text style={{ fontSize: FONT_SIZE.xxl + 8, fontWeight: '800', color: textColor }}>
           {formatNumber(Math.round(current))}
         </Text>
-        <Text style={{ fontSize: 13, color: colors.textSecondary }}>/ {formatNumber(goal)} {t('common.kcal')}</Text>
+        <Text style={{ fontSize: FONT_SIZE.sm, color: colors.textSecondary }}>/ {formatNumber(goal)} {t('common.kcal')}</Text>
       </View>
     </View>
   );

@@ -2,8 +2,11 @@ import React from 'react';
 import { View, Text, Pressable } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { Ionicons } from '@expo/vector-icons';
+import * as Haptics from 'expo-haptics';
 import { useColors } from '../../../lib/theme';
 import { useWater } from '../hooks/useWater';
+import { useHealthKit } from '../../../hooks/useHealthKit';
+import { WATER_GLASS_ML } from '../../../lib/constants';
 import { Card } from '../../../components/Card';
 import { FONT_SIZE, RADIUS } from '../../../lib/constants';
 
@@ -16,6 +19,7 @@ export function WaterTracker({ date, goalGlasses = 8 }: WaterTrackerProps) {
   const { t } = useTranslation();
   const colors = useColors();
   const { glasses, addGlass } = useWater(date);
+  const { saveWater } = useHealthKit();
 
   return (
     <Card>
@@ -47,7 +51,7 @@ export function WaterTracker({ date, goalGlasses = 8 }: WaterTrackerProps) {
         </View>
 
         <Pressable
-          onPress={() => addGlass.mutate()}
+          onPress={() => { Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light); addGlass.mutate(); saveWater(WATER_GLASS_ML).catch(() => {}); }}
           disabled={addGlass.isPending}
           style={{
             width: 44,
@@ -59,7 +63,7 @@ export function WaterTracker({ date, goalGlasses = 8 }: WaterTrackerProps) {
           }}
           accessibilityLabel={t('diary.add_water')}
         >
-          <Ionicons name="add" size={20} color={colors.card} />
+          <Ionicons name="add" size={24} color={colors.card} />
         </Pressable>
       </View>
     </Card>

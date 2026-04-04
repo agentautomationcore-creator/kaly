@@ -20,7 +20,10 @@ export const lightColors = {
   tabBar: '#FFFFFF',
   tabBarBorder: '#E0E0E0',
   skeleton: '#F0F0F0',
+  primaryDark: '#2E7D32',
   overlay: 'rgba(0,0,0,0.5)',
+  overGoal: '#64748B',
+  overGoalRing: '#94A3B8',
   // A4: Missing color tokens
   success: '#22C55E',
   proteinColor: '#3B82F6',
@@ -50,7 +53,10 @@ export const darkColors: typeof lightColors = {
   tabBar: '#1E1E1E',
   tabBarBorder: '#333333',
   skeleton: '#2A2A2A',
+  primaryDark: '#4CAF50',
   overlay: 'rgba(0,0,0,0.7)',
+  overGoal: '#94A3B8',
+  overGoalRing: '#64748B',
   // A4: Missing color tokens
   success: '#22C55E',
   proteinColor: '#60A5FA',

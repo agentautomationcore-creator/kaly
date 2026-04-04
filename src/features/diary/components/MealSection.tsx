@@ -20,7 +20,7 @@ const MEAL_ICONS: Record<MealType, string> = {
   breakfast: 'sunny-outline',
   lunch: 'restaurant-outline',
   dinner: 'moon-outline',
-  snack: 'cafe-outline',
+  snack: 'fast-food-outline',
 };
 
 interface MealSectionProps {
@@ -108,7 +108,7 @@ export const MealSection = React.memo(function MealSection({ mealType, entries, 
           accessibilityRole="button"
           accessibilityLabel={t('diary.repeat_yesterday')}
         >
-          <Ionicons name="refresh" size={16} color={colors.primary} />
+          <Ionicons name="refresh" size={20} color={colors.primary} />
           <Text style={{ fontSize: FONT_SIZE.sm, color: colors.primary, flex: 1 }}>
             {t('diary.repeat_yesterday')} ({formatNumber(Math.round(yesterdayCal))} {t('common.kcal')})
           </Text>

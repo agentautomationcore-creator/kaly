@@ -134,7 +134,9 @@
     "fiber": "ألياف",
     "goal": "الهدف",
     "no_data": "لا توجد بيانات كافية للرسم البياني. ابدأ بتسجيل وجباتك!",
-    "weight_input": "أدخل الوزن"
+    "weight_input": "أدخل الوزن",
+    "steps": "خطوات",
+    "active_calories": "سعرات نشطة"
   },
   "profile": {
     "title": "الملف الشخصي",
@@ -303,7 +305,9 @@
     "units": "الوحدات",
     "toggle_units": "تبديل الوحدات",
     "metric": "متري (كغ، سم)",
-    "imperial": "إمبراطوري (رطل، قدم)"
+    "imperial": "إمبراطوري (رطل، قدم)",
+    "apple_health": "Apple Health",
+    "apple_health_hint": "مزامنة الوجبات والماء والوزن"
   },
   "validation": {
     "invalid_weight": "يجب أن يكون الوزن بين 20 و300 كغ",

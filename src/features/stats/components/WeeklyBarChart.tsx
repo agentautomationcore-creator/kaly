@@ -46,7 +46,7 @@ export const WeeklyBarChart = React.memo(function WeeklyBarChart({ days, goal = 
         }}
       >
         <View style={{ flex: 1, height: 1, borderTopWidth: 1, borderStyle: 'dashed', borderColor: colors.textSecondary, opacity: 0.4 }} />
-        <Text style={{ fontSize: 11, color: colors.textSecondary, marginStart: 4, opacity: 0.6 }}>
+        <Text style={{ fontSize: FONT_SIZE.xs, color: colors.textSecondary, marginStart: 4, opacity: 0.6 }}>
           {t('stats.goal')}
         </Text>
       </View>
@@ -61,7 +61,7 @@ export const WeeklyBarChart = React.memo(function WeeklyBarChart({ days, goal = 
           return (
             <View key={day.date} style={{ alignItems: 'center', flex: 1 }}>
               {day.calories > 0 && (
-                <Text style={{ fontSize: 11, color: colors.textSecondary, marginBottom: 4 }}>
+                <Text style={{ fontSize: FONT_SIZE.xs, color: colors.textSecondary, marginBottom: 4 }}>
                   {formatNumber(Math.round(day.calories))}
                 </Text>
               )}
@@ -70,12 +70,12 @@ export const WeeklyBarChart = React.memo(function WeeklyBarChart({ days, goal = 
                   width: 24,
                   height: Math.max(4, h),
                   borderRadius: 4,
-                  backgroundColor: isOver ? '#94A3B8' : isToday ? colors.primary : colors.primaryLight,
+                  backgroundColor: isOver ? colors.overGoalRing : isToday ? colors.primary : colors.primaryLight,
                 }}
               />
               <Text
                 style={{
-                  fontSize: 11,
+                  fontSize: FONT_SIZE.xs,
                   fontWeight: isToday ? '700' : '400',
                   color: isToday ? colors.primary : colors.textSecondary,
                   marginTop: 4,

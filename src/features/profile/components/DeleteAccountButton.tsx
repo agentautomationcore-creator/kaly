@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Alert } from 'react-native';
 import { useRouter } from 'expo-router';
 import { useTranslation } from 'react-i18next';
+import * as Haptics from 'expo-haptics';
 import { useColors } from '../../../lib/theme';
 import { useAuthStore } from '../../../stores/authStore';
 import { supabase } from '../../../lib/supabase';
@@ -17,6 +18,7 @@ export function DeleteAccountButton() {
   const [loading, setLoading] = useState(false);
 
   const handleDelete = () => {
+    Haptics.notificationAsync(Haptics.NotificationFeedbackType.Warning);
     Alert.alert(t('profile.delete_account'), t('profile.delete_confirm'), [
       { text: t('common.cancel'), style: 'cancel' },
       {

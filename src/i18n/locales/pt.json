@@ -134,7 +134,9 @@
     "fiber": "Fibra",
     "goal": "Meta",
     "no_data": "Dados insuficientes para o gráfico. Comece a registrar suas refeições!",
-    "weight_input": "Inserir peso"
+    "weight_input": "Inserir peso",
+    "steps": "Passos",
+    "active_calories": "Cal. ativas"
   },
   "profile": {
     "title": "Perfil",
@@ -303,7 +305,9 @@
     "units": "Unidades",
     "toggle_units": "Alternar unidades",
     "metric": "Métrico (kg, cm)",
-    "imperial": "Imperial (lb, pé)"
+    "imperial": "Imperial (lb, pé)",
+    "apple_health": "Apple Health",
+    "apple_health_hint": "Sincronizar refeições, água e peso"
   },
   "validation": {
     "invalid_weight": "O peso deve estar entre 20 e 300 kg",

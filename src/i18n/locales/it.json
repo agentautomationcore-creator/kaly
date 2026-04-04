@@ -134,7 +134,9 @@
     "fiber": "Fibre",
     "goal": "Obiettivo",
     "no_data": "Non ci sono abbastanza dati per il grafico. Inizia a registrare i pasti!",
-    "weight_input": "Inserisci peso"
+    "weight_input": "Inserisci peso",
+    "steps": "Passi",
+    "active_calories": "Cal. attive"
   },
   "profile": {
     "title": "Profilo",
@@ -303,7 +305,9 @@
     "units": "Unità",
     "toggle_units": "Cambia unità",
     "metric": "Metrico (kg, cm)",
-    "imperial": "Imperiale (lb, ft)"
+    "imperial": "Imperiale (lb, ft)",
+    "apple_health": "Apple Health",
+    "apple_health_hint": "Sincronizza pasti, acqua e peso"
   },
   "validation": {
     "invalid_weight": "Il peso deve essere tra 20 e 300 kg",

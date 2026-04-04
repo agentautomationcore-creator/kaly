@@ -67,6 +67,8 @@ export const RecentMeals = React.memo(function RecentMeals({ date }: RecentMeals
         <Pressable
           key={entry.id}
           onPress={() => repeatMeal(entry)}
+          accessibilityRole="button"
+          accessibilityLabel={`${t('diary.repeat_yesterday')}: ${entry.food_name}`}
           style={{
             flexDirection: 'row',
             justifyContent: 'space-between',
@@ -85,7 +87,7 @@ export const RecentMeals = React.memo(function RecentMeals({ date }: RecentMeals
               {formatNumber(Math.round(entry.total_calories))} {t('common.kcal')}
             </Text>
           </View>
-          <Ionicons name="add-circle-outline" size={22} color={colors.primary} />
+          <Ionicons name="add-circle-outline" size={24} color={colors.primary} />
         </Pressable>
       ))}
     </Card>

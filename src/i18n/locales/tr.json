@@ -134,7 +134,9 @@
     "fiber": "Lif",
     "goal": "Hedef",
     "no_data": "Grafik için yeterli veri yok. Öğünlerinizi kaydetmeye başlayın!",
-    "weight_input": "Kilo girin"
+    "weight_input": "Kilo girin",
+    "steps": "Adımlar",
+    "active_calories": "Aktif kal."
   },
   "profile": {
     "title": "Profil",
@@ -161,7 +163,7 @@
     "notifications": "Bildirimler",
     "privacy": "Gizlilik",
     "ai_analysis": "Yapay Zeka Analizi",
-    "health_data": "Saglik verisi isleme",
+    "health_data": "Sağlık verisi işleme",
     "analytics": "Kullanım analitiği",
     "export_data": "Verileri dışa aktar (CSV)",
     "export_share_title": "Kaly Veri Dışa Aktarımı",
@@ -303,7 +305,9 @@
     "units": "Birimler",
     "toggle_units": "Birimleri değiştir",
     "metric": "Metrik (kg, cm)",
-    "imperial": "İmparatorluk (lb, ft)"
+    "imperial": "İmparatorluk (lb, ft)",
+    "apple_health": "Apple Health",
+    "apple_health_hint": "Öğün, su ve kiloyu senkronize et"
   },
   "validation": {
     "invalid_weight": "Ağırlık 20 ile 300 kg arasında olmalıdır",

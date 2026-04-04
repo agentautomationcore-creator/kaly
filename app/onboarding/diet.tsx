@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
-import { View, Text, Pressable, ScrollView, Alert } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, Text, Pressable, ScrollView, Alert, AccessibilityInfo } from 'react-native';
+import Animated, { FadeInDown } from 'react-native-reanimated';
 import { useRouter } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useTranslation } from 'react-i18next';
@@ -28,6 +29,8 @@ export default function DietScreen() {
   const [diet, setDiet] = useState('balanced');
   const [allergies, setAllergies] = useState<string[]>([]);
   const [loading, setLoading] = useState(false);
+  const [reduceMotion, setReduceMotion] = useState(false);
+  useEffect(() => { AccessibilityInfo.isReduceMotionEnabled().then(setReduceMotion); }, []);
 
   const toggleAllergy = (a: string) => {
     setAllergies((prev) => (prev.includes(a) ? prev.filter((x) => x !== a) : [...prev, a]));
@@ -96,9 +99,9 @@ export default function DietScreen() {
     <SafeAreaView style={{ flex: 1, backgroundColor: colors.background }}>
       <StepIndicator totalSteps={4} currentStep={4} />
       <ScrollView contentContainerStyle={{ padding: 24, paddingBottom: 100 }}>
-        <Text style={{ fontSize: 24, fontWeight: '700', color: colors.text, marginBottom: 24 }}>
+        <Animated.Text entering={reduceMotion ? undefined : FadeInDown.duration(500).delay(100)} style={{ fontSize: FONT_SIZE.xl, fontWeight: '700', color: colors.text, marginBottom: 24 }}>
           {t('onboarding.diet_title')}
-        </Text>
+        </Animated.Text>
 
         {/* Diet type */}
         <View style={{ gap: 8, marginBottom: 32 }}>
@@ -159,12 +162,13 @@ export default function DietScreen() {
       <View style={{ padding: 24, paddingBottom: 40 }}>
         <Button title={t('onboarding.done')} onPress={handleDone} loading={loading} />
         <Pressable
-          onPress={handleDone}
-          style={{ alignItems: 'center', marginTop: 12, minHeight: 44, justifyContent: 'center' }}
+          onPress={() => { setDiet('balanced'); setAllergies([]); handleDone(); }}
+          disabled={loading}
+          style={{ alignItems: 'center', marginTop: 12, minHeight: 44, justifyContent: 'center', opacity: loading ? 0.5 : 1 }}
           accessibilityRole="button"
           accessibilityLabel={t('onboarding.skip')}
         >
-          <Text style={{ fontSize: 14, color: colors.textSecondary }}>{t('onboarding.skip')}</Text>
+          <Text style={{ fontSize: FONT_SIZE.sm, color: colors.textSecondary }}>{t('onboarding.skip')}</Text>
         </Pressable>
       </View>
     </SafeAreaView>

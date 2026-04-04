@@ -5,6 +5,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { useTranslation } from 'react-i18next';
 import { Ionicons } from '@expo/vector-icons';
 import Purchases, { PurchasesPackage, CustomerInfo } from 'react-native-purchases';
+import * as Haptics from 'expo-haptics';
 import { useColors } from '../src/lib/theme';
 import { Button } from '../src/components/Button';
 import { Card } from '../src/components/Card';
@@ -56,7 +57,7 @@ export default function PaywallScreen() {
     if (profile) {
       useAuthStore.getState().setProfile({ ...profile, plan: newPlan });
     }
-    // SEC-8: Server sync fallback — if webhook is delayed, ensure DB reflects purchase
+    // Server sync fallback (SEC-8) — webhook delay guard for DB consistency
     if (user) {
       try {
         await supabase.rpc('sync_plan_from_purchase', {
@@ -79,12 +80,12 @@ export default function PaywallScreen() {
         t('profile.save_data'),
         [
           { text: t('common.cancel'), style: 'cancel' },
-          { text: t('auth.create_account'), onPress: () => router.push('/(auth)/register') },
+          { text: t('auth.create_account'), onPress: () => router.replace('/(auth)/register') },
         ]
       );
       return;
     }
-    // B13: Check network before purchase
+    // Network check (B13) before payment flow
     const netState = await NetInfo.fetch();
     if (!netState.isConnected) {
       Alert.alert(t('common.error'), t('errors.network'));
@@ -102,6 +103,7 @@ export default function PaywallScreen() {
     }
 
     setPurchasing(true);
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
     try {
       const { customerInfo } = await Purchases.purchasePackage(pkg);
       if (customerInfo.entitlements.active['pro']) {
@@ -143,11 +145,11 @@ export default function PaywallScreen() {
     <SafeAreaView style={{ flex: 1, backgroundColor: colors.background }}>
       <ScrollView contentContainerStyle={{ padding: 24, paddingBottom: 60 }}>
         {/* Close button */}
-        <Pressable onPress={() => router.back()} style={{ alignSelf: 'flex-end', padding: 8, minHeight: 44, minWidth: 44, justifyContent: 'center', alignItems: 'center' }} accessibilityRole="button" accessibilityLabel={t('common.close')}>
+        <Pressable onPress={() => { if (router.canGoBack()) router.back(); else router.replace('/(tabs)/diary'); }} style={{ alignSelf: 'flex-end', padding: 8, minHeight: 44, minWidth: 44, justifyContent: 'center', alignItems: 'center' }} accessibilityRole="button" accessibilityLabel={t('common.close')}>
           <Ionicons name="close" size={28} color={colors.text} />
         </Pressable>
 
-        <Text style={{ fontSize: 28, fontWeight: '800', color: colors.text, textAlign: 'center', marginBottom: 8 }}>
+        <Text style={{ fontSize: FONT_SIZE.xxl, fontWeight: '800', color: colors.text, textAlign: 'center', marginBottom: 8 }}>
           {t('paywall.title')}
         </Text>
 
@@ -178,6 +180,7 @@ export default function PaywallScreen() {
         <View style={{ flexDirection: 'row', backgroundColor: colors.surface, borderRadius: RADIUS.lg, padding: 4, marginBottom: 24 }}>
           <Pressable
             onPress={() => setPeriod('monthly')}
+            disabled={purchasing}
             accessibilityRole="button"
             accessibilityLabel={t('paywall.monthly')}
             style={{
@@ -186,6 +189,7 @@ export default function PaywallScreen() {
               borderRadius: RADIUS.md,
               backgroundColor: period === 'monthly' ? colors.card : 'transparent',
               alignItems: 'center',
+              opacity: purchasing ? 0.5 : 1,
             }}
           >
             <Text style={{ fontWeight: '600', color: period === 'monthly' ? colors.text : colors.textSecondary }}>
@@ -198,6 +202,7 @@ export default function PaywallScreen() {
 
           <Pressable
             onPress={() => setPeriod('annual')}
+            disabled={purchasing}
             accessibilityRole="radio"
             accessibilityLabel={t('paywall.annual')}
             style={{
@@ -206,6 +211,7 @@ export default function PaywallScreen() {
               borderRadius: RADIUS.md,
               backgroundColor: period === 'annual' ? colors.card : 'transparent',
               alignItems: 'center',
+              opacity: purchasing ? 0.5 : 1,
             }}
           >
             <Text style={{ fontWeight: '600', color: period === 'annual' ? colors.text : colors.textSecondary }}>
@@ -228,7 +234,7 @@ export default function PaywallScreen() {
         </Text>
 
         {/* Continue free */}
-        <Pressable onPress={() => router.back()} style={{ alignItems: 'center', marginTop: 20, minHeight: 44, justifyContent: 'center' }} accessibilityRole="button" accessibilityLabel={t('paywall.continue_free')}>
+        <Pressable onPress={() => { if (router.canGoBack()) router.back(); else router.replace('/(tabs)/diary'); }} style={{ alignItems: 'center', marginTop: 20, minHeight: 44, justifyContent: 'center' }} accessibilityRole="button" accessibilityLabel={t('paywall.continue_free')}>
           <Text style={{ fontSize: FONT_SIZE.sm, color: colors.textSecondary }}>{t('paywall.continue_free')}</Text>
         </Pressable>
 

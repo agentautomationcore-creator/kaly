@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { ScrollView, Text, View } from 'react-native';
 import { useTranslation } from 'react-i18next';
+import { Ionicons } from '@expo/vector-icons';
 import { useColors } from '../../../lib/theme';
+import { useHealthKit } from '../../../hooks/useHealthKit';
 import { useWeekStats } from '../hooks/useStats';
 import { useDiary } from '../../diary/hooks/useDiary';
 import { useAuthStore } from '../../../stores/authStore';
@@ -24,6 +26,16 @@ export function StatsScreen() {
   const { data: todayEntries } = useDiary(today);
   const { data: weekStats, isLoading } = useWeekStats();
 
+  const { isAvailable: hkAvailable, healthKitEnabled: hkEnabled, getTodaySteps, getTodayActiveCalories } = useHealthKit();
+  const [steps, setSteps] = useState(0);
+  const [activeCalories, setActiveCalories] = useState(0);
+  useEffect(() => {
+    if (hkAvailable && hkEnabled) {
+      getTodaySteps().then(setSteps);
+      getTodayActiveCalories().then(setActiveCalories);
+    }
+  }, [hkAvailable, hkEnabled]);
+
   const calorieGoal = profile?.daily_calories || 2000;
   const proteinGoal = calorieGoal * (profile?.protein_pct || 30) / 100 / 4;
   const carbsGoal = calorieGoal * (profile?.carbs_pct || 40) / 100 / 4;
@@ -41,9 +53,27 @@ export function StatsScreen() {
       style={{ flex: 1, backgroundColor: colors.background }}
       contentContainerStyle={{ padding: 16, paddingBottom: 100 }}
     >
-      <Text style={{ fontSize: 24, fontWeight: '800', color: colors.text, marginBottom: 20 }}>
-        {t('stats.title')}
-      </Text>
+      {/* Apple Health — steps & active calories */}
+      {hkAvailable && hkEnabled && (steps > 0 || activeCalories > 0) && (
+        <Card style={{ marginBottom: 16 }}>
+          <View style={{ flexDirection: 'row', justifyContent: 'space-around' }}>
+            {steps > 0 && (
+              <View style={{ alignItems: 'center', gap: 4 }}>
+                <Ionicons name="footsteps-outline" size={24} color={colors.primary} />
+                <Text style={{ fontSize: FONT_SIZE.xl, fontWeight: '700', color: colors.text }}>{formatNumber(steps)}</Text>
+                <Text style={{ fontSize: FONT_SIZE.xs, color: colors.textSecondary }}>{t('stats.steps')}</Text>
+              </View>
+            )}
+            {activeCalories > 0 && (
+              <View style={{ alignItems: 'center', gap: 4 }}>
+                <Ionicons name="flame-outline" size={24} color={colors.warning} />
+                <Text style={{ fontSize: FONT_SIZE.xl, fontWeight: '700', color: colors.text }}>{formatNumber(activeCalories)}</Text>
+                <Text style={{ fontSize: FONT_SIZE.xs, color: colors.textSecondary }}>{t('stats.active_calories')}</Text>
+              </View>
+            )}
+          </View>
+        </Card>
+      )}
 
       {/* Today's calorie ring */}
       <Card style={{ marginBottom: 16, alignItems: 'center' }}>

@@ -16,6 +16,7 @@ import { grantAnalyticsConsent, revokeAnalyticsConsent } from '../../../lib/anal
 import { initSentryIfConsented } from '../../../lib/sentry';
 import { scheduleWaterReminders, cancelWaterReminders, areWaterRemindersEnabled, requestNotificationPermission } from '../../../lib/waterReminders';
 import { FONT_SIZE, RADIUS } from '../../../lib/constants';
+import { useHealthKit } from '../../../hooks/useHealthKit';
 import type { NutritionProfile } from '../types';
 
 interface SettingsSectionProps {
@@ -34,7 +35,8 @@ export function SettingsSection({ profile }: SettingsSectionProps) {
   const { t, i18n } = useTranslation();
   const colors = useColors();
   const { mutate: update } = useUpdateProfile();
-  const { themeMode, setThemeMode, healthConsentGiven, setHealthConsent, aiConsentGiven, setAiConsent, analyticsConsentGiven, setAnalyticsConsent, showStreak, setShowStreak, units, setUnits } = useSettingsStore();
+  const { themeMode, setThemeMode, healthConsentGiven, setHealthConsent, aiConsentGiven, setAiConsent, analyticsConsentGiven, setAnalyticsConsent, showStreak, setShowStreak, units, setUnits, healthKitEnabled, setHealthKitEnabled } = useSettingsStore();
+  const { isAvailable: healthKitAvailable, init: initHealthKit } = useHealthKit();
 
   const handleLanguageChange = (lang: string) => {
     setLanguage(lang);
@@ -152,6 +154,33 @@ export function SettingsSection({ profile }: SettingsSectionProps) {
           accessibilityLabel={t('profile.show_streak')}
         />
       </View>
+
+      {/* Apple Health */}
+      {healthKitAvailable && (
+        <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
+          <View style={{ flex: 1 }}>
+            <Text style={{ fontSize: FONT_SIZE.sm, fontWeight: '500', color: colors.text }}>
+              {t('settings.apple_health')}
+            </Text>
+            <Text style={{ fontSize: FONT_SIZE.xs, color: colors.textSecondary }}>
+              {t('settings.apple_health_hint')}
+            </Text>
+          </View>
+          <Switch
+            value={healthKitEnabled}
+            onValueChange={async (v) => {
+              if (v) {
+                const success = await initHealthKit();
+                setHealthKitEnabled(success);
+              } else {
+                setHealthKitEnabled(false);
+              }
+            }}
+            trackColor={{ false: colors.border, true: colors.primary }}
+            accessibilityLabel={t('settings.apple_health')}
+          />
+        </View>
+      )}
 
       {/* Unit system toggle */}
       <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>

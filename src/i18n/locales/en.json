@@ -13,7 +13,8 @@
       "fast": "Results in ~8 seconds",
       "languages": "10 languages supported",
       "hidden": "Detects hidden ingredients"
-    }
+    },
+    "social_proof": "Join thousands of smart eaters worldwide"
   },
   "onboarding": {
     "goal_title": "What's your goal?",
@@ -134,7 +135,9 @@
     "fiber": "Fiber",
     "goal": "Goal",
     "no_data": "Not enough data for chart. Start logging meals!",
-    "weight_input": "Enter weight"
+    "weight_input": "Enter weight",
+    "steps": "Steps",
+    "active_calories": "Active cal."
   },
   "profile": {
     "title": "Profile",
@@ -303,7 +306,9 @@
     "units": "Units",
     "toggle_units": "Toggle units",
     "metric": "Metric (kg, cm)",
-    "imperial": "Imperial (lbs, ft)"
+    "imperial": "Imperial (lbs, ft)",
+    "apple_health": "Apple Health",
+    "apple_health_hint": "Sync meals, water, and weight"
   },
   "validation": {
     "invalid_weight": "Weight must be between 20 and 300 kg",

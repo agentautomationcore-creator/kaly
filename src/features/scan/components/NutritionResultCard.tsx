@@ -13,6 +13,7 @@ import { PortionSlider } from './PortionSlider';
 import { FONT_SIZE, RADIUS } from '../../../lib/constants';
 import { supabase } from '../../../lib/supabase';
 import { useAuthStore } from '../../../stores/authStore';
+import { useHealthKit } from '../../../hooks/useHealthKit';
 import { captureException } from '../../../lib/sentry';
 import { track } from '../../../lib/analytics';
 import { formatNumber } from '../../../lib/formatNumber';
@@ -26,6 +27,7 @@ export function NutritionResultCard() {
   const [saving, setSaving] = useState(false);
   const [mealType, setMealType] = useState<MealType>('lunch');
   const user = useAuthStore((s) => s.user);
+  const { saveCalories } = useHealthKit();
 
   if (!result) return null;
 
@@ -69,6 +71,7 @@ export function NutritionResultCard() {
       });
 
       track('meal_logged', { meal_type: mealType, entry_method: 'photo' });
+      try { await saveCalories(cal); } catch (e) { if (__DEV__) console.log('[HealthKit] Save calories failed:', e); }
       reset();
       router.replace('/(tabs)/diary');
     } catch (e) {

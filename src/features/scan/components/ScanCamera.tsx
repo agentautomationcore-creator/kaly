@@ -1,18 +1,23 @@
 import React, { useRef, useState } from 'react';
-import { View, Text, Pressable } from 'react-native';
+import { View, Text, Pressable, StatusBar } from 'react-native';
 import { CameraView, useCameraPermissions } from 'expo-camera';
 import * as ImagePicker from 'expo-image-picker';
 import { useTranslation } from 'react-i18next';
 import { Ionicons } from '@expo/vector-icons';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { useRouter } from 'expo-router';
 import { useColors } from '../../../lib/theme';
 import { useScanStore } from '../store/scanStore';
 import { useAnalyzeFood } from '../hooks/useAnalyzeFood';
 import { Button } from '../../../components/Button';
+import * as Haptics from 'expo-haptics';
 import { FONT_SIZE, RADIUS } from '../../../lib/constants';
 
 export function ScanCamera() {
   const { t } = useTranslation();
   const colors = useColors();
+  const insets = useSafeAreaInsets();
+  const router = useRouter();
   const cameraRef = useRef<CameraView>(null);
   const isCapturing = useRef(false);
   const [permission, requestPermission] = useCameraPermissions();
@@ -36,6 +41,7 @@ export function ScanCamera() {
 
   const takePicture = async () => {
     if (!cameraRef.current || isCapturing.current || isPending) return;
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
     isCapturing.current = true;
     try {
       const photo = await cameraRef.current.takePictureAsync({ quality: 0.8 });
@@ -72,11 +78,37 @@ export function ScanCamera() {
         style={{ flex: 1 }}
         facing={facing}
       >
+        <StatusBar barStyle="light-content" />
         {/* Overlay */}
         <View style={{ flex: 1, justifyContent: 'space-between' }}>
+          {/* Close button */}
+          <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'flex-start', paddingTop: insets.top + 8, paddingHorizontal: 16 }}>
+            <Pressable
+              onPress={() => {
+                if (router.canGoBack()) {
+                  router.back();
+                } else {
+                  router.replace('/(tabs)/diary');
+                }
+              }}
+              style={{
+                width: 44,
+                height: 44,
+                borderRadius: 22,
+                backgroundColor: colors.overlay,
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}
+              accessibilityRole="button"
+              accessibilityLabel={t('common.close')}
+            >
+              <Ionicons name="close" size={24} color="#FFFFFF" />
+            </Pressable>
+          </View>
+
           {/* Top hint */}
-          <View style={{ alignItems: 'center', marginTop: 60 }}>
-            <View style={{ backgroundColor: 'rgba(0,0,0,0.5)', paddingHorizontal: 20, paddingVertical: 10, borderRadius: RADIUS.full }}>
+          <View style={{ alignItems: 'center' }}>
+            <View style={{ backgroundColor: colors.overlay, paddingHorizontal: 20, paddingVertical: 10, borderRadius: RADIUS.full }}>
               <Text style={{ color: colors.card, fontSize: FONT_SIZE.sm, fontWeight: '500' }}>
                 {t('scan.point_camera')}
               </Text>
@@ -95,7 +127,7 @@ export function ScanCamera() {
                   width: 48,
                   height: 48,
                   borderRadius: 24,
-                  backgroundColor: 'rgba(255,255,255,0.2)',
+                  backgroundColor: 'rgba(255,255,255,0.15)',
                   justifyContent: 'center',
                   alignItems: 'center',
                 }}
@@ -116,7 +148,7 @@ export function ScanCamera() {
                   borderColor: colors.primary,
                   justifyContent: 'center',
                   alignItems: 'center',
-                  opacity: isPending ? 0.5 : 1,
+                  opacity: isPending ? 0.3 : 1,
                 }}
                 accessibilityRole="button"
                 accessibilityLabel={t('scan.take_photo')}
@@ -133,7 +165,7 @@ export function ScanCamera() {
                   width: 48,
                   height: 48,
                   borderRadius: 24,
-                  backgroundColor: 'rgba(255,255,255,0.2)',
+                  backgroundColor: 'rgba(255,255,255,0.15)',
                   justifyContent: 'center',
                   alignItems: 'center',
                 }}

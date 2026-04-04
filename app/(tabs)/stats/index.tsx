@@ -1,17 +1,21 @@
 import React from 'react';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { View } from 'react-native';
+import { useTranslation } from 'react-i18next';
 import { useColors } from '../../../src/lib/theme';
 import { ErrorBoundary } from '../../../src/components/ErrorBoundary';
+import { GradientHeader } from '../../../src/components/GradientHeader';
 import { StatsScreen } from '../../../src/features/stats/components/StatsScreen';
 
 export default function StatsTab() {
+  const { t } = useTranslation();
   const colors = useColors();
 
   return (
     <ErrorBoundary featureName="stats">
-      <SafeAreaView style={{ flex: 1, backgroundColor: colors.background }} edges={['top']}>
+      <View style={{ flex: 1, backgroundColor: colors.background }}>
+        <GradientHeader title={t('stats.title')} />
         <StatsScreen />
-      </SafeAreaView>
+      </View>
     </ErrorBoundary>
   );
 }
