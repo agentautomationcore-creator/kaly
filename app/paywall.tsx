@@ -61,7 +61,7 @@ export default function PaywallScreen() {
     if (user) {
       try {
         await supabase.rpc('sync_plan_from_purchase', {
-          p_plan: 'pro',
+          p_plan: newPlan,
           p_source: 'client_purchase',
         });
       } catch (err) {
@@ -126,8 +126,9 @@ export default function PaywallScreen() {
     setPurchasing(true);
     try {
       const customerInfo = await Purchases.restorePurchases();
-      await syncPlanFromCustomerInfo(customerInfo);
+      // Check entitlement BEFORE syncing to DB — prevents giving Pro to non-subscribers
       if (customerInfo.entitlements.active['pro']) {
+        await syncPlanFromCustomerInfo(customerInfo);
         Alert.alert(t('paywall.restored'), t('paywall.restored_desc'));
         router.back();
       } else {

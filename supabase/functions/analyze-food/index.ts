@@ -68,9 +68,14 @@ serve(async (req) => {
     }
 
     // 2. Rate limit check (daily scan limit) — per-user via Supabase RPC
-    const { data: canScan } = await supabase.rpc('check_daily_scan_limit', { p_user_id: user.id });
-    if (!canScan) {
-      return new Response(JSON.stringify({ error: 'Daily scan limit reached', limit: 3 }), {
+    const { data: scanLimit } = await supabase.rpc('check_daily_scan_limit', { p_user_id: user.id });
+    if (!scanLimit?.allowed) {
+      return new Response(JSON.stringify({
+        error: 'RATE_LIMIT',
+        message: 'Daily scan limit reached',
+        used: scanLimit?.used || 0,
+        limit: scanLimit?.limit || 3,
+      }), {
         status: 429,
         headers: { ...corsHeaders, 'Content-Type': 'application/json' },
       });
