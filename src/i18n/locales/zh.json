@@ -331,5 +331,12 @@
     "serving_size": "份量",
     "name_required": "请输入食物名称",
     "missing_nutrition": "营养数据不完整。"
+  },
+  "fasting": {
+    "title": "间歇性断食",
+    "start": "开始",
+    "stop": "结束",
+    "hours": "小时",
+    "completed": "断食完成！"
   }
 }

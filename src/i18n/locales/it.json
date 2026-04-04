@@ -331,5 +331,12 @@
     "serving_size": "Porzione",
     "name_required": "Inserisci un nome",
     "missing_nutrition": "Dati nutrizionali incompleti."
+  },
+  "fasting": {
+    "title": "Digiuno intermittente",
+    "start": "Inizia",
+    "stop": "Termina",
+    "hours": "ore",
+    "completed": "Digiuno completato!"
   }
 }

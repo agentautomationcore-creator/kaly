@@ -331,5 +331,12 @@
     "serving_size": "Serving size",
     "name_required": "Please enter a food name",
     "missing_nutrition": "Nutrition data incomplete. Please verify or enter manually."
+  },
+  "fasting": {
+    "title": "Intermittent Fasting",
+    "start": "Start fast",
+    "stop": "End fast",
+    "hours": "hours",
+    "completed": "Fast completed!"
   }
 }

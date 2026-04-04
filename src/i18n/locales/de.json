@@ -331,5 +331,12 @@
     "serving_size": "Portionsgröße",
     "name_required": "Bitte Name eingeben",
     "missing_nutrition": "Nährwertdaten unvollständig."
+  },
+  "fasting": {
+    "title": "Intervallfasten",
+    "start": "Starten",
+    "stop": "Beenden",
+    "hours": "Stunden",
+    "completed": "Fasten abgeschlossen!"
   }
 }

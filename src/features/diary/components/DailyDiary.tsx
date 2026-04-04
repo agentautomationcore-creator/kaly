@@ -13,6 +13,7 @@ import { WaterTracker } from './WaterTracker';
 import { RecentMeals } from './RecentMeals';
 import { ListSkeleton } from '../../../components/LoadingSkeleton';
 import { useYesterdayMeals } from '../hooks/useYesterdayMeals';
+import { FastingCard } from './FastingCard';
 import { FONT_SIZE, RADIUS, MIN_TOUCH } from '../../../lib/constants';
 import type { MealType } from '../../../lib/types';
 
@@ -77,6 +78,10 @@ export function DailyDiary({ date: dateProp }: DailyDiaryProps) {
 
       <View style={{ paddingHorizontal: 16, marginTop: 16 }}>
         <WaterTracker date={currentDate} />
+      </View>
+
+      <View style={{ paddingHorizontal: 16, marginTop: 8 }}>
+        <FastingCard />
       </View>
 
       {entries && entries.length === 0 && (

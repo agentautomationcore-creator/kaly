@@ -331,5 +331,12 @@
     "serving_size": "Tamanho da porção",
     "name_required": "Insira um nome",
     "missing_nutrition": "Dados nutricionais incompletos."
+  },
+  "fasting": {
+    "title": "Jejum intermitente",
+    "start": "Iniciar",
+    "stop": "Encerrar",
+    "hours": "horas",
+    "completed": "Jejum concluído!"
   }
 }

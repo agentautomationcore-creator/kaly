@@ -331,5 +331,12 @@
     "serving_size": "Porsiyon",
     "name_required": "Lütfen bir ad girin",
     "missing_nutrition": "Besin verileri eksik."
+  },
+  "fasting": {
+    "title": "Aralıklı oruç",
+    "start": "Başla",
+    "stop": "Bitir",
+    "hours": "saat",
+    "completed": "Oruç tamamlandı!"
   }
 }
