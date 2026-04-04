@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, ViewStyle } from 'react-native';
 import { useColors } from '../lib/theme';
-import { RADIUS } from '../lib/constants';
+import { FONT_SIZE, RADIUS } from '../lib/constants';
 import { formatNumber } from '../lib/formatNumber';
 
 interface ProgressBarProps {
@@ -32,12 +32,12 @@ export function ProgressBar({
       {(label || showValue) && (
         <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginBottom: 4 }}>
           {label ? (
-            <Text style={{ fontSize: 13, color: colors.textSecondary, fontWeight: '500' }}>
+            <Text style={{ fontSize: FONT_SIZE.sm, color: colors.textSecondary, fontWeight: '500' }}>
               {label}
             </Text>
           ) : null}
           {showValue ? (
-            <Text style={{ fontSize: 13, color: colors.textSecondary }}>
+            <Text style={{ fontSize: FONT_SIZE.sm, color: colors.textSecondary }}>
               {formatNumber(Math.round(value))} / {formatNumber(Math.round(max))}
             </Text>
           ) : null}

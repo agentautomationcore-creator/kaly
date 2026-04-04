@@ -7,7 +7,7 @@ import { useQueryClient } from '@tanstack/react-query';
 import { useColors } from '../../../lib/theme';
 import { Card } from '../../../components/Card';
 import { MealRow } from './MealRow';
-import { FONT_SIZE } from '../../../lib/constants';
+import { FONT_SIZE, MIN_TOUCH } from '../../../lib/constants';
 import { formatNumber } from '../../../lib/formatNumber';
 import { supabase } from '../../../lib/supabase';
 import { useAuthStore } from '../../../stores/authStore';
@@ -89,7 +89,7 @@ export const MealSection = React.memo(function MealSection({ mealType, entries, 
           onPress={() => router.push('/(tabs)/scan')}
           accessibilityLabel={t('diary.add_food')}
           accessibilityRole="button"
-          style={{ minHeight: 44, minWidth: 44, justifyContent: 'center', alignItems: 'center' }}
+          style={{ minHeight: MIN_TOUCH, minWidth: 44, justifyContent: 'center', alignItems: 'center' }}
         >
           <Ionicons name="add-circle" size={28} color={colors.primary} />
         </Pressable>
@@ -104,7 +104,7 @@ export const MealSection = React.memo(function MealSection({ mealType, entries, 
       ) : yesterdayEntries && yesterdayEntries.length > 0 ? (
         <Pressable
           onPress={handleRepeatYesterday}
-          style={{ flexDirection: 'row', alignItems: 'center', gap: 8, paddingVertical: 8, minHeight: 44 }}
+          style={{ flexDirection: 'row', alignItems: 'center', gap: 8, paddingVertical: 8, minHeight: MIN_TOUCH }}
           accessibilityRole="button"
           accessibilityLabel={t('diary.repeat_yesterday')}
         >

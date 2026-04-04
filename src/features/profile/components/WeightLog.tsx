@@ -8,7 +8,7 @@ import { useSettingsStore } from '../../../stores/settingsStore';
 import { kgToLbs, lbsToKg } from '../../../lib/nutrition';
 import { Card } from '../../../components/Card';
 import { Button } from '../../../components/Button';
-import { FONT_SIZE, RADIUS } from '../../../lib/constants';
+import { FONT_SIZE, RADIUS, MIN_TOUCH } from '../../../lib/constants';
 import { useHealthKit } from '../../../hooks/useHealthKit';
 
 export function WeightLog() {
@@ -45,7 +45,7 @@ export function WeightLog() {
         <Text style={{ fontSize: FONT_SIZE.md, fontWeight: '600', color: colors.text }}>
           {t('profile.weight_log')}
         </Text>
-        <Pressable onPress={() => setShowInput(!showInput)} style={{ minHeight: 44, minWidth: 44, justifyContent: 'center', alignItems: 'center' }} accessibilityRole="button" accessibilityLabel={showInput ? t('common.close') : t('diary.add_food')}>
+        <Pressable onPress={() => setShowInput(!showInput)} style={{ minHeight: MIN_TOUCH, minWidth: 44, justifyContent: 'center', alignItems: 'center' }} accessibilityRole="button" accessibilityLabel={showInput ? t('common.close') : t('diary.add_food')}>
           <Ionicons name={showInput ? 'close' : 'add-circle'} size={24} color={colors.primary} />
         </Pressable>
       </View>
@@ -86,7 +86,7 @@ export function WeightLog() {
                   style={{
                     width: '80%',
                     height: h,
-                    borderRadius: 4,
+                    borderRadius: RADIUS.xs,
                     backgroundColor: colors.primaryLight,
                   }}
                 />

@@ -13,7 +13,7 @@ import { WaterTracker } from './WaterTracker';
 import { RecentMeals } from './RecentMeals';
 import { ListSkeleton } from '../../../components/LoadingSkeleton';
 import { useYesterdayMeals } from '../hooks/useYesterdayMeals';
-import { FONT_SIZE } from '../../../lib/constants';
+import { FONT_SIZE, RADIUS, MIN_TOUCH } from '../../../lib/constants';
 import type { MealType } from '../../../lib/types';
 
 const MEALS: MealType[] = ['breakfast', 'lunch', 'dinner', 'snack'];
@@ -81,13 +81,13 @@ export function DailyDiary({ date: dateProp }: DailyDiaryProps) {
 
       {entries && entries.length === 0 && (
         <View style={{ alignItems: 'center', padding: 40 }}>
-          <Text style={{ fontSize: 18, color: colors.textSecondary, marginBottom: 16 }}>
+          <Text style={{ fontSize: FONT_SIZE.lg, color: colors.textSecondary, marginBottom: 16 }}>
             {t('diary.emptyTitle')}
           </Text>
-          <Text style={{ fontSize: 14, color: colors.textSecondary, marginBottom: 24 }}>
+          <Text style={{ fontSize: FONT_SIZE.md, color: colors.textSecondary, marginBottom: 24 }}>
             {t('diary.emptyDescription')}
           </Text>
-          <Pressable onPress={() => router.push('/(tabs)/scan')} style={{ backgroundColor: colors.primary, paddingHorizontal: 24, paddingVertical: 12, borderRadius: 12, minHeight: 44, justifyContent: 'center' }} accessibilityRole="button" accessibilityLabel={t('diary.logFirstMeal')}>
+          <Pressable onPress={() => router.push('/(tabs)/scan')} style={{ backgroundColor: colors.primary, paddingHorizontal: 24, paddingVertical: 12, borderRadius: RADIUS.md, minHeight: MIN_TOUCH, justifyContent: 'center' }} accessibilityRole="button" accessibilityLabel={t('diary.logFirstMeal')}>
             <Text style={{ color: colors.card, fontWeight: '600' }}>{t('diary.logFirstMeal')}</Text>
           </Pressable>
         </View>

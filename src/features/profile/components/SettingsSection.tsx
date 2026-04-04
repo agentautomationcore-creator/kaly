@@ -15,7 +15,7 @@ import { Card } from '../../../components/Card';
 import { grantAnalyticsConsent, revokeAnalyticsConsent } from '../../../lib/analytics';
 import { initSentryIfConsented } from '../../../lib/sentry';
 import { scheduleWaterReminders, cancelWaterReminders, areWaterRemindersEnabled, requestNotificationPermission } from '../../../lib/waterReminders';
-import { FONT_SIZE, RADIUS } from '../../../lib/constants';
+import { FONT_SIZE, RADIUS, MIN_TOUCH } from '../../../lib/constants';
 import { useHealthKit } from '../../../hooks/useHealthKit';
 import { captureException } from '../../../lib/sentry';
 import type { NutritionProfile } from '../types';
@@ -65,7 +65,7 @@ export function SettingsSection({ profile }: SettingsSectionProps) {
             style={{
               paddingHorizontal: 12,
               paddingVertical: 6,
-              minHeight: 44,
+              minHeight: MIN_TOUCH,
               justifyContent: 'center',
               borderRadius: RADIUS.full,
               backgroundColor: i18n.language === lang ? colors.primaryLight : colors.surface,
@@ -73,7 +73,7 @@ export function SettingsSection({ profile }: SettingsSectionProps) {
               borderColor: i18n.language === lang ? colors.primary : 'transparent',
             }}
           >
-            <Text style={{ fontSize: 12, fontWeight: '500', color: i18n.language === lang ? colors.primary : colors.text }}>
+            <Text style={{ fontSize: FONT_SIZE.xs, fontWeight: '500', color: i18n.language === lang ? colors.primary : colors.text }}>
               {LANGUAGE_NAMES[lang] || lang}
             </Text>
           </Pressable>
@@ -93,7 +93,7 @@ export function SettingsSection({ profile }: SettingsSectionProps) {
             accessibilityRole="button"
             style={{
               flex: 1,
-              minHeight: 44,
+              minHeight: MIN_TOUCH,
               paddingVertical: 10,
               borderRadius: RADIUS.md,
               backgroundColor: themeMode === th ? colors.primaryLight : colors.surface,
@@ -103,7 +103,7 @@ export function SettingsSection({ profile }: SettingsSectionProps) {
               justifyContent: 'center',
             }}
           >
-            <Text style={{ fontSize: 12, fontWeight: '500', color: themeMode === th ? colors.primary : colors.text }}>
+            <Text style={{ fontSize: FONT_SIZE.xs, fontWeight: '500', color: themeMode === th ? colors.primary : colors.text }}>
               {t(`profile.theme_${th}`)}
             </Text>
           </Pressable>
@@ -193,7 +193,7 @@ export function SettingsSection({ profile }: SettingsSectionProps) {
         </Text>
         <Pressable
           onPress={() => setUnits(units === 'metric' ? 'imperial' : 'metric')}
-          style={{ minHeight: 44, paddingHorizontal: 12, paddingVertical: 8, borderRadius: RADIUS.md, backgroundColor: colors.surface, justifyContent: 'center' }}
+          style={{ minHeight: MIN_TOUCH, paddingHorizontal: 12, paddingVertical: 8, borderRadius: RADIUS.md, backgroundColor: colors.surface, justifyContent: 'center' }}
           accessibilityRole="button"
           accessibilityLabel={t('settings.toggle_units')}
         >
@@ -281,12 +281,12 @@ export function SettingsSection({ profile }: SettingsSectionProps) {
 
       {/* Legal links */}
       <View style={{ flexDirection: 'row', gap: 16 }}>
-        <Pressable onPress={() => Linking.openURL(PRIVACY_URL)} style={{ minHeight: 44, paddingVertical: 12, justifyContent: 'center' }} accessibilityRole="link" accessibilityLabel={t('paywall.privacy')}>
+        <Pressable onPress={() => Linking.openURL(PRIVACY_URL)} style={{ minHeight: MIN_TOUCH, paddingVertical: 12, justifyContent: 'center' }} accessibilityRole="link" accessibilityLabel={t('paywall.privacy')}>
           <Text style={{ fontSize: FONT_SIZE.xs, color: colors.textSecondary, textDecorationLine: 'underline' }}>
             {t('paywall.privacy')}
           </Text>
         </Pressable>
-        <Pressable onPress={() => Linking.openURL(TERMS_URL)} style={{ minHeight: 44, paddingVertical: 12, justifyContent: 'center' }} accessibilityRole="link" accessibilityLabel={t('paywall.terms')}>
+        <Pressable onPress={() => Linking.openURL(TERMS_URL)} style={{ minHeight: MIN_TOUCH, paddingVertical: 12, justifyContent: 'center' }} accessibilityRole="link" accessibilityLabel={t('paywall.terms')}>
           <Text style={{ fontSize: FONT_SIZE.xs, color: colors.textSecondary, textDecorationLine: 'underline' }}>
             {t('paywall.terms')}
           </Text>

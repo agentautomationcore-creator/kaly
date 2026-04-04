@@ -7,7 +7,7 @@ import { useTranslation } from 'react-i18next';
 import { useColors } from '../../src/lib/theme';
 import { Button } from '../../src/components/Button';
 import { StepIndicator } from '../../src/components/StepIndicator';
-import { FONT_SIZE, RADIUS } from '../../src/lib/constants';
+import { FONT_SIZE, RADIUS, MIN_TOUCH } from '../../src/lib/constants';
 import { useAuthStore } from '../../src/stores/authStore';
 import { useOnboardingStore } from '../../src/stores/onboardingStore';
 import { supabase } from '../../src/lib/supabase';
@@ -110,9 +110,10 @@ export default function DietScreen() {
               key={d}
               onPress={() => setDiet(d)}
               accessibilityRole="button"
+              accessibilityLabel={t(`onboarding.diet_${d}`)}
               style={{
                 padding: 14,
-                minHeight: 44,
+                minHeight: MIN_TOUCH,
                 borderRadius: RADIUS.md,
                 backgroundColor: diet === d ? colors.primaryLight : colors.card,
                 borderWidth: 2,
@@ -139,10 +140,11 @@ export default function DietScreen() {
                 key={a}
                 onPress={() => toggleAllergy(a)}
                 accessibilityRole="switch"
+                accessibilityLabel={t(`onboarding.allergy_${a}`)}
                 style={{
                   paddingHorizontal: 16,
                   paddingVertical: 10,
-                  minHeight: 44,
+                  minHeight: MIN_TOUCH,
                   borderRadius: RADIUS.full,
                   backgroundColor: isSelected ? colors.dangerLight : colors.card,
                   borderWidth: 1.5,
@@ -164,7 +166,7 @@ export default function DietScreen() {
         <Pressable
           onPress={() => { setDiet('balanced'); setAllergies([]); handleDone(); }}
           disabled={loading}
-          style={{ alignItems: 'center', marginTop: 12, minHeight: 44, justifyContent: 'center', opacity: loading ? 0.5 : 1 }}
+          style={{ alignItems: 'center', marginTop: 12, minHeight: MIN_TOUCH, justifyContent: 'center', opacity: loading ? 0.5 : 1 }}
           accessibilityRole="button"
           accessibilityLabel={t('onboarding.skip')}
         >

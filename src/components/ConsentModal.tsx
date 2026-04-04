@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { useColors } from '../lib/theme';
 import { Modal } from './Modal';
 import { Button } from './Button';
-import { FONT_SIZE, RADIUS } from '../lib/constants';
+import { FONT_SIZE, RADIUS, MIN_TOUCH } from '../lib/constants';
 
 const PRIVACY_URL = 'https://kaly.app/privacy';
 
@@ -60,7 +60,7 @@ export function ConsentModal({ visible, type, onAccept, onDecline }: ConsentModa
 
         <Pressable
           onPress={() => Linking.openURL(PRIVACY_URL)}
-          style={{ minHeight: 44 , justifyContent: 'center', marginBottom: 16 }}
+          style={{ minHeight: MIN_TOUCH , justifyContent: 'center', marginBottom: 16 }}
           accessibilityRole="link"
           accessibilityLabel={t('consent.read_privacy')}
         >
@@ -72,7 +72,7 @@ export function ConsentModal({ visible, type, onAccept, onDecline }: ConsentModa
         <Button title={t('consent.accept')} onPress={onAccept} />
         <Pressable
           onPress={onDecline}
-          style={{ alignItems: 'center', marginTop: 12, minHeight: 44, justifyContent: 'center' }}
+          style={{ alignItems: 'center', marginTop: 12, minHeight: MIN_TOUCH, justifyContent: 'center' }}
           accessibilityRole="button"
           accessibilityLabel={t('consent.decline')}
         >

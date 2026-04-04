@@ -3,7 +3,7 @@ import { View, Text, TextInput, Pressable, Alert } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { Ionicons } from '@expo/vector-icons';
 import { useColors, type Colors } from '../../../lib/theme';
-import { FONT_SIZE, RADIUS } from '../../../lib/constants';
+import { FONT_SIZE, RADIUS, MIN_TOUCH } from '../../../lib/constants';
 import { formatNumber } from '../../../lib/formatNumber';
 import { useScanStore } from '../store/scanStore';
 import type { FoodItem } from '../types';
@@ -53,7 +53,7 @@ export function IngredientList({ items, multiplier }: IngredientListProps) {
     <View>
       <Pressable
         onPress={() => setExpanded(!expanded)}
-        style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12, minHeight: 44 }}
+        style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12, minHeight: MIN_TOUCH }}
         accessibilityRole="button"
         accessibilityLabel={t('scan.ingredients_count', { count: items.length })}
       >
@@ -117,7 +117,7 @@ export function IngredientList({ items, multiplier }: IngredientListProps) {
               borderWidth: 1,
               borderStyle: 'dashed',
               borderColor: colors.border,
-              minHeight: 44,
+              minHeight: MIN_TOUCH,
             }}
             accessibilityRole="button"
             accessibilityLabel={t('scan.add_item')}
@@ -184,7 +184,7 @@ function EditableIngredientRow({ item, multiplier, colors, isHidden, onUpdate, o
             style={{ fontSize: FONT_SIZE.sm, fontWeight: '500', color: colors.text, padding: 0, borderBottomWidth: 1, borderColor: colors.primary }}
           />
         ) : (
-          <Pressable onPress={() => setEditingName(true)} style={{ minHeight: 44, justifyContent: 'center' }} accessibilityRole="button" accessibilityLabel={t('common.edit') || item.name}>
+          <Pressable onPress={() => setEditingName(true)} style={{ minHeight: MIN_TOUCH, justifyContent: 'center' }} accessibilityRole="button" accessibilityLabel={t('common.edit') || item.name}>
             <Text style={{ fontSize: FONT_SIZE.sm, fontWeight: '500', color: colors.text }}>
               {isHidden ? '⚠️ ' : ''}{item.name}
             </Text>
@@ -200,11 +200,11 @@ function EditableIngredientRow({ item, multiplier, colors, isHidden, onUpdate, o
             keyboardType="numeric"
             autoFocus
             accessibilityLabel={t('scan.ingredient_grams')}
-            style={{ fontSize: 11, color: colors.textSecondary, padding: 0, borderBottomWidth: 1, borderColor: colors.primary, width: 60 }}
+            style={{ fontSize: FONT_SIZE.xs, color: colors.textSecondary, padding: 0, borderBottomWidth: 1, borderColor: colors.primary, width: 60 }}
           />
         ) : (
-          <Pressable onPress={() => { setGramsVal(String(Math.round(item.g))); setEditingGrams(true); }} style={{ minHeight: 44, paddingHorizontal: 8, justifyContent: 'center' }}>
-            <Text style={{ fontSize: 11, color: colors.textSecondary }}>
+          <Pressable onPress={() => { setGramsVal(String(Math.round(item.g))); setEditingGrams(true); }} style={{ minHeight: MIN_TOUCH, paddingHorizontal: 8, justifyContent: 'center' }}>
+            <Text style={{ fontSize: FONT_SIZE.xs, color: colors.textSecondary }}>
               {formatNumber(Math.round(item.g * multiplier))} {t('units.g')}
             </Text>
           </Pressable>

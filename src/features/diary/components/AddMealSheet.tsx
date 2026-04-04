@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { Ionicons } from '@expo/vector-icons';
 import { useColors } from '../../../lib/theme';
 import { Modal } from '../../../components/Modal';
-import { FONT_SIZE, RADIUS } from '../../../lib/constants';
+import { FONT_SIZE, RADIUS, MIN_TOUCH } from '../../../lib/constants';
 
 interface AddMealSheetProps {
   visible: boolean;
@@ -37,7 +37,7 @@ export function AddMealSheet({ visible, onClose }: AddMealSheetProps) {
               alignItems: 'center',
               gap: 16,
               padding: 16,
-              minHeight: 44,
+              minHeight: MIN_TOUCH,
               borderRadius: RADIUS.md,
               backgroundColor: colors.surface,
             }}

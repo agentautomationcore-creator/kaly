@@ -126,7 +126,7 @@ export function ScanCamera() {
                 style={{
                   width: 48,
                   height: 48,
-                  borderRadius: 24,
+                  borderRadius: RADIUS.xxl,
                   backgroundColor: 'rgba(255,255,255,0.15)',
                   justifyContent: 'center',
                   alignItems: 'center',
@@ -164,7 +164,7 @@ export function ScanCamera() {
                 style={{
                   width: 48,
                   height: 48,
-                  borderRadius: 24,
+                  borderRadius: RADIUS.xxl,
                   backgroundColor: 'rgba(255,255,255,0.15)',
                   justifyContent: 'center',
                   alignItems: 'center',

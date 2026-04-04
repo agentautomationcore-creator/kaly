@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next';
 import * as AppleAuthentication from 'expo-apple-authentication';
 import { useColors } from '../../src/lib/theme';
 import { Button } from '../../src/components/Button';
-import { FONT_SIZE, RADIUS, IS_IOS } from '../../src/lib/constants';
+import { FONT_SIZE, RADIUS, IS_IOS, MIN_TOUCH } from '../../src/lib/constants';
 import { supabase } from '../../src/lib/supabase';
 import { captureException } from '../../src/lib/sentry';
 
@@ -77,7 +77,7 @@ export default function LoginScreen() {
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         style={{ flex: 1, padding: 24, justifyContent: 'center' }}
       >
-        <Text style={{ fontSize: 28, fontWeight: '800', color: colors.text, marginBottom: 32 }}>
+        <Text style={{ fontSize: FONT_SIZE.heading, fontWeight: '800', color: colors.text, marginBottom: 32 }}>
           {t('auth.sign_in')}
         </Text>
 
@@ -144,14 +144,14 @@ export default function LoginScreen() {
 
         <View style={{ flexDirection: 'row', justifyContent: 'center', marginTop: 24, gap: 4 }}>
           <Text style={{ color: colors.textSecondary, fontSize: FONT_SIZE.sm }}>{t('auth.no_account')}</Text>
-          <Pressable onPress={() => router.push('/(auth)/register')} style={{ minHeight: 44, justifyContent: 'center' }}>
+          <Pressable onPress={() => router.push('/(auth)/register')} style={{ minHeight: MIN_TOUCH, justifyContent: 'center' }}>
             <Text style={{ color: colors.primary, fontSize: FONT_SIZE.sm, fontWeight: '600' }}>
               {t('auth.create_account')}
             </Text>
           </Pressable>
         </View>
 
-        <Pressable onPress={() => { if (router.canGoBack()) router.back(); else router.replace('/onboarding/welcome'); }} style={{ marginTop: 16, alignItems: 'center', minHeight: 44, justifyContent: 'center' }}>
+        <Pressable onPress={() => { if (router.canGoBack()) router.back(); else router.replace('/onboarding/welcome'); }} style={{ marginTop: 16, alignItems: 'center', minHeight: MIN_TOUCH, justifyContent: 'center' }}>
           <Text style={{ color: colors.textSecondary, fontSize: FONT_SIZE.sm }}>{t('auth.back')}</Text>
         </Pressable>
       </KeyboardAvoidingView>

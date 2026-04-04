@@ -43,7 +43,7 @@ export function WaterTracker({ date, goalGlasses = 8 }: WaterTrackerProps) {
               style={{
                 flex: 1,
                 height: 8,
-                borderRadius: 4,
+                borderRadius: RADIUS.xs,
                 backgroundColor: i < glasses ? colors.info : colors.surface,
               }}
             />

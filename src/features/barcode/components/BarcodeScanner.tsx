@@ -7,7 +7,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useColors } from '../../../lib/theme';
 import { Button } from '../../../components/Button';
-import { FONT_SIZE, RADIUS } from '../../../lib/constants';
+import { FONT_SIZE, RADIUS, MIN_TOUCH } from '../../../lib/constants';
 import { lookupBarcode, type BarcodeProduct } from '../hooks/useBarcodeLookup';
 import { BarcodeResult } from './BarcodeResult';
 import { track } from '../../../lib/analytics';
@@ -82,7 +82,7 @@ export function BarcodeScanner() {
         ) : (
           <Button title={t('scan.open_settings')} onPress={() => Linking.openSettings()} />
         )}
-        <Pressable onPress={() => { if (router.canGoBack()) router.back(); else router.replace('/(tabs)/diary'); }} style={{ marginTop: 16, minHeight: 44, justifyContent: 'center' }} accessibilityRole="button" accessibilityLabel={t('common.cancel')}>
+        <Pressable onPress={() => { if (router.canGoBack()) router.back(); else router.replace('/(tabs)/diary'); }} style={{ marginTop: 16, minHeight: MIN_TOUCH, justifyContent: 'center' }} accessibilityRole="button" accessibilityLabel={t('common.cancel')}>
           <Text style={{ color: colors.textSecondary }}>{t('common.cancel')}</Text>
         </Pressable>
       </SafeAreaView>
@@ -101,7 +101,7 @@ export function BarcodeScanner() {
       {/* Overlay */}
       <View style={{ position: 'absolute', top: 0, start: 0, end: 0, bottom: 0, justifyContent: 'center', alignItems: 'center' }}>
         {/* Scanning frame */}
-        <View style={{ width: 260, height: 160, borderWidth: 2, borderColor: '#fff', borderRadius: 12, opacity: 0.7 }} accessibilityLabel={t('barcode.point_at_barcode')} />
+        <View style={{ width: 260, height: 160, borderWidth: 2, borderColor: '#fff', borderRadius: RADIUS.md, opacity: 0.7 }} accessibilityLabel={t('barcode.point_at_barcode')} />
         <Text style={{ color: '#fff', fontSize: FONT_SIZE.sm, marginTop: 16, opacity: 0.8 }}>
           {t('barcode.point_at_barcode')}
         </Text>

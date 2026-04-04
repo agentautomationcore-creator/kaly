@@ -3,6 +3,7 @@ import { View, Text } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import NetInfo from '@react-native-community/netinfo';
 import { useColors } from '../lib/theme';
+import { FONT_SIZE } from '../lib/constants';
 
 export function OfflineBanner() {
   const { t } = useTranslation();
@@ -27,7 +28,7 @@ export function OfflineBanner() {
         alignItems: 'center',
       }}
     >
-      <Text style={{ fontSize: 13, color: colors.warning, fontWeight: '500' }}>
+      <Text style={{ fontSize: FONT_SIZE.sm, color: colors.warning, fontWeight: '500' }}>
         {t('errors.offline_banner')}
       </Text>
     </View>

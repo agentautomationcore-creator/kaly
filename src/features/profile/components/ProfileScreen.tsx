@@ -34,7 +34,7 @@ export function ProfileScreen() {
       style={{ flex: 1, backgroundColor: colors.background }}
       contentContainerStyle={{ padding: 16, paddingBottom: 100 }}
     >
-      <Text style={{ fontSize: 24, fontWeight: '800', color: colors.text, marginBottom: 20 }}>
+      <Text style={{ fontSize: FONT_SIZE.xxl, fontWeight: '800', color: colors.text, marginBottom: 20 }}>
         {t('profile.title')}
       </Text>
 
@@ -157,7 +157,7 @@ export function ProfileScreen() {
       <DeleteAccountButton />
 
       {/* Disclaimer */}
-      <Text style={{ fontSize: 11, color: colors.textSecondary, textAlign: 'center', marginTop: 24, lineHeight: 16 }}>
+      <Text style={{ fontSize: FONT_SIZE.xs, color: colors.textSecondary, textAlign: 'center', marginTop: 24, lineHeight: 16 }}>
         {t('profile.disclaimer')}
       </Text>
     </ScrollView>

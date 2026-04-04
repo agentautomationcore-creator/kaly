@@ -4,7 +4,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { useTranslation } from 'react-i18next';
 import { useRouter } from 'expo-router';
 import { useColors } from '../../../lib/theme';
-import { FONT_SIZE } from '../../../lib/constants';
+import { FONT_SIZE, RADIUS, MIN_TOUCH } from '../../../lib/constants';
 import { useScanStore } from '../store/scanStore';
 import { useAnalyzeFood } from '../hooks/useAnalyzeFood';
 import { useSettingsStore } from '../../../stores/settingsStore';
@@ -92,8 +92,8 @@ export function ScanScreen() {
                 backgroundColor: colors.primary,
                 paddingHorizontal: 24,
                 paddingVertical: 12,
-                borderRadius: 12,
-                minHeight: 44,
+                borderRadius: RADIUS.md,
+                minHeight: MIN_TOUCH,
                 alignItems: 'center',
                 justifyContent: 'center',
                 marginTop: 12,
@@ -101,14 +101,14 @@ export function ScanScreen() {
               accessibilityRole="button"
               accessibilityLabel={t('scan.upgrade_button')}
             >
-              <Text style={{ color: colors.card, fontWeight: '600', fontSize: 16 }}>
+              <Text style={{ color: colors.card, fontWeight: '600', fontSize: FONT_SIZE.lg }}>
                 {t('scan.upgrade_button')}
               </Text>
             </Pressable>
             <View style={{ flexDirection: 'row', gap: 12, marginTop: 16 }}>
               <Pressable
                 onPress={() => { reset(); router.push('/(tabs)/diary'); }}
-                style={{ flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 6, backgroundColor: colors.surface, paddingVertical: 12, borderRadius: 12, minHeight: 44 }}
+                style={{ flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 6, backgroundColor: colors.surface, paddingVertical: 12, borderRadius: RADIUS.md, minHeight: MIN_TOUCH }}
                 accessibilityRole="button"
                 accessibilityLabel={t('scan.use_barcode')}
               >
@@ -117,7 +117,7 @@ export function ScanScreen() {
               </Pressable>
               <Pressable
                 onPress={() => { reset(); router.push('/(tabs)/diary'); }}
-                style={{ flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 6, backgroundColor: colors.surface, paddingVertical: 12, borderRadius: 12, minHeight: 44 }}
+                style={{ flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 6, backgroundColor: colors.surface, paddingVertical: 12, borderRadius: RADIUS.md, minHeight: MIN_TOUCH }}
                 accessibilityRole="button"
                 accessibilityLabel={t('scan.enter_manually')}
               >
@@ -131,7 +131,7 @@ export function ScanScreen() {
           {!isRateLimit && photo && (
             <Pressable
               onPress={() => { setError(null); analyze(photo); }}
-              style={{ backgroundColor: colors.primary, paddingHorizontal: 24, paddingVertical: 12, borderRadius: 12, minHeight: 44, justifyContent: 'center' }}
+              style={{ backgroundColor: colors.primary, paddingHorizontal: 24, paddingVertical: 12, borderRadius: RADIUS.md, minHeight: MIN_TOUCH, justifyContent: 'center' }}
               accessibilityRole="button"
               accessibilityLabel={t('common.retry')}
             >
@@ -140,7 +140,7 @@ export function ScanScreen() {
           )}
           <Pressable
             onPress={reset}
-            style={{ backgroundColor: colors.surface, paddingHorizontal: 24, paddingVertical: 12, borderRadius: 12, minHeight: 44, justifyContent: 'center' }}
+            style={{ backgroundColor: colors.surface, paddingHorizontal: 24, paddingVertical: 12, borderRadius: RADIUS.md, minHeight: MIN_TOUCH, justifyContent: 'center' }}
             accessibilityRole="button"
             accessibilityLabel={t('common.cancel')}
           >

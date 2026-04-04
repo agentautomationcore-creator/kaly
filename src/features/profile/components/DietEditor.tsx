@@ -7,7 +7,7 @@ import { useUpdateProfile } from '../hooks/useProfile';
 import { Card } from '../../../components/Card';
 import { Modal } from '../../../components/Modal';
 import { Button } from '../../../components/Button';
-import { FONT_SIZE, RADIUS } from '../../../lib/constants';
+import { FONT_SIZE, RADIUS, MIN_TOUCH } from '../../../lib/constants';
 import type { NutritionProfile } from '../types';
 
 const DIETS = ['balanced', 'keto', 'vegan', 'vegetarian', 'paleo'] as const;
@@ -57,7 +57,7 @@ export function DietEditor({ profile }: DietEditorProps) {
               accessibilityRole="button"
               style={{
                 padding: 12,
-                minHeight: 44,
+                minHeight: MIN_TOUCH,
                 borderRadius: RADIUS.md,
                 backgroundColor: diet === d ? colors.primaryLight : colors.surface,
                 borderWidth: 1.5,
@@ -82,7 +82,7 @@ export function DietEditor({ profile }: DietEditorProps) {
                 style={{
                   paddingHorizontal: 14,
                   paddingVertical: 8,
-                  minHeight: 44,
+                  minHeight: MIN_TOUCH,
                   justifyContent: 'center',
                   borderRadius: RADIUS.full,
                   backgroundColor: sel ? colors.dangerLight : colors.surface,

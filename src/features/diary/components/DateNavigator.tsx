@@ -3,7 +3,7 @@ import { View, Text, Pressable, Platform } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { Ionicons } from '@expo/vector-icons';
 import { useColors } from '../../../lib/theme';
-import { FONT_SIZE } from '../../../lib/constants';
+import { FONT_SIZE, RADIUS, MIN_TOUCH } from '../../../lib/constants';
 
 interface DateNavigatorProps {
   date: string;
@@ -44,18 +44,18 @@ export function DateNavigator({ date, onDateChange }: DateNavigatorProps) {
   return (
     <View>
       <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingHorizontal: 16, paddingVertical: 12 }}>
-        <Pressable onPress={() => onDateChange(addDays(date, -1))} style={{ padding: 8, minHeight: 44, minWidth: 44, justifyContent: 'center', alignItems: 'center' }} accessibilityLabel={t('diary.yesterday')} accessibilityRole="button">
+        <Pressable onPress={() => onDateChange(addDays(date, -1))} style={{ padding: 8, minHeight: MIN_TOUCH, minWidth: 44, justifyContent: 'center', alignItems: 'center' }} accessibilityLabel={t('diary.yesterday')} accessibilityRole="button">
           <Ionicons name="chevron-back" size={24} color={colors.text} />
         </Pressable>
 
-        <Pressable onPress={() => setShowPicker(!showPicker)} style={{ alignItems: 'center', flexDirection: 'row', gap: 6, minHeight: 44, justifyContent: 'center' }} accessibilityRole="button" accessibilityLabel={label}>
-          <Text style={{ fontSize: 18, fontWeight: '700', color: colors.text }}>{label}</Text>
+        <Pressable onPress={() => setShowPicker(!showPicker)} style={{ alignItems: 'center', flexDirection: 'row', gap: 6, minHeight: MIN_TOUCH, justifyContent: 'center' }} accessibilityRole="button" accessibilityLabel={label}>
+          <Text style={{ fontSize: FONT_SIZE.lg, fontWeight: '700', color: colors.text }}>{label}</Text>
           <Ionicons name={showPicker ? 'chevron-up' : 'calendar-outline'} size={16} color={colors.textSecondary} />
         </Pressable>
 
         <Pressable
           onPress={() => onDateChange(addDays(date, 1))}
-          style={{ padding: 8, minHeight: 44, minWidth: 44, justifyContent: 'center', alignItems: 'center' }}
+          style={{ padding: 8, minHeight: MIN_TOUCH, minWidth: 44, justifyContent: 'center', alignItems: 'center' }}
           disabled={date >= today}
           accessibilityLabel={t('diary.tomorrow')}
           accessibilityRole="button"
@@ -78,13 +78,13 @@ export function DateNavigator({ date, onDateChange }: DateNavigatorProps) {
                 style={{
                   paddingVertical: 6,
                   paddingHorizontal: 8,
-                  minHeight: 44,
+                  minHeight: MIN_TOUCH,
                   justifyContent: 'center',
-                  borderRadius: 8,
+                  borderRadius: RADIUS.sm,
                   backgroundColor: isSelected ? colors.primaryLight : 'transparent',
                 }}
               >
-                <Text style={{ fontSize: 11, fontWeight: isSelected ? '700' : '400', color: isSelected ? colors.primary : colors.textSecondary, textAlign: 'center' }}>
+                <Text style={{ fontSize: FONT_SIZE.xs, fontWeight: isSelected ? '700' : '400', color: isSelected ? colors.primary : colors.textSecondary, textAlign: 'center' }}>
                   {dayLabel}
                 </Text>
               </Pressable>

@@ -12,7 +12,7 @@ import { useSettingsStore } from '../../src/stores/settingsStore';
 import { useAuthStore } from '../../src/stores/authStore';
 import { supabase } from '../../src/lib/supabase';
 import { useOnboardingStore } from '../../src/stores/onboardingStore';
-import { FONT_SIZE, RADIUS } from '../../src/lib/constants';
+import { FONT_SIZE, RADIUS, MIN_TOUCH } from '../../src/lib/constants';
 import type { Gender, ActivityLevel } from '../../src/lib/nutrition';
 
 const GENDERS = ['male', 'female'] as const;
@@ -59,7 +59,7 @@ export default function BodyScreen() {
               style={{
                 flex: 1,
                 padding: 14,
-                minHeight: 44,
+                minHeight: MIN_TOUCH,
                 borderRadius: RADIUS.md,
                 backgroundColor: gender === g ? colors.primaryLight : colors.card,
                 borderWidth: 2,
@@ -116,7 +116,7 @@ export default function BodyScreen() {
               accessibilityLabel={t(`onboarding.activity_${a}`)}
               style={{
                 padding: 14,
-                minHeight: 44,
+                minHeight: MIN_TOUCH,
                 borderRadius: RADIUS.md,
                 backgroundColor: activity === a ? colors.primaryLight : colors.card,
                 borderWidth: 2,
@@ -160,7 +160,7 @@ export default function BodyScreen() {
         }} disabled={!canContinue} />
         <Pressable
           onPress={() => router.push('/onboarding/diet')}
-          style={{ alignItems: 'center', marginTop: 12, minHeight: 44, justifyContent: 'center' }}
+          style={{ alignItems: 'center', marginTop: 12, minHeight: MIN_TOUCH, justifyContent: 'center' }}
           accessibilityRole="button"
           accessibilityLabel={t('onboarding.skip')}
         >

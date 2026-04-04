@@ -9,7 +9,7 @@ import * as Haptics from 'expo-haptics';
 import { useColors } from '../src/lib/theme';
 import { Button } from '../src/components/Button';
 import { Card } from '../src/components/Card';
-import { FONT_SIZE, RADIUS } from '../src/lib/constants';
+import { FONT_SIZE, RADIUS, MIN_TOUCH } from '../src/lib/constants';
 import NetInfo from '@react-native-community/netinfo';
 import { useAuthStore } from '../src/stores/authStore';
 import { supabase } from '../src/lib/supabase';
@@ -146,7 +146,7 @@ export default function PaywallScreen() {
     <SafeAreaView style={{ flex: 1, backgroundColor: colors.background }}>
       <ScrollView contentContainerStyle={{ padding: 24, paddingBottom: 60 }}>
         {/* Close button */}
-        <Pressable onPress={() => { if (router.canGoBack()) router.back(); else router.replace('/(tabs)/diary'); }} style={{ alignSelf: 'flex-end', padding: 8, minHeight: 44, minWidth: 44, justifyContent: 'center', alignItems: 'center' }} accessibilityRole="button" accessibilityLabel={t('common.close')}>
+        <Pressable onPress={() => { if (router.canGoBack()) router.back(); else router.replace('/(tabs)/diary'); }} style={{ alignSelf: 'flex-end', padding: 8, minHeight: MIN_TOUCH, minWidth: 44, justifyContent: 'center', alignItems: 'center' }} accessibilityRole="button" accessibilityLabel={t('common.close')}>
           <Ionicons name="close" size={28} color={colors.text} />
         </Pressable>
 
@@ -235,26 +235,26 @@ export default function PaywallScreen() {
         </Text>
 
         {/* Continue free */}
-        <Pressable onPress={() => { if (router.canGoBack()) router.back(); else router.replace('/(tabs)/diary'); }} style={{ alignItems: 'center', marginTop: 20, minHeight: 44, justifyContent: 'center' }} accessibilityRole="button" accessibilityLabel={t('paywall.continue_free')}>
+        <Pressable onPress={() => { if (router.canGoBack()) router.back(); else router.replace('/(tabs)/diary'); }} style={{ alignItems: 'center', marginTop: 20, minHeight: MIN_TOUCH, justifyContent: 'center' }} accessibilityRole="button" accessibilityLabel={t('paywall.continue_free')}>
           <Text style={{ fontSize: FONT_SIZE.sm, color: colors.textSecondary }}>{t('paywall.continue_free')}</Text>
         </Pressable>
 
         {/* Restore + links */}
         <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center', gap: 16, marginTop: 24 }}>
-          <Pressable onPress={handleRestore} style={{ minHeight: 44, justifyContent: 'center' }} accessibilityRole="button" accessibilityLabel={t('paywall.restore')}>
-            <Text style={{ fontSize: 12, color: colors.textSecondary }}>{t('paywall.restore')}</Text>
+          <Pressable onPress={handleRestore} style={{ minHeight: MIN_TOUCH, justifyContent: 'center' }} accessibilityRole="button" accessibilityLabel={t('paywall.restore')}>
+            <Text style={{ fontSize: FONT_SIZE.xs, color: colors.textSecondary }}>{t('paywall.restore')}</Text>
           </Pressable>
-          <Text style={{ fontSize: 12, color: colors.border }}>|</Text>
-          <Pressable onPress={() => Linking.openURL(TERMS_URL)} style={{ minHeight: 44, justifyContent: 'center' }} accessibilityRole="link" accessibilityLabel={t('paywall.terms')}>
-            <Text style={{ fontSize: 12, color: colors.textSecondary }}>{t('paywall.terms')}</Text>
+          <Text style={{ fontSize: FONT_SIZE.xs, color: colors.border }}>|</Text>
+          <Pressable onPress={() => Linking.openURL(TERMS_URL)} style={{ minHeight: MIN_TOUCH, justifyContent: 'center' }} accessibilityRole="link" accessibilityLabel={t('paywall.terms')}>
+            <Text style={{ fontSize: FONT_SIZE.xs, color: colors.textSecondary }}>{t('paywall.terms')}</Text>
           </Pressable>
-          <Text style={{ fontSize: 12, color: colors.border }}>|</Text>
-          <Pressable onPress={() => Linking.openURL(PRIVACY_URL)} style={{ minHeight: 44, justifyContent: 'center' }} accessibilityRole="link" accessibilityLabel={t('paywall.privacy')}>
-            <Text style={{ fontSize: 12, color: colors.textSecondary }}>{t('paywall.privacy')}</Text>
+          <Text style={{ fontSize: FONT_SIZE.xs, color: colors.border }}>|</Text>
+          <Pressable onPress={() => Linking.openURL(PRIVACY_URL)} style={{ minHeight: MIN_TOUCH, justifyContent: 'center' }} accessibilityRole="link" accessibilityLabel={t('paywall.privacy')}>
+            <Text style={{ fontSize: FONT_SIZE.xs, color: colors.textSecondary }}>{t('paywall.privacy')}</Text>
           </Pressable>
         </View>
 
-        <Text style={{ fontSize: 11, color: colors.textSecondary, textAlign: 'center', marginTop: 16, lineHeight: 16 }}>
+        <Text style={{ fontSize: FONT_SIZE.xs, color: colors.textSecondary, textAlign: 'center', marginTop: 16, lineHeight: 16 }}>
           {t('paywall.auto_renewal_disclosure')}
         </Text>
       </ScrollView>

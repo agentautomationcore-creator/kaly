@@ -5,7 +5,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { useColors } from '../../../lib/theme';
 import { useRecentMeals } from '../hooks/useRecentMeals';
 import { Card } from '../../../components/Card';
-import { FONT_SIZE, RADIUS } from '../../../lib/constants';
+import { FONT_SIZE, RADIUS, MIN_TOUCH } from '../../../lib/constants';
 import { formatNumber } from '../../../lib/formatNumber';
 import { supabase } from '../../../lib/supabase';
 import { useAuthStore } from '../../../stores/authStore';
@@ -74,16 +74,16 @@ export const RecentMeals = React.memo(function RecentMeals({ date }: RecentMeals
             justifyContent: 'space-between',
             alignItems: 'center',
             paddingVertical: 10,
-            minHeight: 44,
+            minHeight: MIN_TOUCH,
             borderBottomWidth: 0.5,
             borderBottomColor: colors.border,
           }}
         >
           <View style={{ flex: 1 }}>
-            <Text style={{ fontSize: FONT_SIZE.sm, fontWeight: '500', color: colors.text }} numberOfLines={1}>
+            <Text style={{ fontSize: FONT_SIZE.sm, fontWeight: '500', color: colors.text }} numberOfLines={1} ellipsizeMode="tail">
               {entry.food_name}
             </Text>
-            <Text style={{ fontSize: 11, color: colors.textSecondary }}>
+            <Text style={{ fontSize: FONT_SIZE.xs, color: colors.textSecondary }}>
               {formatNumber(Math.round(entry.total_calories))} {t('common.kcal')}
             </Text>
           </View>

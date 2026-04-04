@@ -3,7 +3,7 @@ import { View, Text, Pressable } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { useColors } from '../../../lib/theme';
 import { Skeleton } from '../../../components/LoadingSkeleton';
-import { FONT_SIZE, RADIUS } from '../../../lib/constants';
+import { FONT_SIZE, RADIUS, MIN_TOUCH } from '../../../lib/constants';
 import { cancelAnalysis } from '../hooks/useAnalyzeFood';
 import { useScanStore } from '../store/scanStore';
 
@@ -19,12 +19,12 @@ export function ScanLoading() {
 
   return (
     <View style={{ flex: 1, backgroundColor: colors.background, padding: 24, justifyContent: 'center' }}>
-      <Text style={{ fontSize: 20, fontWeight: '700', color: colors.text, textAlign: 'center', marginBottom: 32 }}>
+      <Text style={{ fontSize: FONT_SIZE.xl, fontWeight: '700', color: colors.text, textAlign: 'center', marginBottom: 32 }}>
         {t('scan.analyzing')}
       </Text>
 
       {/* Skeleton card */}
-      <View style={{ backgroundColor: colors.card, borderRadius: 16, padding: 20, gap: 16 }}>
+      <View style={{ backgroundColor: colors.card, borderRadius: RADIUS.lg, padding: 20, gap: 16 }}>
         <Skeleton width="70%" height={20} />
         <Skeleton width="40%" height={14} />
 
@@ -64,7 +64,7 @@ export function ScanLoading() {
 
       <Pressable
         onPress={handleCancel}
-        style={{ alignSelf: 'center', marginTop: 24, backgroundColor: colors.surface, paddingHorizontal: 24, paddingVertical: 12, borderRadius: RADIUS.md, minHeight: 44, justifyContent: 'center' }}
+        style={{ alignSelf: 'center', marginTop: 24, backgroundColor: colors.surface, paddingHorizontal: 24, paddingVertical: 12, borderRadius: RADIUS.md, minHeight: MIN_TOUCH, justifyContent: 'center' }}
         accessibilityRole="button"
         accessibilityLabel={t('common.cancel')}
       >

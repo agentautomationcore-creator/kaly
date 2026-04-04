@@ -7,7 +7,7 @@ import { useColors } from '../../../lib/theme';
 import { Card } from '../../../components/Card';
 import { Button } from '../../../components/Button';
 import { ProgressBar } from '../../../components/ProgressBar';
-import { FONT_SIZE, RADIUS } from '../../../lib/constants';
+import { FONT_SIZE, RADIUS, MIN_TOUCH } from '../../../lib/constants';
 import { formatNumber } from '../../../lib/formatNumber';
 import { supabase } from '../../../lib/supabase';
 import { useAuthStore } from '../../../stores/authStore';
@@ -97,7 +97,7 @@ export function BarcodeResult({ product, onDone, onScanAgain }: BarcodeResultPro
       <ScrollView contentContainerStyle={{ padding: 16, paddingBottom: 100 }}>
         {/* Header */}
         <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
-          <Pressable onPress={onScanAgain} style={{ padding: 8, minHeight: 44, minWidth: 44, justifyContent: 'center', alignItems: 'center' }} accessibilityRole="button" accessibilityLabel={t('common.close')}>
+          <Pressable onPress={onScanAgain} style={{ padding: 8, minHeight: MIN_TOUCH, minWidth: 44, justifyContent: 'center', alignItems: 'center' }} accessibilityRole="button" accessibilityLabel={t('common.close')}>
             <Ionicons name="arrow-back" size={24} color={colors.text} />
           </Pressable>
           <Text style={{ fontSize: FONT_SIZE.lg, fontWeight: '700', color: colors.text }}>{t('barcode.result_title')}</Text>
@@ -113,17 +113,17 @@ export function BarcodeResult({ product, onDone, onScanAgain }: BarcodeResultPro
               placeholder={t('barcode.product_name')}
               placeholderTextColor={colors.textSecondary}
               accessibilityLabel={t('barcode.product_name')}
-              style={{ fontSize: 20, fontWeight: '700', color: colors.text, marginBottom: 8, borderBottomWidth: 1, borderColor: colors.primary, paddingBottom: 4 }}
+              style={{ fontSize: FONT_SIZE.xl, fontWeight: '700', color: colors.text, marginBottom: 8, borderBottomWidth: 1, borderColor: colors.primary, paddingBottom: 4 }}
             />
           ) : (
-            <Text style={{ fontSize: FONT_SIZE.xl, fontWeight: '700', color: colors.text, marginBottom: 8 }} numberOfLines={2}>
+            <Text style={{ fontSize: FONT_SIZE.xl, fontWeight: '700', color: colors.text, marginBottom: 8 }} numberOfLines={2} ellipsizeMode="tail">
               {product.name}
             </Text>
           )}
 
           {/* Big calorie number */}
           <View style={{ alignItems: 'center', marginBottom: 16 }}>
-            <Text style={{ fontSize: 48, fontWeight: '800', color: colors.primary }}>{formatNumber(cal)}</Text>
+            <Text style={{ fontSize: FONT_SIZE.display, fontWeight: '800', color: colors.primary }}>{formatNumber(cal)}</Text>
             <Text style={{ fontSize: FONT_SIZE.sm, color: colors.textSecondary }}>{t('common.kcal')}</Text>
           </View>
 
@@ -154,7 +154,7 @@ export function BarcodeResult({ product, onDone, onScanAgain }: BarcodeResultPro
                   backgroundColor: portionG === g && !customPortion ? colors.primaryLight : colors.surface,
                   borderWidth: 1.5,
                   borderColor: portionG === g && !customPortion ? colors.primary : 'transparent',
-                  minHeight: 44,
+                  minHeight: MIN_TOUCH,
                   justifyContent: 'center',
                 }}
               >
@@ -201,7 +201,7 @@ export function BarcodeResult({ product, onDone, onScanAgain }: BarcodeResultPro
               accessibilityRole="button"
               style={{
                 flex: 1,
-                minHeight: 44,
+                minHeight: MIN_TOUCH,
                 paddingVertical: 10,
                 borderRadius: RADIUS.md,
                 backgroundColor: mealType === m ? colors.primaryLight : colors.card,
@@ -211,7 +211,7 @@ export function BarcodeResult({ product, onDone, onScanAgain }: BarcodeResultPro
                 justifyContent: 'center',
               }}
             >
-              <Text style={{ fontSize: 11, fontWeight: '600', color: mealType === m ? colors.primary : colors.textSecondary }}>
+              <Text style={{ fontSize: FONT_SIZE.xs, fontWeight: '600', color: mealType === m ? colors.primary : colors.textSecondary }}>
                 {t(`diary.${m}`)}
               </Text>
             </Pressable>
@@ -228,7 +228,7 @@ export function BarcodeResult({ product, onDone, onScanAgain }: BarcodeResultPro
         {/* Scan again */}
         <Pressable
           onPress={onScanAgain}
-          style={{ alignItems: 'center', marginTop: 16, minHeight: 44, justifyContent: 'center' }}
+          style={{ alignItems: 'center', marginTop: 16, minHeight: MIN_TOUCH, justifyContent: 'center' }}
           accessibilityRole="button"
         >
           <Text style={{ fontSize: FONT_SIZE.sm, color: colors.primary, fontWeight: '500' }}>

@@ -3,7 +3,7 @@ import { View, Text, Pressable } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { useColors } from '../../../lib/theme';
 import { useScanStore } from '../store/scanStore';
-import { FONT_SIZE, RADIUS } from '../../../lib/constants';
+import { FONT_SIZE, RADIUS, MIN_TOUCH } from '../../../lib/constants';
 
 const PORTIONS = [0.5, 0.75, 1, 1.25, 1.5, 2];
 
@@ -26,7 +26,7 @@ export function PortionSlider() {
             accessibilityRole="button"
             style={{
               flex: 1,
-              minHeight: 44,
+              minHeight: MIN_TOUCH,
               paddingVertical: 10,
               borderRadius: RADIUS.md,
               backgroundColor: portionMultiplier === p ? colors.primary : colors.surface,
@@ -36,7 +36,7 @@ export function PortionSlider() {
           >
             <Text
               style={{
-                fontSize: 13,
+                fontSize: FONT_SIZE.sm,
                 fontWeight: '600',
                 color: portionMultiplier === p ? colors.card : colors.textSecondary,
               }}

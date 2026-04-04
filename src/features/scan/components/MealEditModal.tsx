@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { useColors } from '../../../lib/theme';
 import { Modal } from '../../../components/Modal';
 import { Button } from '../../../components/Button';
-import { FONT_SIZE, RADIUS } from '../../../lib/constants';
+import { FONT_SIZE, RADIUS, MIN_TOUCH } from '../../../lib/constants';
 import { supabase } from '../../../lib/supabase';
 import { useAuthStore } from '../../../stores/authStore';
 
@@ -50,7 +50,7 @@ export function MealEditModal({ visible, onClose, diaryEntryId }: MealEditModalP
     <Modal visible={visible} onClose={onClose} title={submitted ? undefined : t('feedback.title')}>
       {submitted ? (
         <View style={{ alignItems: 'center', padding: 24 }}>
-          <Text style={{ fontSize: 48, marginBottom: 12 }}>✓</Text>
+          <Text style={{ fontSize: FONT_SIZE.display, marginBottom: 12 }}>✓</Text>
           <Text style={{ fontSize: FONT_SIZE.md, fontWeight: '600', color: colors.text }}>
             {t('feedback.thanks')}
           </Text>
@@ -67,7 +67,7 @@ export function MealEditModal({ visible, onClose, diaryEntryId }: MealEditModalP
                 accessibilityLabel={t(`feedback.${ft}`)}
                 style={{
                   padding: 12,
-                  minHeight: 44,
+                  minHeight: MIN_TOUCH,
                   borderRadius: RADIUS.md,
                   backgroundColor: type === ft ? colors.primaryLight : colors.surface,
                   borderWidth: 1.5,

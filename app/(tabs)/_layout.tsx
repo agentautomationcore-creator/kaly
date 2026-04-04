@@ -4,6 +4,7 @@ import { Platform, View, Pressable } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { Ionicons } from '@expo/vector-icons';
 import { useColors } from '../../src/lib/theme';
+import { FONT_SIZE } from '../../src/lib/constants';
 import { useRouter } from 'expo-router';
 
 function ScanFAB() {
@@ -55,7 +56,7 @@ export default function TabLayout() {
           paddingTop: 8,
         },
         tabBarLabelStyle: {
-          fontSize: 11,
+          fontSize: FONT_SIZE.xs,
           fontWeight: '500',
         },
       }}

@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { Ionicons } from '@expo/vector-icons';
 import { useColors } from '../../../lib/theme';
 import { useDeleteEntry } from '../hooks/useDiary';
-import { FONT_SIZE, RADIUS } from '../../../lib/constants';
+import { FONT_SIZE, RADIUS, MIN_TOUCH } from '../../../lib/constants';
 import { formatNumber } from '../../../lib/formatNumber';
 import type { DiaryEntry } from '../types';
 
@@ -35,17 +35,17 @@ export function MealRow({ entry }: MealRowProps) {
         alignItems: 'center',
         paddingVertical: 10,
         paddingHorizontal: 12,
-        minHeight: 44,
+        minHeight: MIN_TOUCH,
         borderRadius: RADIUS.sm,
         backgroundColor: colors.surface,
       }}
     >
       <View style={{ flex: 1 }}>
-        <Text style={{ fontSize: FONT_SIZE.sm, fontWeight: '500', color: colors.text }} numberOfLines={1}>
+        <Text style={{ fontSize: FONT_SIZE.sm, fontWeight: '500', color: colors.text }} numberOfLines={1} ellipsizeMode="tail">
           {entry.food_name}
         </Text>
         {entry.quantity_g ? (
-          <Text style={{ fontSize: 11, color: colors.textSecondary }}>{entry.quantity_g} {t('units.g')}</Text>
+          <Text style={{ fontSize: FONT_SIZE.xs, color: colors.textSecondary }}>{entry.quantity_g} {t('units.g')}</Text>
         ) : null}
       </View>
 

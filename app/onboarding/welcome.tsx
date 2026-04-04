@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, Image, Pressable, Linking, AccessibilityInfo } from 'react-native';
+import { View, Text, Pressable, Linking, AccessibilityInfo } from 'react-native';
 import { useRouter } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useTranslation } from 'react-i18next';
@@ -7,7 +7,7 @@ import Animated, { FadeInDown, FadeInUp } from 'react-native-reanimated';
 import { useColors } from '../../src/lib/theme';
 import { Button } from '../../src/components/Button';
 import { StepIndicator } from '../../src/components/StepIndicator';
-import { FONT_SIZE } from '../../src/lib/constants';
+import { FONT_SIZE, RADIUS, MIN_TOUCH } from '../../src/lib/constants';
 import { Ionicons } from '@expo/vector-icons';
 
 const PRIVACY_URL = 'https://kaly.app/privacy';
@@ -36,7 +36,7 @@ export default function WelcomeScreen() {
           style={{
             width: 80,
             height: 80,
-            borderRadius: 20,
+            borderRadius: RADIUS.xl,
             backgroundColor: colors.primary,
             justifyContent: 'center',
             alignItems: 'center',
@@ -71,16 +71,16 @@ export default function WelcomeScreen() {
       <View style={{ gap: 12 }}>
         <Button title={t('welcome.cta')} onPress={() => router.push('/onboarding/goal')} />
         <Button title={t('welcome.login')} variant="outline" onPress={() => router.push('/(auth)/login')} />
-        <Text style={{ fontSize: 12, color: colors.textSecondary, textAlign: 'center', marginTop: 4 }}>
+        <Text style={{ fontSize: FONT_SIZE.xs, color: colors.textSecondary, textAlign: 'center', marginTop: 4 }}>
           {t('welcome.pricing')}
         </Text>
         <View style={{ flexDirection: 'row', justifyContent: 'center', gap: 8, marginTop: 8 }}>
-          <Pressable onPress={() => Linking.openURL(TERMS_URL)} style={{ minHeight: 44, justifyContent: 'center', paddingVertical: 12 }} accessibilityRole="link" accessibilityLabel={t('paywall.terms')}>
-            <Text style={{ fontSize: 11, color: colors.textSecondary, textDecorationLine: 'underline' }}>{t('paywall.terms')}</Text>
+          <Pressable onPress={() => Linking.openURL(TERMS_URL)} style={{ minHeight: MIN_TOUCH, justifyContent: 'center', paddingVertical: 12 }} accessibilityRole="link" accessibilityLabel={t('paywall.terms')}>
+            <Text style={{ fontSize: FONT_SIZE.xs, color: colors.textSecondary, textDecorationLine: 'underline' }}>{t('paywall.terms')}</Text>
           </Pressable>
-          <Text style={{ fontSize: 11, color: colors.border, alignSelf: 'center' }}>|</Text>
-          <Pressable onPress={() => Linking.openURL(PRIVACY_URL)} style={{ minHeight: 44, justifyContent: 'center', paddingVertical: 12 }} accessibilityRole="link" accessibilityLabel={t('paywall.privacy')}>
-            <Text style={{ fontSize: 11, color: colors.textSecondary, textDecorationLine: 'underline' }}>{t('paywall.privacy')}</Text>
+          <Text style={{ fontSize: FONT_SIZE.xs, color: colors.border, alignSelf: 'center' }}>|</Text>
+          <Pressable onPress={() => Linking.openURL(PRIVACY_URL)} style={{ minHeight: MIN_TOUCH, justifyContent: 'center', paddingVertical: 12 }} accessibilityRole="link" accessibilityLabel={t('paywall.privacy')}>
+            <Text style={{ fontSize: FONT_SIZE.xs, color: colors.textSecondary, textDecorationLine: 'underline' }}>{t('paywall.privacy')}</Text>
           </Pressable>
         </View>
       </View>

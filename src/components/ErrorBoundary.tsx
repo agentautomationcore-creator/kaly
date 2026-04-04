@@ -4,7 +4,7 @@ import i18n from '../i18n';
 import { lightColors, darkColors, type Colors } from '../lib/theme';
 import { useSettingsStore } from '../stores/settingsStore';
 import { captureException } from '../lib/sentry';
-import { FONT_SIZE, RADIUS, SPACING } from '../lib/constants';
+import { FONT_SIZE, RADIUS, SPACING, MIN_TOUCH } from '../lib/constants';
 
 interface Props {
   children: ReactNode;
@@ -68,7 +68,7 @@ export class ErrorBoundary extends Component<Props, State> {
               borderRadius: RADIUS.md,
               paddingHorizontal: SPACING.xl,
               paddingVertical: SPACING.md,
-              minHeight: 44,
+              minHeight: MIN_TOUCH,
               justifyContent: 'center',
             }}
             accessibilityRole="button"

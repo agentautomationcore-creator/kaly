@@ -1,6 +1,7 @@
 import React from 'react';
 import { View } from 'react-native';
 import { useColors } from '../lib/theme';
+import { RADIUS } from '../lib/constants';
 
 interface StepIndicatorProps {
   totalSteps: number;
@@ -18,7 +19,7 @@ export function StepIndicator({ totalSteps, currentStep }: StepIndicatorProps) {
           style={{
             width: 8,
             height: 8,
-            borderRadius: 4,
+            borderRadius: RADIUS.xs,
             marginHorizontal: 4,
             backgroundColor: step <= currentStep ? colors.primary : colors.border,
           }}

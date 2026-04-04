@@ -10,7 +10,7 @@ import { Button } from '../../../components/Button';
 import { ProgressBar } from '../../../components/ProgressBar';
 import { IngredientList } from './IngredientList';
 import { PortionSlider } from './PortionSlider';
-import { FONT_SIZE, RADIUS } from '../../../lib/constants';
+import { FONT_SIZE, RADIUS, MIN_TOUCH } from '../../../lib/constants';
 import { supabase } from '../../../lib/supabase';
 import { useAuthStore } from '../../../stores/authStore';
 import { useHealthKit } from '../../../hooks/useHealthKit';
@@ -86,16 +86,16 @@ export function NutritionResultCard() {
     <ScrollView style={{ flex: 1, backgroundColor: colors.background }} contentContainerStyle={{ padding: 16, paddingBottom: 100 }}>
       {/* Header */}
       <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
-        <Pressable onPress={reset} style={{ padding: 8, minHeight: 44, minWidth: 44, justifyContent: 'center', alignItems: 'center' }} accessibilityRole="button" accessibilityLabel={t('common.close')}>
+        <Pressable onPress={reset} style={{ padding: 8, minHeight: MIN_TOUCH, minWidth: 44, justifyContent: 'center', alignItems: 'center' }} accessibilityRole="button" accessibilityLabel={t('common.close')}>
           <Ionicons name="arrow-back" size={24} color={colors.text} />
         </Pressable>
-        <Text style={{ fontSize: 18, fontWeight: '700', color: colors.text }}>{t('scan.result_title')}</Text>
+        <Text style={{ fontSize: FONT_SIZE.lg, fontWeight: '700', color: colors.text }}>{t('scan.result_title')}</Text>
         <View style={{ width: 40 }} />
       </View>
 
       {/* Main card */}
       <Card style={{ marginBottom: 16 }}>
-        <Text style={{ fontSize: 20, fontWeight: '700', color: colors.text, marginBottom: 4 }}>
+        <Text style={{ fontSize: FONT_SIZE.xl, fontWeight: '700', color: colors.text, marginBottom: 4 }}>
           {result.dish_name}
         </Text>
         <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8, marginBottom: 16 }}>
@@ -112,7 +112,7 @@ export function NutritionResultCard() {
 
         {/* Big calorie number */}
         <View style={{ alignItems: 'center', marginBottom: 16 }}>
-          <Text style={{ fontSize: 48, fontWeight: '800', color: colors.primary }}>{formatNumber(cal)}</Text>
+          <Text style={{ fontSize: FONT_SIZE.display, fontWeight: '800', color: colors.primary }}>{formatNumber(cal)}</Text>
           <Text style={{ fontSize: FONT_SIZE.sm, color: colors.textSecondary }}>{t('common.kcal')}</Text>
         </View>
 
@@ -165,7 +165,7 @@ export function NutritionResultCard() {
             accessibilityRole="button"
             style={{
               flex: 1,
-              minHeight: 44,
+              minHeight: MIN_TOUCH,
               paddingVertical: 10,
               borderRadius: RADIUS.md,
               backgroundColor: mealType === m ? colors.primaryLight : colors.card,
@@ -175,7 +175,7 @@ export function NutritionResultCard() {
               justifyContent: 'center',
             }}
           >
-            <Text style={{ fontSize: 11, fontWeight: '600', color: mealType === m ? colors.primary : colors.textSecondary }}>
+            <Text style={{ fontSize: FONT_SIZE.xs, fontWeight: '600', color: mealType === m ? colors.primary : colors.textSecondary }}>
               {t(`diary.${m}`)}
             </Text>
           </Pressable>
@@ -217,14 +217,14 @@ export function NutritionResultCard() {
             { text: t('common.cancel'), style: 'cancel' as const },
           ]);
         }}
-        style={{ alignItems: 'center', marginTop: 16, minHeight: 44, justifyContent: 'center' }}
+        style={{ alignItems: 'center', marginTop: 16, minHeight: MIN_TOUCH, justifyContent: 'center' }}
       >
         <Text style={{ fontSize: FONT_SIZE.sm, color: colors.danger, fontWeight: '500' }}>
           {t('scan.wrong_result')}
         </Text>
       </Pressable>
 
-      <Text style={{ fontSize: 11, color: colors.textSecondary, textAlign: 'center', marginTop: 16 }}>
+      <Text style={{ fontSize: FONT_SIZE.xs, color: colors.textSecondary, textAlign: 'center', marginTop: 16 }}>
         {t('scan.disclaimer')}
       </Text>
     </ScrollView>
