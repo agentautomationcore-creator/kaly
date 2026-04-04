@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { Ionicons } from '@expo/vector-icons';
 import { useColors } from '../../../lib/theme';
 import { useUpdateProfile } from '../hooks/useProfile';
+import { useSettingsStore } from '../../../stores/settingsStore';
 import { calculateTDEE } from '../../../lib/nutrition';
 import { Card } from '../../../components/Card';
 import { Modal } from '../../../components/Modal';
@@ -23,6 +24,7 @@ export function BodyEditor({ profile }: BodyEditorProps) {
   const [weight, setWeight] = useState(String(profile?.weight_kg || ''));
   const [age, setAge] = useState(String(profile?.age || ''));
   const { mutate: update, isPending } = useUpdateProfile();
+  const units = useSettingsStore((s) => s.units);
 
   const handleSave = () => {
     const h = parseInt(height) || undefined;
@@ -42,9 +44,9 @@ export function BodyEditor({ profile }: BodyEditorProps) {
   };
 
   const fields = [
-    { label: t('onboarding.height'), value: height, set: setHeight, suffix: 'cm' },
-    { label: t('onboarding.weight'), value: weight, set: setWeight, suffix: 'kg' },
-    { label: t('onboarding.age'), value: age, set: setAge, suffix: '' },
+    { label: t('onboarding.height'), value: height, set: setHeight, suffix: units === 'imperial' ? t('units.ft') : t('units.cm') },
+    { label: t('onboarding.weight'), value: weight, set: setWeight, suffix: units === 'imperial' ? t('units.lbs') : t('units.kg') },
+    { label: t('onboarding.age'), value: age, set: setAge, suffix: t('units.years') },
   ];
 
   return (
@@ -54,7 +56,7 @@ export function BodyEditor({ profile }: BodyEditorProps) {
           <View>
             <Text style={{ fontSize: FONT_SIZE.sm, color: colors.textSecondary }}>{t('profile.edit_body')}</Text>
             <Text style={{ fontSize: FONT_SIZE.md, fontWeight: '600', color: colors.text }}>
-              {profile?.height_cm ? `${profile.height_cm}cm · ${profile.weight_kg}kg · ${profile.age}y` : '—'}
+              {profile?.height_cm ? `${profile.height_cm} ${t('units.cm')} · ${profile.weight_kg} ${t('units.kg')} · ${profile.age} ${t('units.years')}` : '—'}
             </Text>
           </View>
           <Ionicons name="chevron-forward" size={20} color={colors.textSecondary} />

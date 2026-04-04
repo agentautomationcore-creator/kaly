@@ -50,7 +50,8 @@
     "invalid_age": "年龄无效 (12-120)",
     "next": "下一步",
     "skip": "跳过",
-    "done": "开始追踪！"
+    "done": "开始追踪！",
+    "allergies_title": "过敏"
   },
   "tabs": {
     "diary": "日记",
@@ -85,7 +86,8 @@
     "scan_food": "扫描食物",
     "flip_camera": "切换摄像头",
     "ingredient_name": "食材名称",
-    "ingredient_grams": "克数"
+    "ingredient_grams": "克数",
+    "no_ingredients": "无法识别食材。请重试或手动输入。"
   },
   "diary": {
     "title": "今天",
@@ -126,7 +128,8 @@
     "carbs": "碳水化合物",
     "fat": "脂肪",
     "fiber": "膳食纤维",
-    "goal": "目标"
+    "goal": "目标",
+    "no_data": "图表数据不足。开始记录您的用餐吧！"
   },
   "profile": {
     "title": "我的",
@@ -281,5 +284,19 @@
     "dinner_title": "晚餐时间！",
     "dinner_body": "趁还记得，记录一下晚餐",
     "water_body": "该喝一杯水了！"
+  },
+  "units": {
+    "kg": "公斤",
+    "lbs": "磅",
+    "cm": "厘米",
+    "ft": "英尺",
+    "years": "岁",
+    "g": "克"
+  },
+  "settings": {
+    "units": "单位",
+    "toggle_units": "切换单位",
+    "metric": "公制 (kg, cm)",
+    "imperial": "英制 (磅, 英尺)"
   }
 }

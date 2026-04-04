@@ -45,7 +45,7 @@ export function MealRow({ entry }: MealRowProps) {
           {entry.food_name}
         </Text>
         {entry.quantity_g ? (
-          <Text style={{ fontSize: 11, color: colors.textSecondary }}>{entry.quantity_g}g</Text>
+          <Text style={{ fontSize: 11, color: colors.textSecondary }}>{entry.quantity_g} {t('units.g')}</Text>
         ) : null}
       </View>
 

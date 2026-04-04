@@ -97,7 +97,7 @@ export function NutritionResultCard() {
         </Text>
         <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8, marginBottom: 16 }}>
           <Text style={{ fontSize: FONT_SIZE.sm, color: colors.textSecondary }}>
-            {formatNumber(Math.round(result.total_portion_g * m))}g
+            {formatNumber(Math.round(result.total_portion_g * m))} {t('units.g')}
           </Text>
           <View style={{ flexDirection: 'row', alignItems: 'center', gap: 4 }}>
             <Text style={{ fontSize: FONT_SIZE.xs, color: colors.textSecondary }}>{t('scan.confidence')}:</Text>

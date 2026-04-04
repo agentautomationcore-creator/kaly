@@ -50,7 +50,8 @@
     "invalid_age": "Età non valida (12-120)",
     "next": "Avanti",
     "skip": "Salta",
-    "done": "Iniziamo!"
+    "done": "Iniziamo!",
+    "allergies_title": "Allergie"
   },
   "tabs": {
     "diary": "Diario",
@@ -85,7 +86,8 @@
     "scan_food": "Scansiona",
     "flip_camera": "Capovolgi fotocamera",
     "ingredient_name": "Nome ingrediente",
-    "ingredient_grams": "Grammi"
+    "ingredient_grams": "Grammi",
+    "no_ingredients": "Impossibile identificare gli ingredienti. Riprova o inserisci manualmente."
   },
   "diary": {
     "title": "Oggi",
@@ -126,7 +128,8 @@
     "carbs": "Carboidrati",
     "fat": "Grassi",
     "fiber": "Fibre",
-    "goal": "Obiettivo"
+    "goal": "Obiettivo",
+    "no_data": "Non ci sono abbastanza dati per il grafico. Inizia a registrare i pasti!"
   },
   "profile": {
     "title": "Profilo",
@@ -281,5 +284,19 @@
     "dinner_title": "Ora di cena!",
     "dinner_body": "Registra la cena prima di dimenticare",
     "water_body": "È ora di bere un bicchiere d'acqua!"
+  },
+  "units": {
+    "kg": "kg",
+    "lbs": "lb",
+    "cm": "cm",
+    "ft": "ft",
+    "years": "anni",
+    "g": "g"
+  },
+  "settings": {
+    "units": "Unità",
+    "toggle_units": "Cambia unità",
+    "metric": "Metrico (kg, cm)",
+    "imperial": "Imperiale (lb, ft)"
   }
 }

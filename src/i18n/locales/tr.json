@@ -50,7 +50,8 @@
     "invalid_age": "Geçersiz yaş (12-120)",
     "next": "İleri",
     "skip": "Atla",
-    "done": "Takibe başla!"
+    "done": "Takibe başla!",
+    "allergies_title": "Alerjiler"
   },
   "tabs": {
     "diary": "Günlük",
@@ -85,7 +86,8 @@
     "scan_food": "Tara",
     "flip_camera": "Kamerayı çevir",
     "ingredient_name": "Malzeme adı",
-    "ingredient_grams": "Gram"
+    "ingredient_grams": "Gram",
+    "no_ingredients": "Malzemeler tanımlanamadı. Tekrar deneyin veya elle girin."
   },
   "diary": {
     "title": "Bugün",
@@ -126,7 +128,8 @@
     "carbs": "Karbonhidrat",
     "fat": "Yağ",
     "fiber": "Lif",
-    "goal": "Hedef"
+    "goal": "Hedef",
+    "no_data": "Grafik için yeterli veri yok. Öğünlerinizi kaydetmeye başlayın!"
   },
   "profile": {
     "title": "Profil",
@@ -281,5 +284,19 @@
     "dinner_title": "Akşam yemeği vakti!",
     "dinner_body": "Unutmadan akşam yemeğini kaydet",
     "water_body": "Bir bardak su zamanı!"
+  },
+  "units": {
+    "kg": "kg",
+    "lbs": "lb",
+    "cm": "cm",
+    "ft": "ft",
+    "years": "yaş",
+    "g": "g"
+  },
+  "settings": {
+    "units": "Birimler",
+    "toggle_units": "Birimleri değiştir",
+    "metric": "Metrik (kg, cm)",
+    "imperial": "İmparatorluk (lb, ft)"
   }
 }

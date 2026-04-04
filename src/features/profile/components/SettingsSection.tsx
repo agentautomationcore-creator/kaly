@@ -34,7 +34,7 @@ export function SettingsSection({ profile }: SettingsSectionProps) {
   const { t, i18n } = useTranslation();
   const colors = useColors();
   const { mutate: update } = useUpdateProfile();
-  const { themeMode, setThemeMode, healthConsentGiven, setHealthConsent, aiConsentGiven, setAiConsent, analyticsConsentGiven, setAnalyticsConsent, showStreak, setShowStreak } = useSettingsStore();
+  const { themeMode, setThemeMode, healthConsentGiven, setHealthConsent, aiConsentGiven, setAiConsent, analyticsConsentGiven, setAnalyticsConsent, showStreak, setShowStreak, units, setUnits } = useSettingsStore();
 
   const handleLanguageChange = (lang: string) => {
     setLanguage(lang);
@@ -151,6 +151,23 @@ export function SettingsSection({ profile }: SettingsSectionProps) {
           trackColor={{ false: colors.border, true: colors.primary }}
           accessibilityLabel={t('profile.show_streak')}
         />
+      </View>
+
+      {/* Unit system toggle */}
+      <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
+        <Text style={{ fontSize: FONT_SIZE.sm, fontWeight: '500', color: colors.text }}>
+          {t('settings.units')}
+        </Text>
+        <Pressable
+          onPress={() => setUnits(units === 'metric' ? 'imperial' : 'metric')}
+          style={{ minHeight: 44, paddingHorizontal: 12, paddingVertical: 8, borderRadius: RADIUS.md, backgroundColor: colors.surface, justifyContent: 'center' }}
+          accessibilityRole="button"
+          accessibilityLabel={t('settings.toggle_units')}
+        >
+          <Text style={{ fontSize: FONT_SIZE.sm, fontWeight: '500', color: colors.primary }}>
+            {units === 'metric' ? t('settings.metric') : t('settings.imperial')}
+          </Text>
+        </Pressable>
       </View>
 
       {/* Privacy — Consent Withdrawal (Art. 7 GDPR) */}

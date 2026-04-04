@@ -21,7 +21,7 @@ function isToday(dateStr: string): boolean {
 }
 
 export function DateNavigator({ date, onDateChange }: DateNavigatorProps) {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const colors = useColors();
   const [showPicker, setShowPicker] = useState(false);
 
@@ -35,7 +35,7 @@ export function DateNavigator({ date, onDateChange }: DateNavigatorProps) {
   else if (date === tomorrow) label = t('diary.tomorrow');
   else {
     const d = new Date(date);
-    label = d.toLocaleDateString(undefined, { weekday: 'short', month: 'short', day: 'numeric' });
+    label = d.toLocaleDateString(i18n.language, { weekday: 'short', month: 'short', day: 'numeric' });
   }
 
   // EDGE-5: Quick date picker — last 7 days
@@ -67,7 +67,7 @@ export function DateNavigator({ date, onDateChange }: DateNavigatorProps) {
       {showPicker && (
         <View style={{ flexDirection: 'row', justifyContent: 'space-around', paddingHorizontal: 8, paddingBottom: 8 }}>
           {quickDates.map((d) => {
-            const dayLabel = new Date(d).toLocaleDateString(undefined, { weekday: 'short', day: 'numeric' });
+            const dayLabel = new Date(d).toLocaleDateString(i18n.language, { weekday: 'short', day: 'numeric' });
             const isSelected = d === date;
             return (
               <Pressable

@@ -205,7 +205,7 @@ function EditableIngredientRow({ item, multiplier, colors, isHidden, onUpdate, o
         ) : (
           <Pressable onPress={() => { setGramsVal(String(Math.round(item.g))); setEditingGrams(true); }} style={{ minHeight: 44, paddingHorizontal: 8, justifyContent: 'center' }}>
             <Text style={{ fontSize: 11, color: colors.textSecondary }}>
-              {formatNumber(Math.round(item.g * multiplier))}g
+              {formatNumber(Math.round(item.g * multiplier))} {t('units.g')}
             </Text>
           </Pressable>
         )}
