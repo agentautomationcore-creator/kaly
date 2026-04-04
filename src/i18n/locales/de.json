@@ -124,7 +124,10 @@
     "repeat_yesterday": "Gestrige Mahlzeit wiederholen",
     "history_warning": "Gratis-Plan speichert {{days}} Tage Verlauf",
     "upgrade": "Upgraden",
-    "added_success": "Zum Tagebuch hinzugefügt"
+    "added_success": "Zum Tagebuch hinzugefügt",
+    "suggest_meal": "Mahlzeit vorschlagen",
+    "suggestions_title": "KI-Vorschläge",
+    "add_suggestion": "Zum Tagebuch"
   },
   "stats": {
     "title": "Statistik",
@@ -183,7 +186,8 @@
     "show_streak": "Tage-Streak anzeigen",
     "about": "Über",
     "version": "Version {{version}}",
-    "disclaimer": "Kaly verwendet KI zur Schätzung von Nährwerten. Ergebnisse sind Näherungswerte. Kein medizinischer Rat."
+    "disclaimer": "Kaly verwendet KI zur Schätzung von Nährwerten. Ergebnisse sind Näherungswerte. Kein medizinischer Rat.",
+    "export_report": "PDF-Bericht exportieren"
   },
   "paywall": {
     "title": "Kaly Pro freischalten",
@@ -324,7 +328,9 @@
   "food_search": {
     "placeholder": "Lebensmittel suchen...",
     "no_results": "Keine Ergebnisse",
-    "enter_manually": "Manuell eingeben"
+    "enter_manually": "Manuell eingeben",
+    "community": "Community",
+    "community_hint": "Von Nutzern hinzugefügt"
   },
   "manual_entry": {
     "title": "Essen hinzufügen",
@@ -341,5 +347,26 @@
     "stop": "Beenden",
     "hours": "Stunden",
     "completed": "Fasten abgeschlossen!"
+  },
+  "report": {
+    "title": "Ernährungsbericht",
+    "summary": "Zusammenfassung",
+    "avg_calories": "Ø Kalorien/Tag",
+    "avg_protein": "Ø Protein",
+    "avg_carbs": "Ø Kohlenhydrate",
+    "avg_fat": "Ø Fett",
+    "weight": "Gewicht",
+    "daily_breakdown": "Tagesübersicht",
+    "date": "Datum",
+    "calories": "Kal.",
+    "protein": "Prot.",
+    "carbs": "Kohlen.",
+    "fat": "Fett",
+    "water": "Wasser",
+    "days_tracked": "Tage erfasst",
+    "generated_by": "Erstellt von",
+    "share_title": "Ernährungsbericht teilen",
+    "days": "Tage",
+    "no_data": "Keine Daten für diesen Zeitraum. Beginne Mahlzeiten zu erfassen!"
   }
 }

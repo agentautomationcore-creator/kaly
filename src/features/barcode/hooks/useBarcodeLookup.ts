@@ -1,5 +1,6 @@
 import { createMMKV } from 'react-native-mmkv';
 import { captureException } from '../../../lib/sentry';
+import { supabase } from '../../../lib/supabase';
 
 const cache = createMMKV({ id: 'kaly-barcode-cache' });
 const CACHE_MAX = 100;
@@ -87,6 +88,34 @@ export async function lookupBarcode(barcode: string): Promise<BarcodeProduct | n
   } catch (e) {
     if (e instanceof Error && e.name === 'AbortError') return null;
     captureException(e, { feature: 'barcode_lookup', barcode });
-    return null;
   }
+
+  // Fallback: search community DB by barcode
+  try {
+    const { data } = await supabase
+      .from('user_products')
+      .select('barcode, name, calories_per_100g, protein_per_100g, fat_per_100g, carbs_per_100g')
+      .eq('barcode', barcode)
+      .order('use_count', { ascending: false })
+      .limit(1)
+      .single();
+
+    if (data) {
+      const product: BarcodeProduct = {
+        barcode,
+        name: data.name,
+        calories100g: Math.round(data.calories_per_100g),
+        protein100g: Math.round(data.protein_per_100g || 0),
+        fat100g: Math.round(data.fat_per_100g || 0),
+        carbs100g: Math.round(data.carbs_per_100g || 0),
+        source: 'manual',
+      };
+      saveToCache(product);
+      return product;
+    }
+  } catch {
+    // Community lookup failed — fall through to null
+  }
+
+  return null;
 }

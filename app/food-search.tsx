@@ -44,6 +44,7 @@ export default function FoodSearchScreen() {
         serving_size: item.serving_size,
         barcode: item.barcode,
         entry_method: 'search',
+        ...(item.community_product_id ? { community_product_id: item.community_product_id } : {}),
       },
     });
   };
@@ -75,9 +76,16 @@ export default function FoodSearchScreen() {
         </View>
       )}
       <View style={{ flex: 1 }}>
-        <Text style={{ fontSize: FONT_SIZE.md, fontWeight: '500', color: colors.text }} numberOfLines={1} ellipsizeMode="tail">
-          {item.name}
-        </Text>
+        <View style={{ flexDirection: 'row', alignItems: 'center', gap: SPACING.xs }}>
+          <Text style={{ fontSize: FONT_SIZE.md, fontWeight: '500', color: colors.text, flexShrink: 1 }} numberOfLines={1} ellipsizeMode="tail">
+            {item.name}
+          </Text>
+          {item.source === 'community' && (
+            <View style={{ backgroundColor: colors.primaryLight, paddingHorizontal: SPACING.sm, paddingVertical: 2, borderRadius: RADIUS.xs }}>
+              <Text style={{ fontSize: FONT_SIZE.xs, color: colors.primary }}>{t('food_search.community')}</Text>
+            </View>
+          )}
+        </View>
         {item.brand ? (
           <Text style={{ fontSize: FONT_SIZE.xs, color: colors.textSecondary }} numberOfLines={1} ellipsizeMode="tail">
             {item.brand}

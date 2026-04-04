@@ -124,7 +124,10 @@
     "repeat_yesterday": "重复昨天的餐食",
     "history_warning": "免费计划保留{{days}}天历史记录",
     "upgrade": "升级",
-    "added_success": "已添加到日记"
+    "added_success": "已添加到日记",
+    "suggest_meal": "推荐一餐",
+    "suggestions_title": "AI建议",
+    "add_suggestion": "添加到日记"
   },
   "stats": {
     "title": "统计",
@@ -183,7 +186,8 @@
     "show_streak": "显示连续天数",
     "about": "关于",
     "version": "版本 {{version}}",
-    "disclaimer": "Kaly 使用 AI 估算营养成分，结果为近似值，非医疗建议。"
+    "disclaimer": "Kaly 使用 AI 估算营养成分，结果为近似值，非医疗建议。",
+    "export_report": "导出PDF报告"
   },
   "paywall": {
     "title": "解锁 Kaly Pro",
@@ -324,7 +328,9 @@
   "food_search": {
     "placeholder": "搜索食物...",
     "no_results": "未找到结果",
-    "enter_manually": "手动输入"
+    "enter_manually": "手动输入",
+    "community": "社区",
+    "community_hint": "用户添加"
   },
   "manual_entry": {
     "title": "添加食物",
@@ -341,5 +347,26 @@
     "stop": "结束",
     "hours": "小时",
     "completed": "断食完成！"
+  },
+  "report": {
+    "title": "营养报告",
+    "summary": "总结",
+    "avg_calories": "日均卡路里",
+    "avg_protein": "平均蛋白质",
+    "avg_carbs": "平均碳水",
+    "avg_fat": "平均脂肪",
+    "weight": "体重",
+    "daily_breakdown": "每日明细",
+    "date": "日期",
+    "calories": "卡",
+    "protein": "蛋白",
+    "carbs": "碳水",
+    "fat": "脂肪",
+    "water": "水",
+    "days_tracked": "天已记录",
+    "generated_by": "由以下生成",
+    "share_title": "分享营养报告",
+    "days": "天",
+    "no_data": "此期间无数据。开始记录饮食吧！"
   }
 }

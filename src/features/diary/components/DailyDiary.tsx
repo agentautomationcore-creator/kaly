@@ -45,6 +45,14 @@ export function DailyDiary({ date: dateProp }: DailyDiaryProps) {
   const totalCarbs = (entries || []).reduce((s, e) => s + e.total_carbs, 0);
   const totalFat = (entries || []).reduce((s, e) => s + e.total_fat, 0);
 
+  const remainingCalories = calorieGoal - totalCalories;
+  const proteinGoal = Math.round((calorieGoal * (profile?.protein_pct || 30) / 100) / 4);
+  const carbsGoal = Math.round((calorieGoal * (profile?.carbs_pct || 40) / 100) / 4);
+  const fatGoal = Math.round((calorieGoal * (profile?.fat_pct || 30) / 100) / 9);
+  const remainingProtein = proteinGoal - totalProtein;
+  const remainingCarbs = carbsGoal - totalCarbs;
+  const remainingFat = fatGoal - totalFat;
+
   return (
     <ScrollView
       style={{ flex: 1, backgroundColor: colors.background }}
@@ -89,6 +97,12 @@ export function DailyDiary({ date: dateProp }: DailyDiaryProps) {
               entries={entriesByMeal[meal] || []}
               date={currentDate}
               yesterdayEntries={yesterdayMeals?.[meal]}
+              remainingCalories={remainingCalories}
+              remainingProtein={remainingProtein}
+              remainingCarbs={remainingCarbs}
+              remainingFat={remainingFat}
+              dietType={profile?.diet_type}
+              allergies={profile?.allergies}
             />
           ))}
         </View>

@@ -124,7 +124,10 @@
     "repeat_yesterday": "Dünkü öğünü tekrarla",
     "history_warning": "Ücretsiz plan {{days}} günlük geçmiş saklar",
     "upgrade": "Yükselt",
-    "added_success": "Günlüğe eklendi"
+    "added_success": "Günlüğe eklendi",
+    "suggest_meal": "Yemek öner",
+    "suggestions_title": "AI Önerileri",
+    "add_suggestion": "Günlüğe ekle"
   },
   "stats": {
     "title": "İstatistikler",
@@ -183,7 +186,8 @@
     "show_streak": "Gün serisini göster",
     "about": "Hakkında",
     "version": "Sürüm {{version}}",
-    "disclaimer": "Kaly, besin içeriğini tahmin etmek için yapay zekâ kullanır. Sonuçlar yaklaşıktır. Tıbbi tavsiye değildir."
+    "disclaimer": "Kaly, besin içeriğini tahmin etmek için yapay zekâ kullanır. Sonuçlar yaklaşıktır. Tıbbi tavsiye değildir.",
+    "export_report": "PDF rapor dışa aktar"
   },
   "paywall": {
     "title": "Kaly Pro'nun kilidini aç",
@@ -324,7 +328,9 @@
   "food_search": {
     "placeholder": "Yiyecek ara...",
     "no_results": "Sonuç bulunamadı",
-    "enter_manually": "Manuel giriş"
+    "enter_manually": "Manuel giriş",
+    "community": "Topluluk",
+    "community_hint": "Kullanıcılar ekledi"
   },
   "manual_entry": {
     "title": "Yiyecek ekle",
@@ -341,5 +347,26 @@
     "stop": "Bitir",
     "hours": "saat",
     "completed": "Oruç tamamlandı!"
+  },
+  "report": {
+    "title": "Beslenme Raporu",
+    "summary": "Özet",
+    "avg_calories": "Ort. Kalori/gün",
+    "avg_protein": "Ort. Protein",
+    "avg_carbs": "Ort. Karbonhidrat",
+    "avg_fat": "Ort. Yağ",
+    "weight": "Kilo",
+    "daily_breakdown": "Günlük Detay",
+    "date": "Tarih",
+    "calories": "Kal.",
+    "protein": "Prot.",
+    "carbs": "Karb.",
+    "fat": "Yağ",
+    "water": "Su",
+    "days_tracked": "gün takip",
+    "generated_by": "Oluşturan",
+    "share_title": "Raporu paylaş",
+    "days": "gün",
+    "no_data": "Bu dönem için veri yok. Öğün kaydetmeye başla!"
   }
 }

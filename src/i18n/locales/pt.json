@@ -124,7 +124,10 @@
     "repeat_yesterday": "Repetir refeição de ontem",
     "history_warning": "Plano gratuito guarda {{days}} dias de histórico",
     "upgrade": "Atualizar",
-    "added_success": "Adicionado ao diário"
+    "added_success": "Adicionado ao diário",
+    "suggest_meal": "Sugerir refeição",
+    "suggestions_title": "Sugestões IA",
+    "add_suggestion": "Adicionar ao diário"
   },
   "stats": {
     "title": "Estatísticas",
@@ -183,7 +186,8 @@
     "show_streak": "Mostrar sequência de dias",
     "about": "Sobre",
     "version": "Versão {{version}}",
-    "disclaimer": "Kaly usa IA para estimar o conteúdo nutricional. Os resultados são aproximados. Não é orientação médica."
+    "disclaimer": "Kaly usa IA para estimar o conteúdo nutricional. Os resultados são aproximados. Não é orientação médica.",
+    "export_report": "Exportar relatório PDF"
   },
   "paywall": {
     "title": "Desbloqueie o Kaly Pro",
@@ -324,7 +328,9 @@
   "food_search": {
     "placeholder": "Buscar alimento...",
     "no_results": "Nenhum resultado",
-    "enter_manually": "Inserir manualmente"
+    "enter_manually": "Inserir manualmente",
+    "community": "Comunidade",
+    "community_hint": "Adicionado por usuários"
   },
   "manual_entry": {
     "title": "Adicionar comida",
@@ -341,5 +347,26 @@
     "stop": "Encerrar",
     "hours": "horas",
     "completed": "Jejum concluído!"
+  },
+  "report": {
+    "title": "Relatório nutricional",
+    "summary": "Resumo",
+    "avg_calories": "Cal. méd./dia",
+    "avg_protein": "Prot. média",
+    "avg_carbs": "Carb. médios",
+    "avg_fat": "Gord. média",
+    "weight": "Peso",
+    "daily_breakdown": "Detalhes diários",
+    "date": "Data",
+    "calories": "Cal.",
+    "protein": "Prot.",
+    "carbs": "Carb.",
+    "fat": "Gord.",
+    "water": "Água",
+    "days_tracked": "dias rastreados",
+    "generated_by": "Gerado por",
+    "share_title": "Compartilhar relatório",
+    "days": "dias",
+    "no_data": "Sem dados para este período. Comece a registrar refeições!"
   }
 }

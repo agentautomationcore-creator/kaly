@@ -7,6 +7,7 @@ import { useQueryClient } from '@tanstack/react-query';
 import { useColors } from '../../../lib/theme';
 import { Card } from '../../../components/Card';
 import { MealRow } from './MealRow';
+import { MealSuggestionsCard } from './MealSuggestionsCard';
 import { FONT_SIZE, MIN_TOUCH } from '../../../lib/constants';
 import { formatNumber } from '../../../lib/formatNumber';
 import { supabase } from '../../../lib/supabase';
@@ -28,9 +29,15 @@ interface MealSectionProps {
   entries: DiaryEntry[];
   date: string;
   yesterdayEntries?: DiaryEntry[];
+  remainingCalories?: number;
+  remainingProtein?: number;
+  remainingCarbs?: number;
+  remainingFat?: number;
+  dietType?: string;
+  allergies?: string[];
 }
 
-export const MealSection = React.memo(function MealSection({ mealType, entries, date, yesterdayEntries }: MealSectionProps) {
+export const MealSection = React.memo(function MealSection({ mealType, entries, date, yesterdayEntries, remainingCalories, remainingProtein, remainingCarbs, remainingFat, dietType, allergies }: MealSectionProps) {
   const { t } = useTranslation();
   const colors = useColors();
   const router = useRouter();
@@ -101,19 +108,35 @@ export const MealSection = React.memo(function MealSection({ mealType, entries, 
             <MealRow key={entry.id} entry={entry} />
           ))}
         </View>
-      ) : yesterdayEntries && yesterdayEntries.length > 0 ? (
-        <Pressable
-          onPress={handleRepeatYesterday}
-          style={{ flexDirection: 'row', alignItems: 'center', gap: 8, paddingVertical: 8, minHeight: MIN_TOUCH }}
-          accessibilityRole="button"
-          accessibilityLabel={t('diary.repeat_yesterday')}
-        >
-          <Ionicons name="refresh" size={20} color={colors.primary} />
-          <Text style={{ fontSize: FONT_SIZE.sm, color: colors.primary, flex: 1 }}>
-            {t('diary.repeat_yesterday')} ({formatNumber(Math.round(yesterdayCal))} {t('common.kcal')})
-          </Text>
-        </Pressable>
-      ) : null}
+      ) : (
+        <>
+          {yesterdayEntries && yesterdayEntries.length > 0 && (
+            <Pressable
+              onPress={handleRepeatYesterday}
+              style={{ flexDirection: 'row', alignItems: 'center', gap: 8, paddingVertical: 8, minHeight: MIN_TOUCH }}
+              accessibilityRole="button"
+              accessibilityLabel={t('diary.repeat_yesterday')}
+            >
+              <Ionicons name="refresh" size={20} color={colors.primary} />
+              <Text style={{ fontSize: FONT_SIZE.sm, color: colors.primary, flex: 1 }}>
+                {t('diary.repeat_yesterday')} ({formatNumber(Math.round(yesterdayCal))} {t('common.kcal')})
+              </Text>
+            </Pressable>
+          )}
+          {remainingCalories != null && remainingCalories > 0 && (
+            <MealSuggestionsCard
+              mealType={mealType}
+              remainingCalories={remainingCalories}
+              remainingProtein={remainingProtein || 0}
+              remainingCarbs={remainingCarbs || 0}
+              remainingFat={remainingFat || 0}
+              dietType={dietType}
+              allergies={allergies}
+              date={date}
+            />
+          )}
+        </>
+      )}
     </Card>
   );
 });

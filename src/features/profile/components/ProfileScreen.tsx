@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { ScrollView, View, Text, Pressable, Alert, Share } from 'react-native';
+import { ScrollView, View, Text, Pressable, Alert, Share, ActivityIndicator } from 'react-native';
 import { useRouter } from 'expo-router';
 import { useTranslation } from 'react-i18next';
 import { Ionicons } from '@expo/vector-icons';
+import * as Haptics from 'expo-haptics';
 import { useColors } from '../../../lib/theme';
 import { useProfile } from '../hooks/useProfile';
 import { useAuthStore } from '../../../stores/authStore';
@@ -18,7 +19,88 @@ import { DeleteAccountButton } from './DeleteAccountButton';
 import { ListSkeleton } from '../../../components/LoadingSkeleton';
 import { captureException } from '../../../lib/sentry';
 import { track } from '../../../lib/analytics';
-import { FONT_SIZE, RADIUS } from '../../../lib/constants';
+import { exportReport } from '../../../lib/generateReport';
+import { FONT_SIZE, RADIUS, MIN_TOUCH, SPACING } from '../../../lib/constants';
+
+function ExportReportCard() {
+  const { t } = useTranslation();
+  const colors = useColors();
+  const [selectedPeriod, setSelectedPeriod] = useState(7);
+  const [isExporting, setIsExporting] = useState(false);
+
+  const handleExport = async () => {
+    try {
+      setIsExporting(true);
+      Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+      await exportReport(selectedPeriod);
+      track('report_exported', { days: selectedPeriod });
+    } catch (e) {
+      Alert.alert(t('common.error'), t('errors.generic'));
+      captureException(e, { feature: 'pdf_export' });
+    } finally {
+      setIsExporting(false);
+    }
+  };
+
+  return (
+    <Card style={{ marginBottom: 16 }}>
+      <Text style={{ fontSize: FONT_SIZE.md, fontWeight: '600', color: colors.text, marginBottom: SPACING.sm }}>
+        {t('profile.export_report')}
+      </Text>
+      <View style={{ flexDirection: 'row', gap: SPACING.sm, marginBottom: SPACING.md }}>
+        {[7, 30].map((d) => (
+          <Pressable
+            key={d}
+            onPress={() => setSelectedPeriod(d)}
+            accessibilityRole="button"
+            accessibilityLabel={`${d} ${t('report.days')}`}
+            style={{
+              flex: 1,
+              minHeight: MIN_TOUCH,
+              paddingVertical: SPACING.sm,
+              borderRadius: RADIUS.md,
+              backgroundColor: selectedPeriod === d ? colors.primaryLight : colors.surface,
+              borderWidth: 1.5,
+              borderColor: selectedPeriod === d ? colors.primary : 'transparent',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}
+          >
+            <Text style={{ fontSize: FONT_SIZE.sm, fontWeight: '600', color: selectedPeriod === d ? colors.primary : colors.textSecondary }}>
+              {d} {t('report.days')}
+            </Text>
+          </Pressable>
+        ))}
+      </View>
+      <Pressable
+        onPress={handleExport}
+        disabled={isExporting}
+        accessibilityRole="button"
+        accessibilityLabel={t('profile.export_report')}
+        style={{
+          flexDirection: 'row',
+          alignItems: 'center',
+          justifyContent: 'center',
+          gap: SPACING.sm,
+          minHeight: MIN_TOUCH,
+          backgroundColor: colors.primary,
+          borderRadius: RADIUS.md,
+          paddingVertical: SPACING.sm,
+          opacity: isExporting ? 0.6 : 1,
+        }}
+      >
+        {isExporting ? (
+          <ActivityIndicator color={colors.card} size="small" />
+        ) : (
+          <Ionicons name="document-text-outline" size={20} color={colors.card} />
+        )}
+        <Text style={{ fontSize: FONT_SIZE.md, fontWeight: '600', color: colors.card }}>
+          {t('profile.export_report')}
+        </Text>
+      </Pressable>
+    </Card>
+  );
+}
 
 export function ProfileScreen() {
   const { t } = useTranslation();
@@ -87,6 +169,9 @@ export function ProfileScreen() {
 
       {/* Weight log */}
       <WeightLog />
+
+      {/* PDF Export */}
+      <ExportReportCard />
 
       {/* Settings */}
       <SettingsSection profile={profile ?? null} />

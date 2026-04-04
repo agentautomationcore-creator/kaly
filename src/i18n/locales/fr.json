@@ -124,7 +124,10 @@
     "repeat_yesterday": "Répéter le repas d'hier",
     "history_warning": "Le plan gratuit garde {{days}} jours d'historique",
     "upgrade": "Passer au Pro",
-    "added_success": "Ajouté au journal"
+    "added_success": "Ajouté au journal",
+    "suggest_meal": "Suggérer un repas",
+    "suggestions_title": "Suggestions IA",
+    "add_suggestion": "Ajouter au journal"
   },
   "stats": {
     "title": "Statistiques",
@@ -183,7 +186,8 @@
     "show_streak": "Afficher la série de jours",
     "about": "À propos",
     "version": "Version {{version}}",
-    "disclaimer": "Kaly utilise l'IA pour estimer le contenu nutritionnel. Les résultats sont approximatifs. Pas un avis médical."
+    "disclaimer": "Kaly utilise l'IA pour estimer le contenu nutritionnel. Les résultats sont approximatifs. Pas un avis médical.",
+    "export_report": "Exporter le rapport PDF"
   },
   "paywall": {
     "title": "Débloquer Kaly Pro",
@@ -324,7 +328,9 @@
   "food_search": {
     "placeholder": "Rechercher un aliment...",
     "no_results": "Aucun résultat",
-    "enter_manually": "Saisir manuellement"
+    "enter_manually": "Saisir manuellement",
+    "community": "Communauté",
+    "community_hint": "Ajouté par des utilisateurs"
   },
   "manual_entry": {
     "title": "Ajouter un aliment",
@@ -341,5 +347,26 @@
     "stop": "Arrêter",
     "hours": "heures",
     "completed": "Jeûne terminé !"
+  },
+  "report": {
+    "title": "Rapport nutritionnel",
+    "summary": "Résumé",
+    "avg_calories": "Cal. moy./jour",
+    "avg_protein": "Protéines moy.",
+    "avg_carbs": "Glucides moy.",
+    "avg_fat": "Lipides moy.",
+    "weight": "Poids",
+    "daily_breakdown": "Détail journalier",
+    "date": "Date",
+    "calories": "Cal.",
+    "protein": "Prot.",
+    "carbs": "Gluc.",
+    "fat": "Lip.",
+    "water": "Eau",
+    "days_tracked": "jours suivis",
+    "generated_by": "Généré par",
+    "share_title": "Partager le rapport",
+    "days": "jours",
+    "no_data": "Aucune donnée pour cette période. Commencez à enregistrer vos repas !"
   }
 }

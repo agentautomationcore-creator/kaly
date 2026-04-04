@@ -124,7 +124,10 @@
     "repeat_yesterday": "Repetir comida de ayer",
     "history_warning": "El plan gratuito guarda {{days}} días de historial",
     "upgrade": "Mejorar",
-    "added_success": "Añadido al diario"
+    "added_success": "Añadido al diario",
+    "suggest_meal": "Sugerir comida",
+    "suggestions_title": "Sugerencias IA",
+    "add_suggestion": "Añadir al diario"
   },
   "stats": {
     "title": "Estadísticas",
@@ -183,7 +186,8 @@
     "show_streak": "Mostrar racha de días",
     "about": "Acerca de",
     "version": "Versión {{version}}",
-    "disclaimer": "Kaly usa IA para estimar el contenido nutricional. Los resultados son aproximados. No es consejo médico."
+    "disclaimer": "Kaly usa IA para estimar el contenido nutricional. Los resultados son aproximados. No es consejo médico.",
+    "export_report": "Exportar informe PDF"
   },
   "paywall": {
     "title": "Desbloquea Kaly Pro",
@@ -324,7 +328,9 @@
   "food_search": {
     "placeholder": "Buscar alimento...",
     "no_results": "Sin resultados",
-    "enter_manually": "Ingresar manualmente"
+    "enter_manually": "Ingresar manualmente",
+    "community": "Comunidad",
+    "community_hint": "Añadido por usuarios"
   },
   "manual_entry": {
     "title": "Añadir comida",
@@ -341,5 +347,26 @@
     "stop": "Terminar",
     "hours": "horas",
     "completed": "¡Ayuno completado!"
+  },
+  "report": {
+    "title": "Informe nutricional",
+    "summary": "Resumen",
+    "avg_calories": "Cal. prom./día",
+    "avg_protein": "Prot. prom.",
+    "avg_carbs": "Carb. prom.",
+    "avg_fat": "Grasa prom.",
+    "weight": "Peso",
+    "daily_breakdown": "Desglose diario",
+    "date": "Fecha",
+    "calories": "Cal.",
+    "protein": "Prot.",
+    "carbs": "Carb.",
+    "fat": "Grasa",
+    "water": "Agua",
+    "days_tracked": "días registrados",
+    "generated_by": "Generado por",
+    "share_title": "Compartir informe",
+    "days": "días",
+    "no_data": "Sin datos para este período. ¡Empieza a registrar comidas!"
   }
 }

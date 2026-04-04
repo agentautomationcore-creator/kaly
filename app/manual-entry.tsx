@@ -13,6 +13,7 @@ import { supabase } from '../src/lib/supabase';
 import { useAuthStore } from '../src/stores/authStore';
 import { captureException } from '../src/lib/sentry';
 import { track } from '../src/lib/analytics';
+import i18n from '../src/i18n';
 import type { MealType } from '../src/lib/types';
 
 export default function ManualEntryScreen() {
@@ -33,6 +34,7 @@ export default function ManualEntryScreen() {
     serving_size?: string;
     barcode?: string;
     entry_method?: string;
+    community_product_id?: string;
   }>();
 
   const [name, setName] = useState(params.name || '');
@@ -78,6 +80,25 @@ export default function ManualEntryScreen() {
         entry_method: entryMethod,
         edited: false,
       });
+
+      // If this came from a community product, increment its use count
+      if (params.community_product_id) {
+        supabase.rpc('increment_product_use', { p_product_id: params.community_product_id }).then(() => {});
+      } else if (entryMethod === 'manual') {
+        // Save new product to community DB for future searches (best-effort)
+        supabase.from('user_products').insert({
+          created_by: user.id,
+          name: name.trim(),
+          brand: params.brand || null,
+          barcode: params.barcode || null,
+          calories_per_100g: cal,
+          protein_per_100g: parseFloat(protein) || 0,
+          carbs_per_100g: parseFloat(carbs) || 0,
+          fat_per_100g: parseFloat(fat) || 0,
+          serving_size: servingSize || '100g',
+          language: i18n.language,
+        }).then(() => {});
+      }
 
       track('meal_logged', { meal_type: selectedMeal, entry_method: entryMethod });
       qc.invalidateQueries({ queryKey: ['diary'] });

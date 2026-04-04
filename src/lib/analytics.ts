@@ -21,7 +21,10 @@ type EventName =
   | 'registration_completed'
   | 'account_deleted'
   | 'data_exported'
-  | 'feedback_submitted';
+  | 'feedback_submitted'
+  | 'report_exported'
+  | 'suggest_meal_tapped'
+  | 'suggestion_added';
 
 // PostHog client — dynamic import, structural typing
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

@@ -124,7 +124,10 @@
     "repeat_yesterday": "Ripeti pasto di ieri",
     "history_warning": "Il piano gratuito conserva {{days}} giorni di cronologia",
     "upgrade": "Aggiorna",
-    "added_success": "Aggiunto al diario"
+    "added_success": "Aggiunto al diario",
+    "suggest_meal": "Suggerisci un pasto",
+    "suggestions_title": "Suggerimenti IA",
+    "add_suggestion": "Aggiungi al diario"
   },
   "stats": {
     "title": "Statistiche",
@@ -183,7 +186,8 @@
     "show_streak": "Mostra serie di giorni",
     "about": "Informazioni",
     "version": "Versione {{version}}",
-    "disclaimer": "Kaly usa l'IA per stimare il contenuto nutrizionale. I risultati sono approssimativi. Non è un consiglio medico."
+    "disclaimer": "Kaly usa l'IA per stimare il contenuto nutrizionale. I risultati sono approssimativi. Non è un consiglio medico.",
+    "export_report": "Esporta rapporto PDF"
   },
   "paywall": {
     "title": "Sblocca Kaly Pro",
@@ -324,7 +328,9 @@
   "food_search": {
     "placeholder": "Cerca cibo...",
     "no_results": "Nessun risultato",
-    "enter_manually": "Inserisci manualmente"
+    "enter_manually": "Inserisci manualmente",
+    "community": "Comunità",
+    "community_hint": "Aggiunto dagli utenti"
   },
   "manual_entry": {
     "title": "Aggiungi cibo",
@@ -341,5 +347,26 @@
     "stop": "Termina",
     "hours": "ore",
     "completed": "Digiuno completato!"
+  },
+  "report": {
+    "title": "Rapporto nutrizionale",
+    "summary": "Riepilogo",
+    "avg_calories": "Cal. medie/giorno",
+    "avg_protein": "Proteine medie",
+    "avg_carbs": "Carboidrati medi",
+    "avg_fat": "Grassi medi",
+    "weight": "Peso",
+    "daily_breakdown": "Dettaglio giornaliero",
+    "date": "Data",
+    "calories": "Cal.",
+    "protein": "Prot.",
+    "carbs": "Carb.",
+    "fat": "Grassi",
+    "water": "Acqua",
+    "days_tracked": "giorni tracciati",
+    "generated_by": "Generato da",
+    "share_title": "Condividi rapporto",
+    "days": "giorni",
+    "no_data": "Nessun dato per questo periodo. Inizia a registrare i pasti!"
   }
 }

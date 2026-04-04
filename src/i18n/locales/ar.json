@@ -124,7 +124,10 @@
     "repeat_yesterday": "تكرار وجبة الأمس",
     "history_warning": "الخطة المجانية تحتفظ بـ {{days}} أيام من السجل",
     "upgrade": "ترقية",
-    "added_success": "تمت الإضافة"
+    "added_success": "تمت الإضافة",
+    "suggest_meal": "اقترح وجبة",
+    "suggestions_title": "اقتراحات الذكاء",
+    "add_suggestion": "أضف للمذكرة"
   },
   "stats": {
     "title": "الإحصائيات",
@@ -183,7 +186,8 @@
     "show_streak": "إظهار سلسلة الأيام",
     "about": "حول التطبيق",
     "version": "الإصدار {{version}}",
-    "disclaimer": "يستخدم Kaly الذكاء الاصطناعي لتقدير المحتوى الغذائي. النتائج تقريبية. ليس نصيحة طبية."
+    "disclaimer": "يستخدم Kaly الذكاء الاصطناعي لتقدير المحتوى الغذائي. النتائج تقريبية. ليس نصيحة طبية.",
+    "export_report": "تصدير تقرير PDF"
   },
   "paywall": {
     "title": "افتح Kaly Pro",
@@ -324,7 +328,9 @@
   "food_search": {
     "placeholder": "ابحث عن طعام...",
     "no_results": "لا توجد نتائج",
-    "enter_manually": "إدخال يدوي"
+    "enter_manually": "إدخال يدوي",
+    "community": "مجتمع",
+    "community_hint": "أضافه المستخدمون"
   },
   "manual_entry": {
     "title": "إضافة طعام",
@@ -341,5 +347,26 @@
     "stop": "إنهاء",
     "hours": "ساعات",
     "completed": "اكتمل الصيام!"
+  },
+  "report": {
+    "title": "تقرير التغذية",
+    "summary": "ملخص",
+    "avg_calories": "متوسط السعرات/يوم",
+    "avg_protein": "متوسط البروتين",
+    "avg_carbs": "متوسط الكربوهيدرات",
+    "avg_fat": "متوسط الدهون",
+    "weight": "الوزن",
+    "daily_breakdown": "تفاصيل يومية",
+    "date": "التاريخ",
+    "calories": "سعرات",
+    "protein": "بروتين",
+    "carbs": "كربو.",
+    "fat": "دهون",
+    "water": "ماء",
+    "days_tracked": "أيام متابعة",
+    "generated_by": "أنشئ بواسطة",
+    "share_title": "مشاركة التقرير",
+    "days": "أيام",
+    "no_data": "لا توجد بيانات لهذه الفترة. ابدأ بتسجيل وجباتك!"
   }
 }
