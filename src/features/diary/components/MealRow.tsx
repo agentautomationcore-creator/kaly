@@ -5,6 +5,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { useColors } from '../../../lib/theme';
 import { useDeleteEntry } from '../hooks/useDiary';
 import { FONT_SIZE, RADIUS } from '../../../lib/constants';
+import { formatNumber } from '../../../lib/formatNumber';
 import type { DiaryEntry } from '../types';
 
 interface MealRowProps {
@@ -27,7 +28,7 @@ export function MealRow({ entry }: MealRowProps) {
     <Pressable
       onLongPress={handleDelete}
       accessibilityRole="button"
-      accessibilityLabel={`${entry.food_name} ${Math.round(entry.total_calories)} ${t('common.kcal')}`}
+      accessibilityLabel={`${entry.food_name} ${formatNumber(Math.round(entry.total_calories))} ${t('common.kcal')}`}
       style={{
         flexDirection: 'row',
         justifyContent: 'space-between',
@@ -51,10 +52,10 @@ export function MealRow({ entry }: MealRowProps) {
       <View style={{ flexDirection: 'row', alignItems: 'center', gap: 12 }}>
         <View style={{ alignItems: 'flex-end' }}>
           <Text style={{ fontSize: FONT_SIZE.sm, fontWeight: '600', color: colors.text }}>
-            {Math.round(entry.total_calories)} {t('common.kcal')}
+            {formatNumber(Math.round(entry.total_calories))} {t('common.kcal')}
           </Text>
           <Text style={{ fontSize: 10, color: colors.textSecondary }}>
-            {t('common.protein_short')}{Math.round(entry.total_protein)} {t('common.carbs_short')}{Math.round(entry.total_carbs)} {t('common.fat_short')}{Math.round(entry.total_fat)}
+            {t('common.protein_short')}{formatNumber(Math.round(entry.total_protein))} {t('common.carbs_short')}{formatNumber(Math.round(entry.total_carbs))} {t('common.fat_short')}{formatNumber(Math.round(entry.total_fat))}
           </Text>
         </View>
         {entry.entry_method === 'photo' && (

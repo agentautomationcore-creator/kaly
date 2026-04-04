@@ -5,6 +5,7 @@ import { useColors } from '../../../lib/theme';
 import { CalorieRing } from '../../stats/components/CalorieRing';
 import { Card } from '../../../components/Card';
 import { FONT_SIZE } from '../../../lib/constants';
+import { formatNumber } from '../../../lib/formatNumber';
 
 interface DailyTotalsBarProps {
   calories: number;
@@ -29,8 +30,8 @@ export function DailyTotalsBar({ calories, protein, carbs, fat, calorieGoal = 20
         <CalorieRing current={calories} goal={calorieGoal} size={140} />
         <Text style={{ fontSize: FONT_SIZE.sm, color: overColor, fontWeight: '500', marginTop: 8 }}>
           {remaining >= 0
-            ? t('diary.remaining', { count: Math.round(remaining) })
-            : t('diary.over', { count: Math.abs(Math.round(remaining)) })}
+            ? t('diary.remaining', { count: formatNumber(Math.round(remaining)) })
+            : t('diary.over', { count: formatNumber(Math.abs(Math.round(remaining))) })}
         </Text>
       </View>
 
@@ -50,7 +51,7 @@ function MacroChip({ label, value, unit, color }: { label: string; value: number
     <View style={{ flex: 1, alignItems: 'center' }}>
       <View style={{ width: 4, height: 4, borderRadius: 2, backgroundColor: color, marginBottom: 4 }} />
       <Text style={{ fontSize: 15, fontWeight: '700', color: colors.text }}>
-        {Math.round(value)}{unit}
+        {formatNumber(Math.round(value))}{unit}
       </Text>
       <Text style={{ fontSize: 11, color: colors.textSecondary }}>{label}</Text>
     </View>

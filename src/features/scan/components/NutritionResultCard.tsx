@@ -97,7 +97,7 @@ export function NutritionResultCard() {
         </Text>
         <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8, marginBottom: 16 }}>
           <Text style={{ fontSize: FONT_SIZE.sm, color: colors.textSecondary }}>
-            {Math.round(result.total_portion_g * m)}g
+            {formatNumber(Math.round(result.total_portion_g * m))}g
           </Text>
           <View style={{ flexDirection: 'row', alignItems: 'center', gap: 4 }}>
             <Text style={{ fontSize: FONT_SIZE.xs, color: colors.textSecondary }}>{t('scan.confidence')}:</Text>
@@ -109,7 +109,7 @@ export function NutritionResultCard() {
 
         {/* Big calorie number */}
         <View style={{ alignItems: 'center', marginBottom: 16 }}>
-          <Text style={{ fontSize: 48, fontWeight: '800', color: colors.primary }}>{cal}</Text>
+          <Text style={{ fontSize: 48, fontWeight: '800', color: colors.primary }}>{formatNumber(cal)}</Text>
           <Text style={{ fontSize: FONT_SIZE.sm, color: colors.textSecondary }}>{t('common.kcal')}</Text>
         </View>
 

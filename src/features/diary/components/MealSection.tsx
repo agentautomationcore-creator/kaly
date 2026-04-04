@@ -8,6 +8,7 @@ import { useColors } from '../../../lib/theme';
 import { Card } from '../../../components/Card';
 import { MealRow } from './MealRow';
 import { FONT_SIZE } from '../../../lib/constants';
+import { formatNumber } from '../../../lib/formatNumber';
 import { supabase } from '../../../lib/supabase';
 import { useAuthStore } from '../../../stores/authStore';
 import { captureException } from '../../../lib/sentry';
@@ -79,7 +80,7 @@ export const MealSection = React.memo(function MealSection({ mealType, entries, 
           </Text>
           {totalCal > 0 && (
             <Text style={{ fontSize: FONT_SIZE.xs, color: colors.textSecondary }}>
-              {Math.round(totalCal)} {t('common.kcal')}
+              {formatNumber(Math.round(totalCal))} {t('common.kcal')}
             </Text>
           )}
         </View>
@@ -109,7 +110,7 @@ export const MealSection = React.memo(function MealSection({ mealType, entries, 
         >
           <Ionicons name="refresh" size={16} color={colors.primary} />
           <Text style={{ fontSize: FONT_SIZE.sm, color: colors.primary, flex: 1 }}>
-            {t('diary.repeat_yesterday')} ({Math.round(yesterdayCal)} {t('common.kcal')})
+            {t('diary.repeat_yesterday')} ({formatNumber(Math.round(yesterdayCal))} {t('common.kcal')})
           </Text>
         </Pressable>
       ) : null}

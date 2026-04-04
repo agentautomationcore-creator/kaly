@@ -8,6 +8,7 @@ import { Card } from '../../../components/Card';
 import { Button } from '../../../components/Button';
 import { ProgressBar } from '../../../components/ProgressBar';
 import { FONT_SIZE, RADIUS } from '../../../lib/constants';
+import { formatNumber } from '../../../lib/formatNumber';
 import { supabase } from '../../../lib/supabase';
 import { useAuthStore } from '../../../stores/authStore';
 import { captureException } from '../../../lib/sentry';
@@ -106,7 +107,7 @@ export function BarcodeResult({ product, onDone, onScanAgain }: BarcodeResultPro
 
           {/* Big calorie number */}
           <View style={{ alignItems: 'center', marginBottom: 16 }}>
-            <Text style={{ fontSize: 48, fontWeight: '800', color: colors.primary }}>{cal}</Text>
+            <Text style={{ fontSize: 48, fontWeight: '800', color: colors.primary }}>{formatNumber(cal)}</Text>
             <Text style={{ fontSize: FONT_SIZE.sm, color: colors.textSecondary }}>{t('common.kcal')}</Text>
           </View>
 

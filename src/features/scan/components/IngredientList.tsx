@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { Ionicons } from '@expo/vector-icons';
 import { useColors, type Colors } from '../../../lib/theme';
 import { FONT_SIZE, RADIUS } from '../../../lib/constants';
+import { formatNumber } from '../../../lib/formatNumber';
 import { useScanStore } from '../store/scanStore';
 import type { FoodItem } from '../types';
 
@@ -202,14 +203,14 @@ function EditableIngredientRow({ item, multiplier, colors, isHidden, onUpdate, o
         ) : (
           <Pressable onPress={() => { setGramsVal(String(Math.round(item.g))); setEditingGrams(true); }}>
             <Text style={{ fontSize: 11, color: colors.textSecondary }}>
-              {Math.round(item.g * multiplier)}g
+              {formatNumber(Math.round(item.g * multiplier))}g
             </Text>
           </Pressable>
         )}
       </View>
 
       <Text style={{ fontSize: FONT_SIZE.sm, fontWeight: '600', color: colors.text, marginEnd: 8 }}>
-        {Math.round(item.calories * multiplier)} {t('common.kcal')}
+        {formatNumber(Math.round(item.calories * multiplier))} {t('common.kcal')}
       </Text>
 
       {/* Delete button */}

@@ -13,6 +13,7 @@ import { StreakCounter } from './StreakCounter';
 import { Card } from '../../../components/Card';
 import { ListSkeleton } from '../../../components/LoadingSkeleton';
 import { FONT_SIZE } from '../../../lib/constants';
+import { formatNumber } from '../../../lib/formatNumber';
 
 export function StatsScreen() {
   const { t } = useTranslation();
@@ -68,7 +69,7 @@ export function StatsScreen() {
         <WeeklyBarChart days={weekStats?.days || []} goal={calorieGoal} />
         {weekStats && weekStats.avgCalories > 0 && (
           <Text style={{ fontSize: FONT_SIZE.sm, color: colors.textSecondary, textAlign: 'center', marginTop: 12 }}>
-            {t('stats.avg_calories')}: {Math.round(weekStats.avgCalories)} {t('common.kcal')}
+            {t('stats.avg_calories')}: {formatNumber(Math.round(weekStats.avgCalories))} {t('common.kcal')}
           </Text>
         )}
       </Card>

@@ -6,6 +6,7 @@ import { useColors } from '../../../lib/theme';
 import { useRecentMeals } from '../hooks/useRecentMeals';
 import { Card } from '../../../components/Card';
 import { FONT_SIZE, RADIUS } from '../../../lib/constants';
+import { formatNumber } from '../../../lib/formatNumber';
 import { supabase } from '../../../lib/supabase';
 import { useAuthStore } from '../../../stores/authStore';
 import { useQueryClient } from '@tanstack/react-query';
@@ -80,7 +81,7 @@ export const RecentMeals = React.memo(function RecentMeals({ date }: RecentMeals
               {entry.food_name}
             </Text>
             <Text style={{ fontSize: 11, color: colors.textSecondary }}>
-              {Math.round(entry.total_calories)} {t('common.kcal')}
+              {formatNumber(Math.round(entry.total_calories))} {t('common.kcal')}
             </Text>
           </View>
           <Ionicons name="add-circle-outline" size={22} color={colors.primary} />

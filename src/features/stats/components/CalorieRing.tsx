@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import Svg, { Circle } from 'react-native-svg';
 import Animated, { useSharedValue, useAnimatedProps, withTiming, cancelAnimation } from 'react-native-reanimated';
 import { useColors } from '../../../lib/theme';
+import { formatNumber } from '../../../lib/formatNumber';
 
 const AnimatedCircle = Animated.createAnimatedComponent(Circle);
 
@@ -65,9 +66,9 @@ export const CalorieRing = React.memo(function CalorieRing({ current, goal, size
       </Svg>
       <View style={{ position: 'absolute', alignItems: 'center' }}>
         <Text style={{ fontSize: 36, fontWeight: '800', color: ringColor }}>
-          {Math.round(current)}
+          {formatNumber(Math.round(current))}
         </Text>
-        <Text style={{ fontSize: 13, color: colors.textSecondary }}>/ {goal} {t('common.kcal')}</Text>
+        <Text style={{ fontSize: 13, color: colors.textSecondary }}>/ {formatNumber(goal)} {t('common.kcal')}</Text>
       </View>
     </View>
   );

@@ -2,6 +2,7 @@ import React from 'react';
 import { View, Text, ViewStyle } from 'react-native';
 import { useColors } from '../lib/theme';
 import { RADIUS } from '../lib/constants';
+import { formatNumber } from '../lib/formatNumber';
 
 interface ProgressBarProps {
   value: number;      // current
@@ -37,7 +38,7 @@ export function ProgressBar({
           ) : null}
           {showValue ? (
             <Text style={{ fontSize: 13, color: colors.textSecondary }}>
-              {Math.round(value)} / {Math.round(max)}
+              {formatNumber(Math.round(value))} / {formatNumber(Math.round(max))}
             </Text>
           ) : null}
         </View>

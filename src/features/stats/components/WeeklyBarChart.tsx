@@ -3,6 +3,7 @@ import { View, Text } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { useColors } from '../../../lib/theme';
 import { FONT_SIZE } from '../../../lib/constants';
+import { formatNumber } from '../../../lib/formatNumber';
 import type { DayStats } from '../types';
 
 interface WeeklyBarChartProps {
@@ -61,7 +62,7 @@ export const WeeklyBarChart = React.memo(function WeeklyBarChart({ days, goal = 
             <View key={day.date} style={{ alignItems: 'center', flex: 1 }}>
               {day.calories > 0 && (
                 <Text style={{ fontSize: 9, color: colors.textSecondary, marginBottom: 4 }}>
-                  {Math.round(day.calories)}
+                  {formatNumber(Math.round(day.calories))}
                 </Text>
               )}
               <View
