@@ -1,0 +1,55 @@
+{
+  "id": "aba0106c-336b-4fcc-94f2-212c695ca2fb",
+  "status": "ERRORED",
+  "platform": "IOS",
+  "error": {
+    "errorCode": "UNKNOWN_ERROR",
+    "message": "Unknown error. See logs of the Install dependencies build phase for more information."
+  },
+  "artifacts": {
+    "xcodeBuildLogsUrl": "https://job-logs.eascdn.net/production-xcode-logs/aba0106c-336b-4fcc-94f2-212c695ca2fb?X-Goog-Algorithm=GOOG4-RSA-SHA256&X-Goog-Credential=www-production%40exponentjs.iam.gserviceaccount.com%2F20260403%2Fauto%2Fstorage%2Fgoog4_request&X-Goog-Date=20260403T202755Z&X-Goog-Expires=900&X-Goog-SignedHeaders=host&X-Goog-Signature=b0292098cb829c934bb1bce1ce26c57c87b74627356dfe8b3ec3dea2afaf38b2613d3a37b8eb8798205d76fa09f814453288aeaaeab0c844358beefd45cfa36accf6156117594ec56cfc420fa337b280a7fd8c6b3601c03efb80a8e5b4329e98577e7261dfafe4a9e8a422546d626987f2f90f0f4768792be0555941e7ea84639be2355e86b363d9443ae443093c9c0453c475987c33b81f1638dfc180f13c26c66558cc48bb2375d553e9ad2644c14e4e9fba60c17c6428dd1b3d8f20ead9ea2fcc86f53e60d62631e9dd286cde7c5de0b1cd691adcf320adbf768421dce4243c09faa3df7327bd3c0aa084669483286861a874b5b7395b2661ed5bd8c45142"
+  },
+  "fingerprint": {
+    "id": "019d54de-81d8-7cfb-afd1-3e641bc48912",
+    "hash": "65b8a086be3ddeedda5a652f156f5d4284ec7ac9"
+  },
+  "initiatingActor": {
+    "id": "17271f6f-87fd-4c62-afeb-41e5232f30dd",
+    "displayName": "doclear"
+  },
+  "logFiles": [
+    "https://job-logs.eascdn.net/production/aba0106c-336b-4fcc-94f2-212c695ca2fb/1775245362528-09626a2f-2fea-484c-8e5f-e134bb234ac8.txt?X-Goog-Algorithm=GOOG4-RSA-SHA256&X-Goog-Credential=www-production%40exponentjs.iam.gserviceaccount.com%2F20260403%2Fauto%2Fstorage%2Fgoog4_request&X-Goog-Date=20260403T202755Z&X-Goog-Expires=900&X-Goog-SignedHeaders=host&X-Goog-Signature=b19b79d7fc52b0de2efc3c8cbdfe70b334d6a97f8a3f057ca6bbd93bdf426073a92d5716214c04aa0b1f98a24331f06011d6cbcab51ec5951dc5dea24a033f75305fc04d235041f3788069ad831c9146a49e3dbfd6d6ef8f7ed9137d3cd8eb08bd94098939c2b8798cebfe7fb3abf789992589888d7d155569fe28e70b68c3bd28c8d6d2902ca0220e27d4efa7f3053c7dbd9639c421832a01c47b95fe3ed845f76a602e5b6d047ca91d0542f0d745bac2102240f5cb8bb37708da27ad56ddcd39b3e5ce21f470232cab9b2e4dc1370786e01cdeb3f394d3ac0488a15e4777357176c9bd28d374a5b5478960c37e1c4ffe27b6e43a7a20174b6431338cf2bdb4",
+    "https://job-logs.eascdn.net/production/aba0106c-336b-4fcc-94f2-212c695ca2fb/1775245938286-6b865540-fd11-4f11-b450-8cfff40d837d.txt?X-Goog-Algorithm=GOOG4-RSA-SHA256&X-Goog-Credential=www-production%40exponentjs.iam.gserviceaccount.com%2F20260403%2Fauto%2Fstorage%2Fgoog4_request&X-Goog-Date=20260403T202755Z&X-Goog-Expires=900&X-Goog-SignedHeaders=host&X-Goog-Signature=90975fde0a310d35be6bac80dc56506850a094e97b9a74a1dafd2ce56b161259c77285a8f66d4c49f9fb3df7d383ed1f41576deb0f18ef0273fc685e0c7fdf6da2ef976463738e764a16f8186deb4cdf2007e788ee6c4f17635ab28898a9f72ee6cb11d2a29379baf9505809a9059b7fb0d0486a574b5697c7fc6f50f4f5ff423169e7cd692360304249724299f8b3c7b8d241a87b26b0f436a27234577feae39837534d6cd86eec1208b194c34af6d9eedf5d50a5a99bfd0d4418a06f272009c02c4ddcc1cdca439aa424af22f1a694f942aa93fa40144267c344c36723380f27a02b94d8a715da7b53384e3455e2b924b31a3061a7e36f32e75c6cd2ed7ff7",
+    "https://job-logs.eascdn.net/production/aba0106c-336b-4fcc-94f2-212c695ca2fb/1775245938522-7220d202-526c-4e5a-ba0f-dd7f1e3ee3b4.txt?X-Goog-Algorithm=GOOG4-RSA-SHA256&X-Goog-Credential=www-production%40exponentjs.iam.gserviceaccount.com%2F20260403%2Fauto%2Fstorage%2Fgoog4_request&X-Goog-Date=20260403T202755Z&X-Goog-Expires=900&X-Goog-SignedHeaders=host&X-Goog-Signature=a8d44516ad286fdfa62b7d0c5cab628f8b461dc3519b5e0282beb62cde5bce1e20af69d226fa74d7e49fbfec960b78037662429ba5e921175e493d5b6a96b65eeecc58a37a685d9ad1c7cf65f7fb466a9cdc62fee9d4fe79aef168491f07a291dc2fefc689ac392f4e736abd8cb6ab36f5b1d9b1e086e95d08b56566c0c84d678b61bacfd782012f7e8d8d36a608981186eac62773fb2d08995d6d6b8733a04098bfb346b2965173b8c58c3ee4979efe424e97176dad3b0fcefffb77f2e94847ec3f365003cf31f40634f37c479472166e14238c13dec2ddc48b71d408d45408c7126fb927fe7676991c8b99b60ce3417fb42a54fb8b0717120e46d145900afe",
+    "https://job-logs.eascdn.net/production/aba0106c-336b-4fcc-94f2-212c695ca2fb/1775245938714-dc5fecee-45dd-4cae-b483-73b0aa48f653.txt?X-Goog-Algorithm=GOOG4-RSA-SHA256&X-Goog-Credential=www-production%40exponentjs.iam.gserviceaccount.com%2F20260403%2Fauto%2Fstorage%2Fgoog4_request&X-Goog-Date=20260403T202755Z&X-Goog-Expires=900&X-Goog-SignedHeaders=host&X-Goog-Signature=745a159c550fef32f283a1facb02b5e3b3bf2f1d7f7df4c18d6aee186f33c1625f0ebdf30e41d8e507aeb37e8f80be8bff15c7793decc20717fd5349b4044293674fd325ac2cc7aead67870bc39c3b390c5c3232644af9bde0d7c90096011598a6745793f8ed63657919047dcb7f10b98be530a90302de0e98df199509985561e92ea3f921d47d90ba371262b5b546e05f56683d2f35634ba1176301198169b264287dae5e682bac68a4907bb1c6126a27a4cadd9b24d54f5d8bb67b9d565c5590a45b73c52300ac4363a39d301b4456b2242049264e32d07943dfa578568d4f42ddfac6fffcc9458c4e080a108a6f6d9eb91597196988bf3df6d20dea123a82"
+  ],
+  "project": {
+    "id": "67f656ee-fffd-4a8d-93b3-f7268c965730",
+    "name": "kaly",
+    "slug": "kaly",
+    "ownerAccount": {
+      "id": "2531934c-f96f-4931-a7ce-84dd99a2017f",
+      "name": "doclear"
+    }
+  },
+  "channel": "production",
+  "distribution": "STORE",
+  "buildProfile": "production",
+  "sdkVersion": "54.0.0",
+  "appVersion": "1.0.0",
+  "appBuildVersion": "1",
+  "runtimeVersion": "1.0.0",
+  "gitCommitHash": "b40860c02482957f123700ed14a6a3b4ac0a2043",
+  "gitCommitMessage": "feat: 10 features — goals, dashboard, water, history, charts, repeat, streak, AI edit, barcode, pricing\n\n1. Onboarding TDEE: body data flows through onboardingStore → TDEE calculated → saved to nutrition_profiles\n2. Dashboard: CalorieRing on diary tab, neutral gray (#94A3B8) when over goal — no guilt-tripping\n3. Water reminders: expo-notifications push every 2h with quiet hours (22-08), toggle in Settings\n4. History: existing diary with DateNavigator + [date].tsx already functional\n5. Charts: goal dashed line on WeeklyBarChart, neutral color for over-goal bars\n6. Quick repeat: \"Repeat yesterday's meal\" suggestion in empty MealSection slots\n7. Streak: toggle in Settings (OFF by default), conditionally shown on Stats tab\n8. AI correction: inline editing of ingredients (name, grams with auto-recalc), delete/add items, isEdited flag\n9. Barcode scanner: expo-camera barcode → Open Food Facts API → portion selector → save. MMKV cache. FREE for all users\n10. Pricing transparency: already implemented — prices on welcome screen, Free vs Pro comparison\n\nAlso includes: PostHog analytics + Sentry error tracking (GDPR-compliant, init after consent only)\n\nCo-Authored-By: Claude Opus 4.6 (1M context) <noreply@anthropic.com>",
+  "priority": "NORMAL",
+  "createdAt": "2026-04-03T19:42:41.491Z",
+  "updatedAt": "2026-04-03T19:53:23.197Z",
+  "completedAt": "2026-04-03T19:53:16.192Z",
+  "expirationDate": "2026-05-03T19:42:41.610Z",
+  "isForIosSimulator": false,
+  "metrics": {
+    "buildWaitTime": 344,
+    "buildQueueTime": 619917,
+    "buildDuration": 10260
+  }
+}

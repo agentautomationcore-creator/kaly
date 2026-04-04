@@ -186,7 +186,7 @@
     "annual_price": "39,99€/an",
     "annual_savings": "Économisez 33%",
     "trial_cta": "Essayez Pro gratuitement pendant 7 jours",
-    "trial_note": "Sans carte bancaire. Après l'essai : 4,99€/mois.",
+    "trial_note": "Après l'essai gratuit, l'abonnement se renouvelle automatiquement à {{price}}/mois.",
     "continue_free": "Continuer gratuitement",
     "restore": "Restaurer les achats",
     "cancel_anytime": "Annulez à tout moment",

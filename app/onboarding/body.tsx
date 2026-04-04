@@ -71,8 +71,8 @@ export default function BodyScreen() {
 
         {/* Height, Weight, Age */}
         {[
-          { label: t('onboarding.height'), value: height, set: setHeight, suffix: 'cm', key: 'height' },
-          { label: t('onboarding.weight'), value: weight, set: setWeight, suffix: 'kg', key: 'weight' },
+          { label: t('onboarding.height'), value: height, set: setHeight, suffix: t('units.cm'), key: 'height' },
+          { label: t('onboarding.weight'), value: weight, set: setWeight, suffix: t('units.kg'), key: 'weight' },
           { label: t('onboarding.age'), value: age, set: setAge, suffix: '', key: 'age' },
         ].map((field) => (
           <View key={field.key} style={{ marginBottom: 20 }}>
@@ -83,6 +83,7 @@ export default function BodyScreen() {
               value={field.value}
               onChangeText={field.set}
               keyboardType="numeric"
+              accessibilityLabel={field.label}
               style={{
                 backgroundColor: colors.card,
                 borderRadius: RADIUS.md,

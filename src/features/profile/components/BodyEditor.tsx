@@ -87,6 +87,7 @@ export function BodyEditor({ profile }: BodyEditorProps) {
                 value={f.value}
                 onChangeText={f.set}
                 keyboardType="numeric"
+                accessibilityLabel={f.label}
                 style={{
                   backgroundColor: colors.surface,
                   borderRadius: RADIUS.md,

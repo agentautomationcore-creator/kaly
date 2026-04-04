@@ -186,7 +186,7 @@
     "annual_price": "€39.99/anno",
     "annual_savings": "Risparmia il 33%",
     "trial_cta": "Prova Pro gratis per 7 giorni",
-    "trial_note": "Nessuna carta richiesta. Dopo la prova: €4.99/mese.",
+    "trial_note": "Dopo la prova gratuita, l'abbonamento si rinnova automaticamente a {{price}}/mese.",
     "continue_free": "Continua gratis",
     "restore": "Ripristina acquisti",
     "cancel_anytime": "Cancella quando vuoi",

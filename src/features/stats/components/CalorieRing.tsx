@@ -45,6 +45,7 @@ export const CalorieRing = React.memo(function CalorieRing({ current, goal, size
 
   // Neutral color when over goal — no guilt-tripping
   const ringColor = current > goal ? '#94A3B8' : colors.primary;
+  const textColor = current > goal ? '#64748B' : colors.primary;
 
   return (
     <View style={{ width: size, height: size, alignItems: 'center', justifyContent: 'center' }}>
@@ -74,7 +75,7 @@ export const CalorieRing = React.memo(function CalorieRing({ current, goal, size
         />
       </Svg>
       <View style={{ position: 'absolute', alignItems: 'center' }}>
-        <Text style={{ fontSize: 36, fontWeight: '800', color: ringColor }}>
+        <Text style={{ fontSize: 36, fontWeight: '800', color: textColor }}>
           {formatNumber(Math.round(current))}
         </Text>
         <Text style={{ fontSize: 13, color: colors.textSecondary }}>/ {formatNumber(goal)} {t('common.kcal')}</Text>

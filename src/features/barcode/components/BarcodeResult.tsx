@@ -154,7 +154,7 @@ export function BarcodeResult({ product, onDone, onScanAgain }: BarcodeResultPro
                 }}
               >
                 <Text style={{ fontWeight: '500', color: portionG === g && !customPortion ? colors.primary : colors.text, fontSize: FONT_SIZE.sm }}>
-                  {g}g
+                  {g} {t('units.g')}
                 </Text>
               </Pressable>
             ))}

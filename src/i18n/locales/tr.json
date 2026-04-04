@@ -186,7 +186,7 @@
     "annual_price": "€39.99/yıl",
     "annual_savings": "%33 tasarruf",
     "trial_cta": "Pro'yu 7 gün ücretsiz dene",
-    "trial_note": "Kart gerekmez. Denemeden sonra: €4.99/ay.",
+    "trial_note": "Ücretsiz deneme sonrası abonelik otomatik olarak {{price}}/ay olarak yenilenir.",
     "continue_free": "Ücretsiz devam et",
     "restore": "Satın alımları geri yükle",
     "cancel_anytime": "İstediğin zaman iptal et",

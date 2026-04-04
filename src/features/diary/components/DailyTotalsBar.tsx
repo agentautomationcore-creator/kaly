@@ -37,9 +37,9 @@ export function DailyTotalsBar({ calories, protein, carbs, fat, calorieGoal = 20
 
       {/* Macros */}
       <View style={{ flexDirection: 'row', gap: 16 }}>
-        <MacroChip label={t('stats.protein')} value={protein} unit="g" color={colors.proteinColor} />
-        <MacroChip label={t('stats.carbs')} value={carbs} unit="g" color={colors.carbsColor} />
-        <MacroChip label={t('stats.fat')} value={fat} unit="g" color={colors.fatColor} />
+        <MacroChip label={t('stats.protein')} value={protein} unit={t('units.g')} color={colors.proteinColor} />
+        <MacroChip label={t('stats.carbs')} value={carbs} unit={t('units.g')} color={colors.carbsColor} />
+        <MacroChip label={t('stats.fat')} value={fat} unit={t('units.g')} color={colors.fatColor} />
       </View>
     </Card>
   );

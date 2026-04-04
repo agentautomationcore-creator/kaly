@@ -186,7 +186,7 @@
     "annual_price": "€39.99/ano",
     "annual_savings": "Economize 33%",
     "trial_cta": "Teste o Pro grátis por 7 dias",
-    "trial_note": "Sem cartão. Após o teste: €4.99/mês.",
+    "trial_note": "Após o período gratuito, a assinatura renova automaticamente por {{price}}/mês.",
     "continue_free": "Continuar grátis",
     "restore": "Restaurar compras",
     "cancel_anytime": "Cancele quando quiser",

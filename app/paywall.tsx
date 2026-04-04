@@ -60,8 +60,8 @@ export default function PaywallScreen() {
     if (user) {
       try {
         await supabase.rpc('sync_plan_from_purchase', {
-          p_user_id: user.id,
-          p_entitlement: newPlan,
+          p_plan: 'pro',
+          p_source: 'client_purchase',
         });
       } catch (err) {
         // Non-blocking — webhook will eventually sync

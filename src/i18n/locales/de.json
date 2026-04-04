@@ -186,7 +186,7 @@
     "annual_price": "€39.99/Jahr",
     "annual_savings": "33% sparen",
     "trial_cta": "Pro 7 Tage kostenlos testen",
-    "trial_note": "Keine Karte erforderlich. Nach der Testphase: €4.99/Monat.",
+    "trial_note": "Nach der Testphase verlängert sich das Abo automatisch für {{price}}/Monat.",
     "continue_free": "Kostenlos fortfahren",
     "restore": "Käufe wiederherstellen",
     "cancel_anytime": "Jederzeit kündbar",

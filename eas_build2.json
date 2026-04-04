@@ -1,0 +1,55 @@
+{
+  "id": "b4709c49-08a5-46ae-a0ef-935d9af960ab",
+  "status": "ERRORED",
+  "platform": "IOS",
+  "error": {
+    "errorCode": "UNKNOWN_ERROR",
+    "message": "Unknown error. See logs of the Install dependencies build phase for more information."
+  },
+  "artifacts": {
+    "xcodeBuildLogsUrl": "https://job-logs.eascdn.net/production-xcode-logs/b4709c49-08a5-46ae-a0ef-935d9af960ab?X-Goog-Algorithm=GOOG4-RSA-SHA256&X-Goog-Credential=www-production%40exponentjs.iam.gserviceaccount.com%2F20260403%2Fauto%2Fstorage%2Fgoog4_request&X-Goog-Date=20260403T204009Z&X-Goog-Expires=900&X-Goog-SignedHeaders=host&X-Goog-Signature=a2f134c820260e21c6d2b314c050a2ce962599bbd0a6713a4533d9037ea5a6b941c9ef4f8b6ac64d493333e639fc02f5df54115d89453ad6e34a5b7c3133d7fd659f1f71f7b52befa576a3a081e1002417a5fa1a175bac7231817af3230395d4476fa5a87594db479fdc7dab18fe2c71fe8f5b925ae6efb3a3efdc52e111a0d8c96a893ee8fe77645ec6b37030eaaab59e9c3bb4887ddca6bc43f07afeec7633802827f1ab93502e2b058294800c9c5c876b23a91d61368277696869be98f32165da2480790849ba8a11c7fe8e3d979d6369cb3691d9af1db31b7c7f7361dfb5decddb278fb5ab1a60702b2ae7fd3422d457d16407998dfd4cd6248d06fbfaae"
+  },
+  "fingerprint": {
+    "id": "019d5509-5d9d-7af8-99a3-7135a5a66351",
+    "hash": "155ae1ee574fb3f12c531ed0552d870174635849"
+  },
+  "initiatingActor": {
+    "id": "17271f6f-87fd-4c62-afeb-41e5232f30dd",
+    "displayName": "doclear"
+  },
+  "logFiles": [
+    "https://job-logs.eascdn.net/production/b4709c49-08a5-46ae-a0ef-935d9af960ab/1775248170619-14d420b6-ef64-434d-bc3f-bcbf376d28e5.txt?X-Goog-Algorithm=GOOG4-RSA-SHA256&X-Goog-Credential=www-production%40exponentjs.iam.gserviceaccount.com%2F20260403%2Fauto%2Fstorage%2Fgoog4_request&X-Goog-Date=20260403T204009Z&X-Goog-Expires=900&X-Goog-SignedHeaders=host&X-Goog-Signature=39f37819a426316edeb7a55aa55a667d28610c6c985ab100f11f6195a4a3b9bb48c5683796a7eb766756bd864a8c6614437ce5911fa4045564f60c0056cde71158e0f69e6e2ba8cab2a03b654f71c07f11eba91fd0d2848a4b84d4897470256a45a9f850d9fdaed086704aa259699b479eddbd6e495c407296868110f782046138b5c4c3ed21cea9d9bc37383fabecc3826945d31b20224f00ba8818da767cd24842a767bae19b94793e593d70571f54e797469597fe4765639b9c26e480c8fa0fd3c24c0b4c434f8c7c6163d41b4e2ad26a7bb7eb922f22b3f035f144d6ae428cbc165f1e02862be38f743a72149d18f6ea1feb0fc5f6e4866668c4abab5b3c",
+    "https://job-logs.eascdn.net/production/b4709c49-08a5-46ae-a0ef-935d9af960ab/1775248707423-ea3bc955-7df2-4d1d-a33f-c79874c4621b.txt?X-Goog-Algorithm=GOOG4-RSA-SHA256&X-Goog-Credential=www-production%40exponentjs.iam.gserviceaccount.com%2F20260403%2Fauto%2Fstorage%2Fgoog4_request&X-Goog-Date=20260403T204009Z&X-Goog-Expires=900&X-Goog-SignedHeaders=host&X-Goog-Signature=48e30f8c005ab1113be5e90047748e940db10acd5f226d9a11c36cb85742231ef2258927b16aa8814cc76fe2e66bfa0a843ec1d564e8cdf7e1e82d8290809d0d5e49694e1f8a605e574027ec51db9d9e2c784a5464761585621c5f01159c7479a77cfab91e5ac500c04b255fbda66a68e7ec13e14cf5a85c8dcde8a2a90e1497b373a89a21445037beb5fc475df01cca6de615dcc8917b69ace1b175f27766f9232aba3927e29df1ac9ddf6916845e8e74d94c51ec525e6e203b645c51fdca735cc9cc91a648482a0835a0af75760bf8435d884e865d5f30c3abc229cc099f5d0cd59374ef9c5e7ce16756568c827e519f2b9392b6b6d3400add6c4a539115d2",
+    "https://job-logs.eascdn.net/production/b4709c49-08a5-46ae-a0ef-935d9af960ab/1775248707672-fae7b752-fcde-45f3-9b90-01b02b4e72ae.txt?X-Goog-Algorithm=GOOG4-RSA-SHA256&X-Goog-Credential=www-production%40exponentjs.iam.gserviceaccount.com%2F20260403%2Fauto%2Fstorage%2Fgoog4_request&X-Goog-Date=20260403T204009Z&X-Goog-Expires=900&X-Goog-SignedHeaders=host&X-Goog-Signature=9316e44e20a25ff99bd6a580e6920cc31dcf43d112fc43147e17a5ab86468178b1725e23c5881f598381fdb81ea0b6e03c13f25a75a90ef06d39163a8894c4763d71ef7eb2f4e739771cbe2e49262dbab835ffcfc50770beee3badb20c62422194b956c6a91b150cf3d2fc9326f0ec2729584ce59058addc544807efc98b090fe12c1f4413e3ddb9d02dc750ce9dcfe975a71270818cd4881ac0ea37429d6a0ea3d67785bacebbb658ba3adbb1f17bb2d0fcd0e59e30a00275cf1fa451489a44ce32aca7a9be2eb09e6f0cfe7c2c6399268fff594c0701d9de4dd9fa012dd5177755dc5a8e9575c09c91173fd30fb878af65f41f549327349409280e06602ca8",
+    "https://job-logs.eascdn.net/production/b4709c49-08a5-46ae-a0ef-935d9af960ab/1775248707846-bf357ad3-665d-4878-81e9-61289e55f361.txt?X-Goog-Algorithm=GOOG4-RSA-SHA256&X-Goog-Credential=www-production%40exponentjs.iam.gserviceaccount.com%2F20260403%2Fauto%2Fstorage%2Fgoog4_request&X-Goog-Date=20260403T204009Z&X-Goog-Expires=900&X-Goog-SignedHeaders=host&X-Goog-Signature=53da7eae11877536f881675642928654d5ad044485791dce81184d7a2e84ddd508380ef99984f4b0761a97f4442f5ecdbd228c76b72a32c5f90420b35f7645a838302a5aac122ee2d795de94c487b097f1bc2523d2068468ac5f1a0c8e3f92f6f30cf9817eff8d39076247e3009b8c8ca502e7ffe4ab7c3da6be395bb1bb282082102f1f4f8ff935753e3ce43e7d00df98d35d5d53cc15bff9908143b1f4f147a65f310abeb4f46927c5d43b3bb7e4355d1f56108ef491fada64f3effe43241073409a924dd2d67e1f93e3dc9a3b95ea4c28007bdf466d78ae0c15dbd03469f8f7435e0ea059a7fe9ed00cf091f576c17ea9792c896ed93bfb36e19c66eca278"
+  ],
+  "project": {
+    "id": "67f656ee-fffd-4a8d-93b3-f7268c965730",
+    "name": "kaly",
+    "slug": "kaly",
+    "ownerAccount": {
+      "id": "2531934c-f96f-4931-a7ce-84dd99a2017f",
+      "name": "doclear"
+    }
+  },
+  "channel": "production",
+  "distribution": "STORE",
+  "buildProfile": "production",
+  "sdkVersion": "54.0.0",
+  "appVersion": "1.0.0",
+  "appBuildVersion": "2",
+  "runtimeVersion": "1.0.0",
+  "gitCommitHash": "4c307dd59d752ef79fe4b019924485fced4657cd",
+  "gitCommitMessage": "fix: regenerate package-lock.json for EAS build\n\nnpm ci failed on EAS because lock file was out of sync with package.json.\nMissing: react-native-nitro-modules, react-native-worklets, @react-native/metro-config, react-dom, scheduler, and others.\n\nCo-Authored-By: Claude Opus 4.6 (1M context) <noreply@anthropic.com>",
+  "priority": "NORMAL",
+  "createdAt": "2026-04-03T20:29:30.323Z",
+  "updatedAt": "2026-04-03T20:39:37.610Z",
+  "completedAt": "2026-04-03T20:39:30.827Z",
+  "expirationDate": "2026-05-03T20:29:30.381Z",
+  "isForIosSimulator": false,
+  "metrics": {
+    "buildWaitTime": 182,
+    "buildQueueTime": 587028,
+    "buildDuration": 9155
+  }
+}
