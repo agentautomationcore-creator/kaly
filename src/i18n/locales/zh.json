@@ -121,7 +121,10 @@
     "water": "饮水",
     "water_goal": "{{current}} / {{goal}} 杯",
     "add_water": "添加一杯",
-    "repeat_yesterday": "重复昨天的餐食"
+    "repeat_yesterday": "重复昨天的餐食",
+    "history_warning": "免费计划保留{{days}}天历史记录",
+    "upgrade": "升级",
+    "added_success": "已添加到日记"
   },
   "stats": {
     "title": "统计",

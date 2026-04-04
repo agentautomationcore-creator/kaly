@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, Pressable, Linking, AccessibilityInfo } from 'react-native';
+import { View, Text, Pressable, Linking, AccessibilityInfo, Modal, ScrollView } from 'react-native';
 import { useRouter } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useTranslation } from 'react-i18next';
@@ -7,18 +7,26 @@ import Animated, { FadeInDown, FadeInUp } from 'react-native-reanimated';
 import { useColors } from '../../src/lib/theme';
 import { Button } from '../../src/components/Button';
 import { StepIndicator } from '../../src/components/StepIndicator';
-import { FONT_SIZE, RADIUS, MIN_TOUCH } from '../../src/lib/constants';
+import { FONT_SIZE, RADIUS, SPACING, MIN_TOUCH } from '../../src/lib/constants';
 import { Ionicons } from '@expo/vector-icons';
+import { setLanguage, SUPPORTED_LANGUAGES } from '../../src/i18n';
 
 const PRIVACY_URL = 'https://kaly.app/privacy';
 const TERMS_URL = 'https://kaly.app/terms';
 
 export default function WelcomeScreen() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const colors = useColors();
   const router = useRouter();
   const [reduceMotion, setReduceMotion] = useState(false);
+  const [showLangPicker, setShowLangPicker] = useState(false);
   useEffect(() => { AccessibilityInfo.isReduceMotionEnabled().then(setReduceMotion); }, []);
+
+  const LANG_NAMES: Record<string, string> = {
+    en: 'English', fr: 'Français', ru: 'Русский', de: 'Deutsch',
+    es: 'Español', it: 'Italiano', ar: 'العربية', pt: 'Português',
+    tr: 'Türkçe', zh: '中文',
+  };
 
   const signals = [
     { icon: 'flash-outline' as const, text: t('welcome.signals.fast') },
@@ -28,6 +36,50 @@ export default function WelcomeScreen() {
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: colors.background, padding: 24 }}>
+      {/* Language picker globe icon */}
+      <Pressable
+        onPress={() => setShowLangPicker(true)}
+        style={{ position: 'absolute', top: 60, right: 24, zIndex: 10, minHeight: MIN_TOUCH, minWidth: MIN_TOUCH, justifyContent: 'center', alignItems: 'center' }}
+        accessibilityLabel={t('profile.language')}
+        accessibilityRole="button"
+      >
+        <Ionicons name="globe-outline" size={24} color={colors.textSecondary} />
+      </Pressable>
+
+      {/* Language picker modal */}
+      <Modal visible={showLangPicker} transparent animationType="fade" onRequestClose={() => setShowLangPicker(false)}>
+        <Pressable onPress={() => setShowLangPicker(false)} style={{ flex: 1, backgroundColor: 'rgba(0,0,0,0.5)', justifyContent: 'center', alignItems: 'center' }}>
+          <Pressable onPress={() => {}} style={{ backgroundColor: colors.card, borderRadius: RADIUS.lg, padding: SPACING.xl, width: '80%', maxHeight: '60%' }}>
+            <Text style={{ fontSize: FONT_SIZE.lg, fontWeight: '700', color: colors.text, marginBottom: SPACING.lg, textAlign: 'center' }}>
+              {t('profile.language')}
+            </Text>
+            <ScrollView>
+              {SUPPORTED_LANGUAGES.map((lang) => (
+                <Pressable
+                  key={lang}
+                  onPress={() => { setLanguage(lang); setShowLangPicker(false); }}
+                  accessibilityRole="button"
+                  accessibilityLabel={LANG_NAMES[lang]}
+                  style={{
+                    minHeight: MIN_TOUCH,
+                    paddingVertical: SPACING.md,
+                    paddingHorizontal: SPACING.lg,
+                    borderRadius: RADIUS.md,
+                    backgroundColor: i18n.language === lang ? colors.primaryLight : 'transparent',
+                    marginBottom: 4,
+                    justifyContent: 'center',
+                  }}
+                >
+                  <Text style={{ fontSize: FONT_SIZE.md, fontWeight: i18n.language === lang ? '600' : '400', color: i18n.language === lang ? colors.primary : colors.text }}>
+                    {LANG_NAMES[lang] || lang}
+                  </Text>
+                </Pressable>
+              ))}
+            </ScrollView>
+          </Pressable>
+        </Pressable>
+      </Modal>
+
       <StepIndicator totalSteps={4} currentStep={1} />
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
         {/* Logo placeholder */}

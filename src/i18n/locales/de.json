@@ -121,7 +121,10 @@
     "water": "Wasser",
     "water_goal": "{{current}} / {{goal}} Gläser",
     "add_water": "Glas hinzufügen",
-    "repeat_yesterday": "Gestrige Mahlzeit wiederholen"
+    "repeat_yesterday": "Gestrige Mahlzeit wiederholen",
+    "history_warning": "Gratis-Plan speichert {{days}} Tage Verlauf",
+    "upgrade": "Upgraden",
+    "added_success": "Zum Tagebuch hinzugefügt"
   },
   "stats": {
     "title": "Statistik",

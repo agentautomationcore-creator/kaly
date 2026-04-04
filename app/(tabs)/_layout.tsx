@@ -1,39 +1,75 @@
 import React from 'react';
 import { Tabs } from 'expo-router';
-import { Platform, View, Pressable } from 'react-native';
+import { Platform, View, Pressable, Text } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { Ionicons } from '@expo/vector-icons';
+import { useQuery } from '@tanstack/react-query';
 import { useColors } from '../../src/lib/theme';
 import { FONT_SIZE } from '../../src/lib/constants';
 import { useRouter } from 'expo-router';
+import { supabase } from '../../src/lib/supabase';
+import { useAuthStore } from '../../src/stores/authStore';
 
 function ScanFAB() {
   const { t } = useTranslation();
   const colors = useColors();
   const router = useRouter();
+  const user = useAuthStore((s) => s.user);
+
+  const { data: scanLimit } = useQuery({
+    queryKey: ['scanLimit'],
+    queryFn: async () => {
+      if (!user) return null;
+      const { data } = await supabase.rpc('check_daily_scan_limit', { p_user_id: user.id });
+      return data as { allowed: boolean; used: number; limit: number; plan: string } | null;
+    },
+    staleTime: 60000,
+    enabled: !!user,
+  });
+
+  const showBadge = scanLimit && scanLimit.plan !== 'pro';
 
   return (
-    <Pressable
-      onPress={() => router.push('/(tabs)/scan')}
-      style={{
-        width: 56,
-        height: 56,
-        borderRadius: 28,
-        backgroundColor: colors.primary,
-        justifyContent: 'center',
-        alignItems: 'center',
-        marginBottom: Platform.OS === 'ios' ? 20 : 8,
-        shadowColor: colors.primary,
-        shadowOffset: { width: 0, height: 4 },
-        shadowOpacity: 0.3,
-        shadowRadius: 8,
-        elevation: 8,
-      }}
-      accessibilityRole="button"
-      accessibilityLabel={t('scan.scan_food')}
-    >
-      <Ionicons name="camera" size={28} color={colors.card} />
-    </Pressable>
+    <View>
+      <Pressable
+        onPress={() => router.push('/(tabs)/scan')}
+        style={{
+          width: 56,
+          height: 56,
+          borderRadius: 28,
+          backgroundColor: colors.primary,
+          justifyContent: 'center',
+          alignItems: 'center',
+          marginBottom: Platform.OS === 'ios' ? 20 : 8,
+          shadowColor: colors.primary,
+          shadowOffset: { width: 0, height: 4 },
+          shadowOpacity: 0.3,
+          shadowRadius: 8,
+          elevation: 8,
+        }}
+        accessibilityRole="button"
+        accessibilityLabel={t('scan.scan_food')}
+      >
+        <Ionicons name="camera" size={28} color={colors.card} />
+      </Pressable>
+      {showBadge && (
+        <View style={{
+          position: 'absolute',
+          top: -4,
+          end: -8,
+          backgroundColor: scanLimit.used >= scanLimit.limit ? colors.danger : colors.success,
+          borderRadius: 10,
+          paddingHorizontal: 6,
+          paddingVertical: 2,
+          minWidth: 28,
+          alignItems: 'center',
+        }}>
+          <Text style={{ fontSize: 10, fontWeight: '700', color: '#FFFFFF' }}>
+            {scanLimit.limit - scanLimit.used}/{scanLimit.limit}
+          </Text>
+        </View>
+      )}
+    </View>
   );
 }
 

@@ -2,6 +2,7 @@ import React from 'react';
 import { View, ScrollView, Text, Pressable } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { useRouter } from 'expo-router';
+import { Ionicons } from '@expo/vector-icons';
 import { useColors } from '../../../lib/theme';
 import { useDiary } from '../hooks/useDiary';
 import { useDiaryStore } from '../store/diaryStore';
@@ -51,6 +52,23 @@ export function DailyDiary({ date: dateProp }: DailyDiaryProps) {
       showsVerticalScrollIndicator={false}
     >
       <DateNavigator date={currentDate} onDateChange={setSelectedDate} />
+
+      {/* History limit warning for free tier */}
+      {profile?.plan !== 'pro' && (() => {
+        const created = profile?.created_at ? new Date(profile.created_at) : new Date();
+        const daysUsed = Math.floor((Date.now() - created.getTime()) / 86400000);
+        return daysUsed >= 5 ? (
+          <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8, marginHorizontal: 16, marginBottom: 8, padding: 12, backgroundColor: colors.warningLight, borderRadius: RADIUS.md }}>
+            <Ionicons name="information-circle-outline" size={20} color={colors.warning} />
+            <Text style={{ flex: 1, fontSize: FONT_SIZE.sm, color: colors.textSecondary }}>
+              {t('diary.history_warning', { days: 7 })}
+            </Text>
+            <Pressable onPress={() => router.push('/paywall')} accessibilityRole="button">
+              <Text style={{ fontSize: FONT_SIZE.sm, color: colors.primary, fontWeight: '600' }}>{t('diary.upgrade')}</Text>
+            </Pressable>
+          </View>
+        ) : null;
+      })()}
 
       <DailyTotalsBar
         calories={totalCalories}

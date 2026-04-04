@@ -121,7 +121,10 @@
     "water": "Вода",
     "water_goal": "{{current}} / {{goal}} стаканов",
     "add_water": "Добавить стакан",
-    "repeat_yesterday": "Повторить вчерашнее"
+    "repeat_yesterday": "Повторить вчерашнее",
+    "history_warning": "Бесплатный план хранит {{days}} дней истории",
+    "upgrade": "Улучшить",
+    "added_success": "Добавлено в дневник"
   },
   "stats": {
     "title": "Статистика",

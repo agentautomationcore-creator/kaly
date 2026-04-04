@@ -121,7 +121,10 @@
     "water": "الماء",
     "water_goal": "{{current}} / {{goal}} أكواب",
     "add_water": "أضف كوب",
-    "repeat_yesterday": "تكرار وجبة الأمس"
+    "repeat_yesterday": "تكرار وجبة الأمس",
+    "history_warning": "الخطة المجانية تحتفظ بـ {{days}} أيام من السجل",
+    "upgrade": "ترقية",
+    "added_success": "تمت الإضافة"
   },
   "stats": {
     "title": "الإحصائيات",

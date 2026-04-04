@@ -121,7 +121,10 @@
     "water": "Water",
     "water_goal": "{{current}} / {{goal}} glasses",
     "add_water": "Add glass",
-    "repeat_yesterday": "Repeat yesterday's meal"
+    "repeat_yesterday": "Repeat yesterday's meal",
+    "history_warning": "Free plan keeps {{days}} days of history",
+    "upgrade": "Upgrade",
+    "added_success": "Added to diary"
   },
   "stats": {
     "title": "Statistics",

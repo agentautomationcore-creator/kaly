@@ -67,6 +67,7 @@ export function GoalEditor({ profile }: GoalEditorProps) {
           {GOALS.map((g) => (
             <Pressable
               key={g}
+              disabled={isPending}
               onPress={() => setSelected(g)}
               accessibilityRole="button"
               style={{

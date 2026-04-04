@@ -121,7 +121,10 @@
     "water": "Su",
     "water_goal": "{{current}} / {{goal}} bardak",
     "add_water": "Bardak ekle",
-    "repeat_yesterday": "Dünkü öğünü tekrarla"
+    "repeat_yesterday": "Dünkü öğünü tekrarla",
+    "history_warning": "Ücretsiz plan {{days}} günlük geçmiş saklar",
+    "upgrade": "Yükselt",
+    "added_success": "Günlüğe eklendi"
   },
   "stats": {
     "title": "İstatistikler",

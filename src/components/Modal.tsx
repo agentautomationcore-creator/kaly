@@ -64,7 +64,7 @@ export function Modal({ visible, onClose, title, children, style }: ModalProps) 
           </Pressable>
 
           {title ? (
-            <Text style={{ fontSize: FONT_SIZE.lg, fontWeight: '700', color: colors.text, marginBottom: 16, paddingRight: 40 }}>
+            <Text style={{ fontSize: FONT_SIZE.lg, fontWeight: '700', color: colors.text, marginBottom: 16, paddingEnd: 40 }}>
               {title}
             </Text>
           ) : null}

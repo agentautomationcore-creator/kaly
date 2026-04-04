@@ -121,7 +121,10 @@
     "water": "Água",
     "water_goal": "{{current}} / {{goal}} copos",
     "add_water": "Adicionar copo",
-    "repeat_yesterday": "Repetir refeição de ontem"
+    "repeat_yesterday": "Repetir refeição de ontem",
+    "history_warning": "Plano gratuito guarda {{days}} dias de histórico",
+    "upgrade": "Atualizar",
+    "added_success": "Adicionado ao diário"
   },
   "stats": {
     "title": "Estatísticas",

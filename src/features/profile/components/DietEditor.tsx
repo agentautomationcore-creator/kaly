@@ -53,6 +53,7 @@ export function DietEditor({ profile }: DietEditorProps) {
           {DIETS.map((d) => (
             <Pressable
               key={d}
+              disabled={isPending}
               onPress={() => setDiet(d)}
               accessibilityRole="button"
               style={{
@@ -77,7 +78,8 @@ export function DietEditor({ profile }: DietEditorProps) {
             return (
               <Pressable
                 key={a}
-                onPress={() => toggleAllergy(a)}
+                disabled={isPending}
+              onPress={() => toggleAllergy(a)}
                 accessibilityRole="switch"
                 style={{
                   paddingHorizontal: 14,
