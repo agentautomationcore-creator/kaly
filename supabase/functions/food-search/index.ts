@@ -86,16 +86,22 @@ serve(async (req) => {
       nutriments?: Record<string, number>;
     }
 
+    const clamp = (val: unknown, min: number, max: number): number => {
+      const n = Number(val);
+      if (isNaN(n)) return 0;
+      return Math.max(min, Math.min(max, n));
+    };
+
     const products = (data.products || []).map((p: OffProduct) => ({
       name: p.product_name || 'Unknown',
       serving_size: p.serving_size || '100g',
       image_url: p.image_front_small_url || null,
       nutrition_per_100g: {
-        calories: p.nutriments?.['energy-kcal_100g'] || 0,
-        protein_g: p.nutriments?.proteins_100g || 0,
-        fat_g: p.nutriments?.fat_100g || 0,
-        carbs_g: p.nutriments?.carbohydrates_100g || 0,
-        fiber_g: p.nutriments?.fiber_100g || 0,
+        calories: clamp(p.nutriments?.['energy-kcal_100g'], 0, 1000),
+        protein_g: clamp(p.nutriments?.proteins_100g, 0, 100),
+        fat_g: clamp(p.nutriments?.fat_100g, 0, 100),
+        carbs_g: clamp(p.nutriments?.carbohydrates_100g, 0, 100),
+        fiber_g: clamp(p.nutriments?.fiber_100g, 0, 100),
       },
     }));
 

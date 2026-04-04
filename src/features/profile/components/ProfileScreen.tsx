@@ -104,13 +104,24 @@ export function ProfileScreen() {
               const timeout = setTimeout(() => controller.abort(), 30000);
               let json: string;
               try {
-                const res = await fetch(
+                const makeReq = async (token: string) => fetch(
                   `${process.env.EXPO_PUBLIC_SUPABASE_URL}/functions/v1/export-data`,
                   {
-                    headers: { Authorization: `Bearer ${session.access_token}` },
+                    headers: { Authorization: `Bearer ${token}` },
                     signal: controller.signal,
                   }
                 );
+
+                let res = await makeReq(session.access_token);
+
+                if (res.status === 401) {
+                  await supabase.auth.refreshSession();
+                  const { data: { session: refreshed } } = await supabase.auth.getSession();
+                  if (refreshed) {
+                    res = await makeReq(refreshed.access_token);
+                  }
+                }
+
                 if (!res.ok) throw new Error('Export failed');
                 json = await res.text();
               } finally {

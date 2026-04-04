@@ -156,6 +156,14 @@ export default function DietScreen() {
 
       <View style={{ padding: 24, paddingBottom: 40 }}>
         <Button title={t('onboarding.done')} onPress={handleDone} loading={loading} />
+        <Pressable
+          onPress={handleDone}
+          style={{ alignItems: 'center', marginTop: 12, minHeight: 44, justifyContent: 'center' }}
+          accessibilityRole="button"
+          accessibilityLabel={t('onboarding.skip')}
+        >
+          <Text style={{ fontSize: 14, color: colors.textSecondary }}>{t('onboarding.skip')}</Text>
+        </Pressable>
       </View>
     </SafeAreaView>
   );

@@ -87,7 +87,9 @@
     "flip_camera": "Capovolgi fotocamera",
     "ingredient_name": "Nome ingrediente",
     "ingredient_grams": "Grammi",
-    "no_ingredients": "Impossibile identificare gli ingredienti. Riprova o inserisci manualmente."
+    "no_ingredients": "Impossibile identificare gli ingredienti. Riprova o inserisci manualmente.",
+    "not_food_detected": "Non è cibo",
+    "not_food_hint": "Punta la fotocamera verso un piatto di cibo"
   },
   "diary": {
     "title": "Oggi",
@@ -250,7 +252,8 @@
     "custom_portion": "Personalizzato (grammi)",
     "scan_again": "Scansiona di nuovo",
     "enter_manually": "Inserisci manualmente",
-    "scan_success": "Codice a barre scansionato con successo"
+    "scan_success": "Codice a barre scansionato con successo",
+    "product_name": "Nome del prodotto"
   },
   "common": {
     "loading": "Caricamento...",
@@ -278,11 +281,11 @@
   },
   "notifications": {
     "breakfast_title": "Buongiorno!",
-    "breakfast_body": "Non dimenticare di registrare la colazione",
+    "breakfast_body": "Pronto a registrare la colazione?",
     "lunch_title": "Ora di pranzo!",
     "lunch_body": "Scansiona il pranzo per restare in pista",
     "dinner_title": "Ora di cena!",
-    "dinner_body": "Registra la cena prima di dimenticare",
+    "dinner_body": "È ora di registrare la cena!",
     "water_body": "È ora di bere un bicchiere d'acqua!"
   },
   "units": {
@@ -298,5 +301,9 @@
     "toggle_units": "Cambia unità",
     "metric": "Metrico (kg, cm)",
     "imperial": "Imperiale (lb, ft)"
+  },
+  "validation": {
+    "invalid_weight": "Il peso deve essere tra 20 e 300 kg",
+    "invalid_age": "L'età deve essere tra 12 e 120"
   }
 }

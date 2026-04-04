@@ -55,13 +55,14 @@ export function ScanScreen() {
 
   if (error && !result) {
     const isRateLimit = error === 'RATE_LIMIT';
+    const isNotFood = error === 'NOT_FOOD' || (typeof error === 'string' && error.includes('not_food'));
     return (
       <View style={{ flex: 1, backgroundColor: colors.background, justifyContent: 'center', alignItems: 'center', padding: 24 }}>
         <Text style={{ color: colors.danger, fontSize: 18, fontWeight: '600', marginBottom: 12 }}>
-          {isRateLimit ? t('scan.scan_limit', { limit: 3 }) : t('errors.analysis_failed')}
+          {isRateLimit ? t('scan.scan_limit', { limit: 3 }) : isNotFood ? t('scan.not_food_detected') : t('errors.analysis_failed')}
         </Text>
         <Text style={{ color: colors.textSecondary, textAlign: 'center', marginBottom: 24 }}>
-          {isRateLimit ? t('scan.upgrade_for_more') : t('errors.generic')}
+          {isRateLimit ? t('scan.upgrade_for_more') : isNotFood ? t('scan.not_food_hint') : t('errors.generic')}
         </Text>
         <View style={{ flexDirection: 'row', gap: 12 }}>
           {!isRateLimit && photo && (

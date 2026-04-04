@@ -90,7 +90,7 @@ export interface NutritionProfile {
   notifications: boolean;
   water_goal_ml: number;
   onboarding_done: boolean;
-  trial_start_date: string;
+  free_tier_start: string;
   plan: 'free' | 'pro';
   created_at: string;
   updated_at: string;

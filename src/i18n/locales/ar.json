@@ -87,7 +87,9 @@
     "flip_camera": "قلب الكاميرا",
     "ingredient_name": "اسم المكون",
     "ingredient_grams": "غرامات",
-    "no_ingredients": "تعذر تحديد المكونات. حاول مرة أخرى أو أدخلها يدوياً."
+    "no_ingredients": "تعذر تحديد المكونات. حاول مرة أخرى أو أدخلها يدوياً.",
+    "not_food_detected": "ليس طعاماً",
+    "not_food_hint": "وجّه الكاميرا إلى طبق طعام"
   },
   "diary": {
     "title": "اليوم",
@@ -250,7 +252,8 @@
     "custom_portion": "مخصص (غرام)",
     "scan_again": "مسح مرة أخرى",
     "enter_manually": "إدخال يدوي",
-    "scan_success": "تم مسح الباركود بنجاح"
+    "scan_success": "تم مسح الباركود بنجاح",
+    "product_name": "اسم المنتج"
   },
   "common": {
     "loading": "جارٍ التحميل...",
@@ -278,11 +281,11 @@
   },
   "notifications": {
     "breakfast_title": "صباح الخير!",
-    "breakfast_body": "لا تنسَ تسجيل فطورك",
+    "breakfast_body": "مستعد لتسجيل الفطور؟",
     "lunch_title": "وقت الغداء!",
     "lunch_body": "امسح غداءك لتبقى على المسار الصحيح",
     "dinner_title": "وقت العشاء!",
-    "dinner_body": "سجّل عشاءك قبل أن تنسى",
+    "dinner_body": "حان وقت تسجيل العشاء!",
     "water_body": "حان وقت كوب من الماء!"
   },
   "units": {
@@ -298,5 +301,9 @@
     "toggle_units": "تبديل الوحدات",
     "metric": "متري (كغ، سم)",
     "imperial": "إمبراطوري (رطل، قدم)"
+  },
+  "validation": {
+    "invalid_weight": "يجب أن يكون الوزن بين 20 و300 كغ",
+    "invalid_age": "يجب أن يكون العمر بين 12 و120"
   }
 }

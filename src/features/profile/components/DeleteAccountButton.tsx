@@ -31,17 +31,27 @@ export function DeleteAccountButton() {
             const controller = new AbortController();
             const timeout = setTimeout(() => controller.abort(), 30000);
             try {
-              const response = await fetch(
+              const makeRequest = async (token: string) => fetch(
                 `${process.env.EXPO_PUBLIC_SUPABASE_URL}/functions/v1/delete-account`,
                 {
                   method: 'POST',
                   headers: {
-                    Authorization: `Bearer ${session.access_token}`,
+                    Authorization: `Bearer ${token}`,
                     'Content-Type': 'application/json',
                   },
                   signal: controller.signal,
                 }
               );
+
+              let response = await makeRequest(session.access_token);
+
+              if (response.status === 401) {
+                await supabase.auth.refreshSession();
+                const { data: { session: refreshed } } = await supabase.auth.getSession();
+                if (refreshed) {
+                  response = await makeRequest(refreshed.access_token);
+                }
+              }
 
               if (!response.ok) throw new Error('Delete failed');
             } finally {

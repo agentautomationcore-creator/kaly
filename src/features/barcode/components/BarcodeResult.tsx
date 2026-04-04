@@ -34,6 +34,8 @@ export function BarcodeResult({ product, onDone, onScanAgain }: BarcodeResultPro
   const [customPortion, setCustomPortion] = useState('');
   const [mealType, setMealType] = useState<MealType>('lunch');
   const [saving, setSaving] = useState(false);
+  const [productName, setProductName] = useState(product.name);
+  const isManual = product.source === 'manual';
 
   const ratio = portionG / 100;
   const cal = Math.round(product.calories100g * ratio);
@@ -52,8 +54,8 @@ export function BarcodeResult({ product, onDone, onScanAgain }: BarcodeResultPro
         user_id: user.id,
         logged_at: today,
         meal_type: mealType,
-        food_name: product.name,
-        food_name_en: product.name,
+        food_name: productName || product.name,
+        food_name_en: productName || product.name,
         food_items: [{
           name: product.name,
           name_en: product.name,
@@ -101,9 +103,20 @@ export function BarcodeResult({ product, onDone, onScanAgain }: BarcodeResultPro
 
         {/* Product info */}
         <Card style={{ marginBottom: 16 }}>
-          <Text style={{ fontSize: 20, fontWeight: '700', color: colors.text, marginBottom: 8 }}>
-            {product.name}
-          </Text>
+          {isManual ? (
+            <TextInput
+              value={productName}
+              onChangeText={setProductName}
+              placeholder={t('barcode.product_name')}
+              placeholderTextColor={colors.textSecondary}
+              accessibilityLabel={t('barcode.product_name')}
+              style={{ fontSize: 20, fontWeight: '700', color: colors.text, marginBottom: 8, borderBottomWidth: 1, borderColor: colors.primary, paddingBottom: 4 }}
+            />
+          ) : (
+            <Text style={{ fontSize: 20, fontWeight: '700', color: colors.text, marginBottom: 8 }}>
+              {product.name}
+            </Text>
+          )}
 
           {/* Big calorie number */}
           <View style={{ alignItems: 'center', marginBottom: 16 }}>

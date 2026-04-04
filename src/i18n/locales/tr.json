@@ -87,7 +87,9 @@
     "flip_camera": "Kamerayı çevir",
     "ingredient_name": "Malzeme adı",
     "ingredient_grams": "Gram",
-    "no_ingredients": "Malzemeler tanımlanamadı. Tekrar deneyin veya elle girin."
+    "no_ingredients": "Malzemeler tanımlanamadı. Tekrar deneyin veya elle girin.",
+    "not_food_detected": "Yiyecek değil",
+    "not_food_hint": "Kamerayı bir yemek tabağına doğrultun"
   },
   "diary": {
     "title": "Bugün",
@@ -250,7 +252,8 @@
     "custom_portion": "Özel (gram)",
     "scan_again": "Tekrar tara",
     "enter_manually": "Manuel giriş",
-    "scan_success": "Barkod başarıyla tarandı"
+    "scan_success": "Barkod başarıyla tarandı",
+    "product_name": "Ürün adı"
   },
   "common": {
     "loading": "Yükleniyor...",
@@ -278,11 +281,11 @@
   },
   "notifications": {
     "breakfast_title": "Günaydın!",
-    "breakfast_body": "Kahvaltını kaydetmeyi unutma",
+    "breakfast_body": "Kahvaltıyı kaydetmeye hazır mısın?",
     "lunch_title": "Öğle yemeği vakti!",
     "lunch_body": "Öğle yemeğini tara, hedefinde kal",
     "dinner_title": "Akşam yemeği vakti!",
-    "dinner_body": "Unutmadan akşam yemeğini kaydet",
+    "dinner_body": "Akşam yemeğini kaydetme zamanı!",
     "water_body": "Bir bardak su zamanı!"
   },
   "units": {
@@ -298,5 +301,9 @@
     "toggle_units": "Birimleri değiştir",
     "metric": "Metrik (kg, cm)",
     "imperial": "İmparatorluk (lb, ft)"
+  },
+  "validation": {
+    "invalid_weight": "Ağırlık 20 ile 300 kg arasında olmalıdır",
+    "invalid_age": "Yaş 12 ile 120 arasında olmalıdır"
   }
 }

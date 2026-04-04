@@ -87,7 +87,9 @@
     "flip_camera": "切换摄像头",
     "ingredient_name": "食材名称",
     "ingredient_grams": "克数",
-    "no_ingredients": "无法识别食材。请重试或手动输入。"
+    "no_ingredients": "无法识别食材。请重试或手动输入。",
+    "not_food_detected": "不是食物",
+    "not_food_hint": "将相机对准一盘食物"
   },
   "diary": {
     "title": "今天",
@@ -250,7 +252,8 @@
     "custom_portion": "自定义（克）",
     "scan_again": "重新扫描",
     "enter_manually": "手动输入",
-    "scan_success": "条形码扫描成功"
+    "scan_success": "条形码扫描成功",
+    "product_name": "产品名称"
   },
   "common": {
     "loading": "加载中...",
@@ -278,11 +281,11 @@
   },
   "notifications": {
     "breakfast_title": "早上好！",
-    "breakfast_body": "别忘了记录早餐",
+    "breakfast_body": "准备好记录早餐了吗？",
     "lunch_title": "午餐时间！",
     "lunch_body": "扫描午餐，保持健康目标",
     "dinner_title": "晚餐时间！",
-    "dinner_body": "趁还记得，记录一下晚餐",
+    "dinner_body": "是时候记录晚餐了！",
     "water_body": "该喝一杯水了！"
   },
   "units": {
@@ -298,5 +301,9 @@
     "toggle_units": "切换单位",
     "metric": "公制 (kg, cm)",
     "imperial": "英制 (磅, 英尺)"
+  },
+  "validation": {
+    "invalid_weight": "体重必须在20到300公斤之间",
+    "invalid_age": "年龄必须在12到120岁之间"
   }
 }

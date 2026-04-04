@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, Pressable } from 'react-native';
+import { View, Text, TextInput, Pressable, Alert } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { Ionicons } from '@expo/vector-icons';
 import { useColors } from '../../../lib/theme';
@@ -27,14 +27,27 @@ export function BodyEditor({ profile }: BodyEditorProps) {
   const units = useSettingsStore((s) => s.units);
 
   const handleSave = () => {
-    const h = parseInt(height) || undefined;
-    const w = parseFloat(weight) || undefined;
-    const a = parseInt(age) || undefined;
+    const w = parseFloat(weight);
+    const a = parseInt(age);
+    const h = parseInt(height);
 
-    const updates: Partial<NutritionProfile> = { height_cm: h, weight_kg: w, age: a };
+    if (!isNaN(w) && (w < 20 || w > 300)) {
+      Alert.alert(t('validation.invalid_weight'));
+      return;
+    }
+    if (!isNaN(a) && (a < 12 || a > 120)) {
+      Alert.alert(t('validation.invalid_age'));
+      return;
+    }
+
+    const updates: Partial<NutritionProfile> = {
+      height_cm: isNaN(h) ? undefined : h,
+      weight_kg: isNaN(w) ? undefined : w,
+      age: isNaN(a) ? undefined : a,
+    };
 
     // Recalculate TDEE
-    if (h && w && a && profile?.gender && profile?.activity_level) {
+    if (!isNaN(h) && !isNaN(w) && !isNaN(a) && profile?.gender && profile?.activity_level) {
       const tdee = calculateTDEE(w, h, a, profile.gender as 'male' | 'female', profile.activity_level as Parameters<typeof calculateTDEE>[4]);
       const goalMultiplier = profile.goal === 'lose' ? 0.8 : profile.goal === 'gain' ? 1.15 : 1;
       updates.daily_calories = Math.round(tdee * goalMultiplier);

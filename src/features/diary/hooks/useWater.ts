@@ -5,6 +5,7 @@ import { track } from '../../../lib/analytics';
 import type { WaterEntry } from '../types';
 
 const GLASS_ML = 250;
+const DAILY_MAX_ML = 10000;
 
 export function useWater(date: string) {
   const qc = useQueryClient();
@@ -31,6 +32,7 @@ export function useWater(date: string) {
   const addGlass = useMutation({
     mutationFn: async () => {
       if (!user) throw new Error('Not authenticated');
+      if (totalMl + GLASS_ML > DAILY_MAX_ML) return;
 
       const { error } = await supabase.from('water_log').insert({
         user_id: user.id,

@@ -87,7 +87,9 @@
     "scan_food": "Scan food",
     "flip_camera": "Flip camera",
     "ingredient_name": "Ingredient name",
-    "ingredient_grams": "Grams"
+    "ingredient_grams": "Grams",
+    "not_food_detected": "Not food",
+    "not_food_hint": "Point the camera at a plate of food or a meal"
   },
   "diary": {
     "title": "Today",
@@ -250,7 +252,8 @@
     "result_title": "Product found",
     "portion": "Portion size",
     "custom_portion": "Custom (grams)",
-    "scan_success": "Barcode scanned successfully"
+    "scan_success": "Barcode scanned successfully",
+    "product_name": "Product name"
   },
   "common": {
     "loading": "Loading...",
@@ -278,11 +281,11 @@
   },
   "notifications": {
     "breakfast_title": "Good morning!",
-    "breakfast_body": "Don't forget to log your breakfast",
+    "breakfast_body": "Ready to log breakfast?",
     "lunch_title": "Lunch time!",
     "lunch_body": "Scan your lunch to stay on track",
     "dinner_title": "Dinner time!",
-    "dinner_body": "Log your dinner before you forget",
+    "dinner_body": "Time to log dinner!",
     "water_body": "Time for a glass of water!"
   },
   "units": {
@@ -298,5 +301,9 @@
     "toggle_units": "Toggle units",
     "metric": "Metric (kg, cm)",
     "imperial": "Imperial (lbs, ft)"
+  },
+  "validation": {
+    "invalid_weight": "Weight must be between 20 and 300 kg",
+    "invalid_age": "Age must be between 12 and 120"
   }
 }
