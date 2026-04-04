@@ -72,6 +72,7 @@ export const RecentMeals = React.memo(function RecentMeals({ date }: RecentMeals
             justifyContent: 'space-between',
             alignItems: 'center',
             paddingVertical: 10,
+            minHeight: 44,
             borderBottomWidth: 0.5,
             borderBottomColor: colors.border,
           }}

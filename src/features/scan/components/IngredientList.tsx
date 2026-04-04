@@ -180,6 +180,7 @@ function EditableIngredientRow({ item, multiplier, colors, isHidden, onUpdate, o
             onBlur={handleNameDone}
             onSubmitEditing={handleNameDone}
             autoFocus
+            accessibilityLabel={t('scan.ingredient_name')}
             style={{ fontSize: FONT_SIZE.sm, fontWeight: '500', color: colors.text, padding: 0, borderBottomWidth: 1, borderColor: colors.primary }}
           />
         ) : (
@@ -198,10 +199,11 @@ function EditableIngredientRow({ item, multiplier, colors, isHidden, onUpdate, o
             onSubmitEditing={handleGramsDone}
             keyboardType="numeric"
             autoFocus
+            accessibilityLabel={t('scan.ingredient_grams')}
             style={{ fontSize: 11, color: colors.textSecondary, padding: 0, borderBottomWidth: 1, borderColor: colors.primary, width: 60 }}
           />
         ) : (
-          <Pressable onPress={() => { setGramsVal(String(Math.round(item.g))); setEditingGrams(true); }}>
+          <Pressable onPress={() => { setGramsVal(String(Math.round(item.g))); setEditingGrams(true); }} style={{ minHeight: 44, paddingHorizontal: 8, justifyContent: 'center' }}>
             <Text style={{ fontSize: 11, color: colors.textSecondary }}>
               {formatNumber(Math.round(item.g * multiplier))}g
             </Text>

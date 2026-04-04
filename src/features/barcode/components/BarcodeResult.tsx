@@ -158,6 +158,7 @@ export function BarcodeResult({ product, onDone, onScanAgain }: BarcodeResultPro
               }}
               placeholder={t('barcode.custom_portion')}
               placeholderTextColor={colors.textSecondary}
+              accessibilityLabel={t('barcode.custom_portion')}
               keyboardType="numeric"
               style={{
                 flex: 1,

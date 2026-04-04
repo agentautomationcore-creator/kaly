@@ -83,7 +83,9 @@
     "add_item": "Añadir ingrediente",
     "open_settings": "Abrir Ajustes",
     "scan_food": "Escanear",
-    "flip_camera": "Voltear cámara"
+    "flip_camera": "Voltear cámara",
+    "ingredient_name": "Nombre del ingrediente",
+    "ingredient_grams": "Gramos"
   },
   "diary": {
     "title": "Hoy",
@@ -244,7 +246,8 @@
     "portion": "Tamaño de porción",
     "custom_portion": "Personalizado (gramos)",
     "scan_again": "Escanear de nuevo",
-    "enter_manually": "Introducir manualmente"
+    "enter_manually": "Introducir manualmente",
+    "scan_success": "Código de barras escaneado con éxito"
   },
   "common": {
     "loading": "Cargando...",
@@ -260,7 +263,8 @@
     "ml": "ml",
     "protein_short": "P",
     "carbs_short": "C",
-    "fat_short": "F"
+    "fat_short": "F",
+    "close_modal": "Cerrar"
   },
   "errors": {
     "analysis_failed": "El análisis falló. Por favor, inténtalo de nuevo.",

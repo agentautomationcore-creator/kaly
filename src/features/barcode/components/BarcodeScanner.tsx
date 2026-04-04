@@ -1,5 +1,5 @@
 import React, { useState, useRef, useCallback } from 'react';
-import { View, Text, Pressable, Alert, ActivityIndicator, Linking } from 'react-native';
+import { View, Text, Pressable, Alert, ActivityIndicator, Linking, AccessibilityInfo } from 'react-native';
 import { useRouter } from 'expo-router';
 import { useTranslation } from 'react-i18next';
 import { CameraView, useCameraPermissions } from 'expo-camera';
@@ -34,6 +34,7 @@ export function BarcodeScanner() {
 
     if (found) {
       setProduct(found);
+      AccessibilityInfo.announceForAccessibility(t('barcode.scan_success'));
       track('scan_food', { method: 'barcode' });
     } else {
       Alert.alert(

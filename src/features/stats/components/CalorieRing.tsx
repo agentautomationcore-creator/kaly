@@ -1,5 +1,5 @@
-import React from 'react';
-import { View, Text } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, Text, AccessibilityInfo } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import Svg, { Circle } from 'react-native-svg';
 import Animated, { useSharedValue, useAnimatedProps, withTiming, cancelAnimation } from 'react-native-reanimated';
@@ -17,6 +17,11 @@ interface CalorieRingProps {
 export const CalorieRing = React.memo(function CalorieRing({ current, goal, size = 160 }: CalorieRingProps) {
   const { t } = useTranslation();
   const colors = useColors();
+  const [reduceMotion, setReduceMotion] = useState(false);
+  useEffect(() => {
+    AccessibilityInfo.isReduceMotionEnabled().then(setReduceMotion);
+  }, []);
+
   const strokeWidth = 12;
   const radius = (size - strokeWidth) / 2;
   const circumference = 2 * Math.PI * radius;
@@ -24,11 +29,15 @@ export const CalorieRing = React.memo(function CalorieRing({ current, goal, size
 
   const progress = useSharedValue(0);
   React.useEffect(() => {
-    progress.value = withTiming(percentage, { duration: 800 });
+    if (reduceMotion) {
+      progress.value = percentage;
+    } else {
+      progress.value = withTiming(percentage, { duration: 800 });
+    }
     return () => {
       cancelAnimation(progress);
     };
-  }, [percentage]);
+  }, [percentage, reduceMotion]);
 
   const animatedProps = useAnimatedProps(() => ({
     strokeDashoffset: circumference * (1 - progress.value),

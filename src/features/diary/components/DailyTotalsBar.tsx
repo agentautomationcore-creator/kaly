@@ -21,7 +21,7 @@ export function DailyTotalsBar({ calories, protein, carbs, fat, calorieGoal = 20
   const remaining = calorieGoal - calories;
 
   // Neutral color for "over" text — no guilt-tripping
-  const overColor = remaining >= 0 ? colors.success : '#94A3B8';
+  const overColor = remaining >= 0 ? colors.success : '#64748B';
 
   return (
     <Card style={{ marginHorizontal: 16, marginBottom: 16 }}>

@@ -59,6 +59,7 @@ export function MealEditModal({ visible, onClose, diaryEntryId }: MealEditModalP
                 onPress={() => setType(ft)}
                 style={{
                   padding: 12,
+                  minHeight: 44,
                   borderRadius: RADIUS.md,
                   backgroundColor: type === ft ? colors.primaryLight : colors.surface,
                   borderWidth: 1.5,

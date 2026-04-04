@@ -72,6 +72,7 @@ export default function RegisterScreen() {
           onChangeText={setEmail}
           placeholder={t('auth.email')}
           placeholderTextColor={colors.textSecondary}
+          accessibilityLabel={t('auth.email')}
           keyboardType="email-address"
           autoCapitalize="none"
           autoCorrect={false}
@@ -90,6 +91,7 @@ export default function RegisterScreen() {
           onChangeText={setPassword}
           placeholder={t('auth.password')}
           placeholderTextColor={colors.textSecondary}
+          accessibilityLabel={t('auth.password')}
           secureTextEntry
           style={{
             backgroundColor: colors.card,
@@ -105,14 +107,14 @@ export default function RegisterScreen() {
 
         <View style={{ flexDirection: 'row', justifyContent: 'center', marginTop: 24, gap: 4 }}>
           <Text style={{ color: colors.textSecondary, fontSize: FONT_SIZE.sm }}>{t('auth.have_account')}</Text>
-          <Pressable onPress={() => router.push('/(auth)/login')}>
+          <Pressable onPress={() => router.push('/(auth)/login')} style={{ minHeight: 44, justifyContent: 'center' }}>
             <Text style={{ color: colors.primary, fontSize: FONT_SIZE.sm, fontWeight: '600' }}>
               {t('auth.sign_in')}
             </Text>
           </Pressable>
         </View>
 
-        <Pressable onPress={() => router.back()} style={{ marginTop: 16, alignItems: 'center' }}>
+        <Pressable onPress={() => router.back()} style={{ marginTop: 16, alignItems: 'center', minHeight: 44, justifyContent: 'center' }}>
           <Text style={{ color: colors.textSecondary, fontSize: FONT_SIZE.sm }}>{t('auth.back')}</Text>
         </Pressable>
       </KeyboardAvoidingView>

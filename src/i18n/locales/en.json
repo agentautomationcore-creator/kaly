@@ -85,7 +85,9 @@
     "add_item": "Add ingredient",
     "no_ingredients": "Could not identify ingredients. Try again or enter manually.",
     "scan_food": "Scan food",
-    "flip_camera": "Flip camera"
+    "flip_camera": "Flip camera",
+    "ingredient_name": "Ingredient name",
+    "ingredient_grams": "Grams"
   },
   "diary": {
     "title": "Today",
@@ -243,12 +245,12 @@
     "camera_needed": "Camera access is needed to scan barcodes",
     "not_found": "Product not found",
     "not_found_desc": "This product is not in our database. Try scanning again.",
-    "scan_again": "Scan again",
+    "scan_again": "Scan another barcode",
     "enter_manually": "Enter manually",
     "result_title": "Product found",
     "portion": "Portion size",
     "custom_portion": "Custom (grams)",
-    "scan_again": "Scan another barcode"
+    "scan_success": "Barcode scanned successfully"
   },
   "common": {
     "loading": "Loading...",
@@ -264,7 +266,8 @@
     "ml": "ml",
     "protein_short": "P",
     "carbs_short": "C",
-    "fat_short": "F"
+    "fat_short": "F",
+    "close_modal": "Close modal"
   },
   "errors": {
     "analysis_failed": "Analysis failed. Please try again.",

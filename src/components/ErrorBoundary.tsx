@@ -67,6 +67,8 @@ export class ErrorBoundary extends Component<Props, State> {
               borderRadius: 12,
               paddingHorizontal: 24,
               paddingVertical: 12,
+              minHeight: 44,
+              justifyContent: 'center',
             }}
             accessibilityRole="button"
             accessibilityLabel={i18n.t('common.retry')}

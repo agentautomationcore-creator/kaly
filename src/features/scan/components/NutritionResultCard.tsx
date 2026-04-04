@@ -214,7 +214,7 @@ export function NutritionResultCard() {
             { text: t('common.cancel'), style: 'cancel' as const },
           ]);
         }}
-        style={{ alignItems: 'center', marginTop: 16 }}
+        style={{ alignItems: 'center', marginTop: 16, minHeight: 44, justifyContent: 'center' }}
       >
         <Text style={{ fontSize: FONT_SIZE.sm, color: colors.danger, fontWeight: '500' }}>
           {t('scan.wrong_result')}

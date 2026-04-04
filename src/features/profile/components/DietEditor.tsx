@@ -79,6 +79,8 @@ export function DietEditor({ profile }: DietEditorProps) {
                 style={{
                   paddingHorizontal: 14,
                   paddingVertical: 8,
+                  minHeight: 44,
+                  justifyContent: 'center',
                   borderRadius: RADIUS.full,
                   backgroundColor: sel ? colors.dangerLight : colors.surface,
                   borderWidth: 1.5,

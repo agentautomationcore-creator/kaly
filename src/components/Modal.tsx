@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, Text, Pressable, Modal as RNModal, ViewStyle } from 'react-native';
+import { useTranslation } from 'react-i18next';
 import { useColors } from '../lib/theme';
 import { RADIUS, FONT_SIZE } from '../lib/constants';
 
@@ -12,6 +13,7 @@ interface ModalProps {
 }
 
 export function Modal({ visible, onClose, title, children, style }: ModalProps) {
+  const { t } = useTranslation();
   const colors = useColors();
 
   return (
@@ -26,7 +28,7 @@ export function Modal({ visible, onClose, title, children, style }: ModalProps) 
         style={{ flex: 1, backgroundColor: 'rgba(0,0,0,0.5)', justifyContent: 'center', padding: 24 }}
         onPress={onClose}
         accessibilityRole="button"
-        accessibilityLabel="Close modal"
+        accessibilityLabel={t('common.close_modal')}
       >
         <Pressable
           style={{
