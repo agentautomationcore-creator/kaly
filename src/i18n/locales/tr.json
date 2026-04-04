@@ -92,7 +92,9 @@
     "not_food_detected": "Yiyecek değil",
     "not_food_hint": "Kamerayı bir yemek tabağına doğrultun",
     "upgrade_button": "Pro'ya yükselt",
-    "feedback_input": "Geri bildiriminiz"
+    "feedback_input": "Geri bildiriminiz",
+    "use_barcode": "Barkod tara",
+    "enter_manually": "Manuel giriş"
   },
   "diary": {
     "title": "Bugün",
@@ -308,7 +310,8 @@
     "metric": "Metrik (kg, cm)",
     "imperial": "İmparatorluk (lb, ft)",
     "apple_health": "Apple Health",
-    "apple_health_hint": "Öğün, su ve kiloyu senkronize et"
+    "apple_health_hint": "Öğün, su ve kiloyu senkronize et",
+    "health_permission_hint": "Senkronizasyon çalışmıyorsa iOS Ayarlar > Gizlilik > Sağlık bölümünü kontrol edin"
   },
   "validation": {
     "invalid_weight": "Ağırlık 20 ile 300 kg arasında olmalıdır",

@@ -75,7 +75,7 @@ export function useHealthKit() {
     return new Promise((resolve, reject) => {
       AppleHealthKit.saveWater(
         {
-          value: milliliters / 1000, // liters
+          value: milliliters / 1000, // react-native-health saveWater expects liters
           date: (date || new Date()).toISOString(),
         },
         (error: any) => {

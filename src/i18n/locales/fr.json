@@ -92,7 +92,9 @@
     "not_food_detected": "Ce n'est pas de la nourriture",
     "not_food_hint": "Dirigez la caméra vers une assiette de nourriture",
     "upgrade_button": "Passer à Pro",
-    "feedback_input": "Votre commentaire"
+    "feedback_input": "Votre commentaire",
+    "use_barcode": "Scanner le code-barres",
+    "enter_manually": "Saisir manuellement"
   },
   "diary": {
     "title": "Aujourd'hui",
@@ -308,7 +310,8 @@
     "metric": "Métrique (kg, cm)",
     "imperial": "Impérial (lb, pi)",
     "apple_health": "Apple Health",
-    "apple_health_hint": "Synchroniser repas, eau et poids"
+    "apple_health_hint": "Synchroniser repas, eau et poids",
+    "health_permission_hint": "Si la synchronisation ne fonctionne pas, vérifiez Réglages iOS > Confidentialité > Santé"
   },
   "validation": {
     "invalid_weight": "Le poids doit être entre 20 et 300 kg",

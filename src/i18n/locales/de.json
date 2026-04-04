@@ -92,7 +92,9 @@
     "not_food_detected": "Kein Essen",
     "not_food_hint": "Richten Sie die Kamera auf einen Teller mit Essen",
     "upgrade_button": "Auf Pro upgraden",
-    "feedback_input": "Ihr Feedback"
+    "feedback_input": "Ihr Feedback",
+    "use_barcode": "Barcode scannen",
+    "enter_manually": "Manuell eingeben"
   },
   "diary": {
     "title": "Heute",
@@ -308,7 +310,8 @@
     "metric": "Metrisch (kg, cm)",
     "imperial": "Imperial (lb, ft)",
     "apple_health": "Apple Health",
-    "apple_health_hint": "Mahlzeiten, Wasser und Gewicht synchronisieren"
+    "apple_health_hint": "Mahlzeiten, Wasser und Gewicht synchronisieren",
+    "health_permission_hint": "Falls die Synchronisierung nicht funktioniert, prüfen Sie iOS-Einstellungen > Datenschutz > Gesundheit"
   },
   "validation": {
     "invalid_weight": "Gewicht muss zwischen 20 und 300 kg liegen",

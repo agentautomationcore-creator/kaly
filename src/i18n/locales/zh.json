@@ -92,7 +92,9 @@
     "not_food_detected": "不是食物",
     "not_food_hint": "将相机对准一盘食物",
     "upgrade_button": "升级到 Pro",
-    "feedback_input": "您的反馈"
+    "feedback_input": "您的反馈",
+    "use_barcode": "扫描条码",
+    "enter_manually": "手动输入"
   },
   "diary": {
     "title": "今天",
@@ -308,7 +310,8 @@
     "metric": "公制 (kg, cm)",
     "imperial": "英制 (磅, 英尺)",
     "apple_health": "Apple Health",
-    "apple_health_hint": "同步餐食、饮水和体重"
+    "apple_health_hint": "同步餐食、饮水和体重",
+    "health_permission_hint": "如果同步不起作用，请检查 iOS 设置 > 隐私 > 健康"
   },
   "validation": {
     "invalid_weight": "体重必须在20到300公斤之间",

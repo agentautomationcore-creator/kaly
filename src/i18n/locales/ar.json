@@ -92,7 +92,9 @@
     "not_food_detected": "ليس طعاماً",
     "not_food_hint": "وجّه الكاميرا إلى طبق طعام",
     "upgrade_button": "الترقية إلى Pro",
-    "feedback_input": "ملاحظاتك"
+    "feedback_input": "ملاحظاتك",
+    "use_barcode": "مسح الباركود",
+    "enter_manually": "إدخال يدوي"
   },
   "diary": {
     "title": "اليوم",
@@ -308,7 +310,8 @@
     "metric": "متري (كغ، سم)",
     "imperial": "إمبراطوري (رطل، قدم)",
     "apple_health": "Apple Health",
-    "apple_health_hint": "مزامنة الوجبات والماء والوزن"
+    "apple_health_hint": "مزامنة الوجبات والماء والوزن",
+    "health_permission_hint": "إذا لم تعمل المزامنة، تحقق من إعدادات iOS > الخصوصية > الصحة"
   },
   "validation": {
     "invalid_weight": "يجب أن يكون الوزن بين 20 و300 كغ",

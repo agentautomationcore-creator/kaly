@@ -71,7 +71,7 @@ export function NutritionResultCard() {
       });
 
       track('meal_logged', { meal_type: mealType, entry_method: 'photo' });
-      try { await saveCalories(cal); } catch (e) { if (__DEV__) console.log('[HealthKit] Save calories failed:', e); }
+      try { await saveCalories(cal); } catch (e) { captureException(e, { feature: 'healthkit_save_calories' }); }
       reset();
       router.replace('/(tabs)/diary');
     } catch (e) {

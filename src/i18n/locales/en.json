@@ -92,7 +92,9 @@
     "not_food_detected": "Not food",
     "not_food_hint": "Point the camera at a plate of food or a meal",
     "upgrade_button": "Upgrade to Pro",
-    "feedback_input": "Your feedback"
+    "feedback_input": "Your feedback",
+    "use_barcode": "Scan barcode",
+    "enter_manually": "Enter manually"
   },
   "diary": {
     "title": "Today",
@@ -308,7 +310,8 @@
     "metric": "Metric (kg, cm)",
     "imperial": "Imperial (lbs, ft)",
     "apple_health": "Apple Health",
-    "apple_health_hint": "Sync meals, water, and weight"
+    "apple_health_hint": "Sync meals, water, and weight",
+    "health_permission_hint": "If sync isn't working, check iOS Settings > Privacy > Health"
   },
   "validation": {
     "invalid_weight": "Weight must be between 20 and 300 kg",

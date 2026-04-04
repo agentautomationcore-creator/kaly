@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { useRouter } from 'expo-router';
 import { View, ActivityIndicator } from 'react-native';
 import * as SecureStore from 'expo-secure-store';
@@ -40,10 +40,15 @@ export default function Index() {
     router.replace('/(tabs)/diary');
   }, [user, isLoading]);
 
-  // Safety timeout: if stuck on splash for 10s, fallback to welcome
+  // Safety timeout: use refs to avoid stale closure over isLoading/user
+  const isLoadingRef = useRef(isLoading);
+  const userRef = useRef(user);
+  isLoadingRef.current = isLoading;
+  userRef.current = user;
+
   useEffect(() => {
     const timeout = setTimeout(() => {
-      if (isLoading || !user) {
+      if (isLoadingRef.current || !userRef.current) {
         router.replace('/onboarding/welcome');
       }
     }, 10000);

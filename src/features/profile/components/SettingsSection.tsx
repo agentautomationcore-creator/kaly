@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, Switch, Pressable, Linking } from 'react-native';
+import { View, Text, Switch, Pressable, Linking, Alert } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { Ionicons } from '@expo/vector-icons';
 import { useColors } from '../../../lib/theme';
@@ -17,6 +17,7 @@ import { initSentryIfConsented } from '../../../lib/sentry';
 import { scheduleWaterReminders, cancelWaterReminders, areWaterRemindersEnabled, requestNotificationPermission } from '../../../lib/waterReminders';
 import { FONT_SIZE, RADIUS } from '../../../lib/constants';
 import { useHealthKit } from '../../../hooks/useHealthKit';
+import { captureException } from '../../../lib/sentry';
 import type { NutritionProfile } from '../types';
 
 interface SettingsSectionProps {
@@ -172,6 +173,9 @@ export function SettingsSection({ profile }: SettingsSectionProps) {
               if (v) {
                 const success = await initHealthKit();
                 setHealthKitEnabled(success);
+                if (!success) {
+                  Alert.alert(t('settings.apple_health'), t('settings.health_permission_hint'));
+                }
               } else {
                 setHealthKitEnabled(false);
               }
@@ -213,10 +217,16 @@ export function SettingsSection({ profile }: SettingsSectionProps) {
             setAiConsent(v);
             const user = useAuthStore.getState().user;
             if (user) {
-              await supabase.from('nutrition_profiles').update({
-                ai_consent_given: v,
-                ai_consent_at: v ? new Date().toISOString() : null,
-              }).eq('id', user.id);
+              try {
+                await supabase.from('nutrition_profiles').update({
+                  ai_consent_given: v,
+                  ai_consent_at: v ? new Date().toISOString() : null,
+                }).eq('id', user.id);
+              } catch (err) {
+                setAiConsent(!v);
+                captureException(err, { feature: 'consent_ai_toggle' });
+                Alert.alert(t('common.error'), t('errors.generic'));
+              }
             }
           }}
           trackColor={{ false: colors.border, true: colors.primary }}
@@ -233,10 +243,16 @@ export function SettingsSection({ profile }: SettingsSectionProps) {
             setHealthConsent(v);
             const user = useAuthStore.getState().user;
             if (user) {
-              await supabase.from('nutrition_profiles').update({
-                health_consent_given: v,
-                health_consent_at: v ? new Date().toISOString() : null,
-              }).eq('id', user.id);
+              try {
+                await supabase.from('nutrition_profiles').update({
+                  health_consent_given: v,
+                  health_consent_at: v ? new Date().toISOString() : null,
+                }).eq('id', user.id);
+              } catch (err) {
+                setHealthConsent(!v);
+                captureException(err, { feature: 'consent_health_toggle' });
+                Alert.alert(t('common.error'), t('errors.generic'));
+              }
             }
           }}
           trackColor={{ false: colors.border, true: colors.primary }}

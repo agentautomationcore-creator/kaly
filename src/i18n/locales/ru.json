@@ -92,7 +92,9 @@
     "not_food_detected": "Это не еда",
     "not_food_hint": "Направьте камеру на тарелку с едой",
     "upgrade_button": "Перейти на Pro",
-    "feedback_input": "Ваш отзыв"
+    "feedback_input": "Ваш отзыв",
+    "use_barcode": "Сканировать штрих-код",
+    "enter_manually": "Ввести вручную"
   },
   "diary": {
     "title": "Сегодня",
@@ -308,7 +310,8 @@
     "metric": "Метрическая (кг, см)",
     "imperial": "Имперская (фунты, футы)",
     "apple_health": "Apple Health",
-    "apple_health_hint": "Синхронизация еды, воды и веса"
+    "apple_health_hint": "Синхронизация еды, воды и веса",
+    "health_permission_hint": "Если синхронизация не работает, проверьте Настройки iOS > Конфиденциальность > Здоровье"
   },
   "validation": {
     "invalid_weight": "Вес должен быть от 20 до 300 кг",

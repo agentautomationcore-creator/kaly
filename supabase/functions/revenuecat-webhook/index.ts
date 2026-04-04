@@ -44,6 +44,7 @@ serve(async (req) => {
   }
 
   const eventType = event.type as string;
+  const eventId = event.id as string | undefined;
   const appUserId = event.app_user_id as string | undefined;
 
   if (!appUserId) {
@@ -79,6 +80,26 @@ serve(async (req) => {
     Deno.env.get('SUPABASE_URL')!,
     Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!
   );
+
+  // Dedup: skip if this event was already processed
+  if (eventId) {
+    const { data: existing } = await adminClient
+      .from('webhook_events')
+      .select('id')
+      .eq('event_id', eventId)
+      .single();
+    if (existing) {
+      return new Response(JSON.stringify({ ok: true, deduplicated: true }), {
+        status: 200,
+        headers: { 'Content-Type': 'application/json' },
+      });
+    }
+    await adminClient.from('webhook_events').insert({
+      event_id: eventId,
+      source: 'revenuecat',
+      processed_at: new Date().toISOString(),
+    });
+  }
 
   const { error } = await adminClient
     .from('nutrition_profiles')

@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useCallback } from 'react';
 import { ScrollView, Text, View } from 'react-native';
+import { useFocusEffect } from '@react-navigation/native';
 import { useTranslation } from 'react-i18next';
 import { Ionicons } from '@expo/vector-icons';
 import { useColors } from '../../../lib/theme';
@@ -29,12 +30,15 @@ export function StatsScreen() {
   const { isAvailable: hkAvailable, healthKitEnabled: hkEnabled, getTodaySteps, getTodayActiveCalories } = useHealthKit();
   const [steps, setSteps] = useState(0);
   const [activeCalories, setActiveCalories] = useState(0);
-  useEffect(() => {
-    if (hkAvailable && hkEnabled) {
-      getTodaySteps().then(setSteps);
-      getTodayActiveCalories().then(setActiveCalories);
-    }
-  }, [hkAvailable, hkEnabled]);
+  // Refresh HealthKit data when screen gains focus (e.g. returning from other tabs)
+  useFocusEffect(
+    useCallback(() => {
+      if (hkAvailable && hkEnabled) {
+        getTodaySteps().then(setSteps);
+        getTodayActiveCalories().then(setActiveCalories);
+      }
+    }, [hkAvailable, hkEnabled])
+  );
 
   const calorieGoal = profile?.daily_calories || 2000;
   const proteinGoal = calorieGoal * (profile?.protein_pct || 30) / 100 / 4;
