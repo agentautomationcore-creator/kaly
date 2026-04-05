@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { Ionicons } from '@expo/vector-icons';
 import { useColors } from '../../../lib/theme';
 import { Modal } from '../../../components/Modal';
-import { FONT_SIZE, RADIUS, MIN_TOUCH } from '../../../lib/constants';
+import { FONT_SIZE, RADIUS, MIN_TOUCH, SPACING } from '../../../lib/constants';
 
 interface AddMealSheetProps {
   visible: boolean;
@@ -21,11 +21,13 @@ export function AddMealSheet({ visible, onClose }: AddMealSheetProps) {
     { icon: 'camera' as const, label: t('scan.take_photo'), action: () => { onClose(); router.push('/(tabs)/scan'); } },
     { icon: 'images' as const, label: t('scan.choose_gallery'), action: () => { onClose(); router.push('/(tabs)/scan'); } },
     { icon: 'barcode-outline' as const, label: t('barcode.scan_barcode'), action: () => { onClose(); router.push('/barcode'); } },
+    { icon: 'search-outline' as const, label: t('food_search.placeholder'), action: () => { onClose(); router.push('/food-search'); } },
+    { icon: 'create-outline' as const, label: t('food_search.enter_manually'), action: () => { onClose(); router.push('/manual-entry'); } },
   ];
 
   return (
     <Modal visible={visible} onClose={onClose} title={t('diary.add_food')}>
-      <View style={{ gap: 8 }}>
+      <View style={{ gap: SPACING.sm }}>
         {options.map((opt) => (
           <Pressable
             key={opt.label}
@@ -35,8 +37,8 @@ export function AddMealSheet({ visible, onClose }: AddMealSheetProps) {
             style={{
               flexDirection: 'row',
               alignItems: 'center',
-              gap: 16,
-              padding: 16,
+              gap: SPACING.lg,
+              padding: SPACING.lg,
               minHeight: MIN_TOUCH,
               borderRadius: RADIUS.md,
               backgroundColor: colors.surface,

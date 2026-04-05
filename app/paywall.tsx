@@ -9,7 +9,7 @@ import * as Haptics from 'expo-haptics';
 import { useColors } from '../src/lib/theme';
 import { Button } from '../src/components/Button';
 import { Card } from '../src/components/Card';
-import { FONT_SIZE, RADIUS, MIN_TOUCH } from '../src/lib/constants';
+import { FONT_SIZE, RADIUS, MIN_TOUCH, SPACING } from '../src/lib/constants';
 import NetInfo from '@react-native-community/netinfo';
 import { useAuthStore } from '../src/stores/authStore';
 import { supabase } from '../src/lib/supabase';
@@ -144,21 +144,21 @@ export default function PaywallScreen() {
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: colors.background }}>
-      <ScrollView contentContainerStyle={{ padding: 24, paddingBottom: 60 }}>
+      <ScrollView contentContainerStyle={{ padding: SPACING.xl, paddingBottom: 60 }}>
         {/* Close button */}
-        <Pressable onPress={() => { if (router.canGoBack()) router.back(); else router.replace('/(tabs)/diary'); }} style={{ alignSelf: 'flex-end', padding: 8, minHeight: MIN_TOUCH, minWidth: 44, justifyContent: 'center', alignItems: 'center' }} accessibilityRole="button" accessibilityLabel={t('common.close')}>
+        <Pressable onPress={() => { if (router.canGoBack()) router.back(); else router.replace('/(tabs)/diary'); }} style={{ alignSelf: 'flex-end', padding: SPACING.sm, minHeight: MIN_TOUCH, minWidth: 44, justifyContent: 'center', alignItems: 'center' }} accessibilityRole="button" accessibilityLabel={t('common.close')}>
           <Ionicons name="close" size={28} color={colors.text} />
         </Pressable>
 
-        <Text style={{ fontSize: FONT_SIZE.xxl, fontWeight: '800', color: colors.text, textAlign: 'center', marginBottom: 8 }}>
+        <Text style={{ fontSize: FONT_SIZE.xxl, fontWeight: '800', color: colors.text, textAlign: 'center', marginBottom: SPACING.sm }}>
           {t('paywall.title')}
         </Text>
 
         {/* Free vs Pro comparison */}
-        <View style={{ flexDirection: 'row', gap: 12, marginTop: 24, marginBottom: 24 }}>
+        <View style={{ flexDirection: 'row', gap: SPACING.md, marginTop: SPACING.xl, marginBottom: SPACING.xl }}>
           {/* Free */}
           <Card style={{ flex: 1, borderWidth: 1, borderColor: colors.border }}>
-            <Text style={{ fontSize: FONT_SIZE.md, fontWeight: '700', color: colors.text, marginBottom: 8 }}>
+            <Text style={{ fontSize: FONT_SIZE.md, fontWeight: '700', color: colors.text, marginBottom: SPACING.sm }}>
               {t('paywall.free_title')}
             </Text>
             <Text style={{ fontSize: FONT_SIZE.xs, color: colors.textSecondary, lineHeight: 20 }}>
@@ -168,7 +168,7 @@ export default function PaywallScreen() {
 
           {/* Pro */}
           <Card style={{ flex: 1, borderWidth: 2, borderColor: colors.primary, backgroundColor: colors.primaryLight }}>
-            <Text style={{ fontSize: FONT_SIZE.md, fontWeight: '700', color: colors.primary, marginBottom: 8 }}>
+            <Text style={{ fontSize: FONT_SIZE.md, fontWeight: '700', color: colors.primary, marginBottom: SPACING.sm }}>
               {t('paywall.pro_title')}
             </Text>
             <Text style={{ fontSize: FONT_SIZE.xs, color: colors.text, lineHeight: 20 }}>
@@ -178,7 +178,7 @@ export default function PaywallScreen() {
         </View>
 
         {/* Period toggle */}
-        <View style={{ flexDirection: 'row', backgroundColor: colors.surface, borderRadius: RADIUS.lg, padding: 4, marginBottom: 24 }}>
+        <View style={{ flexDirection: 'row', backgroundColor: colors.surface, borderRadius: RADIUS.lg, padding: SPACING.xs, marginBottom: SPACING.xl }}>
           <Pressable
             onPress={() => setPeriod('monthly')}
             disabled={purchasing}
@@ -186,7 +186,7 @@ export default function PaywallScreen() {
             accessibilityLabel={t('paywall.monthly')}
             style={{
               flex: 1,
-              paddingVertical: 12,
+              paddingVertical: SPACING.md,
               borderRadius: RADIUS.md,
               backgroundColor: period === 'monthly' ? colors.card : 'transparent',
               alignItems: 'center',
@@ -196,7 +196,7 @@ export default function PaywallScreen() {
             <Text style={{ fontWeight: '600', color: period === 'monthly' ? colors.text : colors.textSecondary }}>
               {t('paywall.monthly')}
             </Text>
-            <Text style={{ fontSize: FONT_SIZE.sm, fontWeight: '700', color: period === 'monthly' ? colors.primary : colors.textSecondary, marginTop: 4 }}>
+            <Text style={{ fontSize: FONT_SIZE.sm, fontWeight: '700', color: period === 'monthly' ? colors.primary : colors.textSecondary, marginTop: SPACING.xs }}>
               {t('paywall.monthly_price')}
             </Text>
           </Pressable>
@@ -208,7 +208,7 @@ export default function PaywallScreen() {
             accessibilityLabel={t('paywall.annual')}
             style={{
               flex: 1,
-              paddingVertical: 12,
+              paddingVertical: SPACING.md,
               borderRadius: RADIUS.md,
               backgroundColor: period === 'annual' ? colors.card : 'transparent',
               alignItems: 'center',
@@ -218,10 +218,10 @@ export default function PaywallScreen() {
             <Text style={{ fontWeight: '600', color: period === 'annual' ? colors.text : colors.textSecondary }}>
               {t('paywall.annual')}
             </Text>
-            <Text style={{ fontSize: FONT_SIZE.sm, fontWeight: '700', color: period === 'annual' ? colors.primary : colors.textSecondary, marginTop: 4 }}>
+            <Text style={{ fontSize: FONT_SIZE.sm, fontWeight: '700', color: period === 'annual' ? colors.primary : colors.textSecondary, marginTop: SPACING.xs }}>
               {t('paywall.annual_price')}
             </Text>
-            <View style={{ backgroundColor: colors.success, borderRadius: RADIUS.full, paddingHorizontal: 8, paddingVertical: 2, marginTop: 4 }}>
+            <View style={{ backgroundColor: colors.success, borderRadius: RADIUS.full, paddingHorizontal: SPACING.sm, paddingVertical: 2, marginTop: SPACING.xs }}>
               <Text style={{ fontSize: 10, fontWeight: '600', color: colors.card }}>{t('paywall.annual_savings')}</Text>
             </View>
           </Pressable>
@@ -230,7 +230,7 @@ export default function PaywallScreen() {
         {/* Trial CTA */}
         <Button title={t('paywall.trial_cta')} onPress={handlePurchase} loading={purchasing} />
 
-        <Text style={{ fontSize: FONT_SIZE.xs, color: colors.textSecondary, textAlign: 'center', marginTop: 8 }}>
+        <Text style={{ fontSize: FONT_SIZE.xs, color: colors.textSecondary, textAlign: 'center', marginTop: SPACING.sm }}>
           {t('paywall.trial_note')}
         </Text>
 
@@ -240,7 +240,7 @@ export default function PaywallScreen() {
         </Pressable>
 
         {/* Restore + links */}
-        <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center', gap: 16, marginTop: 24 }}>
+        <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center', gap: SPACING.lg, marginTop: SPACING.xl }}>
           <Pressable onPress={handleRestore} style={{ minHeight: MIN_TOUCH, justifyContent: 'center' }} accessibilityRole="button" accessibilityLabel={t('paywall.restore')}>
             <Text style={{ fontSize: FONT_SIZE.xs, color: colors.textSecondary }}>{t('paywall.restore')}</Text>
           </Pressable>
@@ -254,7 +254,7 @@ export default function PaywallScreen() {
           </Pressable>
         </View>
 
-        <Text style={{ fontSize: FONT_SIZE.xs, color: colors.textSecondary, textAlign: 'center', marginTop: 16, lineHeight: 16 }}>
+        <Text style={{ fontSize: FONT_SIZE.xs, color: colors.textSecondary, textAlign: 'center', marginTop: SPACING.lg, lineHeight: 16 }}>
           {t('paywall.auto_renewal_disclosure')}
         </Text>
       </ScrollView>

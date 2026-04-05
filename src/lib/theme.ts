@@ -31,6 +31,9 @@ export const lightColors = {
   fatColor: '#EF4444',
   fiberColor: '#8B5CF6',
   info: '#2196F3',
+  textOnPrimary: '#FFFFFF',
+  toastBackground: 'rgba(0,0,0,0.85)',
+  toastIcon: '#4CAF50',
 };
 
 export const darkColors: typeof lightColors = {
@@ -64,6 +67,9 @@ export const darkColors: typeof lightColors = {
   fatColor: '#F87171',
   fiberColor: '#A78BFA',
   info: '#42A5F5',
+  textOnPrimary: '#FFFFFF',
+  toastBackground: 'rgba(0,0,0,0.85)',
+  toastIcon: '#4CAF50',
 };
 
 export type Colors = typeof lightColors;

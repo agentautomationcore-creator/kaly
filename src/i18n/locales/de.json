@@ -94,7 +94,10 @@
     "upgrade_button": "Auf Pro upgraden",
     "feedback_input": "Ihr Feedback",
     "use_barcode": "Barcode scannen",
-    "enter_manually": "Manuell eingeben"
+    "enter_manually": "Manuell eingeben",
+    "consent_required_title": "KI-Zustimmung erforderlich",
+    "consent_required_desc": "Das Foto-Scannen nutzt KI-Analyse. Sie können den Barcode-Scanner oder die Suche verwenden, oder KI aktivieren.",
+    "enable_ai": "KI-Scan aktivieren"
   },
   "diary": {
     "title": "Heute",

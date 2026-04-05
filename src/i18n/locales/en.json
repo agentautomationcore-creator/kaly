@@ -94,7 +94,10 @@
     "upgrade_button": "Upgrade to Pro",
     "feedback_input": "Your feedback",
     "use_barcode": "Scan barcode",
-    "enter_manually": "Enter manually"
+    "enter_manually": "Enter manually",
+    "consent_required_title": "AI consent required",
+    "consent_required_desc": "Photo scanning uses AI analysis. You can use barcode scanning or food search instead, or enable AI.",
+    "enable_ai": "Enable AI scanning"
   },
   "diary": {
     "title": "Today",

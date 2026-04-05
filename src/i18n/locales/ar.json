@@ -94,7 +94,10 @@
     "upgrade_button": "الترقية إلى Pro",
     "feedback_input": "ملاحظاتك",
     "use_barcode": "مسح الباركود",
-    "enter_manually": "إدخال يدوي"
+    "enter_manually": "إدخال يدوي",
+    "consent_required_title": "مطلوب موافقة الذكاء الاصطناعي",
+    "consent_required_desc": "يستخدم مسح الصور تحليل الذكاء الاصطناعي. يمكنك استخدام ماسح الباركود أو البحث، أو تفعيل الذكاء الاصطناعي.",
+    "enable_ai": "تفعيل المسح بالذكاء الاصطناعي"
   },
   "diary": {
     "title": "اليوم",

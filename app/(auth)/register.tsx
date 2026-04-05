@@ -5,7 +5,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { useTranslation } from 'react-i18next';
 import { useColors } from '../../src/lib/theme';
 import { Button } from '../../src/components/Button';
-import { FONT_SIZE, RADIUS, MIN_TOUCH } from '../../src/lib/constants';
+import { FONT_SIZE, RADIUS, MIN_TOUCH, SPACING } from '../../src/lib/constants';
 import { useAuthStore } from '../../src/stores/authStore';
 import { captureException } from '../../src/lib/sentry';
 import { track } from '../../src/lib/analytics';
@@ -55,14 +55,14 @@ export default function RegisterScreen() {
     <SafeAreaView style={{ flex: 1, backgroundColor: colors.background }}>
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-        style={{ flex: 1, padding: 24, justifyContent: 'center' }}
+        style={{ flex: 1, padding: SPACING.xl, justifyContent: 'center' }}
       >
-        <Text style={{ fontSize: FONT_SIZE.heading, fontWeight: '800', color: colors.text, marginBottom: 32 }}>
+        <Text style={{ fontSize: FONT_SIZE.heading, fontWeight: '800', color: colors.text, marginBottom: SPACING.xxl }}>
           {t('auth.create_account')}
         </Text>
 
         {error ? (
-          <View style={{ backgroundColor: colors.dangerLight, padding: 12, borderRadius: RADIUS.md, marginBottom: 16 }}>
+          <View style={{ backgroundColor: colors.dangerLight, padding: SPACING.md, borderRadius: RADIUS.md, marginBottom: SPACING.lg }}>
             <Text style={{ color: colors.danger, fontSize: FONT_SIZE.sm }}>{error}</Text>
           </View>
         ) : null}
@@ -79,10 +79,10 @@ export default function RegisterScreen() {
           style={{
             backgroundColor: colors.card,
             borderRadius: RADIUS.md,
-            padding: 16,
+            padding: SPACING.lg,
             fontSize: FONT_SIZE.md,
             color: colors.text,
-            marginBottom: 12,
+            marginBottom: SPACING.md,
           }}
         />
 
@@ -96,16 +96,16 @@ export default function RegisterScreen() {
           style={{
             backgroundColor: colors.card,
             borderRadius: RADIUS.md,
-            padding: 16,
+            padding: SPACING.lg,
             fontSize: FONT_SIZE.md,
             color: colors.text,
-            marginBottom: 24,
+            marginBottom: SPACING.xl,
           }}
         />
 
         <Button title={t('auth.create_account')} onPress={handleRegister} loading={loading} />
 
-        <View style={{ flexDirection: 'row', justifyContent: 'center', marginTop: 24, gap: 4 }}>
+        <View style={{ flexDirection: 'row', justifyContent: 'center', marginTop: SPACING.xl, gap: SPACING.xs }}>
           <Text style={{ color: colors.textSecondary, fontSize: FONT_SIZE.sm }}>{t('auth.have_account')}</Text>
           <Pressable onPress={() => router.push('/(auth)/login')} style={{ minHeight: MIN_TOUCH, justifyContent: 'center' }}>
             <Text style={{ color: colors.primary, fontSize: FONT_SIZE.sm, fontWeight: '600' }}>
@@ -114,7 +114,7 @@ export default function RegisterScreen() {
           </Pressable>
         </View>
 
-        <Pressable onPress={() => { if (router.canGoBack()) router.back(); else router.replace('/onboarding/welcome'); }} style={{ marginTop: 16, alignItems: 'center', minHeight: MIN_TOUCH, justifyContent: 'center' }}>
+        <Pressable onPress={() => { if (router.canGoBack()) router.back(); else router.replace('/onboarding/welcome'); }} style={{ marginTop: SPACING.lg, alignItems: 'center', minHeight: MIN_TOUCH, justifyContent: 'center' }}>
           <Text style={{ color: colors.textSecondary, fontSize: FONT_SIZE.sm }}>{t('auth.back')}</Text>
         </Pressable>
       </KeyboardAvoidingView>

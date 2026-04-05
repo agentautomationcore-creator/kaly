@@ -8,7 +8,7 @@ import { useColors } from '../../../lib/theme';
 import { Card } from '../../../components/Card';
 import { MealRow } from './MealRow';
 import { MealSuggestionsCard } from './MealSuggestionsCard';
-import { FONT_SIZE, MIN_TOUCH } from '../../../lib/constants';
+import { FONT_SIZE, MIN_TOUCH, SPACING } from '../../../lib/constants';
 import { formatNumber } from '../../../lib/formatNumber';
 import { supabase } from '../../../lib/supabase';
 import { useAuthStore } from '../../../stores/authStore';
@@ -79,8 +79,8 @@ export const MealSection = React.memo(function MealSection({ mealType, entries, 
 
   return (
     <Card>
-      <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: entries.length > 0 ? 12 : 0 }}>
-        <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
+      <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: entries.length > 0 ? SPACING.md : 0 }}>
+        <View style={{ flexDirection: 'row', alignItems: 'center', gap: SPACING.sm }}>
           <Ionicons name={MEAL_ICONS[mealType] as any} size={18} color={colors.textSecondary} />
           <Text style={{ fontSize: FONT_SIZE.md, fontWeight: '600', color: colors.text }}>
             {t(`diary.${mealType}`)}
@@ -103,7 +103,7 @@ export const MealSection = React.memo(function MealSection({ mealType, entries, 
       </View>
 
       {entries.length > 0 ? (
-        <View style={{ gap: 4 }}>
+        <View style={{ gap: SPACING.xs }}>
           {entries.map((entry) => (
             <MealRow key={entry.id} entry={entry} />
           ))}
@@ -113,7 +113,7 @@ export const MealSection = React.memo(function MealSection({ mealType, entries, 
           {yesterdayEntries && yesterdayEntries.length > 0 && (
             <Pressable
               onPress={handleRepeatYesterday}
-              style={{ flexDirection: 'row', alignItems: 'center', gap: 8, paddingVertical: 8, minHeight: MIN_TOUCH }}
+              style={{ flexDirection: 'row', alignItems: 'center', gap: SPACING.sm, paddingVertical: SPACING.sm, minHeight: MIN_TOUCH }}
               accessibilityRole="button"
               accessibilityLabel={t('diary.repeat_yesterday')}
             >

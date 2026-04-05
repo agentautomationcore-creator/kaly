@@ -12,7 +12,7 @@ import { useSettingsStore } from '../../src/stores/settingsStore';
 import { useAuthStore } from '../../src/stores/authStore';
 import { supabase } from '../../src/lib/supabase';
 import { useOnboardingStore } from '../../src/stores/onboardingStore';
-import { FONT_SIZE, RADIUS, MIN_TOUCH } from '../../src/lib/constants';
+import { FONT_SIZE, RADIUS, MIN_TOUCH, SPACING } from '../../src/lib/constants';
 import type { Gender, ActivityLevel } from '../../src/lib/nutrition';
 
 const GENDERS = ['male', 'female'] as const;
@@ -40,16 +40,16 @@ export default function BodyScreen() {
     <SafeAreaView style={{ flex: 1, backgroundColor: colors.background }}>
       <StepIndicator totalSteps={4} currentStep={3} />
       <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
-      <ScrollView contentContainerStyle={{ padding: 24, paddingBottom: 100 }} keyboardShouldPersistTaps="handled">
-        <Animated.Text entering={reduceMotion ? undefined : FadeInDown.duration(500).delay(100)} style={{ fontSize: FONT_SIZE.xl, fontWeight: '700', color: colors.text, marginBottom: 24 }}>
+      <ScrollView contentContainerStyle={{ padding: SPACING.xl, paddingBottom: 100 }} keyboardShouldPersistTaps="handled">
+        <Animated.Text entering={reduceMotion ? undefined : FadeInDown.duration(500).delay(100)} style={{ fontSize: FONT_SIZE.xl, fontWeight: '700', color: colors.text, marginBottom: SPACING.xl }}>
           {t('onboarding.body_title')}
         </Animated.Text>
 
         {/* Gender */}
-        <Text style={{ fontSize: FONT_SIZE.sm, color: colors.textSecondary, marginBottom: 8, fontWeight: '500' }}>
+        <Text style={{ fontSize: FONT_SIZE.sm, color: colors.textSecondary, marginBottom: SPACING.sm, fontWeight: '500' }}>
           {t('onboarding.gender')}
         </Text>
-        <View style={{ flexDirection: 'row', gap: 12, marginBottom: 20 }}>
+        <View style={{ flexDirection: 'row', gap: SPACING.md, marginBottom: 20 }}>
           {GENDERS.map((g) => (
             <Pressable
               key={g}
@@ -82,7 +82,7 @@ export default function BodyScreen() {
           { label: t('onboarding.age'), value: age, set: setAge, suffix: '', key: 'age', placeholder: '25' },
         ].map((field) => (
           <View key={field.key} style={{ marginBottom: 20 }}>
-            <Text style={{ fontSize: FONT_SIZE.sm, color: colors.textSecondary, marginBottom: 8, fontWeight: '500' }}>
+            <Text style={{ fontSize: FONT_SIZE.sm, color: colors.textSecondary, marginBottom: SPACING.sm, fontWeight: '500' }}>
               {field.label} {field.suffix ? `(${field.suffix})` : ''}
             </Text>
             <TextInput
@@ -104,10 +104,10 @@ export default function BodyScreen() {
         ))}
 
         {/* Activity level */}
-        <Text style={{ fontSize: FONT_SIZE.sm, color: colors.textSecondary, marginBottom: 8, fontWeight: '500' }}>
+        <Text style={{ fontSize: FONT_SIZE.sm, color: colors.textSecondary, marginBottom: SPACING.sm, fontWeight: '500' }}>
           {t('onboarding.activity')}
         </Text>
-        <View style={{ gap: 8 }}>
+        <View style={{ gap: SPACING.sm }}>
           {ACTIVITIES.map((a) => (
             <Pressable
               key={a}
@@ -132,7 +132,7 @@ export default function BodyScreen() {
       </ScrollView>
       </KeyboardAvoidingView>
 
-      <View style={{ padding: 24, paddingBottom: 40 }}>
+      <View style={{ padding: SPACING.xl, paddingBottom: 40 }}>
         <Button title={t('onboarding.next')} onPress={() => {
           const w = parseFloat(weight);
           const h = parseFloat(height);
@@ -160,7 +160,7 @@ export default function BodyScreen() {
         }} disabled={!canContinue} />
         <Pressable
           onPress={() => router.push('/onboarding/diet')}
-          style={{ alignItems: 'center', marginTop: 12, minHeight: MIN_TOUCH, justifyContent: 'center' }}
+          style={{ alignItems: 'center', marginTop: SPACING.md, minHeight: MIN_TOUCH, justifyContent: 'center' }}
           accessibilityRole="button"
           accessibilityLabel={t('onboarding.skip')}
         >

@@ -2,6 +2,7 @@ import * as Print from 'expo-print';
 import * as Sharing from 'expo-sharing';
 import { Alert } from 'react-native';
 import { supabase } from './supabase';
+import { lightColors } from './theme';
 import i18n from '../i18n';
 
 // Locale mapping for toLocaleDateString (i18n codes → BCP 47)
@@ -133,6 +134,7 @@ async function fetchReportData(days: number): Promise<ReportData> {
 
 function generateHTML(data: ReportData): string {
   const t = (key: string) => i18n.t(key);
+  const c = lightColors;
 
   const dailyRows = data.dailyData
     .map(d => `
@@ -148,7 +150,7 @@ function generateHTML(data: ReportData): string {
 
   const weightSection = data.weightStart != null && data.weightEnd != null
     ? `<tr>
-        <td colspan="6" style="background: #f0f7ff; padding: 12px; font-size: 13px;">
+        <td colspan="6" style="background: ${c.primaryLight}; padding: 12px; font-size: 13px;">
           <strong>${t('report.weight')}:</strong> ${data.weightStart} kg &rarr; ${data.weightEnd} kg
           (${data.weightEnd - data.weightStart > 0 ? '+' : ''}${(data.weightEnd - data.weightStart).toFixed(1)} kg)
         </td>
@@ -160,18 +162,18 @@ function generateHTML(data: ReportData): string {
 <head>
   <meta charset="utf-8">
   <style>
-    body { font-family: -apple-system, Helvetica, Arial, sans-serif; padding: 40px; color: #1a1a1a; font-size: 12px; }
-    h1 { color: #388E3C; font-size: 24px; margin-bottom: 4px; }
-    h2 { color: #333; font-size: 16px; margin-top: 24px; border-bottom: 2px solid #388E3C; padding-bottom: 4px; }
-    .subtitle { color: #666; font-size: 14px; margin-bottom: 20px; }
+    body { font-family: -apple-system, Helvetica, Arial, sans-serif; padding: 40px; color: ${c.text}; font-size: 12px; }
+    h1 { color: ${c.primary}; font-size: 24px; margin-bottom: 4px; }
+    h2 { color: ${c.text}; font-size: 16px; margin-top: 24px; border-bottom: 2px solid ${c.primary}; padding-bottom: 4px; }
+    .subtitle { color: ${c.textSecondary}; font-size: 14px; margin-bottom: 20px; }
     table { width: 100%; border-collapse: collapse; margin-top: 12px; }
-    th { background: #388E3C; color: white; padding: 8px; text-align: left; font-size: 11px; }
-    td { padding: 6px 8px; border-bottom: 1px solid #eee; font-size: 11px; }
-    tr:nth-child(even) { background: #f8f9fa; }
-    .summary-table td { padding: 12px 16px; text-align: center; background: #f8f9fa; border: 4px solid white; }
-    .stat-value { font-size: 20px; font-weight: 700; color: #388E3C; display: block; }
-    .stat-label { font-size: 10px; color: #666; text-transform: uppercase; margin-top: 4px; display: block; }
-    .footer { margin-top: 32px; text-align: center; color: #999; font-size: 10px; }
+    th { background: ${c.primary}; color: ${c.background}; padding: 8px; text-align: left; font-size: 11px; }
+    td { padding: 6px 8px; border-bottom: 1px solid ${c.border}; font-size: 11px; }
+    tr:nth-child(even) { background: ${c.surface}; }
+    .summary-table td { padding: 12px 16px; text-align: center; background: ${c.surface}; border: 4px solid ${c.background}; }
+    .stat-value { font-size: 20px; font-weight: 700; color: ${c.primary}; display: block; }
+    .stat-label { font-size: 10px; color: ${c.textSecondary}; text-transform: uppercase; margin-top: 4px; display: block; }
+    .footer { margin-top: 32px; text-align: center; color: ${c.textTertiary}; font-size: 10px; }
   </style>
 </head>
 <body>

@@ -7,7 +7,7 @@ import { useTranslation } from 'react-i18next';
 import { useColors } from '../../src/lib/theme';
 import { Button } from '../../src/components/Button';
 import { StepIndicator } from '../../src/components/StepIndicator';
-import { FONT_SIZE, RADIUS, MIN_TOUCH } from '../../src/lib/constants';
+import { FONT_SIZE, RADIUS, MIN_TOUCH, SPACING } from '../../src/lib/constants';
 import { useAuthStore } from '../../src/stores/authStore';
 import { useOnboardingStore } from '../../src/stores/onboardingStore';
 import { supabase } from '../../src/lib/supabase';
@@ -98,13 +98,13 @@ export default function DietScreen() {
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: colors.background }}>
       <StepIndicator totalSteps={4} currentStep={4} />
-      <ScrollView contentContainerStyle={{ padding: 24, paddingBottom: 100 }}>
-        <Animated.Text entering={reduceMotion ? undefined : FadeInDown.duration(500).delay(100)} style={{ fontSize: FONT_SIZE.xl, fontWeight: '700', color: colors.text, marginBottom: 24 }}>
+      <ScrollView contentContainerStyle={{ padding: SPACING.xl, paddingBottom: 100 }}>
+        <Animated.Text entering={reduceMotion ? undefined : FadeInDown.duration(500).delay(100)} style={{ fontSize: FONT_SIZE.xl, fontWeight: '700', color: colors.text, marginBottom: SPACING.xl }}>
           {t('onboarding.diet_title')}
         </Animated.Text>
 
         {/* Diet type */}
-        <View style={{ gap: 8, marginBottom: 32 }}>
+        <View style={{ gap: SPACING.sm, marginBottom: SPACING.xxl }}>
           {DIETS.map((d) => (
             <Pressable
               key={d}
@@ -129,10 +129,10 @@ export default function DietScreen() {
         </View>
 
         {/* Allergies */}
-        <Text style={{ fontSize: FONT_SIZE.md, fontWeight: '600', color: colors.text, marginBottom: 12 }}>
+        <Text style={{ fontSize: FONT_SIZE.md, fontWeight: '600', color: colors.text, marginBottom: SPACING.md }}>
           {t('onboarding.allergies_title')}
         </Text>
-        <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 8 }}>
+        <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: SPACING.sm }}>
           {ALLERGIES.map((a) => {
             const isSelected = allergies.includes(a);
             return (
@@ -142,7 +142,7 @@ export default function DietScreen() {
                 accessibilityRole="switch"
                 accessibilityLabel={t(`onboarding.allergy_${a}`)}
                 style={{
-                  paddingHorizontal: 16,
+                  paddingHorizontal: SPACING.lg,
                   paddingVertical: 10,
                   minHeight: MIN_TOUCH,
                   borderRadius: RADIUS.full,
@@ -161,12 +161,12 @@ export default function DietScreen() {
         </View>
       </ScrollView>
 
-      <View style={{ padding: 24, paddingBottom: 40 }}>
+      <View style={{ padding: SPACING.xl, paddingBottom: 40 }}>
         <Button title={t('onboarding.done')} onPress={handleDone} loading={loading} />
         <Pressable
           onPress={() => { setDiet('balanced'); setAllergies([]); handleDone(); }}
           disabled={loading}
-          style={{ alignItems: 'center', marginTop: 12, minHeight: MIN_TOUCH, justifyContent: 'center', opacity: loading ? 0.5 : 1 }}
+          style={{ alignItems: 'center', marginTop: SPACING.md, minHeight: MIN_TOUCH, justifyContent: 'center', opacity: loading ? 0.5 : 1 }}
           accessibilityRole="button"
           accessibilityLabel={t('onboarding.skip')}
         >

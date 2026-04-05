@@ -55,7 +55,7 @@ export class ErrorBoundary extends Component<Props, State> {
 
       return (
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', padding: SPACING.xl }}>
-          <Text style={{ fontSize: FONT_SIZE.lg, fontWeight: '600', color: colors.text, marginBottom: 8 }}>
+          <Text style={{ fontSize: FONT_SIZE.lg, fontWeight: '600', color: colors.text, marginBottom: SPACING.sm }}>
             {i18n.t('errors.generic')}
           </Text>
           <Text style={{ fontSize: FONT_SIZE.sm, color: colors.textSecondary, textAlign: 'center', marginBottom: 20 }}>

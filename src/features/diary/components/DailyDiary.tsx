@@ -15,7 +15,7 @@ import { RecentMeals } from './RecentMeals';
 import { ListSkeleton } from '../../../components/LoadingSkeleton';
 import { useYesterdayMeals } from '../hooks/useYesterdayMeals';
 import { FastingCard } from './FastingCard';
-import { FONT_SIZE, RADIUS, MIN_TOUCH } from '../../../lib/constants';
+import { FONT_SIZE, RADIUS, MIN_TOUCH, SPACING } from '../../../lib/constants';
 import type { MealType } from '../../../lib/types';
 
 const MEALS: MealType[] = ['breakfast', 'lunch', 'dinner', 'snack'];
@@ -66,7 +66,7 @@ export function DailyDiary({ date: dateProp }: DailyDiaryProps) {
         const created = profile?.created_at ? new Date(profile.created_at) : new Date();
         const daysUsed = Math.floor((Date.now() - created.getTime()) / 86400000);
         return daysUsed >= 5 ? (
-          <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8, marginHorizontal: 16, marginBottom: 8, padding: 12, backgroundColor: colors.warningLight, borderRadius: RADIUS.md }}>
+          <View style={{ flexDirection: 'row', alignItems: 'center', gap: SPACING.sm, marginHorizontal: SPACING.lg, marginBottom: SPACING.sm, padding: SPACING.md, backgroundColor: colors.warningLight, borderRadius: RADIUS.md }}>
             <Ionicons name="information-circle-outline" size={20} color={colors.warning} />
             <Text style={{ flex: 1, fontSize: FONT_SIZE.sm, color: colors.textSecondary }}>
               {t('diary.history_warning', { days: 7 })}
@@ -89,7 +89,7 @@ export function DailyDiary({ date: dateProp }: DailyDiaryProps) {
       {isLoading ? (
         <ListSkeleton count={3} />
       ) : (
-        <View style={{ paddingHorizontal: 16, gap: 8 }}>
+        <View style={{ paddingHorizontal: SPACING.lg, gap: SPACING.sm }}>
           {MEALS.map((meal) => (
             <MealSection
               key={meal}
@@ -108,30 +108,45 @@ export function DailyDiary({ date: dateProp }: DailyDiaryProps) {
         </View>
       )}
 
-      <View style={{ paddingHorizontal: 16, marginTop: 16 }}>
+      <View style={{ paddingHorizontal: SPACING.lg, marginTop: SPACING.lg }}>
         <WaterTracker date={currentDate} />
       </View>
 
-      <View style={{ paddingHorizontal: 16, marginTop: 8 }}>
+      <View style={{ paddingHorizontal: SPACING.lg, marginTop: SPACING.sm }}>
         <FastingCard />
       </View>
 
       {entries && entries.length === 0 && (
-        <View style={{ alignItems: 'center', padding: 40 }}>
-          <Text style={{ fontSize: FONT_SIZE.lg, color: colors.textSecondary, marginBottom: 16 }}>
+        <View style={{ alignItems: 'center', padding: SPACING.xxl }}>
+          <Text style={{ fontSize: FONT_SIZE.lg, color: colors.textSecondary, marginBottom: SPACING.lg }}>
             {t('diary.emptyTitle')}
           </Text>
-          <Text style={{ fontSize: FONT_SIZE.md, color: colors.textSecondary, marginBottom: 24 }}>
+          <Text style={{ fontSize: FONT_SIZE.md, color: colors.textSecondary, marginBottom: SPACING.xl }}>
             {t('diary.emptyDescription')}
           </Text>
-          <Pressable onPress={() => router.push('/(tabs)/scan')} style={{ backgroundColor: colors.primary, paddingHorizontal: 24, paddingVertical: 12, borderRadius: RADIUS.md, minHeight: MIN_TOUCH, justifyContent: 'center' }} accessibilityRole="button" accessibilityLabel={t('diary.logFirstMeal')}>
-            <Text style={{ color: colors.card, fontWeight: '600' }}>{t('diary.logFirstMeal')}</Text>
-          </Pressable>
+          <View style={{ gap: SPACING.sm, width: '100%' }}>
+            <Pressable onPress={() => router.push('/(tabs)/scan')} style={{ flexDirection: 'row', alignItems: 'center', gap: SPACING.md, padding: SPACING.lg, borderRadius: RADIUS.md, backgroundColor: colors.surface, minHeight: MIN_TOUCH }} accessibilityRole="button" accessibilityLabel={t('scan.take_photo')}>
+              <Ionicons name="camera-outline" size={20} color={colors.primary} />
+              <Text style={{ fontSize: FONT_SIZE.md, fontWeight: '500', color: colors.text }}>{t('scan.take_photo')}</Text>
+            </Pressable>
+            <Pressable onPress={() => router.push('/barcode')} style={{ flexDirection: 'row', alignItems: 'center', gap: SPACING.md, padding: SPACING.lg, borderRadius: RADIUS.md, backgroundColor: colors.surface, minHeight: MIN_TOUCH }} accessibilityRole="button" accessibilityLabel={t('barcode.scan_barcode')}>
+              <Ionicons name="barcode-outline" size={20} color={colors.primary} />
+              <Text style={{ fontSize: FONT_SIZE.md, fontWeight: '500', color: colors.text }}>{t('barcode.scan_barcode')}</Text>
+            </Pressable>
+            <Pressable onPress={() => router.push('/food-search')} style={{ flexDirection: 'row', alignItems: 'center', gap: SPACING.md, padding: SPACING.lg, borderRadius: RADIUS.md, backgroundColor: colors.surface, minHeight: MIN_TOUCH }} accessibilityRole="button" accessibilityLabel={t('food_search.placeholder')}>
+              <Ionicons name="search-outline" size={20} color={colors.primary} />
+              <Text style={{ fontSize: FONT_SIZE.md, fontWeight: '500', color: colors.text }}>{t('food_search.placeholder')}</Text>
+            </Pressable>
+            <Pressable onPress={() => router.push('/manual-entry')} style={{ flexDirection: 'row', alignItems: 'center', gap: SPACING.md, padding: SPACING.lg, borderRadius: RADIUS.md, backgroundColor: colors.surface, minHeight: MIN_TOUCH }} accessibilityRole="button" accessibilityLabel={t('food_search.enter_manually')}>
+              <Ionicons name="create-outline" size={20} color={colors.primary} />
+              <Text style={{ fontSize: FONT_SIZE.md, fontWeight: '500', color: colors.text }}>{t('food_search.enter_manually')}</Text>
+            </Pressable>
+          </View>
         </View>
       )}
 
       {entries && entries.length === 0 && (
-        <View style={{ paddingHorizontal: 16, marginTop: 16 }}>
+        <View style={{ paddingHorizontal: SPACING.lg, marginTop: SPACING.lg }}>
           <RecentMeals date={currentDate} />
         </View>
       )}

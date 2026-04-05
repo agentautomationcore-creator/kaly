@@ -1,7 +1,7 @@
 import React from 'react';
 import { Pressable, Text, ActivityIndicator, ViewStyle, TextStyle } from 'react-native';
 import { useColors } from '../lib/theme';
-import { MIN_TOUCH, RADIUS, FONT_SIZE } from '../lib/constants';
+import { MIN_TOUCH, RADIUS, FONT_SIZE, SPACING } from '../lib/constants';
 
 interface ButtonProps {
   title: string;
@@ -51,7 +51,7 @@ export function Button({
         borderColor,
         alignItems: 'center',
         justifyContent: 'center',
-        paddingHorizontal: 24,
+        paddingHorizontal: SPACING.xl,
         paddingVertical: 14,
         opacity: disabled ? 0.5 : 1,
         ...style,

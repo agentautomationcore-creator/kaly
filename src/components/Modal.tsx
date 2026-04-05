@@ -3,7 +3,7 @@ import { View, Text, Pressable, Modal as RNModal, ViewStyle } from 'react-native
 import { useTranslation } from 'react-i18next';
 import { Ionicons } from '@expo/vector-icons';
 import { useColors } from '../lib/theme';
-import { RADIUS, FONT_SIZE } from '../lib/constants';
+import { RADIUS, FONT_SIZE, SPACING } from '../lib/constants';
 
 interface ModalProps {
   visible: boolean;
@@ -26,7 +26,7 @@ export function Modal({ visible, onClose, title, children, style }: ModalProps) 
       statusBarTranslucent
     >
       <Pressable
-        style={{ flex: 1, backgroundColor: colors.overlay, justifyContent: 'center', padding: 24 }}
+        style={{ flex: 1, backgroundColor: colors.overlay, justifyContent: 'center', padding: SPACING.xl }}
         onPress={onClose}
         accessibilityRole="button"
         accessibilityLabel={t('common.close_modal')}
@@ -35,7 +35,7 @@ export function Modal({ visible, onClose, title, children, style }: ModalProps) 
           style={{
             backgroundColor: colors.card,
             borderRadius: RADIUS.xl,
-            padding: 24,
+            padding: SPACING.xl,
             maxHeight: '80%',
             ...style,
           }}
@@ -47,8 +47,8 @@ export function Modal({ visible, onClose, title, children, style }: ModalProps) 
             onPress={onClose}
             style={{
               position: 'absolute',
-              top: 12,
-              right: 12,
+              top: SPACING.md,
+              right: SPACING.md,
               zIndex: 10,
               width: 44,
               height: 44,
@@ -64,7 +64,7 @@ export function Modal({ visible, onClose, title, children, style }: ModalProps) 
           </Pressable>
 
           {title ? (
-            <Text style={{ fontSize: FONT_SIZE.lg, fontWeight: '700', color: colors.text, marginBottom: 16, paddingEnd: 40 }}>
+            <Text style={{ fontSize: FONT_SIZE.lg, fontWeight: '700', color: colors.text, marginBottom: SPACING.lg, paddingEnd: 40 }}>
               {title}
             </Text>
           ) : null}

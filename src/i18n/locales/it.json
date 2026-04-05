@@ -94,7 +94,10 @@
     "upgrade_button": "Passa a Pro",
     "feedback_input": "Il tuo feedback",
     "use_barcode": "Scansiona codice",
-    "enter_manually": "Inserisci manualmente"
+    "enter_manually": "Inserisci manualmente",
+    "consent_required_title": "Consenso IA richiesto",
+    "consent_required_desc": "La scansione foto utilizza l'analisi IA. Puoi usare lo scanner di codici a barre o la ricerca, oppure attivare l'IA.",
+    "enable_ai": "Attiva scansione IA"
   },
   "diary": {
     "title": "Oggi",

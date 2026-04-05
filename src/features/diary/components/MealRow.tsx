@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { Ionicons } from '@expo/vector-icons';
 import { useColors } from '../../../lib/theme';
 import { useDeleteEntry } from '../hooks/useDiary';
-import { FONT_SIZE, RADIUS, MIN_TOUCH } from '../../../lib/constants';
+import { FONT_SIZE, RADIUS, MIN_TOUCH, SPACING } from '../../../lib/constants';
 import { formatNumber } from '../../../lib/formatNumber';
 import type { DiaryEntry } from '../types';
 
@@ -34,7 +34,7 @@ export function MealRow({ entry }: MealRowProps) {
         justifyContent: 'space-between',
         alignItems: 'center',
         paddingVertical: 10,
-        paddingHorizontal: 12,
+        paddingHorizontal: SPACING.md,
         minHeight: MIN_TOUCH,
         borderRadius: RADIUS.sm,
         backgroundColor: colors.surface,
@@ -49,7 +49,7 @@ export function MealRow({ entry }: MealRowProps) {
         ) : null}
       </View>
 
-      <View style={{ flexDirection: 'row', alignItems: 'center', gap: 12 }}>
+      <View style={{ flexDirection: 'row', alignItems: 'center', gap: SPACING.md }}>
         <View style={{ alignItems: 'flex-end' }}>
           <Text style={{ fontSize: FONT_SIZE.sm, fontWeight: '600', color: colors.text }}>
             {formatNumber(Math.round(entry.total_calories))} {t('common.kcal')}

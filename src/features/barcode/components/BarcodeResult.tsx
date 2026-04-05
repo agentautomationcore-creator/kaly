@@ -7,7 +7,7 @@ import { useColors } from '../../../lib/theme';
 import { Card } from '../../../components/Card';
 import { Button } from '../../../components/Button';
 import { ProgressBar } from '../../../components/ProgressBar';
-import { FONT_SIZE, RADIUS, MIN_TOUCH } from '../../../lib/constants';
+import { FONT_SIZE, RADIUS, MIN_TOUCH, SPACING } from '../../../lib/constants';
 import { formatNumber } from '../../../lib/formatNumber';
 import { supabase } from '../../../lib/supabase';
 import { useAuthStore } from '../../../stores/authStore';
@@ -94,10 +94,10 @@ export function BarcodeResult({ product, onDone, onScanAgain }: BarcodeResultPro
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: colors.background }}>
-      <ScrollView contentContainerStyle={{ padding: 16, paddingBottom: 100 }}>
+      <ScrollView contentContainerStyle={{ padding: SPACING.lg, paddingBottom: 100 }}>
         {/* Header */}
-        <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
-          <Pressable onPress={onScanAgain} style={{ padding: 8, minHeight: MIN_TOUCH, minWidth: 44, justifyContent: 'center', alignItems: 'center' }} accessibilityRole="button" accessibilityLabel={t('common.close')}>
+        <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: SPACING.lg }}>
+          <Pressable onPress={onScanAgain} style={{ padding: SPACING.sm, minHeight: MIN_TOUCH, minWidth: 44, justifyContent: 'center', alignItems: 'center' }} accessibilityRole="button" accessibilityLabel={t('common.close')}>
             <Ionicons name="arrow-back" size={24} color={colors.text} />
           </Pressable>
           <Text style={{ fontSize: FONT_SIZE.lg, fontWeight: '700', color: colors.text }}>{t('barcode.result_title')}</Text>
@@ -105,7 +105,7 @@ export function BarcodeResult({ product, onDone, onScanAgain }: BarcodeResultPro
         </View>
 
         {/* Product info */}
-        <Card style={{ marginBottom: 16 }}>
+        <Card style={{ marginBottom: SPACING.lg }}>
           {isManual ? (
             <TextInput
               value={productName}
@@ -113,22 +113,22 @@ export function BarcodeResult({ product, onDone, onScanAgain }: BarcodeResultPro
               placeholder={t('barcode.product_name')}
               placeholderTextColor={colors.textSecondary}
               accessibilityLabel={t('barcode.product_name')}
-              style={{ fontSize: FONT_SIZE.xl, fontWeight: '700', color: colors.text, marginBottom: 8, borderBottomWidth: 1, borderColor: colors.primary, paddingBottom: 4 }}
+              style={{ fontSize: FONT_SIZE.xl, fontWeight: '700', color: colors.text, marginBottom: SPACING.sm, borderBottomWidth: 1, borderColor: colors.primary, paddingBottom: SPACING.xs }}
             />
           ) : (
-            <Text style={{ fontSize: FONT_SIZE.xl, fontWeight: '700', color: colors.text, marginBottom: 8 }} numberOfLines={2} ellipsizeMode="tail">
+            <Text style={{ fontSize: FONT_SIZE.xl, fontWeight: '700', color: colors.text, marginBottom: SPACING.sm }} numberOfLines={2} ellipsizeMode="tail">
               {product.name}
             </Text>
           )}
 
           {/* Big calorie number */}
-          <View style={{ alignItems: 'center', marginBottom: 16 }}>
+          <View style={{ alignItems: 'center', marginBottom: SPACING.lg }}>
             <Text style={{ fontSize: FONT_SIZE.display, fontWeight: '800', color: colors.primary }}>{formatNumber(cal)}</Text>
             <Text style={{ fontSize: FONT_SIZE.sm, color: colors.textSecondary }}>{t('common.kcal')}</Text>
           </View>
 
           {/* Macros */}
-          <View style={{ gap: 8 }}>
+          <View style={{ gap: SPACING.sm }}>
             <ProgressBar label={t('stats.protein')} value={protein} max={protein + carbs + fat || 1} color={colors.proteinColor} showValue />
             <ProgressBar label={t('stats.carbs')} value={carbs} max={protein + carbs + fat || 1} color={colors.carbsColor} showValue />
             <ProgressBar label={t('stats.fat')} value={fat} max={protein + carbs + fat || 1} color={colors.fatColor} showValue />
@@ -136,11 +136,11 @@ export function BarcodeResult({ product, onDone, onScanAgain }: BarcodeResultPro
         </Card>
 
         {/* Portion selector */}
-        <Card style={{ marginBottom: 16 }}>
-          <Text style={{ fontSize: FONT_SIZE.md, fontWeight: '600', color: colors.text, marginBottom: 12 }}>
+        <Card style={{ marginBottom: SPACING.lg }}>
+          <Text style={{ fontSize: FONT_SIZE.md, fontWeight: '600', color: colors.text, marginBottom: SPACING.md }}>
             {t('barcode.portion')}
           </Text>
-          <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 8, marginBottom: 12 }}>
+          <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: SPACING.sm, marginBottom: SPACING.md }}>
             {PORTION_PRESETS.map((g) => (
               <Pressable
                 key={g}
@@ -148,7 +148,7 @@ export function BarcodeResult({ product, onDone, onScanAgain }: BarcodeResultPro
                 accessibilityRole="button"
                 accessibilityLabel={`${g} ${t('units.g')}`}
                 style={{
-                  paddingHorizontal: 16,
+                  paddingHorizontal: SPACING.lg,
                   paddingVertical: 10,
                   borderRadius: RADIUS.full,
                   backgroundColor: portionG === g && !customPortion ? colors.primaryLight : colors.surface,
@@ -166,7 +166,7 @@ export function BarcodeResult({ product, onDone, onScanAgain }: BarcodeResultPro
           </View>
 
           {/* Custom portion input */}
-          <View style={{ flexDirection: 'row', gap: 8, alignItems: 'center' }}>
+          <View style={{ flexDirection: 'row', gap: SPACING.sm, alignItems: 'center' }}>
             <TextInput
               value={customPortion}
               onChangeText={(v) => {
@@ -182,7 +182,7 @@ export function BarcodeResult({ product, onDone, onScanAgain }: BarcodeResultPro
                 flex: 1,
                 backgroundColor: colors.surface,
                 borderRadius: RADIUS.md,
-                padding: 12,
+                padding: SPACING.md,
                 fontSize: FONT_SIZE.sm,
                 color: colors.text,
               }}
@@ -192,7 +192,7 @@ export function BarcodeResult({ product, onDone, onScanAgain }: BarcodeResultPro
         </Card>
 
         {/* Meal type */}
-        <View style={{ flexDirection: 'row', gap: 8, marginBottom: 16 }}>
+        <View style={{ flexDirection: 'row', gap: SPACING.sm, marginBottom: SPACING.lg }}>
           {meals.map((m) => (
             <Pressable
               key={m}
@@ -228,7 +228,7 @@ export function BarcodeResult({ product, onDone, onScanAgain }: BarcodeResultPro
         {/* Scan again */}
         <Pressable
           onPress={onScanAgain}
-          style={{ alignItems: 'center', marginTop: 16, minHeight: MIN_TOUCH, justifyContent: 'center' }}
+          style={{ alignItems: 'center', marginTop: SPACING.lg, minHeight: MIN_TOUCH, justifyContent: 'center' }}
           accessibilityRole="button"
         >
           <Text style={{ fontSize: FONT_SIZE.sm, color: colors.primary, fontWeight: '500' }}>

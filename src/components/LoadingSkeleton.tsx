@@ -8,7 +8,7 @@ import Animated, {
   withTiming,
 } from 'react-native-reanimated';
 import { useColors } from '../lib/theme';
-import { RADIUS } from '../lib/constants';
+import { RADIUS, SPACING } from '../lib/constants';
 
 interface SkeletonProps {
   width?: number | string;
@@ -58,9 +58,9 @@ export function Skeleton({ width = '100%', height = 16, borderRadius = RADIUS.sm
 
 export function ListSkeleton({ count = 3 }: { count?: number }) {
   return (
-    <View style={{ padding: 16, gap: 16 }}>
+    <View style={{ padding: SPACING.lg, gap: SPACING.lg }}>
       {Array.from({ length: count }).map((_, i) => (
-        <View key={i} style={{ gap: 8 }}>
+        <View key={i} style={{ gap: SPACING.sm }}>
           <Skeleton width="60%" height={14} />
           <Skeleton width="100%" height={10} />
           <Skeleton width="40%" height={10} />

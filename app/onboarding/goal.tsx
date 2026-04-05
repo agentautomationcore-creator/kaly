@@ -7,7 +7,7 @@ import { useTranslation } from 'react-i18next';
 import { useColors } from '../../src/lib/theme';
 import { Button } from '../../src/components/Button';
 import { StepIndicator } from '../../src/components/StepIndicator';
-import { FONT_SIZE, RADIUS, MIN_TOUCH } from '../../src/lib/constants';
+import { FONT_SIZE, RADIUS, MIN_TOUCH, SPACING } from '../../src/lib/constants';
 import { Ionicons } from '@expo/vector-icons';
 import { useOnboardingStore } from '../../src/stores/onboardingStore';
 import { useAuthStore } from '../../src/stores/authStore';
@@ -57,13 +57,13 @@ export default function GoalScreen() {
   };
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: colors.background, padding: 24 }}>
+    <SafeAreaView style={{ flex: 1, backgroundColor: colors.background, padding: SPACING.xl }}>
       <StepIndicator totalSteps={4} currentStep={2} />
-      <Animated.Text entering={reduceMotion ? undefined : FadeInDown.duration(500).delay(100)} style={{ fontSize: FONT_SIZE.xl, fontWeight: '700', color: colors.text, marginBottom: 8 }}>
+      <Animated.Text entering={reduceMotion ? undefined : FadeInDown.duration(500).delay(100)} style={{ fontSize: FONT_SIZE.xl, fontWeight: '700', color: colors.text, marginBottom: SPACING.sm }}>
         {t('onboarding.goal_title')}
       </Animated.Text>
 
-      <View style={{ flex: 1, justifyContent: 'center', gap: 12 }}>
+      <View style={{ flex: 1, justifyContent: 'center', gap: SPACING.md }}>
         {GOALS.map((g) => (
           <Pressable
             key={g.key}
@@ -73,13 +73,13 @@ export default function GoalScreen() {
             style={{
               flexDirection: 'row',
               alignItems: 'center',
-              padding: 16,
+              padding: SPACING.lg,
               minHeight: MIN_TOUCH,
               borderRadius: RADIUS.lg,
               backgroundColor: selected === g.key ? colors.primaryLight : colors.card,
               borderWidth: 2,
               borderColor: selected === g.key ? colors.primary : 'transparent',
-              gap: 16,
+              gap: SPACING.lg,
             }}
           >
             <Ionicons name={g.icon} size={24} color={selected === g.key ? colors.primary : colors.textSecondary} />
@@ -96,7 +96,7 @@ export default function GoalScreen() {
         ))}
       </View>
 
-      <View style={{ gap: 12 }}>
+      <View style={{ gap: SPACING.md }}>
         <Button
           title={t('onboarding.next')}
           onPress={() => { if (selected) setGoal(selected as Goal); router.push('/onboarding/body'); }}

@@ -35,7 +35,7 @@ export default function WelcomeScreen() {
   ];
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: colors.background, padding: 24 }}>
+    <SafeAreaView style={{ flex: 1, backgroundColor: colors.background, padding: SPACING.xl }}>
       {/* Language picker globe icon */}
       <Pressable
         onPress={() => setShowLangPicker(true)}
@@ -92,22 +92,22 @@ export default function WelcomeScreen() {
             backgroundColor: colors.primary,
             justifyContent: 'center',
             alignItems: 'center',
-            marginBottom: 24,
+            marginBottom: SPACING.xl,
           }}
         >
           <Ionicons name="restaurant" size={40} color={colors.card} />
         </Animated.View>
 
-        <Animated.Text entering={reduceMotion ? undefined : FadeInDown.duration(500).delay(250)} style={{ fontSize: FONT_SIZE.xxl, fontWeight: '800', color: colors.text, textAlign: 'center', marginBottom: 8 }}>
+        <Animated.Text entering={reduceMotion ? undefined : FadeInDown.duration(500).delay(250)} style={{ fontSize: FONT_SIZE.xxl, fontWeight: '800', color: colors.text, textAlign: 'center', marginBottom: SPACING.sm }}>
           {t('welcome.title')}
         </Animated.Text>
-        <Animated.Text entering={reduceMotion ? undefined : FadeInDown.duration(500).delay(400)} style={{ fontSize: FONT_SIZE.md, color: colors.textSecondary, textAlign: 'center', marginBottom: 32 }}>
+        <Animated.Text entering={reduceMotion ? undefined : FadeInDown.duration(500).delay(400)} style={{ fontSize: FONT_SIZE.md, color: colors.textSecondary, textAlign: 'center', marginBottom: SPACING.xxl }}>
           {t('welcome.subtitle')}
         </Animated.Text>
 
-        <Animated.View entering={reduceMotion ? undefined : FadeInUp.duration(500).delay(550)} style={{ gap: 12, width: '100%', marginBottom: 32 }}>
+        <Animated.View entering={reduceMotion ? undefined : FadeInUp.duration(500).delay(550)} style={{ gap: SPACING.md, width: '100%', marginBottom: SPACING.xxl }}>
           {signals.map((s, i) => (
-            <View key={i} style={{ flexDirection: 'row', alignItems: 'center', gap: 12 }}>
+            <View key={i} style={{ flexDirection: 'row', alignItems: 'center', gap: SPACING.md }}>
               <Ionicons name={s.icon} size={20} color={colors.primary} />
               <Text style={{ fontSize: FONT_SIZE.sm, color: colors.textSecondary }}>{s.text}</Text>
             </View>
@@ -115,18 +115,18 @@ export default function WelcomeScreen() {
         </Animated.View>
 
         {/* Social proof */}
-        <Animated.Text entering={reduceMotion ? undefined : FadeInUp.duration(500).delay(700)} style={{ fontSize: FONT_SIZE.sm, color: colors.textTertiary, textAlign: 'center', marginBottom: 24, fontStyle: 'italic' }}>
+        <Animated.Text entering={reduceMotion ? undefined : FadeInUp.duration(500).delay(700)} style={{ fontSize: FONT_SIZE.sm, color: colors.textTertiary, textAlign: 'center', marginBottom: SPACING.xl, fontStyle: 'italic' }}>
           {t('welcome.social_proof')}
         </Animated.Text>
       </View>
 
-      <View style={{ gap: 12 }}>
+      <View style={{ gap: SPACING.md }}>
         <Button title={t('welcome.cta')} onPress={() => router.push('/onboarding/goal')} />
         <Button title={t('welcome.login')} variant="outline" onPress={() => router.push('/(auth)/login')} />
-        <Text style={{ fontSize: FONT_SIZE.xs, color: colors.textSecondary, textAlign: 'center', marginTop: 4 }}>
+        <Text style={{ fontSize: FONT_SIZE.xs, color: colors.textSecondary, textAlign: 'center', marginTop: SPACING.xs }}>
           {t('welcome.pricing')}
         </Text>
-        <View style={{ flexDirection: 'row', justifyContent: 'center', gap: 8, marginTop: 8 }}>
+        <View style={{ flexDirection: 'row', justifyContent: 'center', gap: SPACING.sm, marginTop: SPACING.sm }}>
           <Pressable onPress={() => Linking.openURL(TERMS_URL)} style={{ minHeight: MIN_TOUCH, justifyContent: 'center', paddingVertical: 12 }} accessibilityRole="link" accessibilityLabel={t('paywall.terms')}>
             <Text style={{ fontSize: FONT_SIZE.xs, color: colors.textSecondary, textDecorationLine: 'underline' }}>{t('paywall.terms')}</Text>
           </Pressable>

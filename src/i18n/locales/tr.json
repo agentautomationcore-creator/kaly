@@ -94,7 +94,10 @@
     "upgrade_button": "Pro'ya yükselt",
     "feedback_input": "Geri bildiriminiz",
     "use_barcode": "Barkod tara",
-    "enter_manually": "Manuel giriş"
+    "enter_manually": "Manuel giriş",
+    "consent_required_title": "Yapay zeka onayı gerekli",
+    "consent_required_desc": "Fotoğraf taraması yapay zeka analizi kullanır. Barkod tarayıcıyı veya aramayı kullanabilir ya da yapay zekayı etkinleştirebilirsiniz.",
+    "enable_ai": "Yapay zeka taramayı etkinleştir"
   },
   "diary": {
     "title": "Bugün",

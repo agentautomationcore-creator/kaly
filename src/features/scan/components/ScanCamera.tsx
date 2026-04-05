@@ -11,7 +11,7 @@ import { useScanStore } from '../store/scanStore';
 import { useAnalyzeFood } from '../hooks/useAnalyzeFood';
 import { Button } from '../../../components/Button';
 import * as Haptics from 'expo-haptics';
-import { FONT_SIZE, RADIUS } from '../../../lib/constants';
+import { FONT_SIZE, RADIUS, SPACING } from '../../../lib/constants';
 
 export function ScanCamera() {
   const { t } = useTranslation();
@@ -29,9 +29,9 @@ export function ScanCamera() {
 
   if (!permission.granted) {
     return (
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', padding: 24 }}>
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', padding: SPACING.xl }}>
         <Ionicons name="camera-outline" size={64} color={colors.textSecondary} />
-        <Text style={{ fontSize: FONT_SIZE.md, color: colors.textSecondary, textAlign: 'center', marginTop: 16, marginBottom: 24 }}>
+        <Text style={{ fontSize: FONT_SIZE.md, color: colors.textSecondary, textAlign: 'center', marginTop: SPACING.lg, marginBottom: SPACING.xl }}>
           {t('errors.no_camera')}
         </Text>
         <Button title={t('scan.grant_camera')} onPress={requestPermission} />
@@ -82,7 +82,7 @@ export function ScanCamera() {
         {/* Overlay */}
         <View style={{ flex: 1, justifyContent: 'space-between' }}>
           {/* Close button */}
-          <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'flex-start', paddingTop: insets.top + 8, paddingHorizontal: 16 }}>
+          <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'flex-start', paddingTop: insets.top + SPACING.sm, paddingHorizontal: SPACING.lg }}>
             <Pressable
               onPress={() => {
                 if (router.canGoBack()) {
@@ -102,7 +102,7 @@ export function ScanCamera() {
               accessibilityRole="button"
               accessibilityLabel={t('common.close')}
             >
-              <Ionicons name="close" size={24} color="#FFFFFF" />
+              <Ionicons name="close" size={24} color={colors.textOnPrimary} />
             </Pressable>
           </View>
 
@@ -116,7 +116,7 @@ export function ScanCamera() {
           </View>
 
           {/* Bottom controls */}
-          <View style={{ paddingBottom: 40, paddingHorizontal: 24, gap: 16 }}>
+          <View style={{ paddingBottom: 40, paddingHorizontal: SPACING.xl, gap: SPACING.lg }}>
             <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center', gap: 40 }}>
               {/* Gallery */}
               <Pressable

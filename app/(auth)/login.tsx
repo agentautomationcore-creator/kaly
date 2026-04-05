@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next';
 import * as AppleAuthentication from 'expo-apple-authentication';
 import { useColors } from '../../src/lib/theme';
 import { Button } from '../../src/components/Button';
-import { FONT_SIZE, RADIUS, IS_IOS, MIN_TOUCH } from '../../src/lib/constants';
+import { FONT_SIZE, RADIUS, IS_IOS, MIN_TOUCH, SPACING } from '../../src/lib/constants';
 import { supabase } from '../../src/lib/supabase';
 import { captureException } from '../../src/lib/sentry';
 
@@ -75,14 +75,14 @@ export default function LoginScreen() {
     <SafeAreaView style={{ flex: 1, backgroundColor: colors.background }}>
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-        style={{ flex: 1, padding: 24, justifyContent: 'center' }}
+        style={{ flex: 1, padding: SPACING.xl, justifyContent: 'center' }}
       >
-        <Text style={{ fontSize: FONT_SIZE.heading, fontWeight: '800', color: colors.text, marginBottom: 32 }}>
+        <Text style={{ fontSize: FONT_SIZE.heading, fontWeight: '800', color: colors.text, marginBottom: SPACING.xxl }}>
           {t('auth.sign_in')}
         </Text>
 
         {error ? (
-          <View style={{ backgroundColor: colors.dangerLight, padding: 12, borderRadius: RADIUS.md, marginBottom: 16 }}>
+          <View style={{ backgroundColor: colors.dangerLight, padding: SPACING.md, borderRadius: RADIUS.md, marginBottom: SPACING.lg }}>
             <Text style={{ color: colors.danger, fontSize: FONT_SIZE.sm }}>{error}</Text>
           </View>
         ) : null}
@@ -99,10 +99,10 @@ export default function LoginScreen() {
           style={{
             backgroundColor: colors.card,
             borderRadius: RADIUS.md,
-            padding: 16,
+            padding: SPACING.lg,
             fontSize: FONT_SIZE.md,
             color: colors.text,
-            marginBottom: 12,
+            marginBottom: SPACING.md,
           }}
         />
 
@@ -116,18 +116,18 @@ export default function LoginScreen() {
           style={{
             backgroundColor: colors.card,
             borderRadius: RADIUS.md,
-            padding: 16,
+            padding: SPACING.lg,
             fontSize: FONT_SIZE.md,
             color: colors.text,
-            marginBottom: 24,
+            marginBottom: SPACING.xl,
           }}
         />
 
         <Button title={t('auth.sign_in')} onPress={handleLogin} loading={loading} />
 
         {IS_IOS && (
-          <View style={{ marginTop: 16, gap: 12 }}>
-            <View style={{ flexDirection: 'row', alignItems: 'center', gap: 12 }}>
+          <View style={{ marginTop: SPACING.lg, gap: SPACING.md }}>
+            <View style={{ flexDirection: 'row', alignItems: 'center', gap: SPACING.md }}>
               <View style={{ flex: 1, height: 1, backgroundColor: colors.border }} />
               <Text style={{ color: colors.textSecondary, fontSize: FONT_SIZE.sm }}>{t('auth.or')}</Text>
               <View style={{ flex: 1, height: 1, backgroundColor: colors.border }} />
@@ -142,7 +142,7 @@ export default function LoginScreen() {
           </View>
         )}
 
-        <View style={{ flexDirection: 'row', justifyContent: 'center', marginTop: 24, gap: 4 }}>
+        <View style={{ flexDirection: 'row', justifyContent: 'center', marginTop: SPACING.xl, gap: SPACING.xs }}>
           <Text style={{ color: colors.textSecondary, fontSize: FONT_SIZE.sm }}>{t('auth.no_account')}</Text>
           <Pressable onPress={() => router.push('/(auth)/register')} style={{ minHeight: MIN_TOUCH, justifyContent: 'center' }}>
             <Text style={{ color: colors.primary, fontSize: FONT_SIZE.sm, fontWeight: '600' }}>
@@ -151,7 +151,7 @@ export default function LoginScreen() {
           </Pressable>
         </View>
 
-        <Pressable onPress={() => { if (router.canGoBack()) router.back(); else router.replace('/onboarding/welcome'); }} style={{ marginTop: 16, alignItems: 'center', minHeight: MIN_TOUCH, justifyContent: 'center' }}>
+        <Pressable onPress={() => { if (router.canGoBack()) router.back(); else router.replace('/onboarding/welcome'); }} style={{ marginTop: SPACING.lg, alignItems: 'center', minHeight: MIN_TOUCH, justifyContent: 'center' }}>
           <Text style={{ color: colors.textSecondary, fontSize: FONT_SIZE.sm }}>{t('auth.back')}</Text>
         </Pressable>
       </KeyboardAvoidingView>

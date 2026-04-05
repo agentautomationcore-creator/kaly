@@ -3,7 +3,7 @@ import { View, Text } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import NetInfo from '@react-native-community/netinfo';
 import { useColors } from '../lib/theme';
-import { FONT_SIZE } from '../lib/constants';
+import { FONT_SIZE, SPACING } from '../lib/constants';
 
 export function OfflineBanner() {
   const { t } = useTranslation();
@@ -23,8 +23,8 @@ export function OfflineBanner() {
     <View
       style={{
         backgroundColor: colors.warningLight,
-        paddingHorizontal: 16,
-        paddingVertical: 8,
+        paddingHorizontal: SPACING.lg,
+        paddingVertical: SPACING.sm,
         alignItems: 'center',
       }}
     >

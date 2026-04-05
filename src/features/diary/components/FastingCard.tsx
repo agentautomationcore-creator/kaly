@@ -172,7 +172,7 @@ export function FastingCard() {
           paddingVertical: SPACING.md,
         }}
       >
-        <Text style={{ fontSize: FONT_SIZE.md, fontWeight: '600', color: '#FFFFFF' }}>
+        <Text style={{ fontSize: FONT_SIZE.md, fontWeight: '600', color: colors.textOnPrimary }}>
           {isActive ? t('fasting.stop') : t('fasting.start')}
         </Text>
       </Pressable>

@@ -4,7 +4,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { useTranslation } from 'react-i18next';
 import { useRouter } from 'expo-router';
 import { useColors } from '../../../lib/theme';
-import { FONT_SIZE, RADIUS, MIN_TOUCH } from '../../../lib/constants';
+import { FONT_SIZE, RADIUS, MIN_TOUCH, SPACING } from '../../../lib/constants';
 import { useScanStore } from '../store/scanStore';
 import { useAnalyzeFood } from '../hooks/useAnalyzeFood';
 import { useSettingsStore } from '../../../stores/settingsStore';
@@ -28,6 +28,38 @@ export function ScanScreen() {
   const [consentStep, setConsentStep] = useState<'health' | 'ai' | null>(
     !healthConsentGiven ? 'health' : !aiConsentGiven ? 'ai' : null
   );
+  const [consentDeclined, setConsentDeclined] = useState(false);
+
+  // Consent declined — show informative screen instead of camera
+  if (consentDeclined && !result && !isAnalyzing && !error) {
+    return (
+      <View style={{ flex: 1, backgroundColor: colors.background, alignItems: 'center', justifyContent: 'center', padding: SPACING.xl }}>
+        <Ionicons name="lock-closed-outline" size={48} color={colors.textTertiary} />
+        <Text style={{ fontSize: FONT_SIZE.lg, fontWeight: '600', color: colors.text, marginTop: SPACING.lg, textAlign: 'center' }}>
+          {t('scan.consent_required_title')}
+        </Text>
+        <Text style={{ fontSize: FONT_SIZE.md, color: colors.textSecondary, marginTop: SPACING.sm, textAlign: 'center' }}>
+          {t('scan.consent_required_desc')}
+        </Text>
+        <Pressable
+          onPress={() => router.push('/food-search')}
+          style={{ minHeight: MIN_TOUCH, marginTop: SPACING.xl, justifyContent: 'center' }}
+          accessibilityRole="button"
+          accessibilityLabel={t('food_search.placeholder')}
+        >
+          <Text style={{ color: colors.primary, fontWeight: '600', fontSize: FONT_SIZE.md }}>{t('food_search.placeholder')}</Text>
+        </Pressable>
+        <Pressable
+          onPress={() => { setConsentDeclined(false); setConsentStep(!healthConsentGiven ? 'health' : 'ai'); }}
+          style={{ minHeight: MIN_TOUCH, marginTop: SPACING.sm, justifyContent: 'center' }}
+          accessibilityRole="button"
+          accessibilityLabel={t('scan.enable_ai')}
+        >
+          <Text style={{ color: colors.primary, fontWeight: '600', fontSize: FONT_SIZE.md }}>{t('scan.enable_ai')}</Text>
+        </Pressable>
+      </View>
+    );
+  }
 
   // GDPR: Show health consent first, then AI consent — server requires both
   if (consentStep && !result && !isAnalyzing && !error) {
@@ -61,8 +93,8 @@ export function ScanScreen() {
             }
           }}
           onDecline={() => {
-            // Consent declined — go back (photo scan requires both consents)
-            router.back();
+            setConsentStep(null);
+            setConsentDeclined(true);
           }}
         />
       </View>
@@ -77,11 +109,11 @@ export function ScanScreen() {
     const isRateLimit = error === 'RATE_LIMIT';
     const isNotFood = error === 'NOT_FOOD' || (typeof error === 'string' && error.includes('not_food'));
     return (
-      <View style={{ flex: 1, backgroundColor: colors.background, justifyContent: 'center', alignItems: 'center', padding: 24 }}>
-        <Text style={{ color: colors.danger, fontSize: FONT_SIZE.lg, fontWeight: '600', marginBottom: 12 }}>
+      <View style={{ flex: 1, backgroundColor: colors.background, justifyContent: 'center', alignItems: 'center', padding: SPACING.xl }}>
+        <Text style={{ color: colors.danger, fontSize: FONT_SIZE.lg, fontWeight: '600', marginBottom: SPACING.md }}>
           {isRateLimit ? t('scan.scan_limit', { limit: 3 }) : isNotFood ? t('scan.not_food_detected') : t('errors.analysis_failed')}
         </Text>
-        <Text style={{ color: colors.textSecondary, textAlign: 'center', marginBottom: 24 }}>
+        <Text style={{ color: colors.textSecondary, textAlign: 'center', marginBottom: SPACING.xl }}>
           {isRateLimit ? t('scan.upgrade_for_more') : isNotFood ? t('scan.not_food_hint') : t('errors.generic')}
         </Text>
         {isRateLimit && (
@@ -90,13 +122,13 @@ export function ScanScreen() {
               onPress={() => router.push('/paywall')}
               style={{
                 backgroundColor: colors.primary,
-                paddingHorizontal: 24,
-                paddingVertical: 12,
+                paddingHorizontal: SPACING.xl,
+                paddingVertical: SPACING.md,
                 borderRadius: RADIUS.md,
                 minHeight: MIN_TOUCH,
                 alignItems: 'center',
                 justifyContent: 'center',
-                marginTop: 12,
+                marginTop: SPACING.md,
               }}
               accessibilityRole="button"
               accessibilityLabel={t('scan.upgrade_button')}
@@ -105,10 +137,10 @@ export function ScanScreen() {
                 {t('scan.upgrade_button')}
               </Text>
             </Pressable>
-            <View style={{ flexDirection: 'row', gap: 12, marginTop: 16 }}>
+            <View style={{ flexDirection: 'row', gap: SPACING.md, marginTop: SPACING.lg }}>
               <Pressable
                 onPress={() => { reset(); router.push('/(tabs)/diary'); }}
-                style={{ flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 6, backgroundColor: colors.surface, paddingVertical: 12, borderRadius: RADIUS.md, minHeight: MIN_TOUCH }}
+                style={{ flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 6, backgroundColor: colors.surface, paddingVertical: SPACING.md, borderRadius: RADIUS.md, minHeight: MIN_TOUCH }}
                 accessibilityRole="button"
                 accessibilityLabel={t('scan.use_barcode')}
               >
@@ -117,7 +149,7 @@ export function ScanScreen() {
               </Pressable>
               <Pressable
                 onPress={() => { reset(); router.push('/(tabs)/diary'); }}
-                style={{ flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 6, backgroundColor: colors.surface, paddingVertical: 12, borderRadius: RADIUS.md, minHeight: MIN_TOUCH }}
+                style={{ flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 6, backgroundColor: colors.surface, paddingVertical: SPACING.md, borderRadius: RADIUS.md, minHeight: MIN_TOUCH }}
                 accessibilityRole="button"
                 accessibilityLabel={t('scan.enter_manually')}
               >
@@ -127,11 +159,11 @@ export function ScanScreen() {
             </View>
           </>
         )}
-        <View style={{ flexDirection: 'row', gap: 12 }}>
+        <View style={{ flexDirection: 'row', gap: SPACING.md }}>
           {!isRateLimit && photo && (
             <Pressable
               onPress={() => { setError(null); analyze(photo); }}
-              style={{ backgroundColor: colors.primary, paddingHorizontal: 24, paddingVertical: 12, borderRadius: RADIUS.md, minHeight: MIN_TOUCH, justifyContent: 'center' }}
+              style={{ backgroundColor: colors.primary, paddingHorizontal: SPACING.xl, paddingVertical: SPACING.md, borderRadius: RADIUS.md, minHeight: MIN_TOUCH, justifyContent: 'center' }}
               accessibilityRole="button"
               accessibilityLabel={t('common.retry')}
             >
@@ -140,7 +172,7 @@ export function ScanScreen() {
           )}
           <Pressable
             onPress={reset}
-            style={{ backgroundColor: colors.surface, paddingHorizontal: 24, paddingVertical: 12, borderRadius: RADIUS.md, minHeight: MIN_TOUCH, justifyContent: 'center' }}
+            style={{ backgroundColor: colors.surface, paddingHorizontal: SPACING.xl, paddingVertical: SPACING.md, borderRadius: RADIUS.md, minHeight: MIN_TOUCH, justifyContent: 'center' }}
             accessibilityRole="button"
             accessibilityLabel={t('common.cancel')}
           >

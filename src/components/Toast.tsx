@@ -4,6 +4,7 @@ import Animated, { FadeIn, FadeOut } from 'react-native-reanimated';
 import { Ionicons } from '@expo/vector-icons';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { FONT_SIZE, RADIUS, SPACING } from '../lib/constants';
+import { useColors } from '../lib/theme';
 
 interface ToastProps {
   message: string;
@@ -14,6 +15,7 @@ interface ToastProps {
 
 export function Toast({ message, visible, onHide, duration = 2000 }: ToastProps) {
   const insets = useSafeAreaInsets();
+  const colors = useColors();
 
   useEffect(() => {
     if (visible) {
@@ -35,14 +37,14 @@ export function Toast({ message, visible, onHide, duration = 2000 }: ToastProps)
         flexDirection: 'row',
         alignItems: 'center',
         gap: SPACING.sm,
-        backgroundColor: 'rgba(0,0,0,0.85)',
+        backgroundColor: colors.toastBackground,
         paddingHorizontal: SPACING.lg,
         paddingVertical: SPACING.md,
         borderRadius: RADIUS.xxl,
       }}
     >
-      <Ionicons name="checkmark-circle" size={20} color="#4CAF50" />
-      <Text style={{ fontSize: FONT_SIZE.sm, color: '#FFFFFF', fontWeight: '500' }}>{message}</Text>
+      <Ionicons name="checkmark-circle" size={20} color={colors.toastIcon} />
+      <Text style={{ fontSize: FONT_SIZE.sm, color: colors.textOnPrimary, fontWeight: '500' }}>{message}</Text>
     </Animated.View>
   );
 }

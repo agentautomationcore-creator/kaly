@@ -44,7 +44,7 @@ serve(async (req) => {
     } = body;
 
     // Model from env, default to Haiku for cost efficiency
-    const model = Deno.env.get('ANTHROPIC_MODEL') || 'claude-haiku-4-5-20241001';
+    const model = Deno.env.get('ANTHROPIC_MODEL') || 'claude-haiku-4-5-20251001';
 
     const systemPrompt = `You are a nutritionist AI. You suggest practical, easy-to-make meals.
 Always respond with ONLY a JSON array of exactly 3 objects. No markdown, no explanation.

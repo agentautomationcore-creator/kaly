@@ -94,7 +94,10 @@
     "upgrade_button": "升级到 Pro",
     "feedback_input": "您的反馈",
     "use_barcode": "扫描条码",
-    "enter_manually": "手动输入"
+    "enter_manually": "手动输入",
+    "consent_required_title": "需要AI同意",
+    "consent_required_desc": "照片扫描使用AI分析。您可以使用条形码扫描或搜索，或启用AI。",
+    "enable_ai": "启用AI扫描"
   },
   "diary": {
     "title": "今天",

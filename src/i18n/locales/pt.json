@@ -94,7 +94,10 @@
     "upgrade_button": "Atualizar para Pro",
     "feedback_input": "Seu comentário",
     "use_barcode": "Escanear código",
-    "enter_manually": "Inserir manualmente"
+    "enter_manually": "Inserir manualmente",
+    "consent_required_title": "Consentimento de IA necessário",
+    "consent_required_desc": "A digitalização de fotos usa análise de IA. Você pode usar o scanner de código de barras ou a pesquisa, ou ativar a IA.",
+    "enable_ai": "Ativar digitalização IA"
   },
   "diary": {
     "title": "Hoje",
