@@ -7,7 +7,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useColors } from '../../../lib/theme';
 import { Button } from '../../../components/Button';
-import { FONT_SIZE, RADIUS, MIN_TOUCH } from '../../../lib/constants';
+import { FONT_SIZE, RADIUS, MIN_TOUCH, SPACING } from '../../../lib/constants';
 import { lookupBarcode, type BarcodeProduct } from '../hooks/useBarcodeLookup';
 import { BarcodeResult } from './BarcodeResult';
 import { track } from '../../../lib/analytics';
@@ -72,9 +72,9 @@ export function BarcodeScanner() {
   if (!permission?.granted) {
     const canAsk = permission?.canAskAgain !== false;
     return (
-      <SafeAreaView style={{ flex: 1, backgroundColor: colors.background, justifyContent: 'center', alignItems: 'center', padding: 24 }}>
+      <SafeAreaView style={{ flex: 1, backgroundColor: colors.background, justifyContent: 'center', alignItems: 'center', padding: SPACING.xl }}>
         <Ionicons name="barcode-outline" size={48} color={colors.textSecondary} />
-        <Text style={{ fontSize: FONT_SIZE.md, color: colors.text, textAlign: 'center', marginVertical: 16 }}>
+        <Text style={{ fontSize: FONT_SIZE.md, color: colors.text, textAlign: 'center', marginVertical: SPACING.lg }}>
           {t('barcode.camera_needed')}
         </Text>
         {canAsk ? (
@@ -82,7 +82,7 @@ export function BarcodeScanner() {
         ) : (
           <Button title={t('scan.open_settings')} onPress={() => Linking.openSettings()} />
         )}
-        <Pressable onPress={() => { if (router.canGoBack()) router.back(); else router.replace('/(tabs)/diary'); }} style={{ marginTop: 16, minHeight: MIN_TOUCH, justifyContent: 'center' }} accessibilityRole="button" accessibilityLabel={t('common.cancel')}>
+        <Pressable onPress={() => { if (router.canGoBack()) router.back(); else router.replace('/(tabs)/diary'); }} style={{ marginTop: SPACING.lg, minHeight: MIN_TOUCH, justifyContent: 'center' }} accessibilityRole="button" accessibilityLabel={t('common.cancel')}>
           <Text style={{ color: colors.textSecondary }}>{t('common.cancel')}</Text>
         </Pressable>
       </SafeAreaView>
@@ -90,7 +90,7 @@ export function BarcodeScanner() {
   }
 
   return (
-    <View style={{ flex: 1, backgroundColor: '#000' }}>
+    <View style={{ flex: 1, backgroundColor: colors.overlay }}>
       <CameraView
         style={{ flex: 1 }}
         facing="back"
@@ -101,15 +101,15 @@ export function BarcodeScanner() {
       {/* Overlay */}
       <View style={{ position: 'absolute', top: 0, start: 0, end: 0, bottom: 0, justifyContent: 'center', alignItems: 'center' }}>
         {/* Scanning frame */}
-        <View style={{ width: 260, height: 160, borderWidth: 2, borderColor: '#fff', borderRadius: RADIUS.md, opacity: 0.7 }} accessibilityLabel={t('barcode.point_at_barcode')} />
-        <Text style={{ color: '#fff', fontSize: FONT_SIZE.sm, marginTop: 16, opacity: 0.8 }}>
+        <View style={{ width: 260, height: 160, borderWidth: 2, borderColor: colors.textOnPrimary, borderRadius: RADIUS.md, opacity: 0.7 }} accessibilityLabel={t('barcode.point_at_barcode')} />
+        <Text style={{ color: colors.textOnPrimary, fontSize: FONT_SIZE.sm, marginTop: SPACING.lg, opacity: 0.8 }}>
           {t('barcode.point_at_barcode')}
         </Text>
 
         {loading && (
-          <View style={{ marginTop: 16, flexDirection: 'row', alignItems: 'center', gap: 8 }}>
-            <ActivityIndicator color="#fff" />
-            <Text style={{ color: '#fff', fontSize: FONT_SIZE.sm }}>{t('common.loading')}</Text>
+          <View style={{ marginTop: SPACING.lg, flexDirection: 'row', alignItems: 'center', gap: SPACING.sm }}>
+            <ActivityIndicator color={colors.textOnPrimary} />
+            <Text style={{ color: colors.textOnPrimary, fontSize: FONT_SIZE.sm }}>{t('common.loading')}</Text>
           </View>
         )}
       </View>
@@ -118,11 +118,11 @@ export function BarcodeScanner() {
       <SafeAreaView style={{ position: 'absolute', top: 0, start: 0, end: 0 }} edges={['top']}>
         <Pressable
           onPress={() => { if (router.canGoBack()) router.back(); else router.replace('/(tabs)/diary'); }}
-          style={{ alignSelf: 'flex-end', margin: 16, width: 44, height: 44, borderRadius: 22, backgroundColor: colors.overlay, justifyContent: 'center', alignItems: 'center' }}
+          style={{ alignSelf: 'flex-end', margin: SPACING.lg, width: 44, height: 44, borderRadius: RADIUS.full, backgroundColor: colors.overlay, justifyContent: 'center', alignItems: 'center' }}
           accessibilityRole="button"
           accessibilityLabel={t('common.close')}
         >
-          <Ionicons name="close" size={24} color="#fff" />
+          <Ionicons name="close" size={24} color={colors.textOnPrimary} />
         </Pressable>
       </SafeAreaView>
     </View>

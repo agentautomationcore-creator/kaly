@@ -342,14 +342,16 @@
     "macros": "Macros (opcional)",
     "serving_size": "Tamaño de porción",
     "name_required": "Ingrese un nombre",
-    "missing_nutrition": "Datos nutricionales incompletos."
+    "missing_nutrition": "Datos nutricionales incompletos.",
+    "default_serving": "1 porción"
   },
   "fasting": {
     "title": "Ayuno intermitente",
     "start": "Iniciar",
     "stop": "Terminar",
     "hours": "horas",
-    "completed": "¡Ayuno completado!"
+    "completed": "¡Ayuno completado!",
+    "hours_suffix": "h"
   },
   "report": {
     "title": "Informe nutricional",

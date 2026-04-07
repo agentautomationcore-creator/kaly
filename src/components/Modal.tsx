@@ -52,7 +52,7 @@ export function Modal({ visible, onClose, title, children, style }: ModalProps) 
               zIndex: 10,
               width: 44,
               height: 44,
-              borderRadius: 22,
+              borderRadius: RADIUS.full,
               backgroundColor: colors.surface,
               alignItems: 'center',
               justifyContent: 'center',

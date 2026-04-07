@@ -342,14 +342,16 @@
     "macros": "Makrolar (isteğe bağlı)",
     "serving_size": "Porsiyon",
     "name_required": "Lütfen bir ad girin",
-    "missing_nutrition": "Besin verileri eksik."
+    "missing_nutrition": "Besin verileri eksik.",
+    "default_serving": "1 porsiyon"
   },
   "fasting": {
     "title": "Aralıklı oruç",
     "start": "Başla",
     "stop": "Bitir",
     "hours": "saat",
-    "completed": "Oruç tamamlandı!"
+    "completed": "Oruç tamamlandı!",
+    "hours_suffix": "s"
   },
   "report": {
     "title": "Beslenme Raporu",

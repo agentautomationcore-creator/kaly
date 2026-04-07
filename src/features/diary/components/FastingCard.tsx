@@ -151,7 +151,7 @@ export function FastingCard() {
               }}
             >
               <Text style={{ fontSize: FONT_SIZE.sm, fontWeight: '600', color: targetHours === h ? colors.primary : colors.textSecondary }}>
-                {h}h
+                {h}{t('fasting.hours_suffix')}
               </Text>
             </Pressable>
           ))}

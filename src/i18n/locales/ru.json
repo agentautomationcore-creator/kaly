@@ -342,14 +342,16 @@
     "macros": "Макронутриенты (необязательно)",
     "serving_size": "Размер порции",
     "name_required": "Введите название",
-    "missing_nutrition": "Данные о питании неполные."
+    "missing_nutrition": "Данные о питании неполные.",
+    "default_serving": "1 порция"
   },
   "fasting": {
     "title": "Интервальное голодание",
     "start": "Начать",
     "stop": "Завершить",
     "hours": "часов",
-    "completed": "Голодание завершено!"
+    "completed": "Голодание завершено!",
+    "hours_suffix": "ч"
   },
   "report": {
     "title": "Отчёт о питании",

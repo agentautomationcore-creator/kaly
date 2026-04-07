@@ -7,7 +7,7 @@ import { useUpdateProfile } from '../hooks/useProfile';
 import { Card } from '../../../components/Card';
 import { Modal } from '../../../components/Modal';
 import { Button } from '../../../components/Button';
-import { FONT_SIZE, RADIUS, MIN_TOUCH } from '../../../lib/constants';
+import { FONT_SIZE, RADIUS, MIN_TOUCH, SPACING } from '../../../lib/constants';
 import type { NutritionProfile } from '../types';
 
 const DIETS = ['balanced', 'keto', 'vegan', 'vegetarian', 'paleo'] as const;
@@ -36,7 +36,7 @@ export function DietEditor({ profile }: DietEditorProps) {
   return (
     <>
       <Pressable onPress={() => setVisible(true)}>
-        <Card style={{ marginBottom: 12, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+        <Card style={{ marginBottom: SPACING.md, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
           <View>
             <Text style={{ fontSize: FONT_SIZE.sm, color: colors.textSecondary }}>{t('profile.edit_diet')}</Text>
             <Text style={{ fontSize: FONT_SIZE.md, fontWeight: '600', color: colors.text }}>
@@ -49,7 +49,7 @@ export function DietEditor({ profile }: DietEditorProps) {
       </Pressable>
 
       <Modal visible={visible} onClose={() => setVisible(false)} title={t('onboarding.diet_title')}>
-        <View style={{ gap: 8, marginBottom: 16 }}>
+        <View style={{ gap: SPACING.sm, marginBottom: SPACING.lg }}>
           {DIETS.map((d) => (
             <Pressable
               key={d}
@@ -57,7 +57,7 @@ export function DietEditor({ profile }: DietEditorProps) {
               onPress={() => setDiet(d)}
               accessibilityRole="button"
               style={{
-                padding: 12,
+                padding: SPACING.md,
                 minHeight: MIN_TOUCH,
                 borderRadius: RADIUS.md,
                 backgroundColor: diet === d ? colors.primaryLight : colors.surface,
@@ -72,7 +72,7 @@ export function DietEditor({ profile }: DietEditorProps) {
           ))}
         </View>
 
-        <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 8, marginBottom: 16 }}>
+        <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: SPACING.sm, marginBottom: SPACING.lg }}>
           {ALLERGIES.map((a) => {
             const sel = allergies.includes(a);
             return (

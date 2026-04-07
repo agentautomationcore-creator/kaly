@@ -7,7 +7,7 @@ import { useUpdateProfile } from '../hooks/useProfile';
 import { Card } from '../../../components/Card';
 import { Modal } from '../../../components/Modal';
 import { Button } from '../../../components/Button';
-import { FONT_SIZE, RADIUS } from '../../../lib/constants';
+import { FONT_SIZE, RADIUS, SPACING } from '../../../lib/constants';
 import { track } from '../../../lib/analytics';
 import { calculateTDEE, calculateDailyTarget, calculateMacroSplit } from '../../../lib/nutrition';
 import type { Gender, ActivityLevel, Goal as GoalType, DietType } from '../../../lib/nutrition';
@@ -51,7 +51,7 @@ export function GoalEditor({ profile }: GoalEditorProps) {
   return (
     <>
       <Pressable onPress={() => setVisible(true)}>
-        <Card style={{ marginBottom: 12, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+        <Card style={{ marginBottom: SPACING.md, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
           <View>
             <Text style={{ fontSize: FONT_SIZE.sm, color: colors.textSecondary }}>{t('profile.edit_goal')}</Text>
             <Text style={{ fontSize: FONT_SIZE.md, fontWeight: '600', color: colors.text }}>
@@ -63,7 +63,7 @@ export function GoalEditor({ profile }: GoalEditorProps) {
       </Pressable>
 
       <Modal visible={visible} onClose={() => setVisible(false)} title={t('onboarding.goal_title')}>
-        <View style={{ gap: 8, marginBottom: 16 }}>
+        <View style={{ gap: SPACING.sm, marginBottom: SPACING.lg }}>
           {GOALS.map((g) => (
             <Pressable
               key={g}

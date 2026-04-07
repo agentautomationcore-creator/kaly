@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { Ionicons } from '@expo/vector-icons';
 import { useColors } from '../../../lib/theme';
 import { Card } from '../../../components/Card';
-import { FONT_SIZE } from '../../../lib/constants';
+import { FONT_SIZE, RADIUS } from '../../../lib/constants';
 
 interface StreakCounterProps {
   count: number;
@@ -20,7 +20,7 @@ export function StreakCounter({ count }: StreakCounterProps) {
         style={{
           width: 44,
           height: 44,
-          borderRadius: 22,
+          borderRadius: RADIUS.full,
           backgroundColor: count > 0 ? colors.warningLight : colors.surface,
           justifyContent: 'center',
           alignItems: 'center',

@@ -43,7 +43,7 @@ export default function ManualEntryScreen() {
   const [carbs, setCarbs] = useState(params.carbs || '');
   const [fat, setFat] = useState(params.fat || '');
   const [fiber, setFiber] = useState(params.fiber || '');
-  const [servingSize, setServingSize] = useState(params.serving_size || '1 serving');
+  const [servingSize, setServingSize] = useState(params.serving_size || t('manual_entry.default_serving'));
   const [saving, setSaving] = useState(false);
 
   const mealType = (params.mealType || 'snack') as MealType;

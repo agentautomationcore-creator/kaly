@@ -342,14 +342,16 @@
     "macros": "Macro (opzionale)",
     "serving_size": "Porzione",
     "name_required": "Inserisci un nome",
-    "missing_nutrition": "Dati nutrizionali incompleti."
+    "missing_nutrition": "Dati nutrizionali incompleti.",
+    "default_serving": "1 porzione"
   },
   "fasting": {
     "title": "Digiuno intermittente",
     "start": "Inizia",
     "stop": "Termina",
     "hours": "ore",
-    "completed": "Digiuno completato!"
+    "completed": "Digiuno completato!",
+    "hours_suffix": "h"
   },
   "report": {
     "title": "Rapporto nutrizionale",

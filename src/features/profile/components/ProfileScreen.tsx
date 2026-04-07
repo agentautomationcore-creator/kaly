@@ -43,7 +43,7 @@ function ExportReportCard() {
   };
 
   return (
-    <Card style={{ marginBottom: 16 }}>
+    <Card style={{ marginBottom: SPACING.lg }}>
       <Text style={{ fontSize: FONT_SIZE.md, fontWeight: '600', color: colors.text, marginBottom: SPACING.sm }}>
         {t('profile.export_report')}
       </Text>
@@ -114,7 +114,7 @@ export function ProfileScreen() {
   return (
     <ScrollView
       style={{ flex: 1, backgroundColor: colors.background }}
-      contentContainerStyle={{ padding: 16, paddingBottom: 100 }}
+      contentContainerStyle={{ padding: SPACING.lg, paddingBottom: 100 }}
     >
       <Text style={{ fontSize: FONT_SIZE.xxl, fontWeight: '800', color: colors.text, marginBottom: 20 }}>
         {t('profile.title')}
@@ -123,7 +123,7 @@ export function ProfileScreen() {
       {/* Anonymous banner */}
       {isAnonymous && (
         <Card style={{ marginBottom: 16, backgroundColor: colors.primaryLight }}>
-          <Text style={{ fontSize: FONT_SIZE.sm, color: colors.primary, fontWeight: '500', marginBottom: 12 }}>
+          <Text style={{ fontSize: FONT_SIZE.sm, color: colors.primary, fontWeight: '500', marginBottom: SPACING.md }}>
             {t('profile.save_data')}
           </Text>
           <Button
@@ -219,7 +219,7 @@ export function ProfileScreen() {
               captureException(e, { feature: 'data_export' });
             }
           }}
-          style={{ marginTop: 12 }}
+          style={{ marginTop: SPACING.md }}
         />
       )}
 
@@ -234,7 +234,7 @@ export function ProfileScreen() {
               { text: t('profile.sign_out'), onPress: signOut },
             ]);
           }}
-          style={{ marginTop: 16 }}
+          style={{ marginTop: SPACING.lg }}
         />
       )}
 
@@ -242,7 +242,7 @@ export function ProfileScreen() {
       <DeleteAccountButton />
 
       {/* Disclaimer */}
-      <Text style={{ fontSize: FONT_SIZE.xs, color: colors.textSecondary, textAlign: 'center', marginTop: 24, lineHeight: 16 }}>
+      <Text style={{ fontSize: FONT_SIZE.xs, color: colors.textSecondary, textAlign: 'center', marginTop: SPACING.xl, lineHeight: 16 }}>
         {t('profile.disclaimer')}
       </Text>
     </ScrollView>

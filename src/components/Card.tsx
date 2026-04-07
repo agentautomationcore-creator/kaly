@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, ViewStyle, Platform } from 'react-native';
 import { useColors } from '../lib/theme';
-import { RADIUS } from '../lib/constants';
+import { RADIUS, SPACING } from '../lib/constants';
 
 interface CardProps {
   children: React.ReactNode;
@@ -16,7 +16,7 @@ export function Card({ children, style }: CardProps) {
       style={{
         backgroundColor: colors.card,
         borderRadius: RADIUS.lg,
-        padding: 16,
+        padding: SPACING.lg,
         ...(Platform.OS === 'ios'
           ? { shadowColor: colors.text, shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.08, shadowRadius: 8 }
           : { elevation: 2 }),

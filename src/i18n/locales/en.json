@@ -342,14 +342,16 @@
     "macros": "Macros (optional)",
     "serving_size": "Serving size",
     "name_required": "Please enter a food name",
-    "missing_nutrition": "Nutrition data incomplete. Please verify or enter manually."
+    "missing_nutrition": "Nutrition data incomplete. Please verify or enter manually.",
+    "default_serving": "1 serving"
   },
   "fasting": {
     "title": "Intermittent Fasting",
     "start": "Start fast",
     "stop": "End fast",
     "hours": "hours",
-    "completed": "Fast completed!"
+    "completed": "Fast completed!",
+    "hours_suffix": "h"
   },
   "report": {
     "title": "Nutrition Report",

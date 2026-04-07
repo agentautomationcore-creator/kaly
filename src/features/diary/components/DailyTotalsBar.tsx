@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { useColors } from '../../../lib/theme';
 import { CalorieRing } from '../../stats/components/CalorieRing';
 import { Card } from '../../../components/Card';
-import { FONT_SIZE } from '../../../lib/constants';
+import { FONT_SIZE, SPACING } from '../../../lib/constants';
 import { formatNumber } from '../../../lib/formatNumber';
 
 interface DailyTotalsBarProps {
@@ -24,9 +24,9 @@ export function DailyTotalsBar({ calories, protein, carbs, fat, calorieGoal = 20
   const overColor = remaining >= 0 ? colors.success : colors.overGoal;
 
   return (
-    <Card style={{ marginHorizontal: 16, marginBottom: 16 }}>
+    <Card style={{ marginHorizontal: SPACING.lg, marginBottom: SPACING.lg }}>
       {/* Calorie ring + remaining */}
-      <View style={{ alignItems: 'center', marginBottom: 12 }}>
+      <View style={{ alignItems: 'center', marginBottom: SPACING.md }}>
         <CalorieRing current={calories} goal={calorieGoal} size={140} />
         <Text style={{ fontSize: FONT_SIZE.sm, color: overColor, fontWeight: '500', marginTop: 8 }}>
           {remaining >= 0
@@ -36,7 +36,7 @@ export function DailyTotalsBar({ calories, protein, carbs, fat, calorieGoal = 20
       </View>
 
       {/* Macros */}
-      <View style={{ flexDirection: 'row', gap: 16 }}>
+      <View style={{ flexDirection: 'row', gap: SPACING.lg }}>
         <MacroChip label={t('stats.protein')} value={protein} unit={t('units.g')} color={colors.proteinColor} />
         <MacroChip label={t('stats.carbs')} value={carbs} unit={t('units.g')} color={colors.carbsColor} />
         <MacroChip label={t('stats.fat')} value={fat} unit={t('units.g')} color={colors.fatColor} />

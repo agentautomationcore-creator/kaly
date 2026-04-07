@@ -8,7 +8,7 @@ import { useSettingsStore } from '../../../stores/settingsStore';
 import { kgToLbs, lbsToKg } from '../../../lib/nutrition';
 import { Card } from '../../../components/Card';
 import { Button } from '../../../components/Button';
-import { FONT_SIZE, RADIUS, MIN_TOUCH } from '../../../lib/constants';
+import { FONT_SIZE, RADIUS, MIN_TOUCH, SPACING } from '../../../lib/constants';
 import { useHealthKit } from '../../../hooks/useHealthKit';
 
 export function WeightLog() {
@@ -40,8 +40,8 @@ export function WeightLog() {
   const range = maxW - minW || 1;
 
   return (
-    <Card style={{ marginBottom: 12 }}>
-      <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12 }}>
+    <Card style={{ marginBottom: SPACING.md }}>
+      <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: SPACING.md }}>
         <Text style={{ fontSize: FONT_SIZE.md, fontWeight: '600', color: colors.text }}>
           {t('profile.weight_log')}
         </Text>
@@ -51,7 +51,7 @@ export function WeightLog() {
       </View>
 
       {showInput && (
-        <View style={{ flexDirection: 'row', gap: 8, marginBottom: 12 }}>
+        <View style={{ flexDirection: 'row', gap: SPACING.sm, marginBottom: SPACING.md }}>
           <TextInput
             value={weight}
             onChangeText={setWeight}
@@ -63,7 +63,7 @@ export function WeightLog() {
               flex: 1,
               backgroundColor: colors.surface,
               borderRadius: RADIUS.md,
-              padding: 12,
+              padding: SPACING.md,
               fontSize: FONT_SIZE.md,
               color: colors.text,
             }}

@@ -15,7 +15,7 @@ import { Card } from '../../../components/Card';
 import { grantAnalyticsConsent, revokeAnalyticsConsent } from '../../../lib/analytics';
 import { initSentryIfConsented } from '../../../lib/sentry';
 import { scheduleWaterReminders, cancelWaterReminders, areWaterRemindersEnabled, requestNotificationPermission } from '../../../lib/waterReminders';
-import { FONT_SIZE, RADIUS, MIN_TOUCH } from '../../../lib/constants';
+import { FONT_SIZE, RADIUS, MIN_TOUCH, SPACING } from '../../../lib/constants';
 import { useHealthKit } from '../../../hooks/useHealthKit';
 import { captureException } from '../../../lib/sentry';
 import type { NutritionProfile } from '../types';
@@ -50,12 +50,12 @@ export function SettingsSection({ profile }: SettingsSectionProps) {
   };
 
   return (
-    <Card style={{ marginBottom: 12 }}>
+    <Card style={{ marginBottom: SPACING.md }}>
       {/* Language */}
-      <Text style={{ fontSize: FONT_SIZE.sm, color: colors.textSecondary, fontWeight: '500', marginBottom: 8 }}>
+      <Text style={{ fontSize: FONT_SIZE.sm, color: colors.textSecondary, fontWeight: '500', marginBottom: SPACING.sm }}>
         {t('profile.language')}
       </Text>
-      <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 6, marginBottom: 16 }}>
+      <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 6, marginBottom: SPACING.lg }}>
         {SUPPORTED_LANGUAGES.map((lang) => (
           <Pressable
             key={lang}
@@ -63,7 +63,7 @@ export function SettingsSection({ profile }: SettingsSectionProps) {
             accessibilityLabel={`${t('profile.language')}: ${LANGUAGE_NAMES[lang] || lang}`}
             accessibilityRole="button"
             style={{
-              paddingHorizontal: 12,
+              paddingHorizontal: SPACING.md,
               paddingVertical: 6,
               minHeight: MIN_TOUCH,
               justifyContent: 'center',
@@ -81,10 +81,10 @@ export function SettingsSection({ profile }: SettingsSectionProps) {
       </View>
 
       {/* Theme */}
-      <Text style={{ fontSize: FONT_SIZE.sm, color: colors.textSecondary, fontWeight: '500', marginBottom: 8 }}>
+      <Text style={{ fontSize: FONT_SIZE.sm, color: colors.textSecondary, fontWeight: '500', marginBottom: SPACING.sm }}>
         {t('profile.theme')}
       </Text>
-      <View style={{ flexDirection: 'row', gap: 8, marginBottom: 16 }}>
+      <View style={{ flexDirection: 'row', gap: SPACING.sm, marginBottom: SPACING.lg }}>
         {THEME_OPTIONS.map((th) => (
           <Pressable
             key={th}
@@ -111,7 +111,7 @@ export function SettingsSection({ profile }: SettingsSectionProps) {
       </View>
 
       {/* Notifications */}
-      <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
+      <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: SPACING.lg }}>
         <Text style={{ fontSize: FONT_SIZE.sm, fontWeight: '500', color: colors.text }}>
           {t('profile.notifications')}
         </Text>
@@ -124,7 +124,7 @@ export function SettingsSection({ profile }: SettingsSectionProps) {
       </View>
 
       {/* Water reminders */}
-      <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
+      <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: SPACING.lg }}>
         <Text style={{ fontSize: FONT_SIZE.sm, fontWeight: '500', color: colors.text }}>
           {t('profile.water_reminders')}
         </Text>
@@ -144,7 +144,7 @@ export function SettingsSection({ profile }: SettingsSectionProps) {
       </View>
 
       {/* Streak toggle */}
-      <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
+      <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: SPACING.lg }}>
         <Text style={{ fontSize: FONT_SIZE.sm, fontWeight: '500', color: colors.text }}>
           {t('profile.show_streak')}
         </Text>
@@ -158,7 +158,7 @@ export function SettingsSection({ profile }: SettingsSectionProps) {
 
       {/* Apple Health */}
       {healthKitAvailable && (
-        <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
+        <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: SPACING.lg }}>
           <View style={{ flex: 1 }}>
             <Text style={{ fontSize: FONT_SIZE.sm, fontWeight: '500', color: colors.text }}>
               {t('settings.apple_health')}
@@ -187,13 +187,13 @@ export function SettingsSection({ profile }: SettingsSectionProps) {
       )}
 
       {/* Unit system toggle */}
-      <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
+      <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: SPACING.lg }}>
         <Text style={{ fontSize: FONT_SIZE.sm, fontWeight: '500', color: colors.text }}>
           {t('settings.units')}
         </Text>
         <Pressable
           onPress={() => setUnits(units === 'metric' ? 'imperial' : 'metric')}
-          style={{ minHeight: MIN_TOUCH, paddingHorizontal: 12, paddingVertical: 8, borderRadius: RADIUS.md, backgroundColor: colors.surface, justifyContent: 'center' }}
+          style={{ minHeight: MIN_TOUCH, paddingHorizontal: SPACING.md, paddingVertical: SPACING.sm, borderRadius: RADIUS.md, backgroundColor: colors.surface, justifyContent: 'center' }}
           accessibilityRole="button"
           accessibilityLabel={t('settings.toggle_units')}
         >
@@ -204,10 +204,10 @@ export function SettingsSection({ profile }: SettingsSectionProps) {
       </View>
 
       {/* Privacy — Consent Withdrawal (Art. 7 GDPR) */}
-      <Text style={{ fontSize: FONT_SIZE.sm, color: colors.textSecondary, fontWeight: '500', marginBottom: 8 }}>
+      <Text style={{ fontSize: FONT_SIZE.sm, color: colors.textSecondary, fontWeight: '500', marginBottom: SPACING.sm }}>
         {t('profile.privacy')}
       </Text>
-      <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12 }}>
+      <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: SPACING.md }}>
         <Text style={{ fontSize: FONT_SIZE.sm, fontWeight: '500', color: colors.text }}>
           {t('profile.ai_analysis')}
         </Text>
@@ -233,7 +233,7 @@ export function SettingsSection({ profile }: SettingsSectionProps) {
           accessibilityLabel={t('profile.ai_analysis')}
         />
       </View>
-      <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12 }}>
+      <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: SPACING.md }}>
         <Text style={{ fontSize: FONT_SIZE.sm, fontWeight: '500', color: colors.text }}>
           {t('profile.health_data')}
         </Text>
@@ -259,7 +259,7 @@ export function SettingsSection({ profile }: SettingsSectionProps) {
           accessibilityLabel={t('profile.health_data')}
         />
       </View>
-      <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
+      <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: SPACING.lg }}>
         <Text style={{ fontSize: FONT_SIZE.sm, fontWeight: '500', color: colors.text }}>
           {t('profile.analytics')}
         </Text>
@@ -280,13 +280,13 @@ export function SettingsSection({ profile }: SettingsSectionProps) {
       </View>
 
       {/* Legal links */}
-      <View style={{ flexDirection: 'row', gap: 16 }}>
-        <Pressable onPress={() => Linking.openURL(PRIVACY_URL)} style={{ minHeight: MIN_TOUCH, paddingVertical: 12, justifyContent: 'center' }} accessibilityRole="link" accessibilityLabel={t('paywall.privacy')}>
+      <View style={{ flexDirection: 'row', gap: SPACING.lg }}>
+        <Pressable onPress={() => Linking.openURL(PRIVACY_URL)} style={{ minHeight: MIN_TOUCH, paddingVertical: SPACING.md, justifyContent: 'center' }} accessibilityRole="link" accessibilityLabel={t('paywall.privacy')}>
           <Text style={{ fontSize: FONT_SIZE.xs, color: colors.textSecondary, textDecorationLine: 'underline' }}>
             {t('paywall.privacy')}
           </Text>
         </Pressable>
-        <Pressable onPress={() => Linking.openURL(TERMS_URL)} style={{ minHeight: MIN_TOUCH, paddingVertical: 12, justifyContent: 'center' }} accessibilityRole="link" accessibilityLabel={t('paywall.terms')}>
+        <Pressable onPress={() => Linking.openURL(TERMS_URL)} style={{ minHeight: MIN_TOUCH, paddingVertical: SPACING.md, justifyContent: 'center' }} accessibilityRole="link" accessibilityLabel={t('paywall.terms')}>
           <Text style={{ fontSize: FONT_SIZE.xs, color: colors.textSecondary, textDecorationLine: 'underline' }}>
             {t('paywall.terms')}
           </Text>

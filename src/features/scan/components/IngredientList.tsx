@@ -3,7 +3,7 @@ import { View, Text, TextInput, Pressable, Alert } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { Ionicons } from '@expo/vector-icons';
 import { useColors, type Colors } from '../../../lib/theme';
-import { FONT_SIZE, RADIUS, MIN_TOUCH } from '../../../lib/constants';
+import { FONT_SIZE, RADIUS, MIN_TOUCH, SPACING } from '../../../lib/constants';
 import { formatNumber } from '../../../lib/formatNumber';
 import { useScanStore } from '../store/scanStore';
 import type { FoodItem } from '../types';
@@ -53,7 +53,7 @@ export function IngredientList({ items, multiplier }: IngredientListProps) {
     <View>
       <Pressable
         onPress={() => setExpanded(!expanded)}
-        style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12, minHeight: MIN_TOUCH }}
+        style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: SPACING.md, minHeight: MIN_TOUCH }}
         accessibilityRole="button"
         accessibilityLabel={t('scan.ingredients_count', { count: items.length })}
       >
@@ -65,7 +65,7 @@ export function IngredientList({ items, multiplier }: IngredientListProps) {
 
       {/* Hidden ingredients warning */}
       {hiddenItems.length > 0 && (
-        <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8, backgroundColor: colors.warningLight, padding: 10, borderRadius: RADIUS.md, marginBottom: 12 }}>
+        <View style={{ flexDirection: 'row', alignItems: 'center', gap: SPACING.sm, backgroundColor: colors.warningLight, padding: 10, borderRadius: RADIUS.md, marginBottom: SPACING.md }}>
           <Ionicons name="eye-off" size={16} color={colors.warning} />
           <Text style={{ fontSize: FONT_SIZE.xs, color: colors.warning, flex: 1 }}>
             {t('scan.hidden_warning')}
@@ -74,7 +74,7 @@ export function IngredientList({ items, multiplier }: IngredientListProps) {
       )}
 
       {expanded && (
-        <View style={{ gap: 8 }}>
+        <View style={{ gap: SPACING.sm }}>
           {visibleItems.map((item, localIdx) => (
             <EditableIngredientRow
               key={visibleIndices[localIdx]}
@@ -111,8 +111,8 @@ export function IngredientList({ items, multiplier }: IngredientListProps) {
               flexDirection: 'row',
               alignItems: 'center',
               justifyContent: 'center',
-              gap: 8,
-              paddingVertical: 12,
+              gap: SPACING.sm,
+              paddingVertical: SPACING.md,
               borderRadius: RADIUS.md,
               borderWidth: 1,
               borderStyle: 'dashed',

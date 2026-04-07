@@ -342,14 +342,16 @@
     "macros": "Makros (optional)",
     "serving_size": "Portionsgröße",
     "name_required": "Bitte Name eingeben",
-    "missing_nutrition": "Nährwertdaten unvollständig."
+    "missing_nutrition": "Nährwertdaten unvollständig.",
+    "default_serving": "1 Portion"
   },
   "fasting": {
     "title": "Intervallfasten",
     "start": "Starten",
     "stop": "Beenden",
     "hours": "Stunden",
-    "completed": "Fasten abgeschlossen!"
+    "completed": "Fasten abgeschlossen!",
+    "hours_suffix": "h"
   },
   "report": {
     "title": "Ernährungsbericht",

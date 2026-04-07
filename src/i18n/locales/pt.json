@@ -342,14 +342,16 @@
     "macros": "Macros (opcional)",
     "serving_size": "Tamanho da porção",
     "name_required": "Insira um nome",
-    "missing_nutrition": "Dados nutricionais incompletos."
+    "missing_nutrition": "Dados nutricionais incompletos.",
+    "default_serving": "1 porção"
   },
   "fasting": {
     "title": "Jejum intermitente",
     "start": "Iniciar",
     "stop": "Encerrar",
     "hours": "horas",
-    "completed": "Jejum concluído!"
+    "completed": "Jejum concluído!",
+    "hours_suffix": "h"
   },
   "report": {
     "title": "Relatório nutricional",

@@ -8,7 +8,7 @@ import { useWater } from '../hooks/useWater';
 import { useHealthKit } from '../../../hooks/useHealthKit';
 import { WATER_GLASS_ML } from '../../../lib/constants';
 import { Card } from '../../../components/Card';
-import { FONT_SIZE, RADIUS } from '../../../lib/constants';
+import { FONT_SIZE, RADIUS, SPACING } from '../../../lib/constants';
 
 interface WaterTrackerProps {
   date: string;
@@ -23,8 +23,8 @@ export function WaterTracker({ date, goalGlasses = 8 }: WaterTrackerProps) {
 
   return (
     <Card>
-      <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12 }}>
-        <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
+      <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: SPACING.md }}>
+        <View style={{ flexDirection: 'row', alignItems: 'center', gap: SPACING.sm }}>
           <Ionicons name="water" size={18} color={colors.info} />
           <Text style={{ fontSize: FONT_SIZE.md, fontWeight: '600', color: colors.text }}>
             {t('diary.water')}
@@ -35,7 +35,7 @@ export function WaterTracker({ date, goalGlasses = 8 }: WaterTrackerProps) {
         </Text>
       </View>
 
-      <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
+      <View style={{ flexDirection: 'row', alignItems: 'center', gap: SPACING.sm }}>
         <View style={{ flex: 1, flexDirection: 'row', gap: 4 }}>
           {Array.from({ length: goalGlasses }).map((_, i) => (
             <View
@@ -56,7 +56,7 @@ export function WaterTracker({ date, goalGlasses = 8 }: WaterTrackerProps) {
           style={{
             width: 44,
             height: 44,
-            borderRadius: 22,
+            borderRadius: RADIUS.full,
             backgroundColor: addGlass.isPending ? colors.border : colors.info,
             justifyContent: 'center',
             alignItems: 'center',

@@ -342,14 +342,16 @@
     "macros": "营养素（可选）",
     "serving_size": "份量",
     "name_required": "请输入食物名称",
-    "missing_nutrition": "营养数据不完整。"
+    "missing_nutrition": "营养数据不完整。",
+    "default_serving": "1份"
   },
   "fasting": {
     "title": "间歇性断食",
     "start": "开始",
     "stop": "结束",
     "hours": "小时",
-    "completed": "断食完成！"
+    "completed": "断食完成！",
+    "hours_suffix": "小时"
   },
   "report": {
     "title": "营养报告",

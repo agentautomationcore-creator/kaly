@@ -7,6 +7,7 @@ import { useColors } from '../../../lib/theme';
 import { useAuthStore } from '../../../stores/authStore';
 import { supabase } from '../../../lib/supabase';
 import { Button } from '../../../components/Button';
+import { SPACING } from '../../../lib/constants';
 import { captureException } from '../../../lib/sentry';
 import { track } from '../../../lib/analytics';
 
@@ -80,7 +81,7 @@ export function DeleteAccountButton() {
       variant="danger"
       onPress={handleDelete}
       loading={loading}
-      style={{ marginTop: 24 }}
+      style={{ marginTop: SPACING.xl }}
     />
   );
 }

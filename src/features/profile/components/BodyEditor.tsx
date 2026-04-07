@@ -9,7 +9,7 @@ import { calculateTDEE } from '../../../lib/nutrition';
 import { Card } from '../../../components/Card';
 import { Modal } from '../../../components/Modal';
 import { Button } from '../../../components/Button';
-import { FONT_SIZE, RADIUS } from '../../../lib/constants';
+import { FONT_SIZE, RADIUS, SPACING } from '../../../lib/constants';
 import type { NutritionProfile } from '../types';
 
 interface BodyEditorProps {
@@ -65,7 +65,7 @@ export function BodyEditor({ profile }: BodyEditorProps) {
   return (
     <>
       <Pressable onPress={() => setVisible(true)}>
-        <Card style={{ marginBottom: 12, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+        <Card style={{ marginBottom: SPACING.md, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
           <View>
             <Text style={{ fontSize: FONT_SIZE.sm, color: colors.textSecondary }}>{t('profile.edit_body')}</Text>
             <Text style={{ fontSize: FONT_SIZE.md, fontWeight: '600', color: colors.text }}>
@@ -77,7 +77,7 @@ export function BodyEditor({ profile }: BodyEditorProps) {
       </Pressable>
 
       <Modal visible={visible} onClose={() => setVisible(false)} title={t('onboarding.body_title')}>
-        <View style={{ gap: 12, marginBottom: 16 }}>
+        <View style={{ gap: SPACING.md, marginBottom: SPACING.lg }}>
           {fields.map((f) => (
             <View key={f.label}>
               <Text style={{ fontSize: FONT_SIZE.sm, color: colors.textSecondary, marginBottom: 4 }}>

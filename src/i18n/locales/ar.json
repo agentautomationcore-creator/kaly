@@ -342,14 +342,16 @@
     "macros": "المغذيات (اختياري)",
     "serving_size": "حجم الحصة",
     "name_required": "أدخل اسم الطعام",
-    "missing_nutrition": "البيانات الغذائية غير مكتملة."
+    "missing_nutrition": "البيانات الغذائية غير مكتملة.",
+    "default_serving": "حصة واحدة"
   },
   "fasting": {
     "title": "الصيام المتقطع",
     "start": "بدء",
     "stop": "إنهاء",
     "hours": "ساعات",
-    "completed": "اكتمل الصيام!"
+    "completed": "اكتمل الصيام!",
+    "hours_suffix": "س"
   },
   "report": {
     "title": "تقرير التغذية",
