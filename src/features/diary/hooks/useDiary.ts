@@ -25,6 +25,20 @@ export function useDiary(date: string) {
   });
 }
 
+export function useAddEntry() {
+  const qc = useQueryClient();
+
+  return useMutation({
+    mutationFn: async (entry: Omit<DiaryEntry, 'id' | 'created_at'>) => {
+      const { error } = await supabase.from('diary_entries').insert(entry);
+      if (error) throw error;
+    },
+    onSuccess: () => {
+      qc.invalidateQueries({ queryKey: ['diary'] });
+    },
+  });
+}
+
 export function useDeleteEntry() {
   const qc = useQueryClient();
 

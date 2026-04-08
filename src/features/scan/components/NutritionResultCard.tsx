@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState } from 'react';
 import { View, Text, ScrollView, Pressable, Alert } from 'react-native';
 import { useRouter } from 'expo-router';
 import { useTranslation } from 'react-i18next';
@@ -14,6 +14,7 @@ import { FONT_SIZE, RADIUS, MIN_TOUCH } from '../../../lib/constants';
 import { supabase } from '../../../lib/supabase';
 import { useAuthStore } from '../../../stores/authStore';
 import { useHealthKit } from '../../../hooks/useHealthKit';
+import { useAddEntry } from '../../diary/hooks/useDiary';
 import { captureException } from '../../../lib/sentry';
 import { track } from '../../../lib/analytics';
 import { formatNumber } from '../../../lib/formatNumber';
@@ -24,10 +25,10 @@ export function NutritionResultCard() {
   const colors = useColors();
   const router = useRouter();
   const { result, portionMultiplier, reset, isEdited } = useScanStore();
-  const [saving, setSaving] = useState(false);
   const [mealType, setMealType] = useState<MealType>('lunch');
   const user = useAuthStore((s) => s.user);
   const { saveCalories } = useHealthKit();
+  const addEntry = useAddEntry();
 
   if (!result) return null;
 
@@ -40,13 +41,13 @@ export function NutritionResultCard() {
 
   const meals: MealType[] = ['breakfast', 'lunch', 'dinner', 'snack'];
 
-  const handleSave = async () => {
-    setSaving(true);
-    try {
-      if (!user) throw new Error('Not authenticated');
+  const handleSave = () => {
+    if (!user) return;
 
-      await supabase.from('diary_entries').insert({
+    addEntry.mutate(
+      {
         user_id: user.id,
+        logged_at: new Date().toISOString().split('T')[0],
         meal_type: mealType,
         food_name: result.dish_name,
         food_name_en: result.dish_name_en,
@@ -66,20 +67,22 @@ export function NutritionResultCard() {
         total_fat: fat,
         total_fiber: fiber,
         confidence: result.confidence,
-        entry_method: 'photo',
+        entry_method: 'photo' as const,
         edited: isEdited,
-      });
-
-      track('meal_logged', { meal_type: mealType, entry_method: 'photo' });
-      try { await saveCalories(cal); } catch (e) { captureException(e, { feature: 'healthkit_save_calories' }); }
-      reset();
-      router.replace('/(tabs)/diary');
-    } catch (e) {
-      Alert.alert(t('common.error'), t('errors.generic'));
-      captureException(e, { feature: 'save_meal' });
-    } finally {
-      setSaving(false);
-    }
+      },
+      {
+        onSuccess: () => {
+          track('meal_logged', { meal_type: mealType, entry_method: 'photo' });
+          saveCalories(cal).catch((e) => captureException(e, { feature: 'healthkit_save_calories' }));
+          reset();
+          router.replace({ pathname: '/(tabs)/diary', params: { saved: '1' } });
+        },
+        onError: (e) => {
+          Alert.alert(t('common.error'), t('errors.generic'));
+          captureException(e, { feature: 'save_meal' });
+        },
+      },
+    );
   };
 
   return (
@@ -186,7 +189,7 @@ export function NutritionResultCard() {
       <Button
         title={t('scan.add_to', { meal: t(`diary.${mealType}`) })}
         onPress={handleSave}
-        loading={saving}
+        loading={addEntry.isPending}
       />
 
       {/* Wrong result — feedback */}
