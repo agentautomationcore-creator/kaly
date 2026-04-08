@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { View, Text, Pressable, ActivityIndicator, Alert } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { Ionicons } from '@expo/vector-icons';
@@ -66,8 +66,12 @@ export function MealSuggestionsCard({
     });
   };
 
+  const addingRef = useRef(false);
+
   const handleAddToDiary = async (s: MealSuggestion) => {
     if (!user) return;
+    if (addingRef.current) return;
+    addingRef.current = true;
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
 
     try {
@@ -104,6 +108,8 @@ export function MealSuggestionsCard({
     } catch (e) {
       Alert.alert(t('common.error'), t('errors.generic'));
       captureException(e, { feature: 'add_suggestion' });
+    } finally {
+      addingRef.current = false;
     }
   };
 

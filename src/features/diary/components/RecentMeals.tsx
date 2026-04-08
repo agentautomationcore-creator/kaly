@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { View, Text, Pressable, Alert } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { Ionicons } from '@expo/vector-icons';
@@ -25,11 +25,14 @@ export const RecentMeals = React.memo(function RecentMeals({ date }: RecentMeals
   const qc = useQueryClient();
   const user = useAuthStore((s) => s.user);
 
+  const submitting = useRef(false);
+
   if (!meals || meals.length === 0) return null;
 
   const repeatMeal = async (entry: DiaryEntry) => {
     if (!user) return;
-
+    if (submitting.current) return;
+    submitting.current = true;
     try {
       const { error } = await supabase.from('diary_entries').insert({
         user_id: user.id,
@@ -54,6 +57,8 @@ export const RecentMeals = React.memo(function RecentMeals({ date }: RecentMeals
     } catch (e) {
       Alert.alert(t('common.error'), t('errors.generic'));
       captureException(e, { feature: 'repeat_meal' });
+    } finally {
+      submitting.current = false;
     }
   };
 

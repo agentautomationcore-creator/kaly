@@ -56,7 +56,7 @@ export const darkColors: typeof lightColors = {
   tabBar: '#1E1E1E',
   tabBarBorder: '#333333',
   skeleton: '#2A2A2A',
-  primaryDark: '#4CAF50',
+  primaryDark: '#2E7D32',
   overlay: 'rgba(0,0,0,0.7)',
   overGoal: '#94A3B8',
   overGoalRing: '#64748B',

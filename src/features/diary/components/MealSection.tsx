@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { View, Text, Pressable, Alert } from 'react-native';
 import { useRouter } from 'expo-router';
 import { useTranslation } from 'react-i18next';
@@ -46,9 +46,12 @@ export const MealSection = React.memo(function MealSection({ mealType, entries, 
 
   const totalCal = entries.reduce((s, e) => s + e.total_calories, 0);
   const yesterdayCal = (yesterdayEntries || []).reduce((s, e) => s + e.total_calories, 0);
+  const submitting = useRef(false);
 
   const handleRepeatYesterday = async () => {
     if (!user || !yesterdayEntries?.length) return;
+    if (submitting.current) return;
+    submitting.current = true;
     try {
       for (const entry of yesterdayEntries) {
         await supabase.from('diary_entries').insert({
@@ -74,6 +77,8 @@ export const MealSection = React.memo(function MealSection({ mealType, entries, 
     } catch (e) {
       Alert.alert(t('common.error'), t('errors.generic'));
       captureException(e, { feature: 'repeat_yesterday' });
+    } finally {
+      submitting.current = false;
     }
   };
 
