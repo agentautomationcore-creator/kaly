@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { Ionicons } from '@expo/vector-icons';
 import { useColors } from '../../../lib/theme';
 
-const PRIVACY_URL = 'https://kaly.app/privacy';
+const PRIVACY_URL = 'https://doclear.app/kaly-privacy';
 const TERMS_URL = 'https://kaly.app/terms';
 import { useUpdateProfile } from '../hooks/useProfile';
 import { useSettingsStore } from '../../../stores/settingsStore';

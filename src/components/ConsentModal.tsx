@@ -6,7 +6,7 @@ import { useColors } from '../lib/theme';
 import { Modal } from './Modal';
 import { FONT_SIZE, RADIUS, MIN_TOUCH, SPACING } from '../lib/constants';
 
-const PRIVACY_URL = 'https://kaly.app/privacy';
+const PRIVACY_URL = 'https://doclear.app/kaly-privacy';
 
 interface ConsentModalProps {
   visible: boolean;

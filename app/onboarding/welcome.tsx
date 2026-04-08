@@ -11,7 +11,7 @@ import { FONT_SIZE, RADIUS, SPACING, MIN_TOUCH } from '../../src/lib/constants';
 import { Ionicons } from '@expo/vector-icons';
 import { setLanguage, SUPPORTED_LANGUAGES } from '../../src/i18n';
 
-const PRIVACY_URL = 'https://kaly.app/privacy';
+const PRIVACY_URL = 'https://doclear.app/kaly-privacy';
 const TERMS_URL = 'https://kaly.app/terms';
 
 export default function WelcomeScreen() {
