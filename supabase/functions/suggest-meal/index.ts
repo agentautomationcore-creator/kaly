@@ -3,24 +3,22 @@ import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
 
 serve(async (req) => {
   try {
-    const supabase = createClient(
-      Deno.env.get('SUPABASE_URL')!,
-      Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!
-    );
-
-    // Auth
+    // Auth: anon key + user JWT (same pattern as analyze-food, no service_role)
     const authHeader = req.headers.get('Authorization');
     if (!authHeader) return new Response('Unauthorized', { status: 401 });
 
-    const { data: { user }, error: authError } = await supabase.auth.getUser(
-      authHeader.replace('Bearer ', '')
+    const supabase = createClient(
+      Deno.env.get('SUPABASE_URL')!,
+      Deno.env.get('SUPABASE_ANON_KEY')!,
+      { global: { headers: { Authorization: authHeader } } }
     );
+
+    const { data: { user }, error: authError } = await supabase.auth.getUser();
     if (authError || !user) return new Response('Unauthorized', { status: 401 });
 
     // Rate limit: 10 suggestions per hour
     const { data: rateCheck } = await supabase.rpc('check_rate_limit', {
-      p_user_id: user.id,
-      p_action: 'suggest_meal',
+      p_key: `suggest-meal:${user.id}`,
       p_max_count: 10,
       p_window_seconds: 3600,
     });
@@ -91,8 +89,17 @@ Example format:
       suggestions = [];
     }
 
-    // Validate and clamp
-    suggestions = (Array.isArray(suggestions) ? suggestions : []).slice(0, 3).map((s: Record<string, unknown>) => ({
+    // Validate AI response
+    if (!Array.isArray(suggestions)) {
+      return new Response(JSON.stringify({ error: 'Invalid AI response' }), {
+        status: 502,
+        headers: { 'Content-Type': 'application/json' },
+      });
+    }
+    suggestions = suggestions.filter((s: Record<string, unknown>) => s && typeof s.name === 'string' && s.name.length > 0).slice(0, 5);
+
+    // Clamp values
+    suggestions = suggestions.slice(0, 3).map((s: Record<string, unknown>) => ({
       name: String(s.name || 'Meal'),
       description: String(s.description || ''),
       calories: Math.max(0, Math.min(2000, Number(s.calories) || 0)),
