@@ -149,7 +149,7 @@ export function MealSuggestionsCard({
           key={`${s.name}-${i}`}
           onPress={() => handleAddToDiary(s)}
           accessibilityRole="button"
-          accessibilityLabel={`${s.name} ${s.calories} kcal`}
+          accessibilityLabel={`${s.name} ${s.calories} ${t('common.kcal')}`}
           style={{
             padding: SPACING.md,
             backgroundColor: colors.surface,
@@ -162,16 +162,22 @@ export function MealSuggestionsCard({
               {s.name}
             </Text>
             <Text style={{ fontSize: FONT_SIZE.sm, fontWeight: '700', color: colors.primary }}>
-              {s.calories} kcal
+              {s.calories} {t('common.kcal')}
             </Text>
           </View>
           <Text style={{ fontSize: FONT_SIZE.xs, color: colors.textSecondary }} numberOfLines={2}>
             {s.description}
           </Text>
-          <View style={{ flexDirection: 'row', gap: SPACING.md }}>
-            <Text style={{ fontSize: FONT_SIZE.xs, color: colors.proteinColor }}>P: {s.protein}g</Text>
-            <Text style={{ fontSize: FONT_SIZE.xs, color: colors.carbsColor }}>C: {s.carbs}g</Text>
-            <Text style={{ fontSize: FONT_SIZE.xs, color: colors.fatColor }}>F: {s.fat}g</Text>
+          <View style={{ flexDirection: 'row', gap: SPACING.sm }}>
+            <View style={{ backgroundColor: colors.proteinColor + '20', paddingHorizontal: SPACING.xs, paddingVertical: 2, borderRadius: RADIUS.sm }}>
+              <Text style={{ color: colors.text, fontSize: FONT_SIZE.xs }}>{t('common.protein_short')}: {s.protein}{t('common.g')}</Text>
+            </View>
+            <View style={{ backgroundColor: colors.carbsColor + '20', paddingHorizontal: SPACING.xs, paddingVertical: 2, borderRadius: RADIUS.sm }}>
+              <Text style={{ color: colors.text, fontSize: FONT_SIZE.xs }}>{t('common.carbs_short')}: {s.carbs}{t('common.g')}</Text>
+            </View>
+            <View style={{ backgroundColor: colors.fatColor + '20', paddingHorizontal: SPACING.xs, paddingVertical: 2, borderRadius: RADIUS.sm }}>
+              <Text style={{ color: colors.text, fontSize: FONT_SIZE.xs }}>{t('common.fat_short')}: {s.fat}{t('common.g')}</Text>
+            </View>
           </View>
           <View style={{ flexDirection: 'row', alignItems: 'center', gap: SPACING.xs, marginTop: SPACING.xs }}>
             <Ionicons name="add-circle-outline" size={14} color={colors.primary} />

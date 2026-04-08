@@ -12,7 +12,7 @@ export const lightColors = {
   accentLight: '#FFF3E0',
   danger: '#F44336',
   dangerLight: '#FFEBEE',
-  warning: '#E65100',
+  warning: '#BF360C',
   warningLight: '#FFF8E1',
   safe: '#388E3C',
   border: '#E0E0E0',
@@ -25,7 +25,7 @@ export const lightColors = {
   overGoal: '#64748B',
   overGoalRing: '#94A3B8',
   // A4: Missing color tokens
-  success: '#22C55E',
+  success: '#15803D',
   proteinColor: '#3B82F6',
   carbsColor: '#F59E0B',
   fatColor: '#EF4444',
