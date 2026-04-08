@@ -79,7 +79,7 @@ export function ConsentModal({ visible, type, onAccept, onDecline, healthAlready
               onToggle={() => { if (!healthAlreadyGiven) setHealthChecked((v) => !v); }}
               colors={colors}
             />
-            <View style={{ marginLeft: SPACING.xl + SPACING.sm, marginTop: SPACING.xs }}>
+            <View style={{ marginStart: SPACING.xl + SPACING.sm, marginTop: SPACING.xs }}>
               <BulletPoint text={t('consent.health_bullet_1')} colors={colors} />
               <BulletPoint text={t('consent.health_bullet_2')} colors={colors} />
               <BulletPoint text={t('consent.health_bullet_3')} colors={colors} />
@@ -94,7 +94,7 @@ export function ConsentModal({ visible, type, onAccept, onDecline, healthAlready
               onToggle={() => { if (!aiAlreadyGiven) setAiChecked((v) => !v); }}
               colors={colors}
             />
-            <View style={{ marginLeft: SPACING.xl + SPACING.sm, marginTop: SPACING.xs }}>
+            <View style={{ marginStart: SPACING.xl + SPACING.sm, marginTop: SPACING.xs }}>
               <BulletPoint text={t('consent.ai_bullet_1')} colors={colors} />
               <BulletPoint text={t('consent.ai_bullet_2')} colors={colors} />
               <BulletPoint text={t('consent.ai_bullet_3')} colors={colors} />

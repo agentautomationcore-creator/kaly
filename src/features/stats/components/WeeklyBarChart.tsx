@@ -38,8 +38,8 @@ export const WeeklyBarChart = React.memo(function WeeklyBarChart({ days, goal = 
         style={{
           position: 'absolute',
           bottom: 24 + goalLineY,
-          left: 0,
-          right: 0,
+          start: 0,
+          end: 0,
           flexDirection: 'row',
           alignItems: 'center',
           zIndex: 1,

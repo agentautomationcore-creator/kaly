@@ -39,7 +39,7 @@ export default function WelcomeScreen() {
       {/* Language picker globe icon */}
       <Pressable
         onPress={() => setShowLangPicker(true)}
-        style={{ position: 'absolute', top: 60, right: 24, zIndex: 10, minHeight: MIN_TOUCH, minWidth: MIN_TOUCH, justifyContent: 'center', alignItems: 'center' }}
+        style={{ position: 'absolute', top: 60, end: 24, zIndex: 10, minHeight: MIN_TOUCH, minWidth: MIN_TOUCH, justifyContent: 'center', alignItems: 'center' }}
         accessibilityLabel={t('profile.language')}
         accessibilityRole="button"
       >

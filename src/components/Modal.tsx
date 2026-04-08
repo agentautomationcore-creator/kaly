@@ -48,7 +48,7 @@ export function Modal({ visible, onClose, title, children, style }: ModalProps) 
             style={{
               position: 'absolute',
               top: SPACING.md,
-              right: SPACING.md,
+              end: SPACING.md,
               zIndex: 10,
               width: 44,
               height: 44,
