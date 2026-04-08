@@ -5,7 +5,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { useColors } from '../../../lib/theme';
 
 const PRIVACY_URL = 'https://doclear.app/kaly-privacy';
-const TERMS_URL = 'https://kaly.app/terms';
+const TERMS_URL = 'https://doclear.app/kaly-terms';
 import { useUpdateProfile } from '../hooks/useProfile';
 import { useSettingsStore } from '../../../stores/settingsStore';
 import { useAuthStore } from '../../../stores/authStore';

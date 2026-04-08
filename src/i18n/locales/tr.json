@@ -258,7 +258,7 @@
     "ai_bullet_3": "Onayınızı Ayarlar'dan geri çekebilirsiniz",
     "health_title": "Sağlık verileri",
     "health_what": "Hangi sağlık verilerini topluyoruz:",
-    "health_bullet_1": "Kilo, boy, diyet tercihleri, kalori alımı",
+    "health_bullet_1": "Kilo, boy, yaş, cinsiyet, aktivite düzeyi, diyet tercihleri, kalori alımı ve kalori hedefleri",
     "health_bullet_2": "AB'de güvenle saklanır (GDPR Md. 9)",
     "health_bullet_3": "Yalnızca beslenme takibi için kullanılır",
     "read_privacy": "Gizlilik politikasını oku",
@@ -268,7 +268,9 @@
     "scan_health_section": "Sağlık Verisi İşleme",
     "scan_ai_section": "Yapay Zeka Fotoğraf Analizi",
     "accept_both": "Kabul Et ve Devam Et",
-    "save_failed": "Onayınız kaydedilemedi. Lütfen tekrar deneyin."
+    "save_failed": "Onayınız kaydedilemedi. Lütfen tekrar deneyin.",
+    "ai_transfer": "Fotoğrafınız Standart Sözleşme Maddeleri (AB 2021/914) kapsamında ABD'ye (Anthropic) aktarılır",
+    "withdraw_note": "Onayınızı istediğiniz zaman Ayarlar'dan geri çekebilirsiniz. Yapay zekâ taraması ve kişiselleştirilmiş özellikler kullanılamaz hale gelecektir."
   },
   "barcode": {
     "scan_barcode": "Barkod tara",

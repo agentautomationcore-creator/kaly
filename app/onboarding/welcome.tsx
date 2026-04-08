@@ -12,7 +12,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { setLanguage, SUPPORTED_LANGUAGES } from '../../src/i18n';
 
 const PRIVACY_URL = 'https://doclear.app/kaly-privacy';
-const TERMS_URL = 'https://kaly.app/terms';
+const TERMS_URL = 'https://doclear.app/kaly-terms';
 
 export default function WelcomeScreen() {
   const { t, i18n } = useTranslation();

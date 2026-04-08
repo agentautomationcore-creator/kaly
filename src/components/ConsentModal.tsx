@@ -98,8 +98,14 @@ export function ConsentModal({ visible, type, onAccept, onDecline, healthAlready
               <BulletPoint text={t('consent.ai_bullet_1')} colors={colors} />
               <BulletPoint text={t('consent.ai_bullet_2')} colors={colors} />
               <BulletPoint text={t('consent.ai_bullet_3')} colors={colors} />
+              <BulletPoint text={t('consent.ai_transfer')} colors={colors} />
             </View>
           </View>
+
+          {/* Withdrawal consequences (GDPR Art. 7(3)) */}
+          <Text style={{ fontSize: FONT_SIZE.sm, color: colors.textSecondary, marginBottom: SPACING.lg, lineHeight: 20 }}>
+            {t('consent.withdraw_note')}
+          </Text>
 
           <Pressable
             onPress={() => Linking.openURL(PRIVACY_URL)}
@@ -159,6 +165,7 @@ export function ConsentModal({ visible, type, onAccept, onDecline, healthAlready
             <BulletPoint text={t('consent.ai_bullet_1')} colors={colors} />
             <BulletPoint text={t('consent.ai_bullet_2')} colors={colors} />
             <BulletPoint text={t('consent.ai_bullet_3')} colors={colors} />
+            <BulletPoint text={t('consent.ai_transfer')} colors={colors} />
           </View>
         ) : (
           <View style={{ marginBottom: SPACING.lg }}>
@@ -170,6 +177,11 @@ export function ConsentModal({ visible, type, onAccept, onDecline, healthAlready
             <BulletPoint text={t('consent.health_bullet_3')} colors={colors} />
           </View>
         )}
+
+        {/* Withdrawal consequences (GDPR Art. 7(3)) */}
+        <Text style={{ fontSize: FONT_SIZE.sm, color: colors.textSecondary, marginBottom: SPACING.lg, lineHeight: 20 }}>
+          {t('consent.withdraw_note')}
+        </Text>
 
         <Pressable
           onPress={() => Linking.openURL(PRIVACY_URL)}

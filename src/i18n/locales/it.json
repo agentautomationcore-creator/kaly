@@ -258,7 +258,7 @@
     "ai_bullet_3": "Puoi revocare il consenso nelle Impostazioni",
     "health_title": "Dati sulla salute",
     "health_what": "Quali dati sanitari raccogliamo:",
-    "health_bullet_1": "Peso, altezza, preferenze alimentari, calorie",
+    "health_bullet_1": "Peso, altezza, età, sesso, livello di attività, preferenze alimentari, apporto calorico e obiettivi calorici",
     "health_bullet_2": "Conservati in sicurezza nell'UE (GDPR Art. 9)",
     "health_bullet_3": "Utilizzati solo per il monitoraggio nutrizionale",
     "read_privacy": "Leggi l'informativa sulla privacy",
@@ -268,7 +268,9 @@
     "scan_health_section": "Trattamento dati sanitari",
     "scan_ai_section": "Analisi foto con IA",
     "accept_both": "Accetta e continua",
-    "save_failed": "Impossibile salvare il consenso. Riprova."
+    "save_failed": "Impossibile salvare il consenso. Riprova.",
+    "ai_transfer": "La tua foto viene trasferita negli USA (Anthropic) secondo le Clausole Contrattuali Standard (UE 2021/914)",
+    "withdraw_note": "Puoi revocare il consenso in qualsiasi momento nelle Impostazioni. La scansione IA e le funzioni personalizzate non saranno più disponibili."
   },
   "barcode": {
     "scan_barcode": "Scansiona codice",

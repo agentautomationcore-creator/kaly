@@ -18,7 +18,7 @@ import { track } from '../src/lib/analytics';
 
 type PlanPeriod = 'monthly' | 'annual';
 
-const TERMS_URL = 'https://kaly.app/terms';
+const TERMS_URL = 'https://doclear.app/kaly-terms';
 const PRIVACY_URL = 'https://doclear.app/kaly-privacy';
 
 export default function PaywallScreen() {

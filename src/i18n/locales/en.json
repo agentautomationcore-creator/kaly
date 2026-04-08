@@ -258,7 +258,7 @@
     "ai_bullet_3": "You can withdraw consent anytime in Settings",
     "health_title": "Health Data Processing",
     "health_what": "What health data we collect:",
-    "health_bullet_1": "Weight, height, dietary preferences, calorie intake",
+    "health_bullet_1": "Weight, height, age, sex, activity level, dietary preferences, calorie intake, and caloric goals",
     "health_bullet_2": "Stored securely in the EU (GDPR Art. 9)",
     "health_bullet_3": "Used only for personalized nutrition tracking",
     "read_privacy": "Read our Privacy Policy",
@@ -268,7 +268,9 @@
     "scan_health_section": "Health Data Processing",
     "scan_ai_section": "AI Photo Analysis",
     "accept_both": "Accept & Continue",
-    "save_failed": "Could not save your consent. Please try again."
+    "save_failed": "Could not save your consent. Please try again.",
+    "ai_transfer": "Your photo is transferred to the USA (Anthropic) under Standard Contractual Clauses (EU 2021/914)",
+    "withdraw_note": "You can withdraw consent anytime in Settings. AI scanning and personalized features will become unavailable."
   },
   "barcode": {
     "scan_barcode": "Scan barcode",
