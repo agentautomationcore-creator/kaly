@@ -16,6 +16,20 @@ serve(async (req) => {
     const { data: { user }, error: authError } = await supabase.auth.getUser();
     if (authError || !user) return new Response('Unauthorized', { status: 401 });
 
+    // Consent check: both health + AI required for meal suggestions
+    const { data: profile } = await supabase
+      .from('nutrition_profiles')
+      .select('health_consent_given, ai_consent_given')
+      .eq('id', user.id)
+      .single();
+
+    if (!profile?.health_consent_given || !profile?.ai_consent_given) {
+      return new Response(JSON.stringify({ error: 'Consent required' }), {
+        status: 403,
+        headers: { 'Content-Type': 'application/json' },
+      });
+    }
+
     // Rate limit: 10 suggestions per hour
     const { data: rateCheck } = await supabase.rpc('check_rate_limit', {
       p_key: `suggest-meal:${user.id}`,
