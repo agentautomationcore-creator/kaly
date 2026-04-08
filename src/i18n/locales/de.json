@@ -388,5 +388,8 @@
     "share_title": "Ernährungsbericht teilen",
     "days": "Tage",
     "no_data": "Keine Daten für diesen Zeitraum. Beginne Mahlzeiten zu erfassen!"
+  },
+  "export": {
+    "sharing_unavailable": "Teilen ist auf diesem Gerät nicht verfügbar"
   }
 }

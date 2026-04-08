@@ -388,5 +388,8 @@
     "share_title": "Share Nutrition Report",
     "days": "days",
     "no_data": "No data for this period. Start logging meals!"
+  },
+  "export": {
+    "sharing_unavailable": "Sharing is not available on this device"
   }
 }

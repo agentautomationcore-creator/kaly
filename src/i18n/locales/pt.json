@@ -388,5 +388,8 @@
     "share_title": "Compartilhar relatório",
     "days": "dias",
     "no_data": "Sem dados para este período. Comece a registrar refeições!"
+  },
+  "export": {
+    "sharing_unavailable": "Compartilhamento não disponível neste dispositivo"
   }
 }

@@ -388,5 +388,8 @@
     "share_title": "Raporu paylaş",
     "days": "gün",
     "no_data": "Bu dönem için veri yok. Öğün kaydetmeye başla!"
+  },
+  "export": {
+    "sharing_unavailable": "Paylaşım bu cihazda kullanılamıyor"
   }
 }

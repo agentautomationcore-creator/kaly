@@ -51,7 +51,7 @@ export function WaterTracker({ date, goalGlasses = 8 }: WaterTrackerProps) {
         </View>
 
         <Pressable
-          onPress={() => { Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light); addGlass.mutate(undefined, { onSuccess: () => { saveWater(WATER_GLASS_ML).catch(() => {}); } }); }}
+          onPress={() => { if (addGlass.isPending) return; Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light); addGlass.mutate(undefined, { onSuccess: () => { saveWater(WATER_GLASS_ML).catch(() => {}); } }); }}
           disabled={addGlass.isPending}
           style={{
             width: 44,

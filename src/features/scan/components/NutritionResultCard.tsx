@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { View, Text, ScrollView, Pressable, Alert } from 'react-native';
 import { useRouter } from 'expo-router';
 import { useTranslation } from 'react-i18next';
@@ -29,6 +29,7 @@ export function NutritionResultCard() {
   const user = useAuthStore((s) => s.user);
   const { saveCalories } = useHealthKit();
   const addEntry = useAddEntry();
+  const saving = useRef(false);
 
   if (!result) return null;
 
@@ -42,7 +43,8 @@ export function NutritionResultCard() {
   const meals: MealType[] = ['breakfast', 'lunch', 'dinner', 'snack'];
 
   const handleSave = () => {
-    if (!user) return;
+    if (!user || saving.current) return;
+    saving.current = true;
 
     addEntry.mutate(
       {
@@ -72,12 +74,14 @@ export function NutritionResultCard() {
       },
       {
         onSuccess: () => {
+          saving.current = false;
           track('meal_logged', { meal_type: mealType, entry_method: 'photo' });
           saveCalories(cal).catch((e) => captureException(e, { feature: 'healthkit_save_calories' }));
           reset();
           router.replace({ pathname: '/(tabs)/diary', params: { saved: '1' } });
         },
         onError: (e) => {
+          saving.current = false;
           Alert.alert(t('common.error'), t('errors.generic'));
           captureException(e, { feature: 'save_meal' });
         },

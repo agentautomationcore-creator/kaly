@@ -55,7 +55,7 @@ export function ScanCamera({ usedToday = 0, plan = 'free' }: ScanCameraProps) {
         analyze(photo.uri);
       }
     } finally {
-      isCapturing.current = false;
+      setTimeout(() => { isCapturing.current = false; }, 1000);
     }
   };
 

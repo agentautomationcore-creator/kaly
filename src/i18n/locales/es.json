@@ -388,5 +388,8 @@
     "share_title": "Compartir informe",
     "days": "días",
     "no_data": "Sin datos para este período. ¡Empieza a registrar comidas!"
+  },
+  "export": {
+    "sharing_unavailable": "Compartir no está disponible en este dispositivo"
   }
 }

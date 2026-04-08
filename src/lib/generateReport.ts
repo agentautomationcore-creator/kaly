@@ -136,23 +136,27 @@ function generateHTML(data: ReportData): string {
   const t = (key: string) => i18n.t(key);
   const c = lightColors;
 
+  const uG = t('units.g');
+  const uMl = t('common.ml');
+  const uKg = t('units.kg');
+
   const dailyRows = data.dailyData
     .map(d => `
       <tr>
         <td>${d.date}</td>
         <td>${d.calories}</td>
-        <td>${d.protein}g</td>
-        <td>${d.carbs}g</td>
-        <td>${d.fat}g</td>
-        <td>${d.waterMl}ml</td>
+        <td>${d.protein}${uG}</td>
+        <td>${d.carbs}${uG}</td>
+        <td>${d.fat}${uG}</td>
+        <td>${d.waterMl}${uMl}</td>
       </tr>
     `).join('');
 
   const weightSection = data.weightStart != null && data.weightEnd != null
     ? `<tr>
         <td colspan="6" style="background: ${c.primaryLight}; padding: 12px; font-size: 13px;">
-          <strong>${t('report.weight')}:</strong> ${data.weightStart} kg &rarr; ${data.weightEnd} kg
-          (${data.weightEnd - data.weightStart > 0 ? '+' : ''}${(data.weightEnd - data.weightStart).toFixed(1)} kg)
+          <strong>${t('report.weight')}:</strong> ${data.weightStart} ${uKg} &rarr; ${data.weightEnd} ${uKg}
+          (${data.weightEnd - data.weightStart > 0 ? '+' : ''}${(data.weightEnd - data.weightStart).toFixed(1)} ${uKg})
         </td>
       </tr>`
     : '';
@@ -188,15 +192,15 @@ function generateHTML(data: ReportData): string {
         <span class="stat-label">${t('report.avg_calories')}</span>
       </td>
       <td>
-        <span class="stat-value">${data.avgProtein}g</span>
+        <span class="stat-value">${data.avgProtein}${uG}</span>
         <span class="stat-label">${t('report.avg_protein')}</span>
       </td>
       <td>
-        <span class="stat-value">${data.avgCarbs}g</span>
+        <span class="stat-value">${data.avgCarbs}${uG}</span>
         <span class="stat-label">${t('report.avg_carbs')}</span>
       </td>
       <td>
-        <span class="stat-value">${data.avgFat}g</span>
+        <span class="stat-value">${data.avgFat}${uG}</span>
         <span class="stat-label">${t('report.avg_fat')}</span>
       </td>
     </tr>
@@ -240,5 +244,7 @@ export async function exportReport(days: number = 7): Promise<void> {
       dialogTitle: i18n.t('report.share_title'),
       UTI: 'com.adobe.pdf',
     });
+  } else {
+    Alert.alert(i18n.t('common.error'), i18n.t('export.sharing_unavailable'));
   }
 }

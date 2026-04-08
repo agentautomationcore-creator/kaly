@@ -388,5 +388,8 @@
     "share_title": "Partager le rapport",
     "days": "jours",
     "no_data": "Aucune donnée pour cette période. Commencez à enregistrer vos repas !"
+  },
+  "export": {
+    "sharing_unavailable": "Le partage n'est pas disponible sur cet appareil"
   }
 }

@@ -388,5 +388,8 @@
     "share_title": "Condividi rapporto",
     "days": "giorni",
     "no_data": "Nessun dato per questo periodo. Inizia a registrare i pasti!"
+  },
+  "export": {
+    "sharing_unavailable": "La condivisione non è disponibile su questo dispositivo"
   }
 }

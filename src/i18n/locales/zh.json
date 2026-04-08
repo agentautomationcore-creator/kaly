@@ -388,5 +388,8 @@
     "share_title": "分享营养报告",
     "days": "天",
     "no_data": "此期间无数据。开始记录饮食吧！"
+  },
+  "export": {
+    "sharing_unavailable": "此设备不支持共享"
   }
 }

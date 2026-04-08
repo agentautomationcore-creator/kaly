@@ -19,6 +19,7 @@ export function DeleteAccountButton() {
   const [loading, setLoading] = useState(false);
 
   const handleDelete = () => {
+    if (loading) return;
     Haptics.notificationAsync(Haptics.NotificationFeedbackType.Warning);
     Alert.alert(t('profile.delete_account'), t('profile.delete_confirm'), [
       { text: t('common.cancel'), style: 'cancel' },
@@ -81,6 +82,7 @@ export function DeleteAccountButton() {
       variant="danger"
       onPress={handleDelete}
       loading={loading}
+      disabled={loading}
       style={{ marginTop: SPACING.xl }}
     />
   );

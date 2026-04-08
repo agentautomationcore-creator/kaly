@@ -103,7 +103,9 @@ serve(async (req) => {
         carbs_g: clamp(p.nutriments?.carbohydrates_100g, 0, 100),
         fiber_g: clamp(p.nutriments?.fiber_100g, 0, 100),
       },
-    }));
+    })).filter((item: { nutrition_per_100g: { calories: number; protein_g: number; carbs_g: number; fat_g: number } }) =>
+      item.nutrition_per_100g.calories + item.nutrition_per_100g.protein_g + item.nutrition_per_100g.carbs_g + item.nutrition_per_100g.fat_g > 0
+    );
 
     return new Response(JSON.stringify({ products }), {
       headers: { ...corsHeaders, 'Content-Type': 'application/json' },
