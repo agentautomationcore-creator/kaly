@@ -31,7 +31,7 @@ export function GradientHeader({ title, subtitle }: GradientHeaderProps) {
         {title}
       </Text>
       {subtitle ? (
-        <Text style={{ fontSize: FONT_SIZE.md, color: colors.textOnPrimary, opacity: 0.9, marginTop: SPACING.xs }}>
+        <Text style={{ fontSize: FONT_SIZE.md, color: colors.textOnPrimary, marginTop: SPACING.xs }}>
           {subtitle}
         </Text>
       ) : null}
