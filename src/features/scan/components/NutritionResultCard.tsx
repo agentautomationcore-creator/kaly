@@ -159,7 +159,7 @@ export function NutritionResultCard() {
       )}
 
       {/* Meal type selector */}
-      <View style={{ flexDirection: 'row', gap: 8, marginBottom: 16 }}>
+      <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 8, marginBottom: 16 }}>
         {meals.map((m) => (
           <Pressable
             key={m}
@@ -167,7 +167,8 @@ export function NutritionResultCard() {
             accessibilityLabel={t(`diary.${m}`)}
             accessibilityRole="button"
             style={{
-              flex: 1,
+              minWidth: '22%',
+              flexGrow: 1,
               minHeight: MIN_TOUCH,
               paddingVertical: 10,
               borderRadius: RADIUS.md,
