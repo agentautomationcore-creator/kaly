@@ -272,7 +272,8 @@
     "scan_again": "Escanear de nuevo",
     "enter_manually": "Introducir manualmente",
     "scan_success": "Código de barras escaneado con éxito",
-    "product_name": "Nombre del producto"
+    "product_name": "Nombre del producto",
+    "name_required": "Se requiere el nombre del producto"
   },
   "common": {
     "loading": "Cargando...",
@@ -344,7 +345,8 @@
     "serving_size": "Tamaño de porción",
     "name_required": "Ingrese un nombre",
     "missing_nutrition": "Datos nutricionales incompletos.",
-    "default_serving": "1 porción"
+    "default_serving": "1 porción",
+    "name_too_short": "El nombre debe tener al menos 2 caracteres"
   },
   "fasting": {
     "title": "Ayuno intermitente",

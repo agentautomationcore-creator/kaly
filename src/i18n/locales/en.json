@@ -272,7 +272,8 @@
     "portion": "Portion size",
     "custom_portion": "Custom (grams)",
     "scan_success": "Barcode scanned successfully",
-    "product_name": "Product name"
+    "product_name": "Product name",
+    "name_required": "Product name is required"
   },
   "common": {
     "loading": "Loading...",
@@ -344,7 +345,8 @@
     "serving_size": "Serving size",
     "name_required": "Please enter a food name",
     "missing_nutrition": "Nutrition data incomplete. Please verify or enter manually.",
-    "default_serving": "1 serving"
+    "default_serving": "1 serving",
+    "name_too_short": "Name must be at least 2 characters"
   },
   "fasting": {
     "title": "Intermittent Fasting",

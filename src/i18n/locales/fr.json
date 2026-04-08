@@ -272,7 +272,8 @@
     "scan_again": "Scanner à nouveau",
     "enter_manually": "Saisir manuellement",
     "scan_success": "Code-barres scanné avec succès",
-    "product_name": "Nom du produit"
+    "product_name": "Nom du produit",
+    "name_required": "Le nom du produit est requis"
   },
   "common": {
     "loading": "Chargement...",
@@ -344,7 +345,8 @@
     "serving_size": "Taille de portion",
     "name_required": "Veuillez entrer un nom",
     "missing_nutrition": "Données nutritionnelles incomplètes.",
-    "default_serving": "1 portion"
+    "default_serving": "1 portion",
+    "name_too_short": "Le nom doit contenir au moins 2 caractères"
   },
   "fasting": {
     "title": "Jeûne intermittent",

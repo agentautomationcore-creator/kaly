@@ -272,7 +272,8 @@
     "scan_again": "重新扫描",
     "enter_manually": "手动输入",
     "scan_success": "条形码扫描成功",
-    "product_name": "产品名称"
+    "product_name": "产品名称",
+    "name_required": "产品名称为必填项"
   },
   "common": {
     "loading": "加载中...",
@@ -344,7 +345,8 @@
     "serving_size": "份量",
     "name_required": "请输入食物名称",
     "missing_nutrition": "营养数据不完整。",
-    "default_serving": "1份"
+    "default_serving": "1份",
+    "name_too_short": "名称至少需要2个字符"
   },
   "fasting": {
     "title": "间歇性断食",

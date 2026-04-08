@@ -272,7 +272,8 @@
     "scan_again": "مسح مرة أخرى",
     "enter_manually": "إدخال يدوي",
     "scan_success": "تم مسح الباركود بنجاح",
-    "product_name": "اسم المنتج"
+    "product_name": "اسم المنتج",
+    "name_required": "اسم المنتج مطلوب"
   },
   "common": {
     "loading": "جارٍ التحميل...",
@@ -344,7 +345,8 @@
     "serving_size": "حجم الحصة",
     "name_required": "أدخل اسم الطعام",
     "missing_nutrition": "البيانات الغذائية غير مكتملة.",
-    "default_serving": "حصة واحدة"
+    "default_serving": "حصة واحدة",
+    "name_too_short": "يجب أن يحتوي الاسم على حرفين على الأقل"
   },
   "fasting": {
     "title": "الصيام المتقطع",

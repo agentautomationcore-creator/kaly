@@ -272,7 +272,8 @@
     "scan_again": "Tekrar tara",
     "enter_manually": "Manuel giriş",
     "scan_success": "Barkod başarıyla tarandı",
-    "product_name": "Ürün adı"
+    "product_name": "Ürün adı",
+    "name_required": "Ürün adı gerekli"
   },
   "common": {
     "loading": "Yükleniyor...",
@@ -344,7 +345,8 @@
     "serving_size": "Porsiyon",
     "name_required": "Lütfen bir ad girin",
     "missing_nutrition": "Besin verileri eksik.",
-    "default_serving": "1 porsiyon"
+    "default_serving": "1 porsiyon",
+    "name_too_short": "Ad en az 2 karakter olmalıdır"
   },
   "fasting": {
     "title": "Aralıklı oruç",

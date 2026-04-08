@@ -49,6 +49,10 @@ export function BarcodeResult({ product, onDone, onScanAgain }: BarcodeResultPro
 
   const handleSave = async () => {
     if (!user) return;
+    if (!(productName || product.name).trim()) {
+      Alert.alert(t('common.error'), t('barcode.name_required'));
+      return;
+    }
     setSaving(true);
     try {
       const today = new Date().toISOString().split('T')[0];

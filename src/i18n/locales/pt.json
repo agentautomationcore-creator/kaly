@@ -272,7 +272,8 @@
     "scan_again": "Escanear novamente",
     "enter_manually": "Inserir manualmente",
     "scan_success": "Código de barras lido com sucesso",
-    "product_name": "Nome do produto"
+    "product_name": "Nome do produto",
+    "name_required": "O nome do produto é obrigatório"
   },
   "common": {
     "loading": "Carregando...",
@@ -344,7 +345,8 @@
     "serving_size": "Tamanho da porção",
     "name_required": "Insira um nome",
     "missing_nutrition": "Dados nutricionais incompletos.",
-    "default_serving": "1 porção"
+    "default_serving": "1 porção",
+    "name_too_short": "O nome deve ter pelo menos 2 caracteres"
   },
   "fasting": {
     "title": "Jejum intermitente",

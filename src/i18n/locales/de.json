@@ -272,7 +272,8 @@
     "scan_again": "Erneut scannen",
     "enter_manually": "Manuell eingeben",
     "scan_success": "Barcode erfolgreich gescannt",
-    "product_name": "Produktname"
+    "product_name": "Produktname",
+    "name_required": "Produktname ist erforderlich"
   },
   "common": {
     "loading": "Laden...",
@@ -344,7 +345,8 @@
     "serving_size": "Portionsgröße",
     "name_required": "Bitte Name eingeben",
     "missing_nutrition": "Nährwertdaten unvollständig.",
-    "default_serving": "1 Portion"
+    "default_serving": "1 Portion",
+    "name_too_short": "Name muss mindestens 2 Zeichen haben"
   },
   "fasting": {
     "title": "Intervallfasten",

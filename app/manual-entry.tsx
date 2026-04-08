@@ -55,8 +55,8 @@ export default function ManualEntryScreen() {
   const hasWarning = entryMethod === 'search' && cal === 0;
 
   const handleSave = async () => {
-    if (!name.trim()) {
-      Alert.alert(t('common.error'), t('manual_entry.name_required'));
+    if (name.trim().length < 2) {
+      Alert.alert(t('common.error'), t('manual_entry.name_too_short'));
       return;
     }
     if (!user) return;
@@ -72,11 +72,11 @@ export default function ManualEntryScreen() {
         food_name_en: name.trim(),
         food_items: [],
         quantity_g: parseInt(servingSize) || null,
-        total_calories: cal,
-        total_protein: parseFloat(protein) || 0,
-        total_carbs: parseFloat(carbs) || 0,
-        total_fat: parseFloat(fat) || 0,
-        total_fiber: parseFloat(fiber) || 0,
+        total_calories: Math.max(0, cal),
+        total_protein: Math.max(0, parseFloat(protein) || 0),
+        total_carbs: Math.max(0, parseFloat(carbs) || 0),
+        total_fat: Math.max(0, parseFloat(fat) || 0),
+        total_fiber: Math.max(0, parseFloat(fiber) || 0),
         entry_method: entryMethod,
         edited: false,
       });

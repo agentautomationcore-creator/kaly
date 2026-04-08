@@ -272,7 +272,8 @@
     "scan_again": "Scansiona di nuovo",
     "enter_manually": "Inserisci manualmente",
     "scan_success": "Codice a barre scansionato con successo",
-    "product_name": "Nome del prodotto"
+    "product_name": "Nome del prodotto",
+    "name_required": "Il nome del prodotto è obbligatorio"
   },
   "common": {
     "loading": "Caricamento...",
@@ -344,7 +345,8 @@
     "serving_size": "Porzione",
     "name_required": "Inserisci un nome",
     "missing_nutrition": "Dati nutrizionali incompleti.",
-    "default_serving": "1 porzione"
+    "default_serving": "1 porzione",
+    "name_too_short": "Il nome deve avere almeno 2 caratteri"
   },
   "fasting": {
     "title": "Digiuno intermittente",
