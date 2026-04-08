@@ -1,8 +1,9 @@
 import { create } from 'zustand';
-import { Appearance } from 'react-native';
+import { Alert, Appearance } from 'react-native';
 import { createMMKV } from 'react-native-mmkv';
 import { supabase } from '../lib/supabase';
 import { useAuthStore } from './authStore';
+import i18n from '../i18n';
 
 const storage = createMMKV({ id: 'kaly-settings' });
 
@@ -32,7 +33,7 @@ interface SettingsState {
 // A10: Store subscription reference at module level for cleanup
 let appearanceSubscription: ReturnType<typeof Appearance.addChangeListener> | null = null;
 
-export const useSettingsStore = create<SettingsState>((set) => {
+export const useSettingsStore = create<SettingsState>((set, get) => {
   const savedTheme = (storage.getString('themeMode') as ThemeMode) || 'system';
   const savedUnits = (storage.getString('units') as Units) || 'metric';
   const savedLocale = storage.getString('locale') || 'en';
@@ -94,16 +95,21 @@ export const useSettingsStore = create<SettingsState>((set) => {
     },
 
     setAnalyticsConsent: (v) => {
+      const prev = get().analyticsConsentGiven;
       storage.set('analyticsConsentGiven', v);
       set({ analyticsConsentGiven: v });
-      // Sync to DB (MMKV is primary, DB is backup)
+      // Sync to DB with rollback on failure
       const user = useAuthStore.getState().user;
       if (user) {
         supabase.from('nutrition_profiles').update({
           analytics_consent_given: v,
           analytics_consent_at: v ? new Date().toISOString() : null,
         }).eq('id', user.id).then(({ error }) => {
-          if (error && __DEV__) console.warn('Analytics consent DB sync failed:', error);
+          if (error) {
+            storage.set('analyticsConsentGiven', prev);
+            set({ analyticsConsentGiven: prev });
+            Alert.alert(i18n.t('common.error'), i18n.t('consent.save_failed'));
+          }
         });
       }
     },
