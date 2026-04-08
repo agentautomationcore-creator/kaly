@@ -208,6 +208,7 @@
     "annual_price": "€39.99/año",
     "annual_savings": "Ahorra 33%",
     "trial_cta": "Prueba Pro gratis por 7 días",
+    "trial_7_days": "Prueba gratuita de 7 días, cancela en cualquier momento",
     "trial_note": "Tras la prueba gratuita, la suscripción se renueva automáticamente a {{price}}/mes.",
     "continue_free": "Continuar gratis",
     "restore": "Restaurar compras",

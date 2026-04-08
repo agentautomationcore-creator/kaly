@@ -240,7 +240,10 @@ export default function PaywallScreen() {
         {/* Trial CTA */}
         <Button title={t('paywall.trial_cta')} onPress={handlePurchase} loading={purchasing} />
 
-        <Text style={{ fontSize: FONT_SIZE.xs, color: colors.textSecondary, textAlign: 'center', marginTop: SPACING.sm }}>
+        <Text style={{ fontSize: FONT_SIZE.sm, fontWeight: '600', color: colors.text, textAlign: 'center', marginTop: SPACING.md }}>
+          {t('paywall.trial_7_days')}
+        </Text>
+        <Text style={{ fontSize: FONT_SIZE.xs, color: colors.textSecondary, textAlign: 'center', marginTop: SPACING.xs }}>
           {t('paywall.trial_note')}
         </Text>
 

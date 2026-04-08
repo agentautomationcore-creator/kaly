@@ -48,7 +48,7 @@ export default function WelcomeScreen() {
 
       {/* Language picker modal */}
       <Modal visible={showLangPicker} transparent animationType="fade" onRequestClose={() => setShowLangPicker(false)} accessibilityViewIsModal={true}>
-        <Pressable onPress={() => setShowLangPicker(false)} style={{ flex: 1, backgroundColor: 'rgba(0,0,0,0.5)', justifyContent: 'center', alignItems: 'center' }}>
+        <Pressable onPress={() => setShowLangPicker(false)} style={{ flex: 1, backgroundColor: colors.overlay, justifyContent: 'center', alignItems: 'center' }}>
           <Pressable onPress={() => {}} style={{ backgroundColor: colors.card, borderRadius: RADIUS.lg, padding: SPACING.xl, width: '80%', maxHeight: '60%', minHeight: MIN_TOUCH }}>
             <Text style={{ fontSize: FONT_SIZE.lg, fontWeight: '700', color: colors.text, marginBottom: SPACING.lg, textAlign: 'center' }}>
               {t('profile.language')}

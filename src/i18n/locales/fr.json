@@ -208,6 +208,7 @@
     "annual_price": "39,99€/an",
     "annual_savings": "Économisez 33%",
     "trial_cta": "Essayez Pro gratuitement pendant 7 jours",
+    "trial_7_days": "Essai gratuit de 7 jours, annulez à tout moment",
     "trial_note": "Après l'essai gratuit, l'abonnement se renouvelle automatiquement à {{price}}/mois.",
     "continue_free": "Continuer gratuitement",
     "restore": "Restaurer les achats",

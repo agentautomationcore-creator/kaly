@@ -208,6 +208,7 @@
     "annual_price": "€39.99/Jahr",
     "annual_savings": "33% sparen",
     "trial_cta": "Pro 7 Tage kostenlos testen",
+    "trial_7_days": "7 Tage kostenlos testen, jederzeit kündbar",
     "trial_note": "Nach der Testphase verlängert sich das Abo automatisch für {{price}}/Monat.",
     "continue_free": "Kostenlos fortfahren",
     "restore": "Käufe wiederherstellen",
