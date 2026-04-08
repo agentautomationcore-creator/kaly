@@ -46,6 +46,8 @@ export default function ManualEntryScreen() {
   const [servingSize, setServingSize] = useState(params.serving_size || t('manual_entry.default_serving'));
   const [saving, setSaving] = useState(false);
 
+  const filterNumeric = (text: string) => text.replace(/[^0-9.]/g, '');
+
   const mealType = (params.mealType || 'snack') as MealType;
   const entryMethod = (params.entry_method || 'manual') as 'search' | 'manual';
   const meals: MealType[] = ['breakfast', 'lunch', 'dinner', 'snack'];
@@ -81,23 +83,26 @@ export default function ManualEntryScreen() {
         edited: false,
       });
 
-      // If this came from a community product, increment its use count
-      if (params.community_product_id) {
-        supabase.rpc('increment_product_use', { p_product_id: params.community_product_id }).then(() => {});
-      } else if (entryMethod === 'manual') {
-        // Save new product to community DB for future searches (best-effort)
-        supabase.from('user_products').insert({
-          created_by: user.id,
-          name: name.trim(),
-          brand: params.brand || null,
-          barcode: params.barcode || null,
-          calories_per_100g: cal,
-          protein_per_100g: parseFloat(protein) || 0,
-          carbs_per_100g: parseFloat(carbs) || 0,
-          fat_per_100g: parseFloat(fat) || 0,
-          serving_size: servingSize || '100g',
-          language: i18n.language,
-        }).then(() => {});
+      // Best-effort: community product tracking (non-blocking)
+      try {
+        if (params.community_product_id) {
+          await supabase.rpc('increment_product_use', { p_product_id: params.community_product_id });
+        } else if (entryMethod === 'manual') {
+          await supabase.from('user_products').insert({
+            created_by: user.id,
+            name: name.trim(),
+            brand: params.brand || null,
+            barcode: params.barcode || null,
+            calories_per_100g: cal,
+            protein_per_100g: parseFloat(protein) || 0,
+            carbs_per_100g: parseFloat(carbs) || 0,
+            fat_per_100g: parseFloat(fat) || 0,
+            serving_size: servingSize || '100g',
+            language: i18n.language,
+          });
+        }
+      } catch (e) {
+        captureException(e, { feature: 'manual_entry_product_save' });
       }
 
       track('meal_logged', { meal_type: selectedMeal, entry_method: entryMethod });
@@ -203,7 +208,7 @@ export default function ManualEntryScreen() {
             </Text>
             <TextInput
               value={calories}
-              onChangeText={setCalories}
+              onChangeText={(v) => setCalories(filterNumeric(v))}
               placeholder="0"
               placeholderTextColor={colors.textSecondary}
               keyboardType="numeric"
@@ -228,7 +233,7 @@ export default function ManualEntryScreen() {
                   <Text style={{ width: 80, fontSize: FONT_SIZE.sm, color: colors.text }}>{label}</Text>
                   <TextInput
                     value={value}
-                    onChangeText={setter}
+                    onChangeText={(v) => setter(filterNumeric(v))}
                     placeholder="0"
                     placeholderTextColor={colors.textSecondary}
                     keyboardType="numeric"

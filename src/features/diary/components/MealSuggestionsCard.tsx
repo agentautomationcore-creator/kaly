@@ -12,6 +12,7 @@ import { supabase } from '../../../lib/supabase';
 import { useAuthStore } from '../../../stores/authStore';
 import { captureException } from '../../../lib/sentry';
 import { track } from '../../../lib/analytics';
+import { formatNumber } from '../../../lib/formatNumber';
 import type { MealType } from '../../../lib/types';
 
 interface MealSuggestionsCardProps {
@@ -183,7 +184,7 @@ export function MealSuggestionsCard({
               {s.name}
             </Text>
             <Text style={{ fontSize: FONT_SIZE.sm, fontWeight: '700', color: colors.primary }}>
-              {s.calories} {t('common.kcal')}
+              {formatNumber(s.calories)} {t('common.kcal')}
             </Text>
           </View>
           <Text style={{ fontSize: FONT_SIZE.xs, color: colors.textSecondary }} numberOfLines={2}>
@@ -191,13 +192,13 @@ export function MealSuggestionsCard({
           </Text>
           <View style={{ flexDirection: 'row', gap: SPACING.sm }}>
             <View style={{ backgroundColor: colors.proteinColor + '20', paddingHorizontal: SPACING.xs, paddingVertical: 2, borderRadius: RADIUS.sm }}>
-              <Text style={{ color: colors.text, fontSize: FONT_SIZE.xs }}>{t('common.protein_short')}: {s.protein}{t('common.g')}</Text>
+              <Text style={{ color: colors.text, fontSize: FONT_SIZE.xs }}>{t('common.protein_short')}: {formatNumber(s.protein)}{t('common.g')}</Text>
             </View>
             <View style={{ backgroundColor: colors.carbsColor + '20', paddingHorizontal: SPACING.xs, paddingVertical: 2, borderRadius: RADIUS.sm }}>
-              <Text style={{ color: colors.text, fontSize: FONT_SIZE.xs }}>{t('common.carbs_short')}: {s.carbs}{t('common.g')}</Text>
+              <Text style={{ color: colors.text, fontSize: FONT_SIZE.xs }}>{t('common.carbs_short')}: {formatNumber(s.carbs)}{t('common.g')}</Text>
             </View>
             <View style={{ backgroundColor: colors.fatColor + '20', paddingHorizontal: SPACING.xs, paddingVertical: 2, borderRadius: RADIUS.sm }}>
-              <Text style={{ color: colors.text, fontSize: FONT_SIZE.xs }}>{t('common.fat_short')}: {s.fat}{t('common.g')}</Text>
+              <Text style={{ color: colors.text, fontSize: FONT_SIZE.xs }}>{t('common.fat_short')}: {formatNumber(s.fat)}{t('common.g')}</Text>
             </View>
           </View>
           <View style={{ flexDirection: 'row', alignItems: 'center', gap: SPACING.xs, marginTop: SPACING.xs }}>

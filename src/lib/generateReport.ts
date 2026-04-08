@@ -4,6 +4,7 @@ import { Alert } from 'react-native';
 import { supabase, withTimeout } from './supabase';
 import { lightColors } from './theme';
 import i18n from '../i18n';
+import { formatNumber } from './formatNumber';
 
 /** Escape user/external data before inserting into HTML template */
 const escapeHtml = (s: string): string =>
@@ -152,11 +153,11 @@ function generateHTML(data: ReportData): string {
     .map(d => `
       <tr>
         <td>${escapeHtml(d.date)}</td>
-        <td>${d.calories}</td>
-        <td>${d.protein}${escapeHtml(uG)}</td>
-        <td>${d.carbs}${escapeHtml(uG)}</td>
-        <td>${d.fat}${escapeHtml(uG)}</td>
-        <td>${d.waterMl}${escapeHtml(uMl)}</td>
+        <td>${formatNumber(d.calories)}</td>
+        <td>${formatNumber(d.protein)}${escapeHtml(uG)}</td>
+        <td>${formatNumber(d.carbs)}${escapeHtml(uG)}</td>
+        <td>${formatNumber(d.fat)}${escapeHtml(uG)}</td>
+        <td>${formatNumber(d.waterMl)}${escapeHtml(uMl)}</td>
       </tr>
     `).join('');
 
@@ -196,19 +197,19 @@ function generateHTML(data: ReportData): string {
   <table class="summary-table">
     <tr>
       <td>
-        <span class="stat-value">${data.avgCalories}</span>
+        <span class="stat-value">${formatNumber(data.avgCalories)}</span>
         <span class="stat-label">${escapeHtml(t('report.avg_calories'))}</span>
       </td>
       <td>
-        <span class="stat-value">${data.avgProtein}${escapeHtml(uG)}</span>
+        <span class="stat-value">${formatNumber(data.avgProtein)}${escapeHtml(uG)}</span>
         <span class="stat-label">${escapeHtml(t('report.avg_protein'))}</span>
       </td>
       <td>
-        <span class="stat-value">${data.avgCarbs}${escapeHtml(uG)}</span>
+        <span class="stat-value">${formatNumber(data.avgCarbs)}${escapeHtml(uG)}</span>
         <span class="stat-label">${escapeHtml(t('report.avg_carbs'))}</span>
       </td>
       <td>
-        <span class="stat-value">${data.avgFat}${escapeHtml(uG)}</span>
+        <span class="stat-value">${formatNumber(data.avgFat)}${escapeHtml(uG)}</span>
         <span class="stat-label">${escapeHtml(t('report.avg_fat'))}</span>
       </td>
     </tr>
