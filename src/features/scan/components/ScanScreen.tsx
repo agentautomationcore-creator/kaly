@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, Pressable } from 'react-native';
+import { View, Text, Pressable, Alert } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useTranslation } from 'react-i18next';
 import { useRouter } from 'expo-router';
@@ -25,9 +25,8 @@ export function ScanScreen() {
   const healthConsentGiven = useSettingsStore((s) => s.healthConsentGiven);
   const setAiConsent = useSettingsStore((s) => s.setAiConsent);
   const setHealthConsent = useSettingsStore((s) => s.setHealthConsent);
-  const [consentStep, setConsentStep] = useState<'health' | 'ai' | null>(
-    !healthConsentGiven ? 'health' : !aiConsentGiven ? 'ai' : null
-  );
+  const needsConsent = !healthConsentGiven || !aiConsentGiven;
+  const [showConsent, setShowConsent] = useState(needsConsent);
   const [consentDeclined, setConsentDeclined] = useState(false);
 
   // Consent declined — show informative screen instead of camera
@@ -50,7 +49,7 @@ export function ScanScreen() {
           <Text style={{ color: colors.primary, fontWeight: '600', fontSize: FONT_SIZE.md }}>{t('food_search.placeholder')}</Text>
         </Pressable>
         <Pressable
-          onPress={() => { setConsentDeclined(false); setConsentStep(!healthConsentGiven ? 'health' : 'ai'); }}
+          onPress={() => { setConsentDeclined(false); setShowConsent(true); }}
           style={{ minHeight: MIN_TOUCH, marginTop: SPACING.sm, justifyContent: 'center' }}
           accessibilityRole="button"
           accessibilityLabel={t('scan.enable_ai')}
@@ -61,39 +60,46 @@ export function ScanScreen() {
     );
   }
 
-  // GDPR: Show health consent first, then AI consent — server requires both
-  if (consentStep && !result && !isAnalyzing && !error) {
+  // GDPR: Combined consent modal — health + AI in one step
+  if (showConsent && !result && !isAnalyzing && !error) {
     return (
       <View style={{ flex: 1, backgroundColor: colors.background }}>
         <ScanCamera />
         <ConsentModal
           visible
-          type={consentStep}
+          type="scan"
+          healthAlreadyGiven={healthConsentGiven}
+          aiAlreadyGiven={aiConsentGiven}
           onAccept={async () => {
             const user = useAuthStore.getState().user;
-            if (consentStep === 'health') {
-              setHealthConsent(true);
-              if (user) {
-                await supabase.from('nutrition_profiles').update({
-                  health_consent_given: true,
-                  health_consent_at: new Date().toISOString(),
-                }).eq('id', user.id);
+            if (user) {
+              try {
+                const now = new Date().toISOString();
+                const updates: Record<string, unknown> = {};
+                if (!healthConsentGiven) {
+                  updates.health_consent_given = true;
+                  updates.health_consent_at = now;
+                }
+                if (!aiConsentGiven) {
+                  updates.ai_consent_given = true;
+                  updates.ai_consent_at = now;
+                }
+                const { error: dbError } = await supabase
+                  .from('nutrition_profiles')
+                  .update(updates)
+                  .eq('id', user.id);
+                if (dbError) throw dbError;
+              } catch {
+                Alert.alert(t('common.error'), t('consent.save_failed'));
+                return;
               }
-              // Move to AI consent if not yet given
-              setConsentStep(!aiConsentGiven ? 'ai' : null);
-            } else {
-              setAiConsent(true);
-              if (user) {
-                await supabase.from('nutrition_profiles').update({
-                  ai_consent_given: true,
-                  ai_consent_at: new Date().toISOString(),
-                }).eq('id', user.id);
-              }
-              setConsentStep(null);
             }
+            setHealthConsent(true);
+            setAiConsent(true);
+            setShowConsent(false);
           }}
           onDecline={() => {
-            setConsentStep(null);
+            setShowConsent(false);
             setConsentDeclined(true);
           }}
         />

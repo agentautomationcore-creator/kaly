@@ -259,7 +259,12 @@
     "health_bullet_3": "Used only for personalized nutrition tracking",
     "read_privacy": "Read our Privacy Policy",
     "accept": "I agree",
-    "decline": "No thanks"
+    "decline": "No thanks",
+    "scan_title": "Before you scan",
+    "scan_health_section": "Health Data Processing",
+    "scan_ai_section": "AI Photo Analysis",
+    "accept_both": "Accept & Continue",
+    "save_failed": "Could not save your consent. Please try again."
   },
   "barcode": {
     "scan_barcode": "Scan barcode",

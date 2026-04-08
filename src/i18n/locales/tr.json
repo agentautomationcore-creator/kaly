@@ -259,7 +259,12 @@
     "health_bullet_3": "Yalnızca beslenme takibi için kullanılır",
     "read_privacy": "Gizlilik politikasını oku",
     "accept": "Kabul ediyorum",
-    "decline": "Reddet"
+    "decline": "Reddet",
+    "scan_title": "Taramadan önce",
+    "scan_health_section": "Sağlık Verisi İşleme",
+    "scan_ai_section": "Yapay Zeka Fotoğraf Analizi",
+    "accept_both": "Kabul Et ve Devam Et",
+    "save_failed": "Onayınız kaydedilemedi. Lütfen tekrar deneyin."
   },
   "barcode": {
     "scan_barcode": "Barkod tara",

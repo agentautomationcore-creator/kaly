@@ -259,7 +259,12 @@
     "health_bullet_3": "仅用于营养追踪",
     "read_privacy": "阅读隐私政策",
     "accept": "我同意",
-    "decline": "拒绝"
+    "decline": "拒绝",
+    "scan_title": "扫描前",
+    "scan_health_section": "健康数据处理",
+    "scan_ai_section": "AI照片分析",
+    "accept_both": "同意并继续",
+    "save_failed": "无法保存您的同意。请重试。"
   },
   "barcode": {
     "scan_barcode": "扫描条形码",

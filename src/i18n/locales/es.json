@@ -259,7 +259,12 @@
     "health_bullet_3": "Utilizados solo para seguimiento nutricional",
     "read_privacy": "Leer política de privacidad",
     "accept": "Acepto",
-    "decline": "Rechazar"
+    "decline": "Rechazar",
+    "scan_title": "Antes de escanear",
+    "scan_health_section": "Procesamiento de datos de salud",
+    "scan_ai_section": "Análisis de foto con IA",
+    "accept_both": "Aceptar y continuar",
+    "save_failed": "No se pudo guardar tu consentimiento. Inténtalo de nuevo."
   },
   "barcode": {
     "scan_barcode": "Escanear código",

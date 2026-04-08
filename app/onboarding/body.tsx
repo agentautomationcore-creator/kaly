@@ -173,15 +173,21 @@ export default function BodyScreen() {
         visible={showHealthConsent}
         type="health"
         onAccept={async () => {
-          setHealthConsent(true);
-          setShowHealthConsent(false);
           const user = useAuthStore.getState().user;
           if (user) {
-            await supabase.from('nutrition_profiles').update({
-              health_consent_given: true,
-              health_consent_at: new Date().toISOString(),
-            }).eq('id', user.id);
+            try {
+              const { error: dbError } = await supabase.from('nutrition_profiles').update({
+                health_consent_given: true,
+                health_consent_at: new Date().toISOString(),
+              }).eq('id', user.id);
+              if (dbError) throw dbError;
+            } catch {
+              Alert.alert(t('common.error'), t('consent.save_failed'));
+              return;
+            }
           }
+          setHealthConsent(true);
+          setShowHealthConsent(false);
         }}
         onDecline={() => {
           setShowHealthConsent(false);

@@ -259,7 +259,12 @@
     "health_bullet_3": "Nur für die Ernährungsverfolgung verwendet",
     "read_privacy": "Datenschutzrichtlinie lesen",
     "accept": "Ich akzeptiere",
-    "decline": "Ablehnen"
+    "decline": "Ablehnen",
+    "scan_title": "Vor dem Scannen",
+    "scan_health_section": "Verarbeitung von Gesundheitsdaten",
+    "scan_ai_section": "KI-Fotoanalyse",
+    "accept_both": "Akzeptieren & Fortfahren",
+    "save_failed": "Einwilligung konnte nicht gespeichert werden. Bitte erneut versuchen."
   },
   "barcode": {
     "scan_barcode": "Barcode scannen",

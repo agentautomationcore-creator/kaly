@@ -259,7 +259,12 @@
     "health_bullet_3": "تُستخدم فقط لتتبع التغذية",
     "read_privacy": "اقرأ سياسة الخصوصية",
     "accept": "أوافق",
-    "decline": "رفض"
+    "decline": "رفض",
+    "scan_title": "قبل المسح",
+    "scan_health_section": "معالجة البيانات الصحية",
+    "scan_ai_section": "تحليل الصور بالذكاء الاصطناعي",
+    "accept_both": "قبول ومتابعة",
+    "save_failed": "تعذر حفظ موافقتك. يرجى المحاولة مرة أخرى."
   },
   "barcode": {
     "scan_barcode": "مسح الباركود",
