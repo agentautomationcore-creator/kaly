@@ -1,6 +1,8 @@
 import { create } from 'zustand';
 import { Appearance } from 'react-native';
 import { createMMKV } from 'react-native-mmkv';
+import { supabase } from '../lib/supabase';
+import { useAuthStore } from './authStore';
 
 const storage = createMMKV({ id: 'kaly-settings' });
 
@@ -94,6 +96,16 @@ export const useSettingsStore = create<SettingsState>((set) => {
     setAnalyticsConsent: (v) => {
       storage.set('analyticsConsentGiven', v);
       set({ analyticsConsentGiven: v });
+      // Sync to DB (MMKV is primary, DB is backup)
+      const user = useAuthStore.getState().user;
+      if (user) {
+        supabase.from('nutrition_profiles').update({
+          analytics_consent_given: v,
+          analytics_consent_at: v ? new Date().toISOString() : null,
+        }).eq('id', user.id).then(({ error }) => {
+          if (error && __DEV__) console.warn('Analytics consent DB sync failed:', error);
+        });
+      }
     },
 
     setShowStreak: (v) => {

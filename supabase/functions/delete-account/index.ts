@@ -52,6 +52,9 @@ serve(async (req) => {
         .remove(files.map(f => `${user.id}/${f.name}`));
     }
 
+    // Clean up rate_limits (TEXT-keyed, no FK cascade)
+    await adminClient.from('rate_limits').delete().like('key', `%${user.id}%`);
+
     // Delete user (CASCADE handles all tables)
     const { error: deleteError } = await adminClient.auth.admin.deleteUser(user.id);
     if (deleteError) throw deleteError;
