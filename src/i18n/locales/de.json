@@ -131,7 +131,8 @@
     "added_success": "Zum Tagebuch hinzugefügt",
     "suggest_meal": "Mahlzeit vorschlagen",
     "suggestions_title": "KI-Vorschläge",
-    "add_suggestion": "Zum Tagebuch"
+    "add_suggestion": "Zum Tagebuch",
+    "suggest_no_results": "Keine Vorschläge verfügbar. Versuchen Sie es später erneut."
   },
   "stats": {
     "title": "Statistik",

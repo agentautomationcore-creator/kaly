@@ -131,7 +131,8 @@
     "added_success": "Günlüğe eklendi",
     "suggest_meal": "Yemek öner",
     "suggestions_title": "AI Önerileri",
-    "add_suggestion": "Günlüğe ekle"
+    "add_suggestion": "Günlüğe ekle",
+    "suggest_no_results": "Öneri bulunamadı. Daha sonra tekrar deneyin."
   },
   "stats": {
     "title": "İstatistikler",

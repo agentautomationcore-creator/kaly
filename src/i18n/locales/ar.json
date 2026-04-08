@@ -131,7 +131,8 @@
     "added_success": "تمت الإضافة",
     "suggest_meal": "اقترح وجبة",
     "suggestions_title": "اقتراحات الذكاء",
-    "add_suggestion": "أضف للمذكرة"
+    "add_suggestion": "أضف للمذكرة",
+    "suggest_no_results": "لا توجد اقتراحات متاحة. حاول مرة أخرى لاحقاً."
   },
   "stats": {
     "title": "الإحصائيات",

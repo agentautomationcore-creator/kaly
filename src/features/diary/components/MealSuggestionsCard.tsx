@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, Pressable, ActivityIndicator, Alert } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { Ionicons } from '@expo/vector-icons';
@@ -39,7 +39,16 @@ export function MealSuggestionsCard({
   const colors = useColors();
   const qc = useQueryClient();
   const user = useAuthStore((s) => s.user);
-  const { suggestions, isLoading, error, suggest, clear } = useMealSuggestions();
+  const { suggestions, isLoading, error, hasQueried, suggest, clear } = useMealSuggestions();
+  const [errorCooldown, setErrorCooldown] = useState(false);
+
+  useEffect(() => {
+    if (error) {
+      setErrorCooldown(true);
+      const timer = setTimeout(() => setErrorCooldown(false), 5000);
+      return () => clearTimeout(timer);
+    }
+  }, [error]);
 
   const handleSuggest = () => {
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
@@ -102,7 +111,8 @@ export function MealSuggestionsCard({
     return (
       <Pressable
         onPress={handleSuggest}
-        style={{ flexDirection: 'row', alignItems: 'center', gap: SPACING.sm, paddingVertical: SPACING.sm, minHeight: MIN_TOUCH }}
+        disabled={isLoading || errorCooldown}
+        style={{ flexDirection: 'row', alignItems: 'center', gap: SPACING.sm, paddingVertical: SPACING.sm, minHeight: MIN_TOUCH, opacity: errorCooldown ? 0.5 : 1 }}
         accessibilityRole="button"
         accessibilityLabel={t('diary.suggest_meal')}
       >
@@ -124,14 +134,19 @@ export function MealSuggestionsCard({
     );
   }
 
-  // Error
+  // Error with cooldown
   if (error) {
     return (
       <View style={{ paddingVertical: SPACING.sm }}>
         <Text style={{ fontSize: FONT_SIZE.xs, color: colors.danger }}>
           {error === 'RATE_LIMIT' ? t('scan.scan_limit', { limit: 10 }) : t('errors.generic')}
         </Text>
-        <Pressable onPress={handleSuggest} style={{ marginTop: SPACING.xs, minHeight: MIN_TOUCH }} accessibilityRole="button">
+        <Pressable
+          onPress={handleSuggest}
+          disabled={errorCooldown}
+          style={{ marginTop: SPACING.xs, minHeight: MIN_TOUCH, opacity: errorCooldown ? 0.5 : 1 }}
+          accessibilityRole="button"
+        >
           <Text style={{ fontSize: FONT_SIZE.xs, color: colors.primary }}>{t('common.retry')}</Text>
         </Pressable>
       </View>
@@ -144,6 +159,11 @@ export function MealSuggestionsCard({
       <Text style={{ fontSize: FONT_SIZE.xs, fontWeight: '600', color: colors.textSecondary, textTransform: 'uppercase' }}>
         {t('diary.suggestions_title')}
       </Text>
+      {suggestions.length === 0 && hasQueried && !isLoading && (
+        <Text style={{ color: colors.textSecondary, textAlign: 'center', padding: SPACING.lg, fontSize: FONT_SIZE.sm }}>
+          {t('diary.suggest_no_results')}
+        </Text>
+      )}
       {suggestions.map((s, i) => (
         <Pressable
           key={`${s.name}-${i}`}

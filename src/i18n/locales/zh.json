@@ -131,7 +131,8 @@
     "added_success": "已添加到日记",
     "suggest_meal": "推荐一餐",
     "suggestions_title": "AI建议",
-    "add_suggestion": "添加到日记"
+    "add_suggestion": "添加到日记",
+    "suggest_no_results": "暂无建议。请稍后再试。"
   },
   "stats": {
     "title": "统计",

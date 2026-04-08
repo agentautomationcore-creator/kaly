@@ -40,6 +40,7 @@ export function useMealSuggestions() {
   const [suggestions, setSuggestions] = useState<MealSuggestion[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [hasQueried, setHasQueried] = useState(false);
   const abortRef = useRef<AbortController | null>(null);
 
   const suggest = async (params: SuggestParams) => {
@@ -57,6 +58,7 @@ export function useMealSuggestions() {
 
     setIsLoading(true);
     setError(null);
+    setHasQueried(true);
 
     try {
       const { data: { session } } = await supabase.auth.getSession();
@@ -99,7 +101,8 @@ export function useMealSuggestions() {
   const clear = () => {
     setSuggestions([]);
     setError(null);
+    setHasQueried(false);
   };
 
-  return { suggestions, isLoading, error, suggest, clear };
+  return { suggestions, isLoading, error, hasQueried, suggest, clear };
 }

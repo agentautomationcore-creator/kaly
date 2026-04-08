@@ -131,7 +131,8 @@
     "added_success": "Added to diary",
     "suggest_meal": "Suggest a meal",
     "suggestions_title": "AI Suggestions",
-    "add_suggestion": "Add to diary"
+    "add_suggestion": "Add to diary",
+    "suggest_no_results": "No suggestions available. Try again later."
   },
   "stats": {
     "title": "Statistics",

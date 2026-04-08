@@ -131,7 +131,8 @@
     "added_success": "Добавлено в дневник",
     "suggest_meal": "Предложить блюдо",
     "suggestions_title": "Предложения ИИ",
-    "add_suggestion": "Добавить в дневник"
+    "add_suggestion": "Добавить в дневник",
+    "suggest_no_results": "Нет доступных предложений. Попробуйте позже."
   },
   "stats": {
     "title": "Статистика",

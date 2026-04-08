@@ -131,7 +131,8 @@
     "added_success": "Ajouté au journal",
     "suggest_meal": "Suggérer un repas",
     "suggestions_title": "Suggestions IA",
-    "add_suggestion": "Ajouter au journal"
+    "add_suggestion": "Ajouter au journal",
+    "suggest_no_results": "Aucune suggestion disponible. Réessayez plus tard."
   },
   "stats": {
     "title": "Statistiques",
