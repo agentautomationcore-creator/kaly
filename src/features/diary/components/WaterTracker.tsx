@@ -36,7 +36,7 @@ export function WaterTracker({ date, goalGlasses = 8 }: WaterTrackerProps) {
       </View>
 
       <View style={{ flexDirection: 'row', alignItems: 'center', gap: SPACING.sm }}>
-        <View style={{ flex: 1, flexDirection: 'row', gap: 4 }}>
+        <View style={{ flex: 1, flexDirection: 'row', gap: SPACING.xs}}>
           {Array.from({ length: goalGlasses }).map((_, i) => (
             <View
               key={i}

@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { useColors } from '../../../lib/theme';
 import { Modal } from '../../../components/Modal';
 import { Button } from '../../../components/Button';
-import { FONT_SIZE, RADIUS, MIN_TOUCH } from '../../../lib/constants';
+import { FONT_SIZE, RADIUS, MIN_TOUCH, SPACING } from '../../../lib/constants';
 import { supabase } from '../../../lib/supabase';
 import { useAuthStore } from '../../../stores/authStore';
 
@@ -49,15 +49,15 @@ export function MealEditModal({ visible, onClose, diaryEntryId }: MealEditModalP
   return (
     <Modal visible={visible} onClose={onClose} title={submitted ? undefined : t('feedback.title')}>
       {submitted ? (
-        <View style={{ alignItems: 'center', padding: 24 }}>
-          <Text style={{ fontSize: FONT_SIZE.display, marginBottom: 12 }}>✓</Text>
+        <View style={{ alignItems: 'center', padding: SPACING.xl }}>
+          <Text style={{ fontSize: FONT_SIZE.display, marginBottom: SPACING.md }}>✓</Text>
           <Text style={{ fontSize: FONT_SIZE.md, fontWeight: '600', color: colors.text }}>
             {t('feedback.thanks')}
           </Text>
         </View>
       ) : (
         <View>
-          <View style={{ gap: 8, marginBottom: 16 }}>
+          <View style={{ gap: SPACING.sm, marginBottom: SPACING.lg }}>
             {FEEDBACK_TYPES.map((ft) => (
               <Pressable
                 key={ft}
@@ -66,7 +66,7 @@ export function MealEditModal({ visible, onClose, diaryEntryId }: MealEditModalP
                 accessibilityRole="button"
                 accessibilityLabel={t(`feedback.${ft}`)}
                 style={{
-                  padding: 12,
+                  padding: SPACING.md,
                   minHeight: MIN_TOUCH,
                   borderRadius: RADIUS.md,
                   backgroundColor: type === ft ? colors.primaryLight : colors.surface,
@@ -93,12 +93,12 @@ export function MealEditModal({ visible, onClose, diaryEntryId }: MealEditModalP
             style={{
               backgroundColor: colors.surface,
               borderRadius: RADIUS.md,
-              padding: 14,
+              padding: SPACING.lg,
               fontSize: FONT_SIZE.sm,
               color: colors.text,
               minHeight: 80,
               textAlignVertical: 'top',
-              marginBottom: 16,
+              marginBottom: SPACING.lg,
             }}
           />
 

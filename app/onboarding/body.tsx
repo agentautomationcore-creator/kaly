@@ -49,7 +49,7 @@ export default function BodyScreen() {
         <Text style={{ fontSize: FONT_SIZE.sm, color: colors.textSecondary, marginBottom: SPACING.sm, fontWeight: '500' }}>
           {t('onboarding.gender')}
         </Text>
-        <View style={{ flexDirection: 'row', gap: SPACING.md, marginBottom: 20 }}>
+        <View style={{ flexDirection: 'row', gap: SPACING.md, marginBottom: SPACING.xl}}>
           {GENDERS.map((g) => (
             <Pressable
               key={g}
@@ -58,7 +58,7 @@ export default function BodyScreen() {
               accessibilityLabel={t(`onboarding.${g}`)}
               style={{
                 flex: 1,
-                padding: 14,
+                padding: SPACING.lg,
                 minHeight: MIN_TOUCH,
                 borderRadius: RADIUS.md,
                 backgroundColor: gender === g ? colors.primaryLight : colors.card,
@@ -81,7 +81,7 @@ export default function BodyScreen() {
           { label: t('onboarding.weight'), value: weight, set: setWeight, suffix: t('units.kg'), key: 'weight', placeholder: '70' },
           { label: t('onboarding.age'), value: age, set: setAge, suffix: '', key: 'age', placeholder: '25' },
         ].map((field) => (
-          <View key={field.key} style={{ marginBottom: 20 }}>
+          <View key={field.key} style={{ marginBottom: SPACING.xl}}>
             <Text style={{ fontSize: FONT_SIZE.sm, color: colors.textSecondary, marginBottom: SPACING.sm, fontWeight: '500' }}>
               {field.label} {field.suffix ? `(${field.suffix})` : ''}
             </Text>
@@ -93,7 +93,7 @@ export default function BodyScreen() {
               style={{
                 backgroundColor: colors.card,
                 borderRadius: RADIUS.md,
-                padding: 14,
+                padding: SPACING.lg,
                 fontSize: FONT_SIZE.md,
                 color: colors.text,
               }}
@@ -115,7 +115,7 @@ export default function BodyScreen() {
               accessibilityRole="button"
               accessibilityLabel={t(`onboarding.activity_${a}`)}
               style={{
-                padding: 14,
+                padding: SPACING.lg,
                 minHeight: MIN_TOUCH,
                 borderRadius: RADIUS.md,
                 backgroundColor: activity === a ? colors.primaryLight : colors.card,

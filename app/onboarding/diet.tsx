@@ -112,7 +112,7 @@ export default function DietScreen() {
               accessibilityRole="button"
               accessibilityLabel={t(`onboarding.diet_${d}`)}
               style={{
-                padding: 14,
+                padding: SPACING.lg,
                 minHeight: MIN_TOUCH,
                 borderRadius: RADIUS.md,
                 backgroundColor: diet === d ? colors.primaryLight : colors.card,

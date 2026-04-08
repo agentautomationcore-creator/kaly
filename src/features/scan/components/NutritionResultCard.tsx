@@ -10,7 +10,7 @@ import { Button } from '../../../components/Button';
 import { ProgressBar } from '../../../components/ProgressBar';
 import { IngredientList } from './IngredientList';
 import { PortionSlider } from './PortionSlider';
-import { FONT_SIZE, RADIUS, MIN_TOUCH } from '../../../lib/constants';
+import { FONT_SIZE, RADIUS, MIN_TOUCH, SPACING } from '../../../lib/constants';
 import { supabase } from '../../../lib/supabase';
 import { useAuthStore } from '../../../stores/authStore';
 import { useHealthKit } from '../../../hooks/useHealthKit';
@@ -86,10 +86,10 @@ export function NutritionResultCard() {
   };
 
   return (
-    <ScrollView style={{ flex: 1, backgroundColor: colors.background }} contentContainerStyle={{ padding: 16, paddingBottom: 100 }}>
+    <ScrollView style={{ flex: 1, backgroundColor: colors.background }} contentContainerStyle={{ padding: SPACING.lg, paddingBottom: 100 }}>
       {/* Header */}
-      <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
-        <Pressable onPress={reset} style={{ padding: 8, minHeight: MIN_TOUCH, minWidth: 44, justifyContent: 'center', alignItems: 'center' }} accessibilityRole="button" accessibilityLabel={t('common.close')}>
+      <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: SPACING.lg }}>
+        <Pressable onPress={reset} style={{ padding: SPACING.sm, minHeight: MIN_TOUCH, minWidth: 44, justifyContent: 'center', alignItems: 'center' }} accessibilityRole="button" accessibilityLabel={t('common.close')}>
           <Ionicons name="arrow-back" size={24} color={colors.text} />
         </Pressable>
         <Text style={{ fontSize: FONT_SIZE.lg, fontWeight: '700', color: colors.text }}>{t('scan.result_title')}</Text>
@@ -97,15 +97,15 @@ export function NutritionResultCard() {
       </View>
 
       {/* Main card */}
-      <Card style={{ marginBottom: 16 }}>
-        <Text style={{ fontSize: FONT_SIZE.xl, fontWeight: '700', color: colors.text, marginBottom: 4 }}>
+      <Card style={{ marginBottom: SPACING.lg }}>
+        <Text style={{ fontSize: FONT_SIZE.xl, fontWeight: '700', color: colors.text, marginBottom: SPACING.xs }}>
           {result.dish_name}
         </Text>
-        <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8, marginBottom: 16 }}>
+        <View style={{ flexDirection: 'row', alignItems: 'center', gap: SPACING.sm, marginBottom: SPACING.lg }}>
           <Text style={{ fontSize: FONT_SIZE.sm, color: colors.textSecondary }}>
             {formatNumber(Math.round(result.total_portion_g * m))} {t('units.g')}
           </Text>
-          <View style={{ flexDirection: 'row', alignItems: 'center', gap: 4 }}>
+          <View style={{ flexDirection: 'row', alignItems: 'center', gap: SPACING.xs }}>
             <Text style={{ fontSize: FONT_SIZE.xs, color: colors.textSecondary }}>{t('scan.confidence')}:</Text>
             <Text style={{ fontSize: FONT_SIZE.xs, fontWeight: '600', color: result.confidence > 0.8 ? colors.success : colors.warning }}>
               {Math.round(result.confidence * 100)}%
@@ -114,13 +114,13 @@ export function NutritionResultCard() {
         </View>
 
         {/* Big calorie number */}
-        <View style={{ alignItems: 'center', marginBottom: 16 }}>
+        <View style={{ alignItems: 'center', marginBottom: SPACING.lg }}>
           <Text style={{ fontSize: FONT_SIZE.display, fontWeight: '800', color: colors.primary }}>{formatNumber(cal)}</Text>
           <Text style={{ fontSize: FONT_SIZE.sm, color: colors.textSecondary }}>{t('common.kcal')}</Text>
         </View>
 
         {/* Macro bars */}
-        <View style={{ gap: 8 }}>
+        <View style={{ gap: SPACING.sm }}>
           <ProgressBar label={t('stats.protein')} value={protein} max={protein + carbs + fat} color={colors.proteinColor} showValue />
           <ProgressBar label={t('stats.carbs')} value={carbs} max={protein + carbs + fat} color={colors.carbsColor} showValue />
           <ProgressBar label={t('stats.fat')} value={fat} max={protein + carbs + fat} color={colors.fatColor} showValue />
@@ -129,14 +129,14 @@ export function NutritionResultCard() {
       </Card>
 
       {/* Portion slider */}
-      <Card style={{ marginBottom: 16 }}>
+      <Card style={{ marginBottom: SPACING.lg }}>
         <PortionSlider />
       </Card>
 
       {/* Ingredients */}
-      <Card style={{ marginBottom: 16 }}>
+      <Card style={{ marginBottom: SPACING.lg }}>
         {result.items.length === 0 ? (
-          <View style={{ padding: 16, alignItems: 'center' }}>
+          <View style={{ padding: SPACING.lg, alignItems: 'center' }}>
             <Text style={{ fontSize: FONT_SIZE.sm, color: colors.warning, textAlign: 'center' }}>
               {t('scan.no_ingredients')}
             </Text>
@@ -148,9 +148,9 @@ export function NutritionResultCard() {
 
       {/* Warnings */}
       {result.warnings.length > 0 && (
-        <Card style={{ marginBottom: 16, backgroundColor: colors.warningLight }}>
+        <Card style={{ marginBottom: SPACING.lg, backgroundColor: colors.warningLight }}>
           {result.warnings.map((w, i) => (
-            <View key={i} style={{ flexDirection: 'row', alignItems: 'center', gap: 8, marginBottom: i < result.warnings.length - 1 ? 8 : 0 }}>
+            <View key={i} style={{ flexDirection: 'row', alignItems: 'center', gap: SPACING.sm, marginBottom: i < result.warnings.length - 1 ? SPACING.sm : 0 }}>
               <Ionicons name="warning" size={16} color={colors.warning} />
               <Text style={{ fontSize: FONT_SIZE.sm, color: colors.warning, flex: 1 }}>{w}</Text>
             </View>
@@ -159,7 +159,7 @@ export function NutritionResultCard() {
       )}
 
       {/* Meal type selector */}
-      <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 8, marginBottom: 16 }}>
+      <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: SPACING.sm, marginBottom: SPACING.lg }}>
         {meals.map((m) => (
           <Pressable
             key={m}
@@ -223,14 +223,14 @@ export function NutritionResultCard() {
         }}
         accessibilityRole="button"
         accessibilityLabel={t('scan.wrong_result')}
-        style={{ alignItems: 'center', marginTop: 16, minHeight: MIN_TOUCH, justifyContent: 'center' }}
+        style={{ alignItems: 'center', marginTop: SPACING.lg, minHeight: MIN_TOUCH, justifyContent: 'center' }}
       >
         <Text style={{ fontSize: FONT_SIZE.sm, color: colors.danger, fontWeight: '500' }}>
           {t('scan.wrong_result')}
         </Text>
       </Pressable>
 
-      <Text style={{ fontSize: FONT_SIZE.xs, color: colors.textSecondary, textAlign: 'center', marginTop: 16 }}>
+      <Text style={{ fontSize: FONT_SIZE.xs, color: colors.textSecondary, textAlign: 'center', marginTop: SPACING.lg }}>
         {t('scan.disclaimer')}
       </Text>
     </ScrollView>

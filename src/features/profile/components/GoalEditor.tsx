@@ -71,7 +71,7 @@ export function GoalEditor({ profile }: GoalEditorProps) {
               onPress={() => setSelected(g)}
               accessibilityRole="button"
               style={{
-                padding: 14,
+                padding: SPACING.lg,
                 borderRadius: RADIUS.md,
                 backgroundColor: selected === g ? colors.primaryLight : colors.surface,
                 borderWidth: 2,

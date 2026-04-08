@@ -108,7 +108,7 @@ export function ScanCamera() {
 
           {/* Top hint */}
           <View style={{ alignItems: 'center' }}>
-            <View style={{ backgroundColor: colors.overlay, paddingHorizontal: 20, paddingVertical: 10, borderRadius: RADIUS.full }}>
+            <View style={{ backgroundColor: colors.overlay, paddingHorizontal: SPACING.xl, paddingVertical: SPACING.md, borderRadius: RADIUS.full }}>
               <Text style={{ color: colors.card, fontSize: FONT_SIZE.sm, fontWeight: '500' }}>
                 {t('scan.point_camera')}
               </Text>
@@ -142,7 +142,7 @@ export function ScanCamera() {
                 style={{
                   width: 72,
                   height: 72,
-                  borderRadius: 36,
+                  borderRadius: RADIUS.full,
                   backgroundColor: colors.card,
                   borderWidth: 4,
                   borderColor: colors.primary,
@@ -153,7 +153,7 @@ export function ScanCamera() {
                 accessibilityRole="button"
                 accessibilityLabel={t('scan.take_photo')}
               >
-                <View style={{ width: 56, height: 56, borderRadius: 28, backgroundColor: colors.card }} />
+                <View style={{ width: 56, height: 56, borderRadius: RADIUS.full, backgroundColor: colors.card }} />
               </Pressable>
 
               {/* Flip */}

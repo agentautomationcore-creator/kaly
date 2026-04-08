@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { Ionicons } from '@expo/vector-icons';
 import { useQuery } from '@tanstack/react-query';
 import { useColors } from '../../src/lib/theme';
-import { FONT_SIZE } from '../../src/lib/constants';
+import { FONT_SIZE, RADIUS, SPACING } from '../../src/lib/constants';
 import { useRouter } from 'expo-router';
 import { supabase } from '../../src/lib/supabase';
 import { useAuthStore } from '../../src/stores/authStore';
@@ -36,7 +36,7 @@ function ScanFAB() {
         style={{
           width: 56,
           height: 56,
-          borderRadius: 28,
+          borderRadius: RADIUS.full,
           backgroundColor: colors.primary,
           justifyContent: 'center',
           alignItems: 'center',
@@ -58,13 +58,13 @@ function ScanFAB() {
           top: -4,
           end: -8,
           backgroundColor: scanLimit.used >= scanLimit.limit ? colors.danger : colors.success,
-          borderRadius: 10,
+          borderRadius: RADIUS.sm,
           paddingHorizontal: 6,
           paddingVertical: 2,
           minWidth: 28,
           alignItems: 'center',
         }}>
-          <Text style={{ fontSize: 10, fontWeight: '700', color: '#FFFFFF' }}>
+          <Text style={{ fontSize: FONT_SIZE.xxs, fontWeight: '700', color: colors.textOnPrimary }}>
             {scanLimit.limit - scanLimit.used}/{scanLimit.limit}
           </Text>
         </View>

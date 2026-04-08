@@ -91,7 +91,7 @@ export function BodyEditor({ profile }: BodyEditorProps) {
                 style={{
                   backgroundColor: colors.surface,
                   borderRadius: RADIUS.md,
-                  padding: 14,
+                  padding: SPACING.lg,
                   fontSize: FONT_SIZE.md,
                   color: colors.text,
                 }}

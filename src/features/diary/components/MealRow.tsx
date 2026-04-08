@@ -54,7 +54,7 @@ export function MealRow({ entry }: MealRowProps) {
           <Text style={{ fontSize: FONT_SIZE.sm, fontWeight: '600', color: colors.text }}>
             {formatNumber(Math.round(entry.total_calories))} {t('common.kcal')}
           </Text>
-          <Text style={{ fontSize: 10, color: colors.textSecondary }}>
+          <Text style={{ fontSize: FONT_SIZE.xxs, color: colors.textSecondary }}>
             {t('common.protein_short')}{formatNumber(Math.round(entry.total_protein))} {t('common.carbs_short')}{formatNumber(Math.round(entry.total_carbs))} {t('common.fat_short')}{formatNumber(Math.round(entry.total_fat))}
           </Text>
         </View>

@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { Ionicons } from '@expo/vector-icons';
 import { useColors } from '../../../lib/theme';
 import { Card } from '../../../components/Card';
-import { FONT_SIZE, RADIUS } from '../../../lib/constants';
+import { FONT_SIZE, RADIUS, SPACING } from '../../../lib/constants';
 
 interface StreakCounterProps {
   count: number;
@@ -15,7 +15,7 @@ export function StreakCounter({ count }: StreakCounterProps) {
   const colors = useColors();
 
   return (
-    <Card style={{ flexDirection: 'row', alignItems: 'center', gap: 12 }}>
+    <Card style={{ flexDirection: 'row', alignItems: 'center', gap: SPACING.md }}>
       <View
         style={{
           width: 44,

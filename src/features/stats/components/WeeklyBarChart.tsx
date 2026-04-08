@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { useColors } from '../../../lib/theme';
-import { FONT_SIZE, RADIUS } from '../../../lib/constants';
+import { FONT_SIZE, RADIUS, SPACING } from '../../../lib/constants';
 import { formatNumber } from '../../../lib/formatNumber';
 import type { DayStats } from '../types';
 
@@ -17,7 +17,7 @@ export const WeeklyBarChart = React.memo(function WeeklyBarChart({ days, goal = 
   // B6: Empty state
   if (!days.length || days.every((d) => d.calories === 0)) {
     return (
-      <View style={{ alignItems: 'center', padding: 24 }}>
+      <View style={{ alignItems: 'center', padding: SPACING.xl }}>
         <Text style={{ fontSize: FONT_SIZE.sm, color: colors.textSecondary, textAlign: 'center' }}>
           {t('stats.no_data')}
         </Text>

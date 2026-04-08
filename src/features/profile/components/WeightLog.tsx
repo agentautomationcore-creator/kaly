@@ -74,12 +74,12 @@ export function WeightLog() {
 
       {/* Mini chart */}
       {recent.length > 1 && (
-        <View style={{ flexDirection: 'row', alignItems: 'flex-end', height: 60, gap: 4 }}>
+        <View style={{ flexDirection: 'row', alignItems: 'flex-end', height: 60, gap: SPACING.xs}}>
           {recent.reverse().map((entry, i) => {
             const h = ((entry.weight_kg - minW) / range) * 40 + 20;
             return (
               <View key={entry.id} style={{ flex: 1, alignItems: 'center' }}>
-                <Text style={{ fontSize: 9, color: colors.textSecondary, marginBottom: 2 }}>
+                <Text style={{ fontSize: FONT_SIZE.xxs, color: colors.textSecondary, marginBottom: 2 }}>
                   {displayWeight(entry.weight_kg)}
                 </Text>
                 <View

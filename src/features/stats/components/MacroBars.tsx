@@ -3,7 +3,7 @@ import { View, Text } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { useColors } from '../../../lib/theme';
 import { ProgressBar } from '../../../components/ProgressBar';
-import { FONT_SIZE } from '../../../lib/constants';
+import { FONT_SIZE, SPACING } from '../../../lib/constants';
 
 interface MacroBarsProps {
   protein: number;
@@ -26,7 +26,7 @@ export const MacroBars = React.memo(function MacroBars({
   const colors = useColors();
 
   return (
-    <View style={{ gap: 12 }}>
+    <View style={{ gap: SPACING.md }}>
       <ProgressBar
         label={t('stats.protein')}
         value={protein}

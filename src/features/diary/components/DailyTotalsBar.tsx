@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { useColors } from '../../../lib/theme';
 import { CalorieRing } from '../../stats/components/CalorieRing';
 import { Card } from '../../../components/Card';
-import { FONT_SIZE, SPACING } from '../../../lib/constants';
+import { FONT_SIZE, SPACING, RADIUS } from '../../../lib/constants';
 import { formatNumber } from '../../../lib/formatNumber';
 
 interface DailyTotalsBarProps {
@@ -49,7 +49,7 @@ function MacroChip({ label, value, unit, color }: { label: string; value: number
   const colors = useColors();
   return (
     <View style={{ flex: 1, alignItems: 'center' }}>
-      <View style={{ width: 4, height: 4, borderRadius: 2, backgroundColor: color, marginBottom: 4 }} />
+      <View style={{ width: 4, height: 4, borderRadius: RADIUS.full, backgroundColor: color, marginBottom: SPACING.xs }} />
       <Text style={{ fontSize: FONT_SIZE.md, fontWeight: '700', color: colors.text }}>
         {formatNumber(Math.round(value))}{unit}
       </Text>

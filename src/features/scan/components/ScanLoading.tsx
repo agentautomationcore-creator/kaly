@@ -3,7 +3,7 @@ import { View, Text, Pressable } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { useColors } from '../../../lib/theme';
 import { Skeleton } from '../../../components/LoadingSkeleton';
-import { FONT_SIZE, RADIUS, MIN_TOUCH } from '../../../lib/constants';
+import { FONT_SIZE, RADIUS, MIN_TOUCH, SPACING } from '../../../lib/constants';
 import { cancelAnalysis } from '../hooks/useAnalyzeFood';
 import { useScanStore } from '../store/scanStore';
 
@@ -18,20 +18,20 @@ export function ScanLoading() {
   };
 
   return (
-    <View style={{ flex: 1, backgroundColor: colors.background, padding: 24, justifyContent: 'center' }}>
-      <Text style={{ fontSize: FONT_SIZE.xl, fontWeight: '700', color: colors.text, textAlign: 'center', marginBottom: 32 }}>
+    <View style={{ flex: 1, backgroundColor: colors.background, padding: SPACING.xl, justifyContent: 'center' }}>
+      <Text style={{ fontSize: FONT_SIZE.xl, fontWeight: '700', color: colors.text, textAlign: 'center', marginBottom: SPACING.xxl }}>
         {t('scan.analyzing')}
       </Text>
 
       {/* Skeleton card */}
-      <View style={{ backgroundColor: colors.card, borderRadius: RADIUS.lg, padding: 20, gap: 16 }}>
+      <View style={{ backgroundColor: colors.card, borderRadius: RADIUS.lg, padding: SPACING.xl, gap: SPACING.lg }}>
         <Skeleton width="70%" height={20} />
         <Skeleton width="40%" height={14} />
 
         <View style={{ height: 1, backgroundColor: colors.border, marginVertical: 4 }} />
 
         {/* Macro bars skeleton */}
-        <View style={{ gap: 12 }}>
+        <View style={{ gap: SPACING.md }}>
           <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
             <Skeleton width={80} height={12} />
             <Skeleton width={40} height={12} />
@@ -55,7 +55,7 @@ export function ScanLoading() {
 
         {/* Ingredients skeleton */}
         <Skeleton width="50%" height={14} />
-        <View style={{ gap: 8 }}>
+        <View style={{ gap: SPACING.sm }}>
           <Skeleton width="100%" height={12} />
           <Skeleton width="90%" height={12} />
           <Skeleton width="80%" height={12} />
@@ -64,14 +64,14 @@ export function ScanLoading() {
 
       <Pressable
         onPress={handleCancel}
-        style={{ alignSelf: 'center', marginTop: 24, backgroundColor: colors.surface, paddingHorizontal: 24, paddingVertical: 12, borderRadius: RADIUS.md, minHeight: MIN_TOUCH, justifyContent: 'center' }}
+        style={{ alignSelf: 'center', marginTop: SPACING.xl, backgroundColor: colors.surface, paddingHorizontal: SPACING.xl, paddingVertical: SPACING.md, borderRadius: RADIUS.md, minHeight: MIN_TOUCH, justifyContent: 'center' }}
         accessibilityRole="button"
         accessibilityLabel={t('common.cancel')}
       >
         <Text style={{ color: colors.text, fontWeight: '600' }}>{t('common.cancel')}</Text>
       </Pressable>
 
-      <Text style={{ fontSize: FONT_SIZE.xs, color: colors.textSecondary, textAlign: 'center', marginTop: 16 }}>
+      <Text style={{ fontSize: FONT_SIZE.xs, color: colors.textSecondary, textAlign: 'center', marginTop: SPACING.lg }}>
         {t('scan.disclaimer')}
       </Text>
     </View>

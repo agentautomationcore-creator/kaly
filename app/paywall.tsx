@@ -222,7 +222,7 @@ export default function PaywallScreen() {
               {t('paywall.annual_price')}
             </Text>
             <View style={{ backgroundColor: colors.success, borderRadius: RADIUS.full, paddingHorizontal: SPACING.sm, paddingVertical: 2, marginTop: SPACING.xs }}>
-              <Text style={{ fontSize: 10, fontWeight: '600', color: colors.card }}>{t('paywall.annual_savings')}</Text>
+              <Text style={{ fontSize: FONT_SIZE.xxs, fontWeight: '600', color: colors.card }}>{t('paywall.annual_savings')}</Text>
             </View>
           </Pressable>
         </View>
