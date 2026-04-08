@@ -98,7 +98,9 @@
     "enter_manually": "Ingresar manualmente",
     "consent_required_title": "Se requiere consentimiento de IA",
     "consent_required_desc": "El escaneo de fotos usa análisis de IA. Puedes usar el escáner de código de barras o la búsqueda, o activar la IA.",
-    "enable_ai": "Activar escaneo IA"
+    "enable_ai": "Activar escaneo IA",
+    "portions": "porciones",
+    "scans_remaining": "{{remaining}} escaneos gratis restantes hoy"
   },
   "diary": {
     "title": "Hoy",
@@ -218,7 +220,9 @@
     "restored": "Compras restauradas",
     "restored_desc": "¡Tu suscripción Pro ha sido restaurada!",
     "no_purchases": "No se encontró suscripción activa.",
-    "restore_failed": "No se pudieron restaurar las compras. Inténtalo de nuevo."
+    "restore_failed": "No se pudieron restaurar las compras. Inténtalo de nuevo.",
+    "purchase_success_title": "¡Bienvenido a Pro!",
+    "purchase_success": "¡Ahora tienes escaneos ilimitados y todas las funciones!"
   },
   "auth": {
     "sign_in": "Iniciar sesión",

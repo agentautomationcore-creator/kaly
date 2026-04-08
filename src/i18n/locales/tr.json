@@ -98,7 +98,9 @@
     "enter_manually": "Manuel giriş",
     "consent_required_title": "Yapay zeka onayı gerekli",
     "consent_required_desc": "Fotoğraf taraması yapay zeka analizi kullanır. Barkod tarayıcıyı veya aramayı kullanabilir ya da yapay zekayı etkinleştirebilirsiniz.",
-    "enable_ai": "Yapay zeka taramayı etkinleştir"
+    "enable_ai": "Yapay zeka taramayı etkinleştir",
+    "portions": "porsiyon",
+    "scans_remaining": "Bugün {{remaining}} ücretsiz tarama kaldı"
   },
   "diary": {
     "title": "Bugün",
@@ -218,7 +220,9 @@
     "restored": "Satın alımlar geri yüklendi",
     "restored_desc": "Pro aboneliğiniz geri yüklendi!",
     "no_purchases": "Aktif abonelik bulunamadı.",
-    "restore_failed": "Satın alımlar geri yüklenemedi. Lütfen tekrar deneyin."
+    "restore_failed": "Satın alımlar geri yüklenemedi. Lütfen tekrar deneyin.",
+    "purchase_success_title": "Pro'ya hoş geldiniz!",
+    "purchase_success": "Artık sınırsız tarama ve tüm özelliklere sahipsiniz!"
   },
   "auth": {
     "sign_in": "Giriş yap",

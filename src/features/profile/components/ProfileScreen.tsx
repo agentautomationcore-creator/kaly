@@ -116,9 +116,16 @@ export function ProfileScreen() {
       style={{ flex: 1, backgroundColor: colors.background }}
       contentContainerStyle={{ padding: SPACING.lg, paddingBottom: 100 }}
     >
-      <Text accessibilityRole="header" style={{ fontSize: FONT_SIZE.xxl, fontWeight: '800', color: colors.text, marginBottom: 20 }}>
-        {t('profile.title')}
-      </Text>
+      <View style={{ flexDirection: 'row', alignItems: 'center', gap: SPACING.sm, marginBottom: 20 }}>
+        <Text accessibilityRole="header" style={{ fontSize: FONT_SIZE.xxl, fontWeight: '800', color: colors.text }}>
+          {t('profile.title')}
+        </Text>
+        {profile?.plan === 'pro' && (
+          <View style={{ backgroundColor: colors.primary, paddingHorizontal: SPACING.sm, paddingVertical: 2, borderRadius: RADIUS.sm }}>
+            <Text style={{ color: colors.textOnPrimary, fontSize: FONT_SIZE.xxs, fontWeight: '700' }}>PRO</Text>
+          </View>
+        )}
+      </View>
 
       {/* Anonymous banner */}
       {isAnonymous && (

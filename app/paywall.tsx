@@ -109,6 +109,8 @@ export default function PaywallScreen() {
       if (customerInfo.entitlements.active['pro']) {
         await syncPlanFromCustomerInfo(customerInfo);
         track('subscription_started', { period });
+        Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
+        Alert.alert(t('paywall.purchase_success_title'), t('paywall.purchase_success'));
         router.back();
       }
     } catch (err: unknown) {
@@ -161,9 +163,12 @@ export default function PaywallScreen() {
             <Text style={{ fontSize: FONT_SIZE.md, fontWeight: '700', color: colors.text, marginBottom: SPACING.sm }}>
               {t('paywall.free_title')}
             </Text>
-            <Text style={{ fontSize: FONT_SIZE.xs, color: colors.textSecondary, lineHeight: 20 }}>
-              {t('paywall.free_desc')}
-            </Text>
+            {t('paywall.free_desc').split('\n').map((line: string, i: number) => (
+              <View key={i} style={{ flexDirection: 'row', alignItems: 'center', gap: SPACING.xs, marginBottom: 4 }}>
+                <Ionicons name="lock-closed" size={14} color={colors.textSecondary} />
+                <Text style={{ fontSize: FONT_SIZE.xs, color: colors.textSecondary, flex: 1 }}>{line}</Text>
+              </View>
+            ))}
           </Card>
 
           {/* Pro */}
@@ -171,9 +176,12 @@ export default function PaywallScreen() {
             <Text style={{ fontSize: FONT_SIZE.md, fontWeight: '700', color: colors.primary, marginBottom: SPACING.sm }}>
               {t('paywall.pro_title')}
             </Text>
-            <Text style={{ fontSize: FONT_SIZE.xs, color: colors.text, lineHeight: 20 }}>
-              {t('paywall.pro_desc')}
-            </Text>
+            {t('paywall.pro_desc').split('\n').map((line: string, i: number) => (
+              <View key={i} style={{ flexDirection: 'row', alignItems: 'center', gap: SPACING.xs, marginBottom: 4 }}>
+                <Ionicons name="checkmark-circle" size={14} color={colors.primary} />
+                <Text style={{ fontSize: FONT_SIZE.xs, color: colors.text, flex: 1 }}>{line}</Text>
+              </View>
+            ))}
           </Card>
         </View>
 

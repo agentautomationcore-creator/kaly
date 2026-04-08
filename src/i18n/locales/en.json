@@ -98,7 +98,9 @@
     "enter_manually": "Enter manually",
     "consent_required_title": "AI consent required",
     "consent_required_desc": "Photo scanning uses AI analysis. You can use barcode scanning or food search instead, or enable AI.",
-    "enable_ai": "Enable AI scanning"
+    "enable_ai": "Enable AI scanning",
+    "portions": "portions",
+    "scans_remaining": "{{remaining}} free scans left today"
   },
   "diary": {
     "title": "Today",
@@ -218,7 +220,9 @@
     "restored": "Success",
     "restored_desc": "Your Pro subscription has been restored!",
     "no_purchases": "No active subscription found.",
-    "restore_failed": "Could not restore purchases. Please try again."
+    "restore_failed": "Could not restore purchases. Please try again.",
+    "purchase_success_title": "Welcome to Pro!",
+    "purchase_success": "You now have unlimited scans and full features!"
   },
   "auth": {
     "sign_in": "Sign in",

@@ -98,7 +98,9 @@
     "enter_manually": "Manuell eingeben",
     "consent_required_title": "KI-Zustimmung erforderlich",
     "consent_required_desc": "Das Foto-Scannen nutzt KI-Analyse. Sie können den Barcode-Scanner oder die Suche verwenden, oder KI aktivieren.",
-    "enable_ai": "KI-Scan aktivieren"
+    "enable_ai": "KI-Scan aktivieren",
+    "portions": "Portionen",
+    "scans_remaining": "{{remaining}} kostenlose Scans übrig heute"
   },
   "diary": {
     "title": "Heute",
@@ -218,7 +220,9 @@
     "restored": "Käufe wiederhergestellt",
     "restored_desc": "Dein Pro-Abonnement wurde wiederhergestellt!",
     "no_purchases": "Kein aktives Abonnement gefunden.",
-    "restore_failed": "Käufe konnten nicht wiederhergestellt werden. Bitte versuche es erneut."
+    "restore_failed": "Käufe konnten nicht wiederhergestellt werden. Bitte versuche es erneut.",
+    "purchase_success_title": "Willkommen bei Pro!",
+    "purchase_success": "Sie haben jetzt unbegrenzte Scans und alle Funktionen!"
   },
   "auth": {
     "sign_in": "Anmelden",

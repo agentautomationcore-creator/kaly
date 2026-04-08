@@ -98,7 +98,9 @@
     "enter_manually": "手动输入",
     "consent_required_title": "需要AI同意",
     "consent_required_desc": "照片扫描使用AI分析。您可以使用条形码扫描或搜索，或启用AI。",
-    "enable_ai": "启用AI扫描"
+    "enable_ai": "启用AI扫描",
+    "portions": "份量",
+    "scans_remaining": "今天还剩 {{remaining}} 次免费扫描"
   },
   "diary": {
     "title": "今天",
@@ -218,7 +220,9 @@
     "restored": "购买已恢复",
     "restored_desc": "您的 Pro 订阅已恢复！",
     "no_purchases": "未找到有效订阅。",
-    "restore_failed": "无法恢复购买，请重试。"
+    "restore_failed": "无法恢复购买，请重试。",
+    "purchase_success_title": "欢迎使用 Pro！",
+    "purchase_success": "您现在拥有无限扫描和全部功能！"
   },
   "auth": {
     "sign_in": "登录",

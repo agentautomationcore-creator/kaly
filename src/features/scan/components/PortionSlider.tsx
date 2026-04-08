@@ -15,7 +15,7 @@ export function PortionSlider() {
   return (
     <View>
       <Text style={{ fontSize: FONT_SIZE.sm, fontWeight: '600', color: colors.text, marginBottom: 12 }}>
-        {t('scan.portion')}
+        {t('scan.portion')} ({t('scan.portions')})
       </Text>
       <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: SPACING.xs }}>
         {PORTIONS.map((p) => (

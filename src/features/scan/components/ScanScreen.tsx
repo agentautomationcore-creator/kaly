@@ -3,6 +3,7 @@ import { View, Text, Pressable, Alert } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useTranslation } from 'react-i18next';
 import { useRouter } from 'expo-router';
+import { useQuery } from '@tanstack/react-query';
 import { useColors } from '../../../lib/theme';
 import { FONT_SIZE, RADIUS, MIN_TOUCH, SPACING } from '../../../lib/constants';
 import { useScanStore } from '../store/scanStore';
@@ -28,6 +29,18 @@ export function ScanScreen() {
   const needsConsent = !healthConsentGiven || !aiConsentGiven;
   const [showConsent, setShowConsent] = useState(needsConsent);
   const [consentDeclined, setConsentDeclined] = useState(false);
+  const profile = useAuthStore((s) => s.profile);
+  const user = useAuthStore((s) => s.user);
+
+  const { data: scanLimit } = useQuery({
+    queryKey: ['scanLimit', user?.id],
+    queryFn: async () => {
+      const { data } = await supabase.rpc('check_daily_scan_limit', { p_user_id: user!.id });
+      return data as { used: number; limit: number; plan: string } | null;
+    },
+    enabled: !!user && profile?.plan !== 'pro',
+    staleTime: 30_000,
+  });
 
   // Consent declined — show informative screen instead of camera
   if (consentDeclined && !result && !isAnalyzing && !error) {
@@ -64,7 +77,7 @@ export function ScanScreen() {
   if (showConsent && !result && !isAnalyzing && !error) {
     return (
       <View style={{ flex: 1, backgroundColor: colors.background }}>
-        <ScanCamera />
+        <ScanCamera usedToday={scanLimit?.used ?? 0} plan={profile?.plan ?? 'free'} />
         <ConsentModal
           visible
           type="scan"
@@ -193,5 +206,5 @@ export function ScanScreen() {
     return <NutritionResultCard />;
   }
 
-  return <ScanCamera />;
+  return <ScanCamera usedToday={scanLimit?.used ?? 0} plan={profile?.plan ?? 'free'} />;
 }

@@ -13,7 +13,12 @@ import { Button } from '../../../components/Button';
 import * as Haptics from 'expo-haptics';
 import { FONT_SIZE, RADIUS, SPACING } from '../../../lib/constants';
 
-export function ScanCamera() {
+interface ScanCameraProps {
+  usedToday?: number;
+  plan?: string;
+}
+
+export function ScanCamera({ usedToday = 0, plan = 'free' }: ScanCameraProps) {
   const { t } = useTranslation();
   const colors = useColors();
   const insets = useSafeAreaInsets();
@@ -114,6 +119,13 @@ export function ScanCamera() {
               </Text>
             </View>
           </View>
+
+          {/* Scan counter for free users */}
+          {plan === 'free' && (
+            <Text style={{ color: colors.textOnPrimary, fontSize: FONT_SIZE.sm, textAlign: 'center', marginBottom: SPACING.sm }}>
+              {t('scan.scans_remaining', { remaining: Math.max(0, 3 - usedToday) })}
+            </Text>
+          )}
 
           {/* Bottom controls */}
           <View style={{ paddingBottom: 40, paddingHorizontal: SPACING.xl, gap: SPACING.lg }}>
