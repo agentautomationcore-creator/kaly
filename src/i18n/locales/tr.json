@@ -355,7 +355,9 @@
     "stop": "Bitir",
     "hours": "saat",
     "completed": "Oruç tamamlandı!",
-    "hours_suffix": "s"
+    "hours_suffix": "s",
+    "complete_title": "Oruç tamamlandı!",
+    "complete_body": "Tebrikler! Oruç hedefinize ulaştınız."
   },
   "report": {
     "title": "Beslenme Raporu",

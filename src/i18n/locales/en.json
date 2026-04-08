@@ -355,7 +355,9 @@
     "stop": "End fast",
     "hours": "hours",
     "completed": "Fast completed!",
-    "hours_suffix": "h"
+    "hours_suffix": "h",
+    "complete_title": "Fasting Complete!",
+    "complete_body": "Congratulations! You reached your fasting goal."
   },
   "report": {
     "title": "Nutrition Report",

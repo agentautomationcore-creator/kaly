@@ -355,7 +355,9 @@
     "stop": "结束",
     "hours": "小时",
     "completed": "断食完成！",
-    "hours_suffix": "小时"
+    "hours_suffix": "小时",
+    "complete_title": "禁食完成！",
+    "complete_body": "恭喜！您已达到禁食目标。"
   },
   "report": {
     "title": "营养报告",

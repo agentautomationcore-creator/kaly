@@ -1,9 +1,10 @@
-import React, { useState, useEffect, useCallback } from 'react';
-import { View, Text, Pressable, AccessibilityInfo } from 'react-native';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
+import { View, Text, Pressable, AccessibilityInfo, AppState } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import Svg, { Circle } from 'react-native-svg';
 import Animated, { useSharedValue, useAnimatedProps, withTiming, cancelAnimation } from 'react-native-reanimated';
 import * as Haptics from 'expo-haptics';
+import * as Notifications from 'expo-notifications';
 import { useColors } from '../../../lib/theme';
 import { Card } from '../../../components/Card';
 import { FONT_SIZE, RADIUS, MIN_TOUCH, SPACING } from '../../../lib/constants';
@@ -19,16 +20,28 @@ function formatTime(seconds: number): string {
   return `${h.toString().padStart(2, '0')}:${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
 }
 
-export function FastingCard() {
+export const FastingCard = React.memo(function FastingCard() {
   const { t } = useTranslation();
   const colors = useColors();
   const { isActive, startTime, targetHours, start, stop, setTargetHours } = useFastingStore();
   const [elapsed, setElapsed] = useState(0);
+  const [tick, setTick] = useState(0);
   const [reduceMotion, setReduceMotion] = useState(false);
+  const completionFired = useRef(false);
 
   useEffect(() => {
     AccessibilityInfo.isReduceMotionEnabled().then(setReduceMotion);
   }, []);
+
+  // B20: Recalculate elapsed when app resumes from background
+  useEffect(() => {
+    const sub = AppState.addEventListener('change', (state) => {
+      if (state === 'active' && startTime) {
+        setTick((prev) => prev + 1);
+      }
+    });
+    return () => sub.remove();
+  }, [startTime]);
 
   // Timer tick every second
   useEffect(() => {
@@ -43,11 +56,26 @@ export function FastingCard() {
       setElapsed(Math.floor((Date.now() - startTime) / 1000));
     }, 1000);
     return () => clearInterval(interval);
-  }, [isActive, startTime]);
+  }, [isActive, startTime, tick]);
 
   const targetSeconds = targetHours * 3600;
   const progress = isActive ? Math.min(elapsed / targetSeconds, 1) : 0;
   const completed = progress >= 1;
+
+  // A13: Completion haptic + notification
+  useEffect(() => {
+    if (completed && !completionFired.current) {
+      completionFired.current = true;
+      Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
+      Notifications.scheduleNotificationAsync({
+        content: { title: t('fasting.complete_title'), body: t('fasting.complete_body') },
+        trigger: null,
+      }).catch(() => {});
+    }
+    if (!isActive) {
+      completionFired.current = false;
+    }
+  }, [completed, isActive]);
 
   // Ring animation
   const size = 140;
@@ -178,4 +206,4 @@ export function FastingCard() {
       </Pressable>
     </Card>
   );
-}
+});

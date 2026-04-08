@@ -355,7 +355,9 @@
     "stop": "Terminar",
     "hours": "horas",
     "completed": "¡Ayuno completado!",
-    "hours_suffix": "h"
+    "hours_suffix": "h",
+    "complete_title": "¡Ayuno completado!",
+    "complete_body": "¡Felicidades! Has alcanzado tu meta de ayuno."
   },
   "report": {
     "title": "Informe nutricional",

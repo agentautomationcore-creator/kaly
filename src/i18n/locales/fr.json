@@ -355,7 +355,9 @@
     "stop": "Arrêter",
     "hours": "heures",
     "completed": "Jeûne terminé !",
-    "hours_suffix": "h"
+    "hours_suffix": "h",
+    "complete_title": "Jeûne terminé !",
+    "complete_body": "Félicitations ! Vous avez atteint votre objectif de jeûne."
   },
   "report": {
     "title": "Rapport nutritionnel",

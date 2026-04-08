@@ -355,7 +355,9 @@
     "stop": "Termina",
     "hours": "ore",
     "completed": "Digiuno completato!",
-    "hours_suffix": "h"
+    "hours_suffix": "h",
+    "complete_title": "Digiuno completato!",
+    "complete_body": "Congratulazioni! Hai raggiunto il tuo obiettivo di digiuno."
   },
   "report": {
     "title": "Rapporto nutrizionale",

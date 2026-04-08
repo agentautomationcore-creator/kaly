@@ -355,7 +355,9 @@
     "stop": "Encerrar",
     "hours": "horas",
     "completed": "Jejum concluído!",
-    "hours_suffix": "h"
+    "hours_suffix": "h",
+    "complete_title": "Jejum concluído!",
+    "complete_body": "Parabéns! Você atingiu sua meta de jejum."
   },
   "report": {
     "title": "Relatório nutricional",

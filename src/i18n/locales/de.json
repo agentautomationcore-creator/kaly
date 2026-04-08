@@ -355,7 +355,9 @@
     "stop": "Beenden",
     "hours": "Stunden",
     "completed": "Fasten abgeschlossen!",
-    "hours_suffix": "h"
+    "hours_suffix": "h",
+    "complete_title": "Fasten abgeschlossen!",
+    "complete_body": "Glückwunsch! Sie haben Ihr Fastenziel erreicht."
   },
   "report": {
     "title": "Ernährungsbericht",

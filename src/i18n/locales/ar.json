@@ -355,7 +355,9 @@
     "stop": "إنهاء",
     "hours": "ساعات",
     "completed": "اكتمل الصيام!",
-    "hours_suffix": "س"
+    "hours_suffix": "س",
+    "complete_title": "اكتمل الصيام!",
+    "complete_body": "تهانينا! لقد وصلت إلى هدف الصيام."
   },
   "report": {
     "title": "تقرير التغذية",
