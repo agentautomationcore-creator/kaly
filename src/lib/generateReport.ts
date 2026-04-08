@@ -1,7 +1,7 @@
 import * as Print from 'expo-print';
 import * as Sharing from 'expo-sharing';
 import { Alert } from 'react-native';
-import { supabase } from './supabase';
+import { supabase, withTimeout } from './supabase';
 import { lightColors } from './theme';
 import i18n from '../i18n';
 
@@ -61,29 +61,33 @@ async function fetchReportData(days: number): Promise<ReportData> {
   const startISO = startDate.toISOString();
   const endISO = endDate.toISOString();
 
-  // Parallel fetch
-  const [diaryRes, waterRes, weightRes] = await Promise.all([
-    supabase
-      .from('diary_entries')
-      .select('created_at, total_calories, total_protein, total_carbs, total_fat')
-      .eq('user_id', user.id)
-      .gte('created_at', startISO)
-      .lte('created_at', endISO)
-      .order('created_at'),
-    supabase
-      .from('water_log')
-      .select('created_at, ml')
-      .eq('user_id', user.id)
-      .gte('created_at', startISO)
-      .lte('created_at', endISO),
-    supabase
-      .from('weight_log')
-      .select('created_at, weight_kg')
-      .eq('user_id', user.id)
-      .gte('created_at', startISO)
-      .lte('created_at', endISO)
-      .order('created_at'),
-  ]);
+  // Parallel fetch with timeout
+  const [diaryRes, waterRes, weightRes] = await withTimeout(
+    Promise.all([
+      supabase
+        .from('diary_entries')
+        .select('created_at, total_calories, total_protein, total_carbs, total_fat')
+        .eq('user_id', user.id)
+        .gte('created_at', startISO)
+        .lte('created_at', endISO)
+        .order('created_at'),
+      supabase
+        .from('water_log')
+        .select('created_at, ml')
+        .eq('user_id', user.id)
+        .gte('created_at', startISO)
+        .lte('created_at', endISO),
+      supabase
+        .from('weight_log')
+        .select('created_at, weight_kg')
+        .eq('user_id', user.id)
+        .gte('created_at', startISO)
+        .lte('created_at', endISO)
+        .order('created_at'),
+    ]),
+    15000,
+    'report-fetch',
+  );
 
   const diary = diaryRes.data || [];
   const water = waterRes.data || [];

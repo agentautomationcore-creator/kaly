@@ -1,5 +1,5 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { supabase } from '../../../lib/supabase';
+import { supabase, withTimeout } from '../../../lib/supabase';
 import { useAuthStore } from '../../../stores/authStore';
 import type { DiaryEntry } from '../types';
 
@@ -30,7 +30,7 @@ export function useAddEntry() {
 
   return useMutation({
     mutationFn: async (entry: Omit<DiaryEntry, 'id' | 'created_at'>) => {
-      const { error } = await supabase.from('diary_entries').insert(entry);
+      const { error } = await withTimeout(supabase.from('diary_entries').insert(entry).then(r => r), 15000, 'diary-insert');
       if (error) throw error;
     },
     onSuccess: () => {
@@ -44,7 +44,7 @@ export function useDeleteEntry() {
 
   return useMutation({
     mutationFn: async (entryId: string) => {
-      const { error } = await supabase.from('diary_entries').delete().eq('id', entryId);
+      const { error } = await withTimeout(supabase.from('diary_entries').delete().eq('id', entryId).then(r => r), 15000, 'diary-delete');
       if (error) throw error;
     },
     onSuccess: () => {
