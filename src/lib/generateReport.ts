@@ -5,6 +5,10 @@ import { supabase } from './supabase';
 import { lightColors } from './theme';
 import i18n from '../i18n';
 
+/** Escape user/external data before inserting into HTML template */
+const escapeHtml = (s: string): string =>
+  s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+
 // Locale mapping for toLocaleDateString (i18n codes → BCP 47)
 const LOCALE_MAP: Record<string, string> = {
   en: 'en-US',
@@ -143,20 +147,20 @@ function generateHTML(data: ReportData): string {
   const dailyRows = data.dailyData
     .map(d => `
       <tr>
-        <td>${d.date}</td>
+        <td>${escapeHtml(d.date)}</td>
         <td>${d.calories}</td>
-        <td>${d.protein}${uG}</td>
-        <td>${d.carbs}${uG}</td>
-        <td>${d.fat}${uG}</td>
-        <td>${d.waterMl}${uMl}</td>
+        <td>${d.protein}${escapeHtml(uG)}</td>
+        <td>${d.carbs}${escapeHtml(uG)}</td>
+        <td>${d.fat}${escapeHtml(uG)}</td>
+        <td>${d.waterMl}${escapeHtml(uMl)}</td>
       </tr>
     `).join('');
 
   const weightSection = data.weightStart != null && data.weightEnd != null
     ? `<tr>
         <td colspan="6" style="background: ${c.primaryLight}; padding: 12px; font-size: 13px;">
-          <strong>${t('report.weight')}:</strong> ${data.weightStart} ${uKg} &rarr; ${data.weightEnd} ${uKg}
-          (${data.weightEnd - data.weightStart > 0 ? '+' : ''}${(data.weightEnd - data.weightStart).toFixed(1)} ${uKg})
+          <strong>${escapeHtml(t('report.weight'))}:</strong> ${data.weightStart} ${escapeHtml(uKg)} &rarr; ${data.weightEnd} ${escapeHtml(uKg)}
+          (${data.weightEnd - data.weightStart > 0 ? '+' : ''}${(data.weightEnd - data.weightStart).toFixed(1)} ${escapeHtml(uKg)})
         </td>
       </tr>`
     : '';
@@ -181,47 +185,47 @@ function generateHTML(data: ReportData): string {
   </style>
 </head>
 <body>
-  <h1>Kaly -- ${t('report.title')}</h1>
-  <p class="subtitle">${data.startDate} - ${data.endDate} (${data.daysTracked} ${t('report.days_tracked')})</p>
+  <h1>Kaly -- ${escapeHtml(t('report.title'))}</h1>
+  <p class="subtitle">${escapeHtml(data.startDate)} - ${escapeHtml(data.endDate)} (${data.daysTracked} ${escapeHtml(t('report.days_tracked'))})</p>
 
-  <h2>${t('report.summary')}</h2>
+  <h2>${escapeHtml(t('report.summary'))}</h2>
   <table class="summary-table">
     <tr>
       <td>
         <span class="stat-value">${data.avgCalories}</span>
-        <span class="stat-label">${t('report.avg_calories')}</span>
+        <span class="stat-label">${escapeHtml(t('report.avg_calories'))}</span>
       </td>
       <td>
-        <span class="stat-value">${data.avgProtein}${uG}</span>
-        <span class="stat-label">${t('report.avg_protein')}</span>
+        <span class="stat-value">${data.avgProtein}${escapeHtml(uG)}</span>
+        <span class="stat-label">${escapeHtml(t('report.avg_protein'))}</span>
       </td>
       <td>
-        <span class="stat-value">${data.avgCarbs}${uG}</span>
-        <span class="stat-label">${t('report.avg_carbs')}</span>
+        <span class="stat-value">${data.avgCarbs}${escapeHtml(uG)}</span>
+        <span class="stat-label">${escapeHtml(t('report.avg_carbs'))}</span>
       </td>
       <td>
-        <span class="stat-value">${data.avgFat}${uG}</span>
-        <span class="stat-label">${t('report.avg_fat')}</span>
+        <span class="stat-value">${data.avgFat}${escapeHtml(uG)}</span>
+        <span class="stat-label">${escapeHtml(t('report.avg_fat'))}</span>
       </td>
     </tr>
   </table>
 
   ${weightSection}
 
-  <h2>${t('report.daily_breakdown')}</h2>
+  <h2>${escapeHtml(t('report.daily_breakdown'))}</h2>
   <table>
     <tr>
-      <th>${t('report.date')}</th>
-      <th>${t('report.calories')}</th>
-      <th>${t('report.protein')}</th>
-      <th>${t('report.carbs')}</th>
-      <th>${t('report.fat')}</th>
-      <th>${t('report.water')}</th>
+      <th>${escapeHtml(t('report.date'))}</th>
+      <th>${escapeHtml(t('report.calories'))}</th>
+      <th>${escapeHtml(t('report.protein'))}</th>
+      <th>${escapeHtml(t('report.carbs'))}</th>
+      <th>${escapeHtml(t('report.fat'))}</th>
+      <th>${escapeHtml(t('report.water'))}</th>
     </tr>
     ${dailyRows}
   </table>
 
-  <p class="footer">${t('report.generated_by')} Kaly -- ${new Date().toLocaleDateString(getLocaleTag())}</p>
+  <p class="footer">${escapeHtml(t('report.generated_by'))} Kaly -- ${escapeHtml(new Date().toLocaleDateString(getLocaleTag()))}</p>
 </body>
 </html>`;
 }
