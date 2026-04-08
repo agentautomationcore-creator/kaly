@@ -131,7 +131,7 @@ export function MealSuggestionsCard({
         <Text style={{ fontSize: FONT_SIZE.xs, color: colors.danger }}>
           {error === 'RATE_LIMIT' ? t('scan.scan_limit', { limit: 10 }) : t('errors.generic')}
         </Text>
-        <Pressable onPress={handleSuggest} style={{ marginTop: SPACING.xs }} accessibilityRole="button">
+        <Pressable onPress={handleSuggest} style={{ marginTop: SPACING.xs, minHeight: MIN_TOUCH }} accessibilityRole="button">
           <Text style={{ fontSize: FONT_SIZE.xs, color: colors.primary }}>{t('common.retry')}</Text>
         </Pressable>
       </View>
@@ -152,6 +152,7 @@ export function MealSuggestionsCard({
           accessibilityLabel={`${s.name} ${s.calories} ${t('common.kcal')}`}
           style={{
             padding: SPACING.md,
+            minHeight: MIN_TOUCH,
             backgroundColor: colors.surface,
             borderRadius: RADIUS.md,
             gap: SPACING.xs,

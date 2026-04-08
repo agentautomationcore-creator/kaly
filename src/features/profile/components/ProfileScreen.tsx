@@ -44,7 +44,7 @@ function ExportReportCard() {
 
   return (
     <Card style={{ marginBottom: SPACING.lg }}>
-      <Text style={{ fontSize: FONT_SIZE.md, fontWeight: '600', color: colors.text, marginBottom: SPACING.sm }}>
+      <Text accessibilityRole="header" style={{ fontSize: FONT_SIZE.md, fontWeight: '600', color: colors.text, marginBottom: SPACING.sm }}>
         {t('profile.export_report')}
       </Text>
       <View style={{ flexDirection: 'row', gap: SPACING.sm, marginBottom: SPACING.md }}>
@@ -116,7 +116,7 @@ export function ProfileScreen() {
       style={{ flex: 1, backgroundColor: colors.background }}
       contentContainerStyle={{ padding: SPACING.lg, paddingBottom: 100 }}
     >
-      <Text style={{ fontSize: FONT_SIZE.xxl, fontWeight: '800', color: colors.text, marginBottom: 20 }}>
+      <Text accessibilityRole="header" style={{ fontSize: FONT_SIZE.xxl, fontWeight: '800', color: colors.text, marginBottom: 20 }}>
         {t('profile.title')}
       </Text>
 
@@ -144,7 +144,7 @@ export function ProfileScreen() {
       )}
 
       {/* Subscription */}
-      <Pressable onPress={() => router.push('/paywall')}>
+      <Pressable onPress={() => router.push('/paywall')} accessibilityRole="button" accessibilityLabel={t('profile.subscription')}>
         <Card style={{ marginBottom: 16, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
           <View>
             <Text style={{ fontSize: FONT_SIZE.md, fontWeight: '600', color: colors.text }}>

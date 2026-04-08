@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react';
-import { Text, View } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { Text, View, AccessibilityInfo } from 'react-native';
 import Animated, { FadeIn, FadeOut } from 'react-native-reanimated';
 import { Ionicons } from '@expo/vector-icons';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -16,6 +16,11 @@ interface ToastProps {
 export function Toast({ message, visible, onHide, duration = 2000 }: ToastProps) {
   const insets = useSafeAreaInsets();
   const colors = useColors();
+  const [reduceMotion, setReduceMotion] = useState(false);
+
+  useEffect(() => {
+    AccessibilityInfo.isReduceMotionEnabled().then(setReduceMotion);
+  }, []);
 
   useEffect(() => {
     if (visible) {
@@ -26,10 +31,12 @@ export function Toast({ message, visible, onHide, duration = 2000 }: ToastProps)
 
   if (!visible) return null;
 
+  const animDuration = reduceMotion ? 0 : 200;
+
   return (
     <Animated.View
-      entering={FadeIn.duration(200)}
-      exiting={FadeOut.duration(200)}
+      entering={FadeIn.duration(animDuration)}
+      exiting={FadeOut.duration(animDuration)}
       style={{
         position: 'absolute',
         bottom: insets.bottom + 100,

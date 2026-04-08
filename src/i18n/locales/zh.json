@@ -52,7 +52,8 @@
     "next": "下一步",
     "skip": "跳过",
     "done": "开始追踪！",
-    "allergies_title": "过敏"
+    "allergies_title": "过敏",
+    "step_of": "第 {{current}} 步，共 {{total}} 步"
   },
   "tabs": {
     "diary": "日记",

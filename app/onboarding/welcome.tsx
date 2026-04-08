@@ -47,9 +47,9 @@ export default function WelcomeScreen() {
       </Pressable>
 
       {/* Language picker modal */}
-      <Modal visible={showLangPicker} transparent animationType="fade" onRequestClose={() => setShowLangPicker(false)}>
+      <Modal visible={showLangPicker} transparent animationType="fade" onRequestClose={() => setShowLangPicker(false)} accessibilityViewIsModal={true}>
         <Pressable onPress={() => setShowLangPicker(false)} style={{ flex: 1, backgroundColor: 'rgba(0,0,0,0.5)', justifyContent: 'center', alignItems: 'center' }}>
-          <Pressable onPress={() => {}} style={{ backgroundColor: colors.card, borderRadius: RADIUS.lg, padding: SPACING.xl, width: '80%', maxHeight: '60%' }}>
+          <Pressable onPress={() => {}} style={{ backgroundColor: colors.card, borderRadius: RADIUS.lg, padding: SPACING.xl, width: '80%', maxHeight: '60%', minHeight: MIN_TOUCH }}>
             <Text style={{ fontSize: FONT_SIZE.lg, fontWeight: '700', color: colors.text, marginBottom: SPACING.lg, textAlign: 'center' }}>
               {t('profile.language')}
             </Text>
@@ -98,7 +98,7 @@ export default function WelcomeScreen() {
           <Ionicons name="restaurant" size={40} color={colors.card} />
         </Animated.View>
 
-        <Animated.Text entering={reduceMotion ? undefined : FadeInDown.duration(500).delay(250)} style={{ fontSize: FONT_SIZE.xxl, fontWeight: '800', color: colors.text, textAlign: 'center', marginBottom: SPACING.sm }}>
+        <Animated.Text accessibilityRole="header" entering={reduceMotion ? undefined : FadeInDown.duration(500).delay(250)} style={{ fontSize: FONT_SIZE.xxl, fontWeight: '800', color: colors.text, textAlign: 'center', marginBottom: SPACING.sm }}>
           {t('welcome.title')}
         </Animated.Text>
         <Animated.Text entering={reduceMotion ? undefined : FadeInDown.duration(500).delay(400)} style={{ fontSize: FONT_SIZE.md, color: colors.textSecondary, textAlign: 'center', marginBottom: SPACING.xxl }}>

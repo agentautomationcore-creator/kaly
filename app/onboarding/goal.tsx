@@ -59,7 +59,7 @@ export default function GoalScreen() {
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: colors.background, padding: SPACING.xl }}>
       <StepIndicator totalSteps={4} currentStep={2} />
-      <Animated.Text entering={reduceMotion ? undefined : FadeInDown.duration(500).delay(100)} style={{ fontSize: FONT_SIZE.xl, fontWeight: '700', color: colors.text, marginBottom: SPACING.sm }}>
+      <Animated.Text accessibilityRole="header" entering={reduceMotion ? undefined : FadeInDown.duration(500).delay(100)} style={{ fontSize: FONT_SIZE.xl, fontWeight: '700', color: colors.text, marginBottom: SPACING.sm }}>
         {t('onboarding.goal_title')}
       </Animated.Text>
 

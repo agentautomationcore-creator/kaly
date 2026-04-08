@@ -27,7 +27,7 @@ export function GradientHeader({ title, subtitle }: GradientHeaderProps) {
         borderBottomRightRadius: RADIUS.xl,
       }}
     >
-      <Text style={{ fontSize: FONT_SIZE.xxl, fontWeight: '700', color: colors.textOnPrimary }}>
+      <Text accessibilityRole="header" style={{ fontSize: FONT_SIZE.xxl, fontWeight: '700', color: colors.textOnPrimary }}>
         {title}
       </Text>
       {subtitle ? (

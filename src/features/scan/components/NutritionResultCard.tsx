@@ -217,6 +217,8 @@ export function NutritionResultCard() {
             { text: t('common.cancel'), style: 'cancel' as const },
           ]);
         }}
+        accessibilityRole="button"
+        accessibilityLabel={t('scan.wrong_result')}
         style={{ alignItems: 'center', marginTop: 16, minHeight: MIN_TOUCH, justifyContent: 'center' }}
       >
         <Text style={{ fontSize: FONT_SIZE.sm, color: colors.danger, fontWeight: '500' }}>

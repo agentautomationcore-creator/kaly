@@ -35,7 +35,7 @@ export function DietEditor({ profile }: DietEditorProps) {
 
   return (
     <>
-      <Pressable onPress={() => setVisible(true)}>
+      <Pressable onPress={() => setVisible(true)} accessibilityRole="button" accessibilityLabel={t('profile.edit_diet')}>
         <Card style={{ marginBottom: SPACING.md, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
           <View>
             <Text style={{ fontSize: FONT_SIZE.sm, color: colors.textSecondary }}>{t('profile.edit_diet')}</Text>

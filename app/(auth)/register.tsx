@@ -107,14 +107,14 @@ export default function RegisterScreen() {
 
         <View style={{ flexDirection: 'row', justifyContent: 'center', marginTop: SPACING.xl, gap: SPACING.xs }}>
           <Text style={{ color: colors.textSecondary, fontSize: FONT_SIZE.sm }}>{t('auth.have_account')}</Text>
-          <Pressable onPress={() => router.push('/(auth)/login')} style={{ minHeight: MIN_TOUCH, justifyContent: 'center' }}>
+          <Pressable onPress={() => router.push('/(auth)/login')} accessibilityRole="link" style={{ minHeight: MIN_TOUCH, justifyContent: 'center' }}>
             <Text style={{ color: colors.primary, fontSize: FONT_SIZE.sm, fontWeight: '600' }}>
               {t('auth.sign_in')}
             </Text>
           </Pressable>
         </View>
 
-        <Pressable onPress={() => { if (router.canGoBack()) router.back(); else router.replace('/onboarding/welcome'); }} style={{ marginTop: SPACING.lg, alignItems: 'center', minHeight: MIN_TOUCH, justifyContent: 'center' }}>
+        <Pressable onPress={() => { if (router.canGoBack()) router.back(); else router.replace('/onboarding/welcome'); }} accessibilityRole="link" style={{ marginTop: SPACING.lg, alignItems: 'center', minHeight: MIN_TOUCH, justifyContent: 'center' }}>
           <Text style={{ color: colors.textSecondary, fontSize: FONT_SIZE.sm }}>{t('auth.back')}</Text>
         </Pressable>
       </KeyboardAvoidingView>

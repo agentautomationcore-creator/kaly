@@ -21,6 +21,7 @@ export function OfflineBanner() {
 
   return (
     <View
+      accessibilityLiveRegion="assertive"
       style={{
         backgroundColor: colors.warningLight,
         paddingHorizontal: SPACING.lg,

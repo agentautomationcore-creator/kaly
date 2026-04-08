@@ -52,7 +52,8 @@
     "next": "Weiter",
     "skip": "Überspringen",
     "done": "Los geht's!",
-    "allergies_title": "Allergien"
+    "allergies_title": "Allergien",
+    "step_of": "Schritt {{current}} von {{total}}"
   },
   "tabs": {
     "diary": "Tagebuch",

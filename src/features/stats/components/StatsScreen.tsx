@@ -81,7 +81,7 @@ export function StatsScreen() {
 
       {/* Today's calorie ring */}
       <Card style={{ marginBottom: 16, alignItems: 'center' }}>
-        <Text style={{ fontSize: FONT_SIZE.md, fontWeight: '600', color: colors.text, marginBottom: 16 }}>
+        <Text accessibilityRole="header" style={{ fontSize: FONT_SIZE.md, fontWeight: '600', color: colors.text, marginBottom: 16 }}>
           {t('stats.today_calories')}
         </Text>
         <CalorieRing current={todayCal} goal={calorieGoal} />
@@ -97,7 +97,7 @@ export function StatsScreen() {
 
       {/* Weekly chart */}
       <Card style={{ marginTop: 16 }}>
-        <Text style={{ fontSize: FONT_SIZE.md, fontWeight: '600', color: colors.text, marginBottom: 16 }}>
+        <Text accessibilityRole="header" style={{ fontSize: FONT_SIZE.md, fontWeight: '600', color: colors.text, marginBottom: 16 }}>
           {t('stats.weekly')}
         </Text>
         <WeeklyBarChart days={weekStats?.days || []} goal={calorieGoal} />

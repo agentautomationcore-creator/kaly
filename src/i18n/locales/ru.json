@@ -52,7 +52,8 @@
     "next": "Далее",
     "skip": "Пропустить",
     "done": "Начать!",
-    "allergies_title": "Аллергии"
+    "allergies_title": "Аллергии",
+    "step_of": "Шаг {{current}} из {{total}}"
   },
   "tabs": {
     "diary": "Дневник",

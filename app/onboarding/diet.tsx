@@ -99,7 +99,7 @@ export default function DietScreen() {
     <SafeAreaView style={{ flex: 1, backgroundColor: colors.background }}>
       <StepIndicator totalSteps={4} currentStep={4} />
       <ScrollView contentContainerStyle={{ padding: SPACING.xl, paddingBottom: 100 }}>
-        <Animated.Text entering={reduceMotion ? undefined : FadeInDown.duration(500).delay(100)} style={{ fontSize: FONT_SIZE.xl, fontWeight: '700', color: colors.text, marginBottom: SPACING.xl }}>
+        <Animated.Text accessibilityRole="header" entering={reduceMotion ? undefined : FadeInDown.duration(500).delay(100)} style={{ fontSize: FONT_SIZE.xl, fontWeight: '700', color: colors.text, marginBottom: SPACING.xl }}>
           {t('onboarding.diet_title')}
         </Animated.Text>
 

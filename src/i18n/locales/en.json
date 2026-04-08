@@ -52,7 +52,8 @@
     "done": "Start tracking!",
     "invalid_weight": "Please enter a valid weight (1-300 kg)",
     "invalid_height": "Please enter a valid height (1-300 cm)",
-    "invalid_age": "Please enter a valid age (12-120)"
+    "invalid_age": "Please enter a valid age (12-120)",
+    "step_of": "Step {{current}} of {{total}}"
   },
   "tabs": {
     "diary": "Diary",

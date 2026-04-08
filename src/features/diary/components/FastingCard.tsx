@@ -113,7 +113,7 @@ export function FastingCard() {
             />
           </Svg>
           <View style={{ position: 'absolute', alignItems: 'center' }}>
-            <Text style={{ fontSize: FONT_SIZE.xl, fontWeight: '700', color: completed ? colors.success : colors.text }}>
+            <Text accessibilityLiveRegion="polite" style={{ fontSize: FONT_SIZE.xl, fontWeight: '700', color: completed ? colors.success : colors.text }}>
               {formatTime(elapsed)}
             </Text>
             <Text style={{ fontSize: FONT_SIZE.xs, color: colors.textSecondary }}>

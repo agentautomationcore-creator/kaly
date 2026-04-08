@@ -28,7 +28,7 @@ export function DailyTotalsBar({ calories, protein, carbs, fat, calorieGoal = 20
       {/* Calorie ring + remaining */}
       <View style={{ alignItems: 'center', marginBottom: SPACING.md }}>
         <CalorieRing current={calories} goal={calorieGoal} size={140} />
-        <Text style={{ fontSize: FONT_SIZE.sm, color: overColor, fontWeight: '500', marginTop: 8 }}>
+        <Text accessibilityLiveRegion="polite" style={{ fontSize: FONT_SIZE.sm, color: overColor, fontWeight: '500', marginTop: 8 }}>
           {remaining >= 0
             ? t('diary.remaining', { count: formatNumber(Math.round(remaining)) })
             : t('diary.over', { count: formatNumber(Math.abs(Math.round(remaining))) })}

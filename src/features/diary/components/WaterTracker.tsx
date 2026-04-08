@@ -30,7 +30,7 @@ export function WaterTracker({ date, goalGlasses = 8 }: WaterTrackerProps) {
             {t('diary.water')}
           </Text>
         </View>
-        <Text style={{ fontSize: FONT_SIZE.sm, color: colors.textSecondary }}>
+        <Text accessibilityLiveRegion="polite" style={{ fontSize: FONT_SIZE.sm, color: colors.textSecondary }}>
           {t('diary.water_goal', { current: glasses, goal: goalGlasses })}
         </Text>
       </View>
@@ -62,6 +62,7 @@ export function WaterTracker({ date, goalGlasses = 8 }: WaterTrackerProps) {
             alignItems: 'center',
           }}
           accessibilityLabel={t('diary.add_water')}
+          accessibilityRole="button"
         >
           <Ionicons name="add" size={24} color={colors.card} />
         </Pressable>

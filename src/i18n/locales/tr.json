@@ -52,7 +52,8 @@
     "next": "İleri",
     "skip": "Atla",
     "done": "Takibe başla!",
-    "allergies_title": "Alerjiler"
+    "allergies_title": "Alerjiler",
+    "step_of": "Adım {{current}} / {{total}}"
   },
   "tabs": {
     "diary": "Günlük",

@@ -41,7 +41,7 @@ export default function BodyScreen() {
       <StepIndicator totalSteps={4} currentStep={3} />
       <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
       <ScrollView contentContainerStyle={{ padding: SPACING.xl, paddingBottom: 100 }} keyboardShouldPersistTaps="handled">
-        <Animated.Text entering={reduceMotion ? undefined : FadeInDown.duration(500).delay(100)} style={{ fontSize: FONT_SIZE.xl, fontWeight: '700', color: colors.text, marginBottom: SPACING.xl }}>
+        <Animated.Text accessibilityRole="header" entering={reduceMotion ? undefined : FadeInDown.duration(500).delay(100)} style={{ fontSize: FONT_SIZE.xl, fontWeight: '700', color: colors.text, marginBottom: SPACING.xl }}>
           {t('onboarding.body_title')}
         </Animated.Text>
 

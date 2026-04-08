@@ -52,7 +52,8 @@
     "next": "التالي",
     "skip": "تخطي",
     "done": "ابدأ التتبّع!",
-    "allergies_title": "الحساسية"
+    "allergies_title": "الحساسية",
+    "step_of": "الخطوة {{current}} من {{total}}"
   },
   "tabs": {
     "diary": "اليوميات",
