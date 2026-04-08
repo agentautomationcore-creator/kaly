@@ -7,7 +7,7 @@ import { useUpdateProfile } from '../hooks/useProfile';
 import { Card } from '../../../components/Card';
 import { Modal } from '../../../components/Modal';
 import { Button } from '../../../components/Button';
-import { FONT_SIZE, RADIUS, SPACING } from '../../../lib/constants';
+import { FONT_SIZE, RADIUS, SPACING, MIN_TOUCH } from '../../../lib/constants';
 import { track } from '../../../lib/analytics';
 import { calculateTDEE, calculateDailyTarget, calculateMacroSplit } from '../../../lib/nutrition';
 import type { Gender, ActivityLevel, Goal as GoalType, DietType } from '../../../lib/nutrition';
@@ -76,6 +76,7 @@ export function GoalEditor({ profile }: GoalEditorProps) {
                 backgroundColor: selected === g ? colors.primaryLight : colors.surface,
                 borderWidth: 2,
                 borderColor: selected === g ? colors.primary : 'transparent',
+                minHeight: MIN_TOUCH,
               }}
             >
               <Text style={{ fontWeight: '600', color: selected === g ? colors.primary : colors.text }}>

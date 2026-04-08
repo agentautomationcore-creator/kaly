@@ -151,7 +151,7 @@ export function ProfileScreen() {
       )}
 
       {/* Subscription */}
-      <Pressable onPress={() => router.push('/paywall')} accessibilityRole="button" accessibilityLabel={t('profile.subscription')}>
+      <Pressable onPress={() => router.push('/paywall')} accessibilityRole="button" accessibilityLabel={t('profile.subscription')} style={{ minHeight: MIN_TOUCH }}>
         <Card style={{ marginBottom: 16, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
           <View>
             <Text style={{ fontSize: FONT_SIZE.md, fontWeight: '600', color: colors.text }}>

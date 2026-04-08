@@ -203,7 +203,7 @@ function EditableIngredientRow({ item, multiplier, colors, isHidden, onUpdate, o
             style={{ fontSize: FONT_SIZE.xs, color: colors.textSecondary, padding: 0, borderBottomWidth: 1, borderColor: colors.primary, width: 60 }}
           />
         ) : (
-          <Pressable onPress={() => { setGramsVal(String(Math.round(item.g))); setEditingGrams(true); }} style={{ minHeight: MIN_TOUCH, paddingHorizontal: 8, justifyContent: 'center' }}>
+          <Pressable onPress={() => { setGramsVal(String(Math.round(item.g))); setEditingGrams(true); }} accessibilityRole="button" style={{ minHeight: MIN_TOUCH, paddingHorizontal: 8, justifyContent: 'center' }}>
             <Text style={{ fontSize: FONT_SIZE.xs, color: colors.textSecondary }}>
               {formatNumber(Math.round(item.g * multiplier))} {t('units.g')}
             </Text>

@@ -18,7 +18,7 @@ export function ScanLoading() {
   };
 
   return (
-    <View style={{ flex: 1, backgroundColor: colors.background, padding: SPACING.xl, justifyContent: 'center' }}>
+    <View accessibilityLiveRegion="polite" style={{ flex: 1, backgroundColor: colors.background, padding: SPACING.xl, justifyContent: 'center' }}>
       <Text style={{ fontSize: FONT_SIZE.xl, fontWeight: '700', color: colors.text, textAlign: 'center', marginBottom: SPACING.xxl }}>
         {t('scan.analyzing')}
       </Text>

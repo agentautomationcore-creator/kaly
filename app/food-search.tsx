@@ -147,8 +147,8 @@ export default function FoodSearchScreen() {
 
       {/* Loading */}
       {isSearching && (
-        <View style={{ padding: SPACING.lg, alignItems: 'center' }}>
-          <ActivityIndicator color={colors.primary} />
+        <View accessibilityLiveRegion="polite" style={{ padding: SPACING.lg, alignItems: 'center' }}>
+          <ActivityIndicator color={colors.primary} accessibilityLabel={t('common.loading')} />
         </View>
       )}
 

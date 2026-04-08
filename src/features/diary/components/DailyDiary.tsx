@@ -71,7 +71,7 @@ export function DailyDiary({ date: dateProp }: DailyDiaryProps) {
             <Text style={{ flex: 1, fontSize: FONT_SIZE.sm, color: colors.textSecondary }}>
               {t('diary.history_warning', { days: 7 })}
             </Text>
-            <Pressable onPress={() => router.push('/paywall')} accessibilityRole="button" accessibilityLabel={t('diary.upgrade')}>
+            <Pressable onPress={() => router.push('/paywall')} accessibilityRole="button" accessibilityLabel={t('diary.upgrade')} style={{ minHeight: MIN_TOUCH, justifyContent: 'center' }}>
               <Text style={{ fontSize: FONT_SIZE.sm, color: colors.primary, fontWeight: '600' }}>{t('diary.upgrade')}</Text>
             </Pressable>
           </View>

@@ -37,6 +37,8 @@ export function Toast({ message, visible, onHide, duration = 2000 }: ToastProps)
     <Animated.View
       entering={FadeIn.duration(animDuration)}
       exiting={FadeOut.duration(animDuration)}
+      accessibilityLiveRegion="assertive"
+      accessibilityRole="alert"
       style={{
         position: 'absolute',
         bottom: insets.bottom + 100,

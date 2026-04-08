@@ -194,6 +194,7 @@ export default function PaywallScreen() {
             accessibilityLabel={t('paywall.monthly')}
             style={{
               flex: 1,
+              minHeight: MIN_TOUCH,
               paddingVertical: SPACING.md,
               borderRadius: RADIUS.md,
               backgroundColor: period === 'monthly' ? colors.card : 'transparent',
@@ -216,6 +217,7 @@ export default function PaywallScreen() {
             accessibilityLabel={t('paywall.annual')}
             style={{
               flex: 1,
+              minHeight: MIN_TOUCH,
               paddingVertical: SPACING.md,
               borderRadius: RADIUS.md,
               backgroundColor: period === 'annual' ? colors.card : 'transparent',
