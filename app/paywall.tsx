@@ -244,7 +244,11 @@ export default function PaywallScreen() {
           {t('paywall.trial_7_days')}
         </Text>
         <Text style={{ fontSize: FONT_SIZE.xs, color: colors.textSecondary, textAlign: 'center', marginTop: SPACING.xs }}>
-          {t('paywall.trial_note')}
+          {t('paywall.trial_note', {
+            price: packages.find((p) =>
+              period === 'annual' ? p.packageType === 'ANNUAL' : p.packageType === 'MONTHLY'
+            )?.product?.priceString ?? '',
+          })}
         </Text>
 
         {/* Continue free */}
