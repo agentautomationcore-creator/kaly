@@ -14,7 +14,7 @@
       "languages": "10 Sprachen unterstützt",
       "hidden": "Erkennt versteckte Zutaten"
     },
-    "social_proof": "Schließen Sie sich Tausenden bewussten Essern weltweit an"
+    "social_proof": "Schließ dich Tausenden bewussten Essern weltweit an"
   },
   "onboarding": {
     "goal_title": "Was ist dein Ziel?",
@@ -77,7 +77,7 @@
     "add_to_diary": "Zum Tagebuch hinzufügen",
     "wrong_result": "Das stimmt nicht — korrigieren",
     "disclaimer": "KI-Schätzung · Kein medizinischer Rat",
-    "confidence": "Konfidenz",
+    "confidence": "Zuverlässigkeit",
     "add_to": "Zu {{meal}} hinzufügen",
     "scan_limit": "Tägliches Scan-Limit erreicht ({{limit}}/Tag)",
     "upgrade_for_more": "Upgrade auf Pro für unbegrenzte Scans",
@@ -89,15 +89,15 @@
     "flip_camera": "Kamera wechseln",
     "ingredient_name": "Zutatname",
     "ingredient_grams": "Gramm",
-    "no_ingredients": "Zutaten konnten nicht erkannt werden. Versuchen Sie es erneut oder geben Sie sie manuell ein.",
+    "no_ingredients": "Zutaten konnten nicht erkannt werden. Versuch es erneut oder gib sie manuell ein.",
     "not_food_detected": "Kein Essen",
-    "not_food_hint": "Richten Sie die Kamera auf einen Teller mit Essen",
+    "not_food_hint": "Richte die Kamera auf einen Teller mit Essen",
     "upgrade_button": "Auf Pro upgraden",
-    "feedback_input": "Ihr Feedback",
+    "feedback_input": "Dein Feedback",
     "use_barcode": "Barcode scannen",
     "enter_manually": "Manuell eingeben",
     "consent_required_title": "KI-Zustimmung erforderlich",
-    "consent_required_desc": "Das Foto-Scannen nutzt KI-Analyse. Sie können den Barcode-Scanner oder die Suche verwenden, oder KI aktivieren.",
+    "consent_required_desc": "Das Foto-Scannen nutzt KI-Analyse. Du kannst den Barcode-Scanner oder die Suche verwenden, oder KI aktivieren.",
     "enable_ai": "KI-Scan aktivieren",
     "portions": "Portionen",
     "scans_remaining": "{{remaining}} kostenlose Scans übrig heute"
@@ -134,7 +134,7 @@
     "suggest_meal": "Mahlzeit vorschlagen",
     "suggestions_title": "KI-Vorschläge",
     "add_suggestion": "Zum Tagebuch",
-    "suggest_no_results": "Keine Vorschläge verfügbar. Versuchen Sie es später erneut."
+    "suggest_no_results": "Keine Vorschläge verfügbar. Versuch es später erneut."
   },
   "stats": {
     "title": "Statistik",
@@ -149,7 +149,7 @@
     "fat": "Fett",
     "fiber": "Ballaststoffe",
     "goal": "Ziel",
-    "no_data": "Nicht genug Daten für das Diagramm. Beginnen Sie mit der Erfassung Ihrer Mahlzeiten!",
+    "no_data": "Nicht genug Daten für das Diagramm. Beginne mit der Erfassung deiner Mahlzeiten!",
     "weight_input": "Gewicht eingeben",
     "steps": "Schritte",
     "active_calories": "Aktive Kal."
@@ -204,8 +204,8 @@
     "pro_desc": "Unbegrenzte Scans\nVollständiger Verlauf & Statistik\nDaten exportieren\nPriorisierte KI",
     "monthly": "Monatlich",
     "annual": "Jährlich",
-    "monthly_price": "€4.99/Monat",
-    "annual_price": "€39.99/Jahr",
+    "monthly_price": "€4,99/Monat",
+    "annual_price": "€39,99/Jahr",
     "annual_savings": "33% sparen",
     "trial_cta": "Pro 7 Tage kostenlos testen",
     "trial_7_days": "7 Tage kostenlos testen, jederzeit kündbar",
@@ -223,7 +223,7 @@
     "no_purchases": "Kein aktives Abonnement gefunden.",
     "restore_failed": "Käufe konnten nicht wiederhergestellt werden. Bitte versuche es erneut.",
     "purchase_success_title": "Willkommen bei Pro!",
-    "purchase_success": "Sie haben jetzt unbegrenzte Scans und alle Funktionen!"
+    "purchase_success": "Du hast jetzt unbegrenzte Scans und alle Funktionen!"
   },
   "auth": {
     "sign_in": "Anmelden",
@@ -300,8 +300,8 @@
     "kcal": "kcal",
     "g": "g",
     "ml": "ml",
-    "protein_short": "P",
-    "carbs_short": "C",
+    "protein_short": "E",
+    "carbs_short": "K",
     "fat_short": "F",
     "close_modal": "Schließen",
     "clear": "Löschen",
@@ -338,7 +338,7 @@
     "imperial": "Imperial (lb, ft)",
     "apple_health": "Apple Health",
     "apple_health_hint": "Mahlzeiten, Wasser und Gewicht synchronisieren",
-    "health_permission_hint": "Falls die Synchronisierung nicht funktioniert, prüfen Sie iOS-Einstellungen > Datenschutz > Gesundheit"
+    "health_permission_hint": "Falls die Synchronisierung nicht funktioniert, prüfe iOS-Einstellungen > Datenschutz > Gesundheit"
   },
   "validation": {
     "invalid_weight": "Gewicht muss zwischen 20 und 300 kg liegen",
@@ -370,7 +370,7 @@
     "completed": "Fasten abgeschlossen!",
     "hours_suffix": "h",
     "complete_title": "Fasten abgeschlossen!",
-    "complete_body": "Glückwunsch! Sie haben Ihr Fastenziel erreicht."
+    "complete_body": "Glückwunsch! Du hast dein Fastenziel erreicht."
   },
   "report": {
     "title": "Ernährungsbericht",

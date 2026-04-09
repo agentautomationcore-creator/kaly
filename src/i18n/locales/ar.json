@@ -300,9 +300,9 @@
     "kcal": "kcal",
     "g": "g",
     "ml": "ml",
-    "protein_short": "P",
-    "carbs_short": "C",
-    "fat_short": "F",
+    "protein_short": "ب",
+    "carbs_short": "ك",
+    "fat_short": "د",
     "close_modal": "إغلاق",
     "clear": "مسح",
     "edit": "تعديل"

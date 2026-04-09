@@ -301,8 +301,8 @@
     "g": "g",
     "ml": "ml",
     "protein_short": "P",
-    "carbs_short": "C",
-    "fat_short": "F",
+    "carbs_short": "G",
+    "fat_short": "L",
     "close_modal": "Fermer",
     "clear": "Effacer",
     "edit": "Modifier"

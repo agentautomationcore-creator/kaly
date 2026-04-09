@@ -300,9 +300,9 @@
     "kcal": "kcal",
     "g": "g",
     "ml": "ml",
-    "protein_short": "P",
-    "carbs_short": "C",
-    "fat_short": "F",
+    "protein_short": "蛋",
+    "carbs_short": "碳",
+    "fat_short": "脂",
     "close_modal": "关闭",
     "clear": "清除",
     "edit": "编辑"
