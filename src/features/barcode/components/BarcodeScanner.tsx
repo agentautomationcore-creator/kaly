@@ -43,16 +43,7 @@ export function BarcodeScanner() {
         [
           { text: t('barcode.scan_again'), onPress: () => { setScanning(true); lastScanned.current = ''; } },
           { text: t('barcode.enter_manually'), onPress: () => {
-            // Set a manual entry product with the scanned barcode
-            setProduct({
-              barcode: result.data,
-              name: '',
-              calories100g: 0,
-              protein100g: 0,
-              fat100g: 0,
-              carbs100g: 0,
-              source: 'manual',
-            });
+            router.push({ pathname: '/manual-entry', params: { barcode: result.data, entry_method: 'manual' } });
           }},
         ]
       );
