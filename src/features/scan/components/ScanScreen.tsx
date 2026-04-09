@@ -158,7 +158,7 @@ export function ScanScreen() {
             </Pressable>
             <View style={{ flexDirection: 'row', gap: SPACING.md, marginTop: SPACING.lg }}>
               <Pressable
-                onPress={() => { reset(); router.push('/(tabs)/diary'); }}
+                onPress={() => { reset(); router.push('/barcode'); }}
                 style={{ flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 6, backgroundColor: colors.surface, paddingVertical: SPACING.md, borderRadius: RADIUS.md, minHeight: MIN_TOUCH }}
                 accessibilityRole="button"
                 accessibilityLabel={t('scan.use_barcode')}
@@ -167,7 +167,7 @@ export function ScanScreen() {
                 <Text style={{ color: colors.text, fontWeight: '500' }}>{t('scan.use_barcode')}</Text>
               </Pressable>
               <Pressable
-                onPress={() => { reset(); router.push('/(tabs)/diary'); }}
+                onPress={() => { reset(); router.push('/manual-entry'); }}
                 style={{ flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 6, backgroundColor: colors.surface, paddingVertical: SPACING.md, borderRadius: RADIUS.md, minHeight: MIN_TOUCH }}
                 accessibilityRole="button"
                 accessibilityLabel={t('scan.enter_manually')}
