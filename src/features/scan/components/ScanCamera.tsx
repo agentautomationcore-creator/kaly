@@ -29,6 +29,7 @@ export function ScanCamera({ usedToday = 0, plan = 'free' }: ScanCameraProps) {
   const { setPhoto } = useScanStore();
   const { mutate: analyze, isPending } = useAnalyzeFood();
   const [facing, setFacing] = useState<'front' | 'back'>('back');
+  const canScan = plan !== 'free' || usedToday < 3;
 
   if (!permission) return null;
 
@@ -46,6 +47,10 @@ export function ScanCamera({ usedToday = 0, plan = 'free' }: ScanCameraProps) {
 
   const takePicture = async () => {
     if (!cameraRef.current || isCapturing.current || isPending) return;
+    if (!canScan) {
+      router.push('/paywall');
+      return;
+    }
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
     isCapturing.current = true;
     try {
@@ -61,6 +66,10 @@ export function ScanCamera({ usedToday = 0, plan = 'free' }: ScanCameraProps) {
 
   const pickImage = async () => {
     if (isCapturing.current || isPending) return;
+    if (!canScan) {
+      router.push('/paywall');
+      return;
+    }
     isCapturing.current = true;
     try {
       const result = await ImagePicker.launchImageLibraryAsync({
@@ -157,10 +166,10 @@ export function ScanCamera({ usedToday = 0, plan = 'free' }: ScanCameraProps) {
                   borderRadius: RADIUS.full,
                   backgroundColor: colors.card,
                   borderWidth: 4,
-                  borderColor: colors.primary,
+                  borderColor: canScan ? colors.primary : colors.textSecondary,
                   justifyContent: 'center',
                   alignItems: 'center',
-                  opacity: isPending ? 0.3 : 1,
+                  opacity: isPending || !canScan ? 0.4 : 1,
                 }}
                 accessibilityRole="button"
                 accessibilityLabel={t('scan.take_photo')}
