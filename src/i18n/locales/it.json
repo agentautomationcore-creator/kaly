@@ -304,7 +304,8 @@
     "carbs_short": "C",
     "fat_short": "F",
     "close_modal": "Chiudi",
-    "clear": "Cancella"
+    "clear": "Cancella",
+    "edit": "Modifica"
   },
   "errors": {
     "analysis_failed": "Analisi non riuscita. Riprova.",

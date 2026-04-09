@@ -304,7 +304,8 @@
     "carbs_short": "C",
     "fat_short": "F",
     "close_modal": "关闭",
-    "clear": "清除"
+    "clear": "清除",
+    "edit": "编辑"
   },
   "errors": {
     "analysis_failed": "分析失败，请重试。",

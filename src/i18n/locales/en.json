@@ -304,7 +304,8 @@
     "carbs_short": "C",
     "fat_short": "F",
     "close_modal": "Close modal",
-    "clear": "Clear"
+    "clear": "Clear",
+    "edit": "Edit"
   },
   "errors": {
     "analysis_failed": "Analysis failed. Please try again.",
