@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, Pressable, ScrollView, Alert, Linking } from 'react-native';
+import { View, Text, Pressable, ScrollView, Alert, Linking, useWindowDimensions } from 'react-native';
 import { useRouter } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useTranslation } from 'react-i18next';
@@ -29,6 +29,8 @@ export default function PaywallScreen() {
   const [period, setPeriod] = useState<PlanPeriod>('monthly');
   const [packages, setPackages] = useState<PurchasesPackage[]>([]);
   const [purchasing, setPurchasing] = useState(false);
+  const { width } = useWindowDimensions();
+  const isSmallScreen = width <= 375;
 
   useEffect(() => {
     track('paywall_shown');
@@ -157,9 +159,9 @@ export default function PaywallScreen() {
         </Text>
 
         {/* Free vs Pro comparison */}
-        <View style={{ flexDirection: 'row', gap: SPACING.md, marginTop: SPACING.xl, marginBottom: SPACING.xl }}>
+        <View style={{ flexDirection: isSmallScreen ? 'column' : 'row', gap: SPACING.md, marginTop: SPACING.xl, marginBottom: SPACING.xl }}>
           {/* Free */}
-          <Card style={{ flex: 1, borderWidth: 1, borderColor: colors.border }}>
+          <Card style={{ flex: isSmallScreen ? undefined : 1, borderWidth: 1, borderColor: colors.border }}>
             <Text style={{ fontSize: FONT_SIZE.md, fontWeight: '700', color: colors.text, marginBottom: SPACING.sm }}>
               {t('paywall.free_title')}
             </Text>
@@ -172,7 +174,7 @@ export default function PaywallScreen() {
           </Card>
 
           {/* Pro */}
-          <Card style={{ flex: 1, borderWidth: 2, borderColor: colors.primary, backgroundColor: colors.primaryLight }}>
+          <Card style={{ flex: isSmallScreen ? undefined : 1, borderWidth: 2, borderColor: colors.primary, backgroundColor: colors.primaryLight }}>
             <Text style={{ fontSize: FONT_SIZE.md, fontWeight: '700', color: colors.primary, marginBottom: SPACING.sm }}>
               {t('paywall.pro_title')}
             </Text>

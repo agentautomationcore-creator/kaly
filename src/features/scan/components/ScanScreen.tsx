@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, Pressable, Alert } from 'react-native';
+import { View, Text, Pressable, Alert, useWindowDimensions } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useTranslation } from 'react-i18next';
 import { useRouter } from 'expo-router';
@@ -20,6 +20,8 @@ export function ScanScreen() {
   const { t } = useTranslation();
   const colors = useColors();
   const router = useRouter();
+  const { width } = useWindowDimensions();
+  const isSmallScreen = width <= 375;
   const { photo, result, isAnalyzing, error, reset, setError } = useScanStore();
   const { mutate: analyze } = useAnalyzeFood();
   const aiConsentGiven = useSettingsStore((s) => s.aiConsentGiven);
@@ -156,10 +158,10 @@ export function ScanScreen() {
                 {t('scan.upgrade_button')}
               </Text>
             </Pressable>
-            <View style={{ flexDirection: 'row', gap: SPACING.md, marginTop: SPACING.lg }}>
+            <View style={{ flexDirection: isSmallScreen ? 'column' : 'row', gap: SPACING.sm, marginTop: SPACING.lg }}>
               <Pressable
                 onPress={() => { reset(); router.push('/barcode'); }}
-                style={{ flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 6, backgroundColor: colors.surface, paddingVertical: SPACING.md, borderRadius: RADIUS.md, minHeight: MIN_TOUCH }}
+                style={{ flex: isSmallScreen ? undefined : 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 6, backgroundColor: colors.surface, paddingVertical: SPACING.md, borderRadius: RADIUS.md, minHeight: MIN_TOUCH }}
                 accessibilityRole="button"
                 accessibilityLabel={t('scan.use_barcode')}
               >
@@ -168,7 +170,7 @@ export function ScanScreen() {
               </Pressable>
               <Pressable
                 onPress={() => { reset(); router.push('/manual-entry'); }}
-                style={{ flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 6, backgroundColor: colors.surface, paddingVertical: SPACING.md, borderRadius: RADIUS.md, minHeight: MIN_TOUCH }}
+                style={{ flex: isSmallScreen ? undefined : 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 6, backgroundColor: colors.surface, paddingVertical: SPACING.md, borderRadius: RADIUS.md, minHeight: MIN_TOUCH }}
                 accessibilityRole="button"
                 accessibilityLabel={t('scan.enter_manually')}
               >

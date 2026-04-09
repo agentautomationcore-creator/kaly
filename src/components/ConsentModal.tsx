@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, Pressable, Linking } from 'react-native';
+import { View, Text, Pressable, Linking, useWindowDimensions } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { Ionicons } from '@expo/vector-icons';
 import { useColors } from '../lib/theme';
@@ -50,6 +50,8 @@ function Checkbox({ checked, label, onToggle, colors }: { checked: boolean; labe
 export function ConsentModal({ visible, type, onAccept, onDecline, healthAlreadyGiven, aiAlreadyGiven }: ConsentModalProps) {
   const { t } = useTranslation();
   const colors = useColors();
+  const { width } = useWindowDimensions();
+  const isSmallScreen = width <= 375;
 
   const [healthChecked, setHealthChecked] = useState(healthAlreadyGiven ?? false);
   const [aiChecked, setAiChecked] = useState(aiAlreadyGiven ?? false);
@@ -118,25 +120,25 @@ export function ConsentModal({ visible, type, onAccept, onDecline, healthAlready
             </Text>
           </Pressable>
 
-          <View style={{ flexDirection: 'row', gap: SPACING.md }}>
+          <View style={{ flexDirection: isSmallScreen ? 'column' : 'row', gap: SPACING.sm }}>
             <Pressable
               onPress={onDecline}
-              style={{ flex: 1, borderWidth: 1.5, borderColor: colors.textTertiary, borderRadius: RADIUS.md, minHeight: MIN_TOUCH, alignItems: 'center', justifyContent: 'center', paddingVertical: SPACING.md, paddingHorizontal: SPACING.lg }}
+              style={{ flex: isSmallScreen ? undefined : 1, borderWidth: 1.5, borderColor: colors.textTertiary, borderRadius: RADIUS.md, minHeight: MIN_TOUCH, alignItems: 'center', justifyContent: 'center', paddingVertical: SPACING.md, paddingHorizontal: SPACING.lg }}
               accessibilityRole="button"
               accessibilityLabel={t('consent.decline')}
             >
-              <Text style={{ fontSize: FONT_SIZE.md, color: colors.textSecondary, fontWeight: '600' }}>
+              <Text style={{ fontSize: FONT_SIZE.md, color: colors.textSecondary, fontWeight: '600', textAlign: 'center' }}>
                 {t('consent.decline')}
               </Text>
             </Pressable>
             <Pressable
               onPress={onAccept}
               disabled={!canAccept}
-              style={{ flex: 1, borderWidth: 1.5, borderColor: canAccept ? colors.primary : colors.textTertiary, borderRadius: RADIUS.md, minHeight: MIN_TOUCH, alignItems: 'center', justifyContent: 'center', paddingVertical: SPACING.md, paddingHorizontal: SPACING.lg, opacity: canAccept ? 1 : 0.5 }}
+              style={{ flex: isSmallScreen ? undefined : 1, borderWidth: 1.5, borderColor: canAccept ? colors.primary : colors.textTertiary, borderRadius: RADIUS.md, minHeight: MIN_TOUCH, alignItems: 'center', justifyContent: 'center', paddingVertical: SPACING.md, paddingHorizontal: SPACING.lg, opacity: canAccept ? 1 : 0.5 }}
               accessibilityRole="button"
               accessibilityLabel={t('consent.accept_both')}
             >
-              <Text style={{ fontSize: FONT_SIZE.md, color: canAccept ? colors.primary : colors.textTertiary, fontWeight: '600' }}>
+              <Text style={{ fontSize: FONT_SIZE.md, color: canAccept ? colors.primary : colors.textTertiary, fontWeight: '600', textAlign: 'center' }}>
                 {t('consent.accept_both')}
               </Text>
             </Pressable>
@@ -194,24 +196,24 @@ export function ConsentModal({ visible, type, onAccept, onDecline, healthAlready
           </Text>
         </Pressable>
 
-        <View style={{ flexDirection: 'row', gap: SPACING.md }}>
+        <View style={{ flexDirection: isSmallScreen ? 'column' : 'row', gap: SPACING.sm }}>
           <Pressable
             onPress={onDecline}
-            style={{ flex: 1, borderWidth: 1.5, borderColor: colors.textTertiary, borderRadius: RADIUS.md, minHeight: MIN_TOUCH, alignItems: 'center', justifyContent: 'center', paddingVertical: SPACING.md, paddingHorizontal: SPACING.lg }}
+            style={{ flex: isSmallScreen ? undefined : 1, borderWidth: 1.5, borderColor: colors.textTertiary, borderRadius: RADIUS.md, minHeight: MIN_TOUCH, alignItems: 'center', justifyContent: 'center', paddingVertical: SPACING.md, paddingHorizontal: SPACING.lg }}
             accessibilityRole="button"
             accessibilityLabel={t('consent.decline')}
           >
-            <Text style={{ fontSize: FONT_SIZE.md, color: colors.textSecondary, fontWeight: '600' }}>
+            <Text style={{ fontSize: FONT_SIZE.md, color: colors.textSecondary, fontWeight: '600', textAlign: 'center' }}>
               {t('consent.decline')}
             </Text>
           </Pressable>
           <Pressable
             onPress={onAccept}
-            style={{ flex: 1, borderWidth: 1.5, borderColor: colors.primary, borderRadius: RADIUS.md, minHeight: MIN_TOUCH, alignItems: 'center', justifyContent: 'center', paddingVertical: SPACING.md, paddingHorizontal: SPACING.lg }}
+            style={{ flex: isSmallScreen ? undefined : 1, borderWidth: 1.5, borderColor: colors.primary, borderRadius: RADIUS.md, minHeight: MIN_TOUCH, alignItems: 'center', justifyContent: 'center', paddingVertical: SPACING.md, paddingHorizontal: SPACING.lg }}
             accessibilityRole="button"
             accessibilityLabel={t('consent.accept')}
           >
-            <Text style={{ fontSize: FONT_SIZE.md, color: colors.primary, fontWeight: '600' }}>
+            <Text style={{ fontSize: FONT_SIZE.md, color: colors.primary, fontWeight: '600', textAlign: 'center' }}>
               {t('consent.accept')}
             </Text>
           </Pressable>
