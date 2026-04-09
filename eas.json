@@ -28,6 +28,7 @@
     "production": {
       "ios": {
         "appleId": "sergeevspo@yahoo.com",
+        "ascAppId": "6761645607",
         "appleTeamId": "PT88KA7TD8"
       }
     }
