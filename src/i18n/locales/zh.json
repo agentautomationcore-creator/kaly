@@ -213,7 +213,7 @@
     "continue_free": "继续使用免费版",
     "restore": "恢复购买",
     "cancel_anytime": "随时取消",
-    "auto_renewal_disclosure": "订阅将自动续订，除非在当前期间结束前至少24小时关闭自动续订。",
+    "auto_renewal_disclosure": "订阅将自动续订，除非在当前期间结束前至少24小时关闭自动续订。您的Apple ID账户将在当前期间结束前24小时内被收取续订费用。您可以在App Store账户设置中管理和取消订阅。",
     "terms": "使用条款",
     "privacy": "隐私政策",
     "store_unavailable": "商店不可用，请稍后重试。",

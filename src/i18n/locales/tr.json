@@ -213,7 +213,7 @@
     "continue_free": "Ücretsiz devam et",
     "restore": "Satın alımları geri yükle",
     "cancel_anytime": "İstediğin zaman iptal et",
-    "auto_renewal_disclosure": "Abonelik, mevcut dönemin bitiminden en az 24 saat önce otomatik yenileme kapatılmadığı sürece otomatik olarak yenilenir.",
+    "auto_renewal_disclosure": "Abonelik, mevcut dönemin bitiminden en az 24 saat önce otomatik yenileme kapatılmadığı sürece otomatik olarak yenilenir. Yenileme ücreti, mevcut dönemin bitiminden 24 saat önce Apple Kimliği hesabınızdan tahsil edilir. Aboneliklerinizi App Store hesap ayarlarından yönetebilir ve iptal edebilirsiniz.",
     "terms": "Kullanım koşulları",
     "privacy": "Gizlilik politikası",
     "store_unavailable": "Mağaza kullanılamıyor. Daha sonra tekrar deneyin.",

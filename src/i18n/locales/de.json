@@ -213,7 +213,7 @@
     "continue_free": "Kostenlos fortfahren",
     "restore": "Käufe wiederherstellen",
     "cancel_anytime": "Jederzeit kündbar",
-    "auto_renewal_disclosure": "Das Abonnement verlängert sich automatisch, sofern die automatische Verlängerung nicht mindestens 24 Stunden vor Ende des aktuellen Zeitraums deaktiviert wird.",
+    "auto_renewal_disclosure": "Das Abonnement verlängert sich automatisch, sofern die automatische Verlängerung nicht mindestens 24 Stunden vor Ende des aktuellen Zeitraums deaktiviert wird. Die Verlängerung wird innerhalb von 24 Stunden vor Ablauf des aktuellen Zeitraums über dein Apple-ID-Konto abgerechnet. Du kannst dein Abonnement in den Einstellungen deines Apple-ID-Kontos verwalten und kündigen.",
     "terms": "Nutzungsbedingungen",
     "privacy": "Datenschutzerklärung",
     "store_unavailable": "Store nicht verfügbar. Bitte versuche es später erneut.",
