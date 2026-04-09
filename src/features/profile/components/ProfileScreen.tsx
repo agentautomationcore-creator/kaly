@@ -3,6 +3,7 @@ import { ScrollView, View, Text, Pressable, Alert, Share, ActivityIndicator } fr
 import { useRouter } from 'expo-router';
 import { useTranslation } from 'react-i18next';
 import { Ionicons } from '@expo/vector-icons';
+import { forwardIcon } from '../../../lib/rtl';
 import * as Haptics from 'expo-haptics';
 import { useColors } from '../../../lib/theme';
 import { useProfile } from '../hooks/useProfile';
@@ -161,7 +162,7 @@ export function ProfileScreen() {
               {profile?.plan === 'pro' ? t('profile.pro_plan') : t('profile.free_plan')}
             </Text>
           </View>
-          <Ionicons name="chevron-forward" size={20} color={colors.textSecondary} />
+          <Ionicons name={forwardIcon()} size={20} color={colors.textSecondary} />
         </Card>
       </Pressable>
 

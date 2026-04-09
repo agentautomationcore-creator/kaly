@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, TextInput, Pressable, Alert } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { Ionicons } from '@expo/vector-icons';
+import { forwardIcon } from '../../../lib/rtl';
 import { useColors } from '../../../lib/theme';
 import { useUpdateProfile } from '../hooks/useProfile';
 import { useSettingsStore } from '../../../stores/settingsStore';
@@ -72,7 +73,7 @@ export function BodyEditor({ profile }: BodyEditorProps) {
               {profile?.height_cm ? `${profile.height_cm} ${t('units.cm')} · ${profile.weight_kg} ${t('units.kg')} · ${profile.age} ${t('units.years')}` : '—'}
             </Text>
           </View>
-          <Ionicons name="chevron-forward" size={20} color={colors.textSecondary} />
+          <Ionicons name={forwardIcon()} size={20} color={colors.textSecondary} />
         </Card>
       </Pressable>
 

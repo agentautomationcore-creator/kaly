@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, Pressable } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { Ionicons } from '@expo/vector-icons';
+import { forwardIcon } from '../../../lib/rtl';
 import { useColors } from '../../../lib/theme';
 import { useUpdateProfile } from '../hooks/useProfile';
 import { Card } from '../../../components/Card';
@@ -58,7 +59,7 @@ export function GoalEditor({ profile }: GoalEditorProps) {
               {t(`onboarding.goal_${profile?.goal || 'maintain'}`)}
             </Text>
           </View>
-          <Ionicons name="chevron-forward" size={20} color={colors.textSecondary} />
+          <Ionicons name={forwardIcon()} size={20} color={colors.textSecondary} />
         </Card>
       </Pressable>
 

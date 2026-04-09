@@ -3,6 +3,7 @@ import { View, Text, TextInput, Pressable, ScrollView, Alert } from 'react-nativ
 import { useTranslation } from 'react-i18next';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
+import { backIcon } from '../../../lib/rtl';
 import { useColors } from '../../../lib/theme';
 import { Card } from '../../../components/Card';
 import { Button } from '../../../components/Button';
@@ -102,7 +103,7 @@ export function BarcodeResult({ product, onDone, onScanAgain }: BarcodeResultPro
         {/* Header */}
         <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: SPACING.lg }}>
           <Pressable onPress={onScanAgain} style={{ padding: SPACING.sm, minHeight: MIN_TOUCH, minWidth: 44, justifyContent: 'center', alignItems: 'center' }} accessibilityRole="button" accessibilityLabel={t('common.close')}>
-            <Ionicons name="arrow-back" size={24} color={colors.text} />
+            <Ionicons name={backIcon()} size={24} color={colors.text} />
           </Pressable>
           <Text style={{ fontSize: FONT_SIZE.lg, fontWeight: '700', color: colors.text }}>{t('barcode.result_title')}</Text>
           <View style={{ width: 40 }} />

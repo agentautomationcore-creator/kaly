@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, Pressable, Platform } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { Ionicons } from '@expo/vector-icons';
+import { backChevron, forwardIcon } from '../../../lib/rtl';
 import { useColors } from '../../../lib/theme';
 import { FONT_SIZE, RADIUS, MIN_TOUCH, SPACING } from '../../../lib/constants';
 
@@ -45,7 +46,7 @@ export function DateNavigator({ date, onDateChange }: DateNavigatorProps) {
     <View>
       <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingHorizontal: SPACING.lg, paddingVertical: SPACING.md }}>
         <Pressable onPress={() => onDateChange(addDays(date, -1))} style={{ padding: SPACING.sm, minHeight: MIN_TOUCH, minWidth: 44, justifyContent: 'center', alignItems: 'center' }} accessibilityLabel={t('diary.yesterday')} accessibilityRole="button">
-          <Ionicons name="chevron-back" size={24} color={colors.text} />
+          <Ionicons name={backChevron()} size={24} color={colors.text} />
         </Pressable>
 
         <Pressable onPress={() => setShowPicker(!showPicker)} style={{ alignItems: 'center', flexDirection: 'row', gap: 6, minHeight: MIN_TOUCH, justifyContent: 'center' }} accessibilityRole="button" accessibilityLabel={label}>
@@ -60,7 +61,7 @@ export function DateNavigator({ date, onDateChange }: DateNavigatorProps) {
           accessibilityLabel={t('diary.tomorrow')}
           accessibilityRole="button"
         >
-          <Ionicons name="chevron-forward" size={24} color={date >= today ? colors.border : colors.text} />
+          <Ionicons name={forwardIcon()} size={24} color={date >= today ? colors.border : colors.text} />
         </Pressable>
       </View>
 

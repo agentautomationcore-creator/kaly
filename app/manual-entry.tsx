@@ -4,6 +4,7 @@ import { useRouter, useLocalSearchParams } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useTranslation } from 'react-i18next';
 import { Ionicons } from '@expo/vector-icons';
+import { backIcon } from '../src/lib/rtl';
 import { useQueryClient } from '@tanstack/react-query';
 import { useColors } from '../src/lib/theme';
 import { Button } from '../src/components/Button';
@@ -147,7 +148,7 @@ export default function ManualEntryScreen() {
             accessibilityRole="button"
             accessibilityLabel={t('common.close')}
           >
-            <Ionicons name="arrow-back" size={24} color={colors.text} />
+            <Ionicons name={backIcon()} size={24} color={colors.text} />
           </Pressable>
           <Text style={{ fontSize: FONT_SIZE.xl, fontWeight: '700', color: colors.text, marginStart: SPACING.sm }}>
             {t('manual_entry.title')}

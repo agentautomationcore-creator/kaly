@@ -4,6 +4,7 @@ import { useRouter, useLocalSearchParams } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useTranslation } from 'react-i18next';
 import { Ionicons } from '@expo/vector-icons';
+import { backIcon } from '../src/lib/rtl';
 import { useColors } from '../src/lib/theme';
 import { useFoodSearch, FoodSearchItem } from '../src/hooks/useFoodSearch';
 import { useDebounce } from '../src/hooks/useDebounce';
@@ -113,7 +114,7 @@ export default function FoodSearchScreen() {
           accessibilityRole="button"
           accessibilityLabel={t('common.close')}
         >
-          <Ionicons name="arrow-back" size={24} color={colors.text} />
+          <Ionicons name={backIcon()} size={24} color={colors.text} />
         </Pressable>
         <TextInput
           value={query}
