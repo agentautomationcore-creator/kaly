@@ -97,14 +97,24 @@ export const MealSection = React.memo(function MealSection({ mealType, entries, 
           )}
         </View>
 
-        <Pressable
-          onPress={() => router.push({ pathname: '/food-search', params: { mealType } })}
-          accessibilityLabel={t('diary.add_food')}
-          accessibilityRole="button"
-          style={{ minHeight: MIN_TOUCH, minWidth: 44, justifyContent: 'center', alignItems: 'center' }}
-        >
-          <Ionicons name="add-circle" size={28} color={colors.primary} />
-        </Pressable>
+        <View style={{ flexDirection: 'row', alignItems: 'center', gap: SPACING.xs }}>
+          <Pressable
+            onPress={() => router.push('/barcode')}
+            accessibilityLabel={t('barcode.scan_barcode')}
+            accessibilityRole="button"
+            style={{ minHeight: MIN_TOUCH, minWidth: 44, justifyContent: 'center', alignItems: 'center' }}
+          >
+            <Ionicons name="barcode-outline" size={22} color={colors.textSecondary} />
+          </Pressable>
+          <Pressable
+            onPress={() => router.push({ pathname: '/food-search', params: { mealType } })}
+            accessibilityLabel={t('diary.add_food')}
+            accessibilityRole="button"
+            style={{ minHeight: MIN_TOUCH, minWidth: 44, justifyContent: 'center', alignItems: 'center' }}
+          >
+            <Ionicons name="add-circle" size={28} color={colors.primary} />
+          </Pressable>
+        </View>
       </View>
 
       {entries.length > 0 ? (
