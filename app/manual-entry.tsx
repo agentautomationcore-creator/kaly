@@ -46,7 +46,18 @@ export default function ManualEntryScreen() {
   const [servingSize, setServingSize] = useState(params.serving_size || t('manual_entry.default_serving'));
   const [saving, setSaving] = useState(false);
 
-  const filterNumeric = (text: string) => text.replace(/[^0-9.]/g, '');
+  const filterNumeric = (text: string) => {
+    // Allow both . and , as decimal separators (EU locales use comma)
+    let cleaned = text.replace(/[^0-9.,]/g, '');
+    // Normalize comma to dot for storage
+    cleaned = cleaned.replace(',', '.');
+    // Allow only one decimal separator
+    const parts = cleaned.split('.');
+    if (parts.length > 2) {
+      cleaned = parts[0] + '.' + parts.slice(1).join('');
+    }
+    return cleaned;
+  };
 
   const mealType = (params.mealType || 'snack') as MealType;
   const entryMethod = (params.entry_method || 'manual') as 'search' | 'manual';
