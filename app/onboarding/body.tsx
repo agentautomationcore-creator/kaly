@@ -1,22 +1,23 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, TextInput, Pressable, ScrollView, Alert, KeyboardAvoidingView, Platform, AccessibilityInfo } from 'react-native';
+import { View, Text, TextInput, ScrollView, Alert, KeyboardAvoidingView, Platform, AccessibilityInfo } from 'react-native';
 import Animated, { FadeInDown } from 'react-native-reanimated';
 import { useRouter } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useTranslation } from 'react-i18next';
 import { useColors } from '../../src/lib/theme';
 import { Button } from '../../src/components/Button';
+import { IconButton } from '../../src/components/IconButton';
+import { SegmentedControl } from '../../src/components/SegmentedControl';
 import { ConsentModal } from '../../src/components/ConsentModal';
-import { StepIndicator } from '../../src/components/StepIndicator';
 import { useSettingsStore } from '../../src/stores/settingsStore';
 import { useAuthStore } from '../../src/stores/authStore';
 import { supabase } from '../../src/lib/supabase';
 import { useOnboardingStore } from '../../src/stores/onboardingStore';
-import { FONT_SIZE, RADIUS, MIN_TOUCH, SPACING } from '../../src/lib/constants';
+import { RADIUS, MIN_TOUCH, SPACING } from '../../src/lib/constants';
+import { typography } from '../../src/lib/typography';
 import type { Gender, ActivityLevel } from '../../src/lib/nutrition';
 
 const GENDERS = ['male', 'female'] as const;
-const ACTIVITIES = ['sedentary', 'light', 'moderate', 'active', 'very_active'] as const;
 
 export default function BodyScreen() {
   const { t } = useTranslation();
@@ -26,149 +27,102 @@ export default function BodyScreen() {
   const [height, setHeight] = useState('');
   const [weight, setWeight] = useState('');
   const [age, setAge] = useState('');
-  const [gender, setGender] = useState<string | null>(null);
-  const [activity, setActivity] = useState<string>('moderate');
+  const [genderIdx, setGenderIdx] = useState(-1);
   const healthConsentGiven = useSettingsStore((s) => s.healthConsentGiven);
   const setHealthConsent = useSettingsStore((s) => s.setHealthConsent);
   const [showHealthConsent, setShowHealthConsent] = useState(!healthConsentGiven);
 
+  const gender = genderIdx >= 0 ? GENDERS[genderIdx] : null;
   const canContinue = height && weight && age && gender && healthConsentGiven;
   const [reduceMotion, setReduceMotion] = useState(false);
   useEffect(() => { AccessibilityInfo.isReduceMotionEnabled().then(setReduceMotion); }, []);
 
+  const inputStyle = {
+    minHeight: 52,
+    fontSize: 16,
+    color: colors.textPrimary,
+    backgroundColor: colors.surface,
+    borderRadius: RADIUS.sm,
+    paddingHorizontal: SPACING[4],
+    borderWidth: 1,
+    borderColor: colors.border,
+  };
+
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: colors.background }}>
-      <StepIndicator totalSteps={4} currentStep={3} />
-      <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
-      <ScrollView contentContainerStyle={{ padding: SPACING.xl, paddingBottom: 100 }} keyboardShouldPersistTaps="handled">
-        <Animated.Text accessibilityRole="header" entering={reduceMotion ? undefined : FadeInDown.duration(500).delay(100)} style={{ fontSize: FONT_SIZE.xl, fontWeight: '700', color: colors.text, marginBottom: SPACING.xl }}>
-          {t('onboarding.body_title')}
-        </Animated.Text>
+    <SafeAreaView style={{ flex: 1, backgroundColor: colors.bg }}>
+      <View style={{ flexDirection: 'row', alignItems: 'center', paddingHorizontal: SPACING[6], marginBottom: SPACING[2] }}>
+        <IconButton icon="chevron-back" onPress={() => router.back()} accessibilityLabel={t('common.back')} />
+      </View>
 
-        {/* Gender */}
-        <Text style={{ fontSize: FONT_SIZE.sm, color: colors.textSecondary, marginBottom: SPACING.sm, fontWeight: '500' }}>
-          {t('onboarding.gender')}
-        </Text>
-        <View style={{ flexDirection: 'row', gap: SPACING.md, marginBottom: SPACING.xl}}>
-          {GENDERS.map((g) => (
-            <Pressable
-              key={g}
-              onPress={() => setGender(g)}
-              accessibilityRole="button"
-              accessibilityLabel={t(`onboarding.${g}`)}
-              style={{
-                flex: 1,
-                padding: SPACING.lg,
-                minHeight: MIN_TOUCH,
-                borderRadius: RADIUS.md,
-                backgroundColor: gender === g ? colors.primaryLight : colors.card,
-                borderWidth: 2,
-                borderColor: gender === g ? colors.primary : 'transparent',
-                alignItems: 'center',
-                justifyContent: 'center',
-              }}
-            >
-              <Text style={{ fontWeight: '600', color: gender === g ? colors.primary : colors.text }}>
-                {t(`onboarding.${g}`)}
-              </Text>
-            </Pressable>
-          ))}
-        </View>
-
-        {/* Height, Weight, Age */}
-        {[
-          { label: t('onboarding.height'), value: height, set: setHeight, suffix: t('units.cm'), key: 'height', placeholder: '170' },
-          { label: t('onboarding.weight'), value: weight, set: setWeight, suffix: t('units.kg'), key: 'weight', placeholder: '70' },
-          { label: t('onboarding.age'), value: age, set: setAge, suffix: '', key: 'age', placeholder: '25' },
-        ].map((field) => (
-          <View key={field.key} style={{ marginBottom: SPACING.xl}}>
-            <Text style={{ fontSize: FONT_SIZE.sm, color: colors.textSecondary, marginBottom: SPACING.sm, fontWeight: '500' }}>
-              {field.label} {field.suffix ? `(${field.suffix})` : ''}
-            </Text>
-            <TextInput
-              value={field.value}
-              onChangeText={field.set}
-              keyboardType="numeric"
-              accessibilityLabel={field.label}
-              style={{
-                backgroundColor: colors.card,
-                borderRadius: RADIUS.md,
-                padding: SPACING.lg,
-                fontSize: FONT_SIZE.md,
-                color: colors.text,
-              }}
-              placeholder={field.placeholder}
-              placeholderTextColor={colors.textSecondary}
-            />
-          </View>
+      {/* Progress */}
+      <View style={{ flexDirection: 'row', gap: 4, marginHorizontal: SPACING[6], marginBottom: SPACING[6] }}>
+        {[0, 1, 2, 3].map((i) => (
+          <View key={i} style={{ flex: 1, height: 4, borderRadius: 2, backgroundColor: i < 2 ? colors.primary : colors.border }} />
         ))}
+      </View>
 
-        {/* Activity level */}
-        <Text style={{ fontSize: FONT_SIZE.sm, color: colors.textSecondary, marginBottom: SPACING.sm, fontWeight: '500' }}>
-          {t('onboarding.activity')}
-        </Text>
-        <View style={{ gap: SPACING.sm }}>
-          {ACTIVITIES.map((a) => (
-            <Pressable
-              key={a}
-              onPress={() => setActivity(a)}
-              accessibilityRole="button"
-              accessibilityLabel={t(`onboarding.activity_${a}`)}
-              style={{
-                padding: SPACING.lg,
-                minHeight: MIN_TOUCH,
-                borderRadius: RADIUS.md,
-                backgroundColor: activity === a ? colors.primaryLight : colors.card,
-                borderWidth: 2,
-                borderColor: activity === a ? colors.primary : 'transparent',
-              }}
-            >
-              <Text style={{ fontWeight: '500', color: activity === a ? colors.primary : colors.text }}>
-                {t(`onboarding.activity_${a}`)}
+      <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
+        <ScrollView contentContainerStyle={{ padding: SPACING[6], paddingBottom: 100 }} keyboardShouldPersistTaps="handled">
+          <Animated.Text accessibilityRole="header" entering={reduceMotion ? undefined : FadeInDown.duration(500).delay(100)} style={{ ...typography.title, color: colors.textPrimary, marginBottom: SPACING[6] }}>
+            {t('onboarding.body_title')}
+          </Animated.Text>
+
+          {/* Gender */}
+          <Text style={{ ...typography.smallMedium, color: colors.textSecondary, marginBottom: SPACING[2] }}>
+            {t('onboarding.gender')}
+          </Text>
+          <SegmentedControl
+            items={GENDERS.map((g) => t(`onboarding.${g}`))}
+            activeIndex={genderIdx >= 0 ? genderIdx : -1}
+            onChange={setGenderIdx}
+          />
+
+          <View style={{ marginTop: SPACING[6] }} />
+
+          {/* Height, Weight, Age */}
+          {[
+            { label: t('onboarding.height'), value: height, set: setHeight, suffix: t('units.cm'), placeholder: '170' },
+            { label: t('onboarding.weight'), value: weight, set: setWeight, suffix: t('units.kg'), placeholder: '70' },
+            { label: t('onboarding.age'), value: age, set: setAge, suffix: '', placeholder: '25' },
+          ].map((field) => (
+            <View key={field.label} style={{ marginBottom: SPACING[4] }}>
+              <Text style={{ ...typography.smallMedium, color: colors.textSecondary, marginBottom: SPACING[1] }}>
+                {field.label} {field.suffix ? `(${field.suffix})` : ''}
               </Text>
-            </Pressable>
+              <TextInput
+                value={field.value}
+                onChangeText={field.set}
+                keyboardType="numeric"
+                accessibilityLabel={field.label}
+                style={inputStyle}
+                placeholder={field.placeholder}
+                placeholderTextColor={colors.textTertiary}
+              />
+            </View>
           ))}
-        </View>
-      </ScrollView>
+        </ScrollView>
       </KeyboardAvoidingView>
 
-      <View style={{ padding: SPACING.xl, paddingBottom: 40 }}>
-        <Button title={t('onboarding.next')} onPress={() => {
+      <View style={{ padding: SPACING[6], paddingBottom: 40, gap: SPACING[3] }}>
+        <Button title={`${t('onboarding.next')} \u2192`} onPress={() => {
           const w = parseFloat(weight);
           const h = parseFloat(height);
           const a = parseInt(age, 10);
-          if (w <= 0 || w > 300) {
-            Alert.alert(t('common.error'), t('onboarding.invalid_weight'));
-            return;
-          }
-          if (h <= 0 || h > 300) {
-            Alert.alert(t('common.error'), t('onboarding.invalid_height'));
-            return;
-          }
-          if (a < 12 || a > 120) {
-            Alert.alert(t('common.error'), t('onboarding.invalid_age'));
-            return;
-          }
+          if (w <= 0 || w > 300) { Alert.alert(t('common.error'), t('onboarding.invalid_weight')); return; }
+          if (h <= 0 || h > 300) { Alert.alert(t('common.error'), t('onboarding.invalid_height')); return; }
+          if (a < 12 || a > 120) { Alert.alert(t('common.error'), t('onboarding.invalid_age')); return; }
           useOnboardingStore.getState().setBody({
             gender: gender as Gender,
             heightCm: h,
             weightKg: w,
             age: a,
-            activityLevel: activity as ActivityLevel,
+            activityLevel: 'moderate' as ActivityLevel,
           });
           router.push('/onboarding/diet');
         }} disabled={!canContinue} />
-        <Pressable
-          onPress={() => router.push('/onboarding/diet')}
-          style={{ alignItems: 'center', marginTop: SPACING.md, minHeight: MIN_TOUCH, justifyContent: 'center' }}
-          accessibilityRole="button"
-          accessibilityLabel={t('onboarding.skip')}
-        >
-          <Text style={{ fontSize: FONT_SIZE.sm, color: colors.textSecondary }}>{t('onboarding.skip')}</Text>
-        </Pressable>
+        <Button title={t('onboarding.skip')} variant="ghost" onPress={() => router.push('/onboarding/diet')} />
       </View>
 
-      {/* GDPR-2: Health data consent */}
       <ConsentModal
         visible={showHealthConsent}
         type="health"

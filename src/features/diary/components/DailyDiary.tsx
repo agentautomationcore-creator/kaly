@@ -1,5 +1,6 @@
-import React from 'react';
-import { View, ScrollView, Text, Pressable } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { AccessibilityInfo, View, ScrollView, Text, Pressable, RefreshControl } from 'react-native';
+import Animated, { FadeInDown } from 'react-native-reanimated';
 import { useTranslation } from 'react-i18next';
 import { useRouter } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
@@ -15,7 +16,8 @@ import { RecentMeals } from './RecentMeals';
 import { ListSkeleton } from '../../../components/LoadingSkeleton';
 import { useYesterdayMeals } from '../hooks/useYesterdayMeals';
 import { FastingCard } from './FastingCard';
-import { FONT_SIZE, RADIUS, MIN_TOUCH, SPACING } from '../../../lib/constants';
+import { RADIUS, MIN_TOUCH, SPACING } from '../../../lib/constants';
+import { typography } from '../../../lib/typography';
 import type { MealType } from '../../../lib/types';
 
 const MEALS: MealType[] = ['breakfast', 'lunch', 'dinner', 'snack'];
@@ -31,9 +33,12 @@ export function DailyDiary({ date: dateProp }: DailyDiaryProps) {
   const profile = useAuthStore((s) => s.profile);
   const { selectedDate, setSelectedDate } = useDiaryStore();
   const currentDate = dateProp || selectedDate;
-  const { data: entries, isLoading } = useDiary(currentDate);
+  const { data: entries, isLoading, refetch } = useDiary(currentDate);
   const { data: yesterdayMeals } = useYesterdayMeals();
   const calorieGoal = profile?.daily_calories || 2000;
+
+  const [reduceMotion, setReduceMotion] = useState(false);
+  useEffect(() => { AccessibilityInfo.isReduceMotionEnabled().then(setReduceMotion); }, []);
 
   const entriesByMeal = MEALS.reduce((acc, meal) => {
     acc[meal] = (entries || []).filter((e) => e.meal_type === meal);
@@ -55,29 +60,34 @@ export function DailyDiary({ date: dateProp }: DailyDiaryProps) {
 
   return (
     <ScrollView
-      style={{ flex: 1, backgroundColor: colors.background }}
-      contentContainerStyle={{ paddingBottom: 100 }}
+      style={{ flex: 1, backgroundColor: colors.bg }}
+      contentContainerStyle={{ paddingBottom: SPACING[12] }}
       showsVerticalScrollIndicator={false}
+      refreshControl={<RefreshControl refreshing={false} onRefresh={() => refetch()} tintColor={colors.primary} />}
     >
-      <DateNavigator date={currentDate} onDateChange={setSelectedDate} />
+      {/* Date navigator */}
+      <View style={{ paddingVertical: SPACING[3] }}>
+        <DateNavigator date={currentDate} onDateChange={setSelectedDate} />
+      </View>
 
       {/* History limit warning for free tier */}
       {profile?.plan !== 'pro' && (() => {
         const created = profile?.created_at ? new Date(profile.created_at) : new Date();
         const daysUsed = Math.floor((Date.now() - created.getTime()) / 86400000);
         return daysUsed >= 5 ? (
-          <View style={{ flexDirection: 'row', alignItems: 'center', gap: SPACING.sm, marginHorizontal: SPACING.lg, marginBottom: SPACING.sm, padding: SPACING.md, backgroundColor: colors.warningLight, borderRadius: RADIUS.md }}>
+          <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8, marginHorizontal: SPACING[6], marginBottom: SPACING[3], padding: SPACING[3], backgroundColor: colors.errorSubtle, borderRadius: RADIUS.lg }}>
             <Ionicons name="information-circle-outline" size={20} color={colors.warning} />
-            <Text style={{ flex: 1, fontSize: FONT_SIZE.sm, color: colors.textSecondary }}>
+            <Text style={{ flex: 1, ...typography.small, color: colors.textSecondary }}>
               {t('diary.history_warning', { days: 7 })}
             </Text>
-            <Pressable onPress={() => router.push('/paywall')} accessibilityRole="button" accessibilityLabel={t('diary.upgrade')} style={{ minHeight: MIN_TOUCH, justifyContent: 'center' }}>
-              <Text style={{ fontSize: FONT_SIZE.sm, color: colors.primary, fontWeight: '600' }}>{t('diary.upgrade')}</Text>
+            <Pressable onPress={() => router.push('/paywall')} accessibilityRole="button" style={{ minHeight: MIN_TOUCH, justifyContent: 'center' }}>
+              <Text style={{ ...typography.smallMedium, color: colors.primary }}>{t('diary.upgrade')}</Text>
             </Pressable>
           </View>
         ) : null;
       })()}
 
+      {/* Totals */}
       <DailyTotalsBar
         calories={totalCalories}
         protein={totalProtein}
@@ -86,67 +96,73 @@ export function DailyDiary({ date: dateProp }: DailyDiaryProps) {
         calorieGoal={calorieGoal}
       />
 
+      {/* Meals */}
       {isLoading ? (
         <ListSkeleton count={3} />
       ) : (
-        <View style={{ paddingHorizontal: SPACING.lg, gap: SPACING.sm }}>
-          {MEALS.map((meal) => (
-            <MealSection
-              key={meal}
-              mealType={meal}
-              entries={entriesByMeal[meal] || []}
-              date={currentDate}
-              yesterdayEntries={yesterdayMeals?.[meal]}
-              remainingCalories={remainingCalories}
-              remainingProtein={remainingProtein}
-              remainingCarbs={remainingCarbs}
-              remainingFat={remainingFat}
-              dietType={profile?.diet_type}
-              allergies={profile?.allergies}
-            />
+        <View style={{ gap: SPACING[3] }}>
+          {MEALS.map((meal, idx) => (
+            <Animated.View key={meal} entering={reduceMotion ? undefined : FadeInDown.delay(idx * 80).duration(300)}>
+              <MealSection
+                mealType={meal}
+                entries={entriesByMeal[meal] || []}
+                date={currentDate}
+                yesterdayEntries={yesterdayMeals?.[meal]}
+                remainingCalories={remainingCalories}
+                remainingProtein={remainingProtein}
+                remainingCarbs={remainingCarbs}
+                remainingFat={remainingFat}
+                dietType={profile?.diet_type}
+                allergies={profile?.allergies}
+              />
+            </Animated.View>
           ))}
         </View>
       )}
 
-      <View style={{ paddingHorizontal: SPACING.lg, marginTop: SPACING.lg }}>
+      {/* Water */}
+      <View style={{ paddingHorizontal: SPACING[6], marginTop: SPACING[4] }}>
         <WaterTracker date={currentDate} />
       </View>
 
-      <View style={{ paddingHorizontal: SPACING.lg, marginTop: SPACING.sm }}>
+      {/* Fasting */}
+      <View style={{ paddingHorizontal: SPACING[6], marginTop: SPACING[3] }}>
         <FastingCard />
       </View>
 
+      {/* Empty state */}
       {entries && entries.length === 0 && (
-        <View style={{ alignItems: 'center', padding: SPACING.xxl }}>
-          <Text accessibilityRole="header" style={{ fontSize: FONT_SIZE.lg, color: colors.textSecondary, marginBottom: SPACING.lg }}>
+        <View style={{ alignItems: 'center', padding: SPACING[8] }}>
+          <Text style={{ ...typography.h2, color: colors.textSecondary, marginBottom: SPACING[4] }}>
             {t('diary.emptyTitle')}
           </Text>
-          <Text style={{ fontSize: FONT_SIZE.md, color: colors.textSecondary, marginBottom: SPACING.xl }}>
+          <Text style={{ ...typography.body, color: colors.textSecondary, marginBottom: SPACING[6] }}>
             {t('diary.emptyDescription')}
           </Text>
-          <View style={{ gap: SPACING.sm, width: '100%' }}>
-            <Pressable onPress={() => router.push('/(tabs)/scan')} style={{ flexDirection: 'row', alignItems: 'center', gap: SPACING.md, padding: SPACING.lg, borderRadius: RADIUS.md, backgroundColor: colors.surface, minHeight: MIN_TOUCH }} accessibilityRole="button" accessibilityLabel={t('scan.take_photo')}>
-              <Ionicons name="camera-outline" size={20} color={colors.primary} />
-              <Text style={{ fontSize: FONT_SIZE.md, fontWeight: '500', color: colors.text }}>{t('scan.take_photo')}</Text>
-            </Pressable>
-            <Pressable onPress={() => router.push('/barcode')} style={{ flexDirection: 'row', alignItems: 'center', gap: SPACING.md, padding: SPACING.lg, borderRadius: RADIUS.md, backgroundColor: colors.surface, minHeight: MIN_TOUCH }} accessibilityRole="button" accessibilityLabel={t('barcode.scan_barcode')}>
-              <Ionicons name="barcode-outline" size={20} color={colors.primary} />
-              <Text style={{ fontSize: FONT_SIZE.md, fontWeight: '500', color: colors.text }}>{t('barcode.scan_barcode')}</Text>
-            </Pressable>
-            <Pressable onPress={() => router.push('/food-search')} style={{ flexDirection: 'row', alignItems: 'center', gap: SPACING.md, padding: SPACING.lg, borderRadius: RADIUS.md, backgroundColor: colors.surface, minHeight: MIN_TOUCH }} accessibilityRole="button" accessibilityLabel={t('food_search.placeholder')}>
-              <Ionicons name="search-outline" size={20} color={colors.primary} />
-              <Text style={{ fontSize: FONT_SIZE.md, fontWeight: '500', color: colors.text }}>{t('food_search.placeholder')}</Text>
-            </Pressable>
-            <Pressable onPress={() => router.push('/manual-entry')} style={{ flexDirection: 'row', alignItems: 'center', gap: SPACING.md, padding: SPACING.lg, borderRadius: RADIUS.md, backgroundColor: colors.surface, minHeight: MIN_TOUCH }} accessibilityRole="button" accessibilityLabel={t('food_search.enter_manually')}>
-              <Ionicons name="create-outline" size={20} color={colors.primary} />
-              <Text style={{ fontSize: FONT_SIZE.md, fontWeight: '500', color: colors.text }}>{t('food_search.enter_manually')}</Text>
-            </Pressable>
+          <View style={{ gap: SPACING[2], width: '100%' }}>
+            {[
+              { route: '/(tabs)/scan', icon: 'camera-outline' as const, label: t('scan.take_photo') },
+              { route: '/barcode', icon: 'barcode-outline' as const, label: t('barcode.scan_barcode') },
+              { route: '/food-search', icon: 'search-outline' as const, label: t('food_search.placeholder') },
+              { route: '/manual-entry', icon: 'create-outline' as const, label: t('food_search.enter_manually') },
+            ].map((item) => (
+              <Pressable
+                key={item.route}
+                onPress={() => router.push(item.route as any)}
+                style={{ flexDirection: 'row', alignItems: 'center', gap: SPACING[3], padding: SPACING[4], borderRadius: RADIUS.lg, backgroundColor: colors.surface, minHeight: MIN_TOUCH }}
+                accessibilityRole="button"
+                accessibilityLabel={item.label}
+              >
+                <Ionicons name={item.icon} size={20} color={colors.primary} />
+                <Text style={{ ...typography.bodyMedium, color: colors.textPrimary }}>{item.label}</Text>
+              </Pressable>
+            ))}
           </View>
         </View>
       )}
 
       {entries && entries.length === 0 && (
-        <View style={{ paddingHorizontal: SPACING.lg, marginTop: SPACING.lg }}>
+        <View style={{ paddingHorizontal: SPACING[6], marginTop: SPACING[4] }}>
           <RecentMeals date={currentDate} />
         </View>
       )}

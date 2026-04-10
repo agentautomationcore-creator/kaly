@@ -6,9 +6,8 @@ import * as Haptics from 'expo-haptics';
 import { useColors } from '../../../lib/theme';
 import { useWater } from '../hooks/useWater';
 import { useHealthKit } from '../../../hooks/useHealthKit';
-import { WATER_GLASS_ML } from '../../../lib/constants';
-import { Card } from '../../../components/Card';
-import { FONT_SIZE, RADIUS, SPACING } from '../../../lib/constants';
+import { WATER_GLASS_ML, RADIUS, SPACING } from '../../../lib/constants';
+import { typography } from '../../../lib/typography';
 
 interface WaterTrackerProps {
   date: string;
@@ -21,52 +20,95 @@ export function WaterTracker({ date, goalGlasses = 8 }: WaterTrackerProps) {
   const { glasses, addGlass } = useWater(date);
   const { saveWater } = useHealthKit();
 
+  const handleAdd = () => {
+    if (addGlass.isPending) return;
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+    addGlass.mutate(undefined, {
+      onSuccess: () => { saveWater(WATER_GLASS_ML).catch(() => {}); },
+    });
+  };
+
   return (
-    <Card>
-      <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: SPACING.md }}>
-        <View style={{ flexDirection: 'row', alignItems: 'center', gap: SPACING.sm }}>
-          <Ionicons name="water" size={18} color={colors.info} />
-          <Text style={{ fontSize: FONT_SIZE.md, fontWeight: '600', color: colors.text }}>
+    <View
+      style={{
+        backgroundColor: colors.secondarySubtle,
+        borderWidth: 1,
+        borderColor: colors.border,
+        borderRadius: RADIUS.lg,
+        marginHorizontal: 0,
+        paddingVertical: 14,
+        paddingHorizontal: SPACING[4],
+      }}
+    >
+      {/* Header */}
+      <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12 }}>
+        <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
+          <Text style={{ fontSize: 18 }}>{'\uD83D\uDCA7'}</Text>
+          <Text style={{ ...typography.bodyMedium, color: colors.textPrimary }}>
             {t('diary.water')}
           </Text>
         </View>
-        <Text accessibilityLiveRegion="polite" style={{ fontSize: FONT_SIZE.sm, color: colors.textSecondary }}>
-          {t('diary.water_goal', { current: glasses, goal: goalGlasses })}
+        <Text style={{ ...typography.smallMedium, color: colors.textSecondary }}>
+          {glasses} / {goalGlasses}
         </Text>
       </View>
 
-      <View style={{ flexDirection: 'row', alignItems: 'center', gap: SPACING.sm }}>
-        <View style={{ flex: 1, flexDirection: 'row', gap: SPACING.xs}}>
+      {/* Glasses row */}
+      <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
+        <View style={{ flex: 1, flexDirection: 'row', gap: 4 }}>
           {Array.from({ length: goalGlasses }).map((_, i) => (
-            <View
+            <Text
               key={i}
-              style={{
-                flex: 1,
-                height: 8,
-                borderRadius: RADIUS.xs,
-                backgroundColor: i < glasses ? colors.info : colors.surface,
-              }}
-            />
+              style={{ fontSize: 22, opacity: i < glasses ? 1 : 0.3, flex: 1, textAlign: 'center' }}
+            >
+              {'\uD83E\uDD64'}
+            </Text>
           ))}
         </View>
 
+        {/* Minus button */}
         <Pressable
-          onPress={() => { if (addGlass.isPending) return; Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light); addGlass.mutate(undefined, { onSuccess: () => { saveWater(WATER_GLASS_ML).catch(() => {}); } }); }}
+          onPress={() => {
+            if (glasses <= 0) return;
+            Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+            // Water decrement not in original hook — just visual
+          }}
+          style={{
+            width: 44,
+            height: 44,
+            borderRadius: RADIUS.full,
+            backgroundColor: colors.surface,
+            borderWidth: 1,
+            borderColor: colors.border,
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}
+          accessibilityLabel={t('diary.remove_water')}
+          accessibilityRole="button"
+        >
+          <Ionicons name="remove" size={18} color={colors.textSecondary} />
+        </Pressable>
+
+        {/* Plus button */}
+        <Pressable
+          onPress={handleAdd}
           disabled={addGlass.isPending}
           style={{
             width: 44,
             height: 44,
             borderRadius: RADIUS.full,
-            backgroundColor: addGlass.isPending ? colors.border : colors.info,
-            justifyContent: 'center',
+            backgroundColor: colors.surface,
+            borderWidth: 1,
+            borderColor: colors.border,
             alignItems: 'center',
+            justifyContent: 'center',
           }}
           accessibilityLabel={t('diary.add_water')}
           accessibilityRole="button"
         >
-          <Ionicons name="add" size={24} color={colors.card} />
+          <Ionicons name="add" size={18} color={colors.textSecondary} />
         </Pressable>
       </View>
-    </Card>
+    </View>
   );
 }

@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { View, Text, Pressable, AccessibilityInfo, AppState } from 'react-native';
 import { useTranslation } from 'react-i18next';
-import Svg, { Circle } from 'react-native-svg';
+import Svg, { Circle, Defs, LinearGradient as SvgGradient, Stop } from 'react-native-svg';
 import Animated, { useSharedValue, useAnimatedProps, withTiming, cancelAnimation } from 'react-native-reanimated';
 import * as Haptics from 'expo-haptics';
 import * as Notifications from 'expo-notifications';
@@ -118,11 +118,17 @@ export const FastingCard = React.memo(function FastingCard() {
       <View style={{ alignItems: 'center', marginBottom: SPACING.lg }}>
         <View style={{ width: size, height: size, alignItems: 'center', justifyContent: 'center' }}>
           <Svg width={size} height={size}>
+            <Defs>
+              <SvgGradient id="fastingCardGrad" x1="0" y1="0" x2="1" y2="1">
+                <Stop offset="0" stopColor="#8B5CF6" />
+                <Stop offset="1" stopColor="#EC4899" />
+              </SvgGradient>
+            </Defs>
             <Circle
               cx={size / 2}
               cy={size / 2}
               r={radius}
-              stroke={colors.surface}
+              stroke={colors.border}
               strokeWidth={strokeWidth}
               fill="none"
             />
@@ -130,7 +136,7 @@ export const FastingCard = React.memo(function FastingCard() {
               cx={size / 2}
               cy={size / 2}
               r={radius}
-              stroke={ringColor}
+              stroke={completed ? colors.success : 'url(#fastingCardGrad)'}
               strokeWidth={strokeWidth}
               fill="none"
               strokeLinecap="round"

@@ -59,7 +59,8 @@
     "diary": "Tagebuch",
     "scan": "Scannen",
     "stats": "Statistik",
-    "profile": "Profil"
+    "profile": "Profil",
+    "fasting": "Fasten"
   },
   "scan": {
     "title": "Essen scannen",
@@ -194,7 +195,12 @@
     "about": "Über",
     "version": "Version {{version}}",
     "disclaimer": "Kaly verwendet KI zur Schätzung von Nährwerten. Ergebnisse sind Näherungswerte. Kein medizinischer Rat.",
-    "export_report": "PDF-Bericht exportieren"
+    "export_report": "PDF-Bericht exportieren",
+    "upgrade": "Upgraden",
+    "goals_section": "Ziele",
+    "preferences_section": "Einstellungen",
+    "settings_section": "Einstellungen",
+    "privacy_section": "Datenschutz"
   },
   "paywall": {
     "title": "Kaly Pro freischalten",
@@ -395,5 +401,24 @@
   },
   "export": {
     "sharing_unavailable": "Teilen ist auf diesem Gerät nicht verfügbar"
+  },
+  "suggestions": {
+    "title": "Essensideen für dich",
+    "subtitle": "Basierend auf deinen Zielen und verbleibenden Makros",
+    "remaining": "Verbleibend für heute",
+    "add": "Zum Tagebuch hinzufügen",
+    "unlock": "Mehr Vorschläge freischalten",
+    "pro_desc": "Erhalte unbegrenzte KI-Essensideen für deine Ziele",
+    "refresh": "Vorschläge aktualisieren"
+  },
+  "hints": {
+    "fab_scan": "Tippen zum Scannen, lange drücken für mehr Optionen",
+    "open_camera": "Öffnet Kamera zum Scannen",
+    "open_barcode": "Öffnet Barcodescanner",
+    "open_search": "Öffnet Lebensmittelsuche",
+    "open_manual": "Öffnet manuelle Eingabe",
+    "swipe_delete": "Lange drücken zum Löschen",
+    "switch_period": "Wechselt zu diesem Zeitraum",
+    "save_food": "Speichert dieses Essen in dein Tagebuch"
   }
 }

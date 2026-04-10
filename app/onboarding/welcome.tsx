@@ -4,10 +4,11 @@ import { useRouter } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useTranslation } from 'react-i18next';
 import Animated, { FadeInDown, FadeInUp } from 'react-native-reanimated';
+import { LinearGradient } from 'expo-linear-gradient';
 import { useColors } from '../../src/lib/theme';
 import { Button } from '../../src/components/Button';
-import { StepIndicator } from '../../src/components/StepIndicator';
-import { FONT_SIZE, RADIUS, SPACING, MIN_TOUCH } from '../../src/lib/constants';
+import { RADIUS, SPACING, MIN_TOUCH, SHADOW } from '../../src/lib/constants';
+import { typography } from '../../src/lib/typography';
 import { Ionicons } from '@expo/vector-icons';
 import { setLanguage, SUPPORTED_LANGUAGES } from '../../src/i18n';
 
@@ -28,15 +29,9 @@ export default function WelcomeScreen() {
     tr: 'Türkçe', zh: '中文',
   };
 
-  const signals = [
-    { icon: 'flash-outline' as const, text: t('welcome.signals.fast') },
-    { icon: 'language-outline' as const, text: t('welcome.signals.languages') },
-    { icon: 'eye-outline' as const, text: t('welcome.signals.hidden') },
-  ];
-
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: colors.background, padding: SPACING.xl }}>
-      {/* Language picker globe icon */}
+    <SafeAreaView style={{ flex: 1, backgroundColor: colors.bg, padding: SPACING[6] }}>
+      {/* Language picker */}
       <Pressable
         onPress={() => setShowLangPicker(true)}
         style={{ position: 'absolute', top: 60, end: 24, zIndex: 10, minHeight: MIN_TOUCH, minWidth: MIN_TOUCH, justifyContent: 'center', alignItems: 'center' }}
@@ -46,11 +41,10 @@ export default function WelcomeScreen() {
         <Ionicons name="globe-outline" size={24} color={colors.textSecondary} />
       </Pressable>
 
-      {/* Language picker modal */}
-      <Modal visible={showLangPicker} transparent animationType="fade" onRequestClose={() => setShowLangPicker(false)} accessibilityViewIsModal={true}>
-        <Pressable onPress={() => setShowLangPicker(false)} style={{ flex: 1, backgroundColor: colors.overlay, justifyContent: 'center', alignItems: 'center' }}>
-          <Pressable onPress={() => {}} style={{ backgroundColor: colors.card, borderRadius: RADIUS.lg, padding: SPACING.xl, width: '80%', maxHeight: '60%', minHeight: MIN_TOUCH }}>
-            <Text style={{ fontSize: FONT_SIZE.lg, fontWeight: '700', color: colors.text, marginBottom: SPACING.lg, textAlign: 'center' }}>
+      <Modal visible={showLangPicker} transparent animationType="fade" onRequestClose={() => setShowLangPicker(false)} accessibilityViewIsModal>
+        <Pressable onPress={() => setShowLangPicker(false)} style={{ flex: 1, backgroundColor: 'rgba(0,0,0,0.4)', justifyContent: 'center', alignItems: 'center' }}>
+          <Pressable onPress={() => {}} style={{ backgroundColor: colors.surfaceElevated, borderRadius: RADIUS.xl, padding: SPACING[6], width: '80%', maxHeight: '60%' }}>
+            <Text style={{ ...typography.h2, color: colors.textPrimary, marginBottom: SPACING[4], textAlign: 'center' }}>
               {t('profile.language')}
             </Text>
             <ScrollView>
@@ -62,15 +56,15 @@ export default function WelcomeScreen() {
                   accessibilityLabel={LANG_NAMES[lang]}
                   style={{
                     minHeight: MIN_TOUCH,
-                    paddingVertical: SPACING.md,
-                    paddingHorizontal: SPACING.lg,
-                    borderRadius: RADIUS.md,
-                    backgroundColor: i18n.language === lang ? colors.primaryLight : 'transparent',
+                    paddingVertical: SPACING[3],
+                    paddingHorizontal: SPACING[4],
+                    borderRadius: RADIUS.sm,
+                    backgroundColor: i18n.language === lang ? colors.primarySubtle : 'transparent',
                     marginBottom: 4,
                     justifyContent: 'center',
                   }}
                 >
-                  <Text style={{ fontSize: FONT_SIZE.md, fontWeight: i18n.language === lang ? '600' : '400', color: i18n.language === lang ? colors.primary : colors.text }}>
+                  <Text style={{ ...typography.body, fontWeight: i18n.language === lang ? '600' : '400', color: i18n.language === lang ? colors.primary : colors.textPrimary }}>
                     {LANG_NAMES[lang] || lang}
                   </Text>
                 </Pressable>
@@ -80,59 +74,71 @@ export default function WelcomeScreen() {
         </Pressable>
       </Modal>
 
-      <StepIndicator totalSteps={4} currentStep={1} />
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-        {/* Logo placeholder */}
-        <Animated.View
-          entering={reduceMotion ? undefined : FadeInDown.duration(500).delay(100)}
-          style={{
-            width: 80,
-            height: 80,
-            borderRadius: RADIUS.xl,
-            backgroundColor: colors.primary,
-            justifyContent: 'center',
-            alignItems: 'center',
-            marginBottom: SPACING.xl,
-          }}
-        >
-          <Ionicons name="restaurant" size={40} color={colors.card} />
+        {/* Logo */}
+        <Animated.View entering={reduceMotion ? undefined : FadeInDown.duration(500).delay(100)} style={{ flexDirection: 'row', alignItems: 'center', gap: 12, marginBottom: SPACING[8] }}>
+          <LinearGradient
+            colors={[colors.primary, colors.secondary]}
+            style={{ width: 64, height: 64, borderRadius: RADIUS.xl, justifyContent: 'center', alignItems: 'center' }}
+          >
+            <Ionicons name="restaurant" size={32} color="#fff" />
+          </LinearGradient>
+          <Text style={{ ...typography.h1, color: colors.primary, textTransform: 'lowercase' }}>kaly</Text>
         </Animated.View>
 
-        <Animated.Text accessibilityRole="header" entering={reduceMotion ? undefined : FadeInDown.duration(500).delay(250)} style={{ fontSize: FONT_SIZE.xxl, fontWeight: '800', color: colors.text, textAlign: 'center', marginBottom: SPACING.sm }}>
+        {/* Hero placeholder */}
+        <Animated.View entering={reduceMotion ? undefined : FadeInDown.duration(500).delay(200)}>
+          <LinearGradient
+            colors={[colors.primarySubtle, colors.secondarySubtle]}
+            style={{ width: 280, height: 180, borderRadius: RADIUS.xl, marginBottom: SPACING[6], ...SHADOW.lg, justifyContent: 'center', alignItems: 'center' }}
+          >
+            <Ionicons name="camera" size={48} color={colors.primary} style={{ opacity: 0.4 }} />
+          </LinearGradient>
+        </Animated.View>
+
+        {/* Title */}
+        <Animated.Text
+          accessibilityRole="header"
+          entering={reduceMotion ? undefined : FadeInDown.duration(500).delay(300)}
+          style={{ ...typography.title, color: colors.textPrimary, textAlign: 'center', marginBottom: SPACING[2] }}
+        >
           {t('welcome.title')}
         </Animated.Text>
-        <Animated.Text entering={reduceMotion ? undefined : FadeInDown.duration(500).delay(400)} style={{ fontSize: FONT_SIZE.md, color: colors.textSecondary, textAlign: 'center', marginBottom: SPACING.xxl }}>
+
+        {/* Subtitle */}
+        <Animated.Text
+          entering={reduceMotion ? undefined : FadeInDown.duration(500).delay(400)}
+          style={{ ...typography.body, color: colors.textSecondary, textAlign: 'center', maxWidth: 300, marginBottom: SPACING[6] }}
+        >
           {t('welcome.subtitle')}
         </Animated.Text>
 
-        <Animated.View entering={reduceMotion ? undefined : FadeInUp.duration(500).delay(550)} style={{ gap: SPACING.md, width: '100%', marginBottom: SPACING.xxl }}>
-          {signals.map((s, i) => (
-            <View key={i} style={{ flexDirection: 'row', alignItems: 'center', gap: SPACING.md }}>
-              <Ionicons name={s.icon} size={20} color={colors.primary} />
-              <Text style={{ fontSize: FONT_SIZE.sm, color: colors.textSecondary }}>{s.text}</Text>
-            </View>
-          ))}
-        </Animated.View>
-
         {/* Social proof */}
-        <Animated.Text entering={reduceMotion ? undefined : FadeInUp.duration(500).delay(700)} style={{ fontSize: FONT_SIZE.sm, color: colors.textTertiary, textAlign: 'center', marginBottom: SPACING.xl, fontStyle: 'italic' }}>
-          {t('welcome.social_proof')}
-        </Animated.Text>
+        <Animated.View
+          entering={reduceMotion ? undefined : FadeInUp.duration(500).delay(500)}
+          style={{ backgroundColor: colors.surface, borderRadius: RADIUS.lg, paddingVertical: 10, paddingHorizontal: 20, flexDirection: 'row', alignItems: 'center', gap: 8 }}
+        >
+          <Text style={{ color: colors.warning, fontSize: 16 }}>{'\u2605\u2605\u2605\u2605\u2605'}</Text>
+          <Text style={{ ...typography.small, color: colors.textSecondary }}>4.8 \u2022 50K+ users</Text>
+        </Animated.View>
       </View>
 
-      <View style={{ gap: SPACING.md }}>
-        <Button title={t('welcome.cta')} onPress={() => router.push('/onboarding/goal')} />
-        <Button title={t('welcome.login')} variant="outline" onPress={() => router.push('/(auth)/login')} />
-        <Text style={{ fontSize: FONT_SIZE.xs, color: colors.textSecondary, textAlign: 'center', marginTop: SPACING.xs }}>
+      {/* CTAs */}
+      <View style={{ gap: SPACING[3] }}>
+        <Button title={`${t('welcome.cta')} \u2192`} onPress={() => router.push('/onboarding/goal')} gradient />
+        <Button title={t('welcome.login')} variant="ghost" onPress={() => router.push('/(auth)/login')} />
+
+        {/* Legal */}
+        <Text style={{ ...typography.caption, color: colors.textTertiary, textAlign: 'center', marginTop: SPACING[1] }}>
           {t('welcome.pricing')}
         </Text>
-        <View style={{ flexDirection: 'row', justifyContent: 'center', gap: SPACING.sm, marginTop: SPACING.sm }}>
+        <View style={{ flexDirection: 'row', justifyContent: 'center', gap: 8 }}>
           <Pressable onPress={() => Linking.openURL(TERMS_URL)} style={{ minHeight: MIN_TOUCH, justifyContent: 'center', paddingVertical: 12 }} accessibilityRole="link" accessibilityLabel={t('paywall.terms')}>
-            <Text style={{ fontSize: FONT_SIZE.xs, color: colors.textSecondary, textDecorationLine: 'underline' }}>{t('paywall.terms')}</Text>
+            <Text style={{ ...typography.caption, color: colors.primary }}>{t('paywall.terms')}</Text>
           </Pressable>
-          <Text style={{ fontSize: FONT_SIZE.xs, color: colors.border, alignSelf: 'center' }}>|</Text>
+          <Text style={{ ...typography.caption, color: colors.border, alignSelf: 'center' }}>|</Text>
           <Pressable onPress={() => Linking.openURL(PRIVACY_URL)} style={{ minHeight: MIN_TOUCH, justifyContent: 'center', paddingVertical: 12 }} accessibilityRole="link" accessibilityLabel={t('paywall.privacy')}>
-            <Text style={{ fontSize: FONT_SIZE.xs, color: colors.textSecondary, textDecorationLine: 'underline' }}>{t('paywall.privacy')}</Text>
+            <Text style={{ ...typography.caption, color: colors.primary }}>{t('paywall.privacy')}</Text>
           </Pressable>
         </View>
       </View>

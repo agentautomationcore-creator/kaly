@@ -3,16 +3,16 @@ import { View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useColors } from '../../../src/lib/theme';
 import { ErrorBoundary } from '../../../src/components/ErrorBoundary';
-import { StatsScreen } from '../../../src/features/stats/components/StatsScreen';
+import { FastingScreen } from '../../../src/features/fasting/components/FastingScreen';
 
-export default function StatsTab() {
+export default function FastingTab() {
   const colors = useColors();
   const insets = useSafeAreaInsets();
 
   return (
-    <ErrorBoundary featureName="stats">
+    <ErrorBoundary featureName="fasting">
       <View style={{ flex: 1, backgroundColor: colors.bg, paddingTop: insets.top }}>
-        <StatsScreen />
+        <FastingScreen />
       </View>
     </ErrorBoundary>
   );

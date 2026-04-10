@@ -5,10 +5,10 @@ import { useTranslation } from 'react-i18next';
 import { Ionicons } from '@expo/vector-icons';
 import { useQueryClient } from '@tanstack/react-query';
 import { useColors } from '../../../lib/theme';
-import { Card } from '../../../components/Card';
 import { MealRow } from './MealRow';
 import { MealSuggestionsCard } from './MealSuggestionsCard';
-import { FONT_SIZE, MIN_TOUCH, SPACING } from '../../../lib/constants';
+import { RADIUS, MIN_TOUCH, SPACING } from '../../../lib/constants';
+import { typography } from '../../../lib/typography';
 import { formatNumber } from '../../../lib/formatNumber';
 import { supabase } from '../../../lib/supabase';
 import { useAuthStore } from '../../../stores/authStore';
@@ -17,11 +17,11 @@ import { track } from '../../../lib/analytics';
 import type { DiaryEntry } from '../types';
 import type { MealType } from '../../../lib/types';
 
-const MEAL_ICONS: Record<MealType, string> = {
-  breakfast: 'sunny-outline',
-  lunch: 'restaurant-outline',
-  dinner: 'moon-outline',
-  snack: 'fast-food-outline',
+const MEAL_EMOJIS: Record<MealType, string> = {
+  breakfast: '\u2600\uFE0F',
+  lunch: '\uD83C\uDF5D',
+  dinner: '\uD83C\uDF19',
+  snack: '\uD83C\uDF6A',
 };
 
 interface MealSectionProps {
@@ -37,7 +37,11 @@ interface MealSectionProps {
   allergies?: string[];
 }
 
-export const MealSection = React.memo(function MealSection({ mealType, entries, date, yesterdayEntries, remainingCalories, remainingProtein, remainingCarbs, remainingFat, dietType, allergies }: MealSectionProps) {
+export const MealSection = React.memo(function MealSection({
+  mealType, entries, date, yesterdayEntries,
+  remainingCalories, remainingProtein, remainingCarbs, remainingFat,
+  dietType, allergies,
+}: MealSectionProps) {
   const { t } = useTranslation();
   const colors = useColors();
   const router = useRouter();
@@ -82,58 +86,82 @@ export const MealSection = React.memo(function MealSection({ mealType, entries, 
     }
   };
 
+  const isEmpty = entries.length === 0;
+
+  // Empty state — dashed border
+  if (isEmpty && !(yesterdayEntries && yesterdayEntries.length > 0) && !(remainingCalories != null && remainingCalories > 0)) {
+    return (
+      <Pressable
+        onPress={() => router.push({ pathname: '/food-search', params: { mealType } })}
+        accessibilityRole="button"
+        accessibilityLabel={t('diary.add_food')}
+        style={{
+          borderWidth: 2,
+          borderStyle: 'dashed',
+          borderColor: colors.border,
+          borderRadius: RADIUS.lg,
+          padding: SPACING[4],
+          alignItems: 'center',
+          justifyContent: 'center',
+          minHeight: 72,
+          marginHorizontal: SPACING[6],
+          marginBottom: SPACING[3],
+        }}
+      >
+        <Text style={{ ...typography.small, color: colors.textTertiary }}>
+          {t('diary.tap_to_add', { meal: t(`diary.${mealType}`) })}
+        </Text>
+      </Pressable>
+    );
+  }
+
   return (
-    <Card>
-      <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: entries.length > 0 ? SPACING.md : 0 }}>
-        <View style={{ flexDirection: 'row', alignItems: 'center', gap: SPACING.sm }}>
-          <Ionicons name={MEAL_ICONS[mealType] as any} size={18} color={colors.textSecondary} />
-          <Text style={{ fontSize: FONT_SIZE.md, fontWeight: '600', color: colors.text }}>
+    <View
+      style={{
+        backgroundColor: colors.surface,
+        borderWidth: 1,
+        borderColor: colors.border,
+        borderRadius: RADIUS.lg,
+        marginHorizontal: SPACING[6],
+        marginBottom: SPACING[3],
+        overflow: 'hidden',
+      }}
+    >
+      {/* Header */}
+      <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', padding: SPACING[4] }}>
+        <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
+          <Text style={{ fontSize: 20 }}>{MEAL_EMOJIS[mealType]}</Text>
+          <Text style={{ ...typography.bodyMedium, color: colors.textPrimary }}>
             {t(`diary.${mealType}`)}
           </Text>
-          {totalCal > 0 && (
-            <Text style={{ fontSize: FONT_SIZE.xs, color: colors.textSecondary }}>
-              {formatNumber(Math.round(totalCal))} {t('common.kcal')}
-            </Text>
-          )}
         </View>
-
-        <View style={{ flexDirection: 'row', alignItems: 'center', gap: SPACING.xs }}>
-          <Pressable
-            onPress={() => router.push('/barcode')}
-            accessibilityLabel={t('barcode.scan_barcode')}
-            accessibilityRole="button"
-            style={{ minHeight: MIN_TOUCH, minWidth: 44, justifyContent: 'center', alignItems: 'center' }}
-          >
-            <Ionicons name="barcode-outline" size={22} color={colors.textSecondary} />
-          </Pressable>
-          <Pressable
-            onPress={() => router.push({ pathname: '/food-search', params: { mealType } })}
-            accessibilityLabel={t('diary.add_food')}
-            accessibilityRole="button"
-            style={{ minHeight: MIN_TOUCH, minWidth: 44, justifyContent: 'center', alignItems: 'center' }}
-          >
-            <Ionicons name="add-circle" size={28} color={colors.primary} />
-          </Pressable>
-        </View>
+        {totalCal > 0 && (
+          <Text style={{ ...typography.smallMedium, color: colors.textSecondary }}>
+            {formatNumber(Math.round(totalCal))} {t('common.kcal')}
+          </Text>
+        )}
       </View>
 
-      {entries.length > 0 ? (
-        <View style={{ gap: SPACING.xs }}>
-          {entries.map((entry) => (
-            <MealRow key={entry.id} entry={entry} />
-          ))}
-        </View>
-      ) : (
+      {/* Divider */}
+      {entries.length > 0 && <View style={{ height: 1, backgroundColor: colors.border }} />}
+
+      {/* Entries */}
+      {entries.map((entry) => (
+        <MealRow key={entry.id} entry={entry} />
+      ))}
+
+      {/* Empty state with suggestions */}
+      {isEmpty && (
         <>
           {yesterdayEntries && yesterdayEntries.length > 0 && (
             <Pressable
               onPress={handleRepeatYesterday}
-              style={{ flexDirection: 'row', alignItems: 'center', gap: SPACING.sm, paddingVertical: SPACING.sm, minHeight: MIN_TOUCH }}
+              style={{ flexDirection: 'row', alignItems: 'center', gap: 8, padding: SPACING[4], minHeight: MIN_TOUCH }}
               accessibilityRole="button"
               accessibilityLabel={t('diary.repeat_yesterday')}
             >
               <Ionicons name="refresh" size={20} color={colors.primary} />
-              <Text style={{ fontSize: FONT_SIZE.sm, color: colors.primary, flex: 1 }}>
+              <Text style={{ ...typography.small, color: colors.primary, flex: 1 }}>
                 {t('diary.repeat_yesterday')} ({formatNumber(Math.round(yesterdayCal))} {t('common.kcal')})
               </Text>
             </Pressable>
@@ -152,6 +180,21 @@ export const MealSection = React.memo(function MealSection({ mealType, entries, 
           )}
         </>
       )}
-    </Card>
+
+      {/* Footer — Add food */}
+      <View style={{ borderTopWidth: 1, borderTopColor: colors.border }}>
+        <Pressable
+          onPress={() => router.push({ pathname: '/food-search', params: { mealType } })}
+          accessibilityRole="button"
+          accessibilityLabel={t('diary.add_food')}
+          style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 6, padding: SPACING[3], minHeight: MIN_TOUCH }}
+        >
+          <Ionicons name="add" size={20} color={colors.primary} />
+          <Text style={{ ...typography.smallMedium, color: colors.primary }}>
+            {t('diary.add_food')}
+          </Text>
+        </Pressable>
+      </View>
+    </View>
   );
 });

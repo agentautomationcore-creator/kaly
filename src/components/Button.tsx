@@ -1,12 +1,18 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { Pressable, Text, ActivityIndicator, ViewStyle, TextStyle } from 'react-native';
+import Animated, { useSharedValue, useAnimatedStyle, withSpring } from 'react-native-reanimated';
+import { LinearGradient } from 'expo-linear-gradient';
 import { useColors } from '../lib/theme';
-import { MIN_TOUCH, RADIUS, FONT_SIZE, SPACING } from '../lib/constants';
+import { MIN_TOUCH, RADIUS, SHADOW } from '../lib/constants';
+import { typography } from '../lib/typography';
+
+type ButtonVariant = 'primary' | 'secondary' | 'ghost' | 'danger' | 'outline';
 
 interface ButtonProps {
   title: string;
   onPress: () => void;
-  variant?: 'primary' | 'secondary' | 'outline' | 'danger';
+  variant?: ButtonVariant;
+  gradient?: boolean;
   loading?: boolean;
   disabled?: boolean;
   style?: ViewStyle;
@@ -14,10 +20,13 @@ interface ButtonProps {
   accessibilityLabel?: string;
 }
 
+const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
+
 export function Button({
   title,
   onPress,
   variant = 'primary',
+  gradient = false,
   loading = false,
   disabled = false,
   style,
@@ -25,54 +34,96 @@ export function Button({
   accessibilityLabel,
 }: ButtonProps) {
   const colors = useColors();
+  const scale = useSharedValue(1);
+
+  // Map legacy 'outline' → 'ghost'
+  const v = variant === 'outline' ? 'ghost' : variant;
 
   const bgColor =
-    variant === 'primary' ? colors.primary :
-    variant === 'danger' ? colors.danger :
-    variant === 'outline' ? 'transparent' :
-    colors.surface;
+    v === 'primary' ? colors.primary :
+    v === 'secondary' ? colors.primarySubtle :
+    v === 'danger' ? colors.errorSubtle :
+    'transparent';
 
-  const textColor =
-    variant === 'primary' || variant === 'danger' ? colors.card :
-    variant === 'outline' ? colors.primary :
-    colors.text;
+  const txtColor =
+    v === 'primary' ? colors.textInverse :
+    v === 'secondary' ? colors.primary :
+    v === 'danger' ? colors.error :
+    colors.primary; // ghost
 
-  const borderColor = variant === 'outline' ? colors.primary : 'transparent';
+  const height = v === 'ghost' ? 44 : 52;
+
+  const shadowStyle = v === 'primary' && !disabled ? SHADOW.glow : {};
+
+  const animatedStyle = useAnimatedStyle(() => ({
+    transform: [{ scale: scale.value }],
+  }));
+
+  const handlePressIn = useCallback(() => {
+    scale.value = withSpring(0.98, { damping: 15, stiffness: 200 });
+  }, [scale]);
+
+  const handlePressOut = useCallback(() => {
+    scale.value = withSpring(1, { damping: 15, stiffness: 200 });
+  }, [scale]);
+
+  const inner = loading ? (
+    <ActivityIndicator color={txtColor} size="small" />
+  ) : (
+    <Text style={{ ...typography.bodyMedium, color: txtColor, ...textStyle }}>
+      {title}
+    </Text>
+  );
+
+  const containerStyle: ViewStyle = {
+    minHeight: height,
+    borderRadius: RADIUS.full,
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingHorizontal: 24,
+    opacity: disabled ? 0.5 : 1,
+    ...shadowStyle,
+    ...style,
+  };
+
+  if (gradient && v === 'primary' && !disabled) {
+    return (
+      <AnimatedPressable
+        onPress={onPress}
+        onPressIn={handlePressIn}
+        onPressOut={handlePressOut}
+        disabled={disabled || loading}
+        style={animatedStyle}
+        accessibilityRole="button"
+        accessibilityLabel={accessibilityLabel || title}
+      >
+        <LinearGradient
+          colors={[colors.primary, colors.secondary]}
+          start={{ x: 0, y: 0 }}
+          end={{ x: 1, y: 0 }}
+          style={containerStyle}
+        >
+          {inner}
+        </LinearGradient>
+      </AnimatedPressable>
+    );
+  }
 
   return (
-    <Pressable
+    <AnimatedPressable
       onPress={onPress}
+      onPressIn={handlePressIn}
+      onPressOut={handlePressOut}
       disabled={disabled || loading}
       style={{
-        minHeight: MIN_TOUCH + 8,
-        borderRadius: RADIUS.md,
+        ...containerStyle,
         backgroundColor: disabled ? colors.border : bgColor,
-        borderWidth: variant === 'outline' ? 1.5 : 0,
-        borderColor,
-        alignItems: 'center',
-        justifyContent: 'center',
-        paddingHorizontal: SPACING.xl,
-        paddingVertical: 14,
-        opacity: disabled ? 0.5 : 1,
-        ...style,
+        ...animatedStyle,
       }}
       accessibilityRole="button"
       accessibilityLabel={accessibilityLabel || title}
     >
-      {loading ? (
-        <ActivityIndicator color={textColor} size="small" />
-      ) : (
-        <Text
-          style={{
-            fontSize: FONT_SIZE.md,
-            fontWeight: '700',
-            color: textColor,
-            ...textStyle,
-          }}
-        >
-          {title}
-        </Text>
-      )}
-    </Pressable>
+      {inner}
+    </AnimatedPressable>
   );
 }

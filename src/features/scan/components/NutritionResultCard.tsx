@@ -3,15 +3,20 @@ import { View, Text, ScrollView, Pressable, Alert } from 'react-native';
 import { useRouter } from 'expo-router';
 import { useTranslation } from 'react-i18next';
 import { Ionicons } from '@expo/vector-icons';
+import * as Haptics from 'expo-haptics';
 import { backIcon } from '../../../lib/rtl';
 import { useColors } from '../../../lib/theme';
 import { useScanStore } from '../store/scanStore';
 import { Card } from '../../../components/Card';
 import { Button } from '../../../components/Button';
+import { SaveButton } from '../../../components/SaveButton';
+import { Badge } from '../../../components/Badge';
+import { Chip } from '../../../components/Chip';
 import { ProgressBar } from '../../../components/ProgressBar';
 import { IngredientList } from './IngredientList';
 import { PortionSlider } from './PortionSlider';
-import { FONT_SIZE, RADIUS, MIN_TOUCH, SPACING } from '../../../lib/constants';
+import { RADIUS, MIN_TOUCH, SPACING, SHADOW } from '../../../lib/constants';
+import { typography } from '../../../lib/typography';
 import { supabase } from '../../../lib/supabase';
 import { useAuthStore } from '../../../stores/authStore';
 import { useHealthKit } from '../../../hooks/useHealthKit';
@@ -21,12 +26,20 @@ import { track } from '../../../lib/analytics';
 import { formatNumber } from '../../../lib/formatNumber';
 import type { MealType } from '../../../lib/types';
 
+function autoSelectMeal(): MealType {
+  const h = new Date().getHours();
+  if (h < 10) return 'breakfast';
+  if (h < 14) return 'lunch';
+  if (h < 17) return 'snack';
+  return 'dinner';
+}
+
 export function NutritionResultCard() {
   const { t } = useTranslation();
   const colors = useColors();
   const router = useRouter();
   const { result, portionMultiplier, reset, isEdited } = useScanStore();
-  const [mealType, setMealType] = useState<MealType>('lunch');
+  const [mealType, setMealType] = useState<MealType>(autoSelectMeal);
   const user = useAuthStore((s) => s.user);
   const { saveCalories } = useHealthKit();
   const addEntry = useAddEntry();
@@ -40,12 +53,14 @@ export function NutritionResultCard() {
   const carbs = Math.round(result.total.carbs_g * m * 10) / 10;
   const fat = Math.round(result.total.fat_g * m * 10) / 10;
   const fiber = Math.round(result.total.fiber_g * m * 10) / 10;
+  const totalMacros = protein + carbs + fat || 1;
 
   const meals: MealType[] = ['breakfast', 'lunch', 'dinner', 'snack'];
 
   const handleSave = () => {
     if (!user || saving.current) return;
     saving.current = true;
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
 
     addEntry.mutate(
       {
@@ -91,58 +106,65 @@ export function NutritionResultCard() {
   };
 
   return (
-    <ScrollView style={{ flex: 1, backgroundColor: colors.background }} contentContainerStyle={{ padding: SPACING.lg, paddingBottom: 100 }}>
+    <ScrollView style={{ flex: 1, backgroundColor: colors.bg }} contentContainerStyle={{ padding: SPACING[4], paddingBottom: 100 }}>
       {/* Header */}
-      <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: SPACING.lg }}>
-        <Pressable onPress={reset} style={{ padding: SPACING.sm, minHeight: MIN_TOUCH, minWidth: 44, justifyContent: 'center', alignItems: 'center' }} accessibilityRole="button" accessibilityLabel={t('common.close')}>
-          <Ionicons name={backIcon()} size={24} color={colors.text} />
+      <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: SPACING[4] }}>
+        <Pressable onPress={reset} style={{ padding: 8, minHeight: MIN_TOUCH, minWidth: 44, justifyContent: 'center', alignItems: 'center' }} accessibilityRole="button" accessibilityLabel={t('common.close')}>
+          <Ionicons name={backIcon()} size={24} color={colors.textPrimary} />
         </Pressable>
-        <Text style={{ fontSize: FONT_SIZE.lg, fontWeight: '700', color: colors.text }}>{t('scan.result_title')}</Text>
+        <Text style={{ ...typography.h2, color: colors.textPrimary }}>{t('scan.result_title')}</Text>
         <View style={{ width: 40 }} />
       </View>
 
-      {/* Main card */}
-      <Card style={{ marginBottom: SPACING.lg }}>
-        <Text style={{ fontSize: FONT_SIZE.xl, fontWeight: '700', color: colors.text, marginBottom: SPACING.xs }}>
-          {result.dish_name}
-        </Text>
-        <View style={{ flexDirection: 'row', alignItems: 'center', gap: SPACING.sm, marginBottom: SPACING.lg }}>
-          <Text style={{ fontSize: FONT_SIZE.sm, color: colors.textSecondary }}>
-            {formatNumber(Math.round(result.total_portion_g * m))} {t('units.g')}
+      {/* Food info */}
+      <View style={{ flexDirection: 'row', alignItems: 'center', gap: 12, marginBottom: SPACING[4] }}>
+        <View style={{ flex: 1 }}>
+          <Text style={{ ...typography.h2, color: colors.textPrimary, marginBottom: 4 }}>
+            {result.dish_name}
           </Text>
-          <View style={{ flexDirection: 'row', alignItems: 'center', gap: SPACING.xs }}>
-            <Text style={{ fontSize: FONT_SIZE.xs, color: colors.textSecondary }}>{t('scan.confidence')}:</Text>
-            <Text style={{ fontSize: FONT_SIZE.xs, fontWeight: '600', color: result.confidence > 0.8 ? colors.success : colors.warning }}>
-              {Math.round(result.confidence * 100)}%
+          <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
+            <Text style={{ ...typography.caption, color: colors.textSecondary }}>
+              AI detected \u2022 {Math.round(result.confidence * 100)}% match
             </Text>
+            <Badge variant="ai" label="AI \uD83D\uDCF7" />
           </View>
         </View>
+      </View>
 
-        {/* Big calorie number */}
-        <View style={{ alignItems: 'center', marginBottom: SPACING.lg }}>
-          <Text style={{ fontSize: FONT_SIZE.display, fontWeight: '800', color: colors.primary }}>{formatNumber(cal)}</Text>
-          <Text style={{ fontSize: FONT_SIZE.sm, color: colors.textSecondary }}>{t('common.kcal')}</Text>
-        </View>
+      {/* Nutrition hero card */}
+      <Card style={{ marginBottom: SPACING[4], alignItems: 'center', ...SHADOW.md }}>
+        <Text style={{ ...typography.display, color: colors.primary }}>{formatNumber(cal)}</Text>
+        <Text style={{ ...typography.body, color: colors.textSecondary, marginBottom: SPACING[4] }}>{t('common.calories')}</Text>
 
-        {/* Macro bars */}
-        <View style={{ gap: SPACING.sm }}>
-          <ProgressBar label={t('stats.protein')} value={protein} max={protein + carbs + fat} color={colors.proteinColor} showValue />
-          <ProgressBar label={t('stats.carbs')} value={carbs} max={protein + carbs + fat} color={colors.carbsColor} showValue />
-          <ProgressBar label={t('stats.fat')} value={fat} max={protein + carbs + fat} color={colors.fatColor} showValue />
-          {fiber > 0 && <ProgressBar label={t('stats.fiber')} value={fiber} max={30} color={colors.fiberColor} showValue />}
+        {/* 3-column macros */}
+        <View style={{ flexDirection: 'row', justifyContent: 'space-around', width: '100%' }}>
+          {[
+            { label: t('stats.protein'), value: protein, color: colors.protein, pct: Math.round((protein / totalMacros) * 100) },
+            { label: t('stats.carbs'), value: carbs, color: colors.carbs, pct: Math.round((carbs / totalMacros) * 100) },
+            { label: t('stats.fat'), value: fat, color: colors.fat, pct: Math.round((fat / totalMacros) * 100) },
+          ].map((macro) => (
+            <View key={macro.label} style={{ alignItems: 'center', flex: 1 }}>
+              <Text style={{ ...typography.h2, color: macro.color }}>{formatNumber(Math.round(macro.value))}g</Text>
+              <Text style={{ ...typography.caption, color: colors.textSecondary }}>{macro.label}</Text>
+              <View style={{ width: '60%', height: 4, borderRadius: RADIUS.full, backgroundColor: colors.border, marginTop: 6 }}>
+                <View style={{ width: `${Math.min(100, macro.pct)}%`, height: '100%', borderRadius: RADIUS.full, backgroundColor: macro.color }} />
+              </View>
+              <Text style={{ ...typography.caption, color: colors.textTertiary, marginTop: 2 }}>{macro.pct}%</Text>
+            </View>
+          ))}
         </View>
       </Card>
 
       {/* Portion slider */}
-      <Card style={{ marginBottom: SPACING.lg }}>
+      <Card style={{ marginBottom: SPACING[4] }}>
         <PortionSlider />
       </Card>
 
       {/* Ingredients */}
-      <Card style={{ marginBottom: SPACING.lg }}>
+      <Card style={{ marginBottom: SPACING[4] }}>
         {result.items.length === 0 ? (
-          <View style={{ padding: SPACING.lg, alignItems: 'center' }}>
-            <Text style={{ fontSize: FONT_SIZE.sm, color: colors.warning, textAlign: 'center' }}>
+          <View style={{ padding: SPACING[4], alignItems: 'center' }}>
+            <Text style={{ ...typography.small, color: colors.warning, textAlign: 'center' }}>
               {t('scan.no_ingredients')}
             </Text>
           </View>
@@ -153,48 +175,32 @@ export function NutritionResultCard() {
 
       {/* Warnings */}
       {result.warnings.length > 0 && (
-        <Card style={{ marginBottom: SPACING.lg, backgroundColor: colors.warningLight }}>
+        <Card style={{ marginBottom: SPACING[4], backgroundColor: colors.errorSubtle }}>
           {result.warnings.map((w, i) => (
-            <View key={i} style={{ flexDirection: 'row', alignItems: 'center', gap: SPACING.sm, marginBottom: i < result.warnings.length - 1 ? SPACING.sm : 0 }}>
+            <View key={i} style={{ flexDirection: 'row', alignItems: 'center', gap: 8, marginBottom: i < result.warnings.length - 1 ? 8 : 0 }}>
               <Ionicons name="warning" size={16} color={colors.warning} />
-              <Text style={{ fontSize: FONT_SIZE.sm, color: colors.warning, flex: 1 }}>{w}</Text>
+              <Text style={{ ...typography.small, color: colors.warning, flex: 1 }}>{w}</Text>
             </View>
           ))}
         </Card>
       )}
 
-      {/* Meal type selector */}
-      <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: SPACING.sm, marginBottom: SPACING.lg }}>
-        {meals.map((m) => (
-          <Pressable
-            key={m}
-            onPress={() => setMealType(m)}
-            accessibilityLabel={t(`diary.${m}`)}
-            accessibilityRole="button"
-            style={{
-              minWidth: '22%',
-              flexGrow: 1,
-              minHeight: MIN_TOUCH,
-              paddingVertical: 10,
-              borderRadius: RADIUS.md,
-              backgroundColor: mealType === m ? colors.primaryLight : colors.card,
-              borderWidth: 1.5,
-              borderColor: mealType === m ? colors.primary : 'transparent',
-              alignItems: 'center',
-              justifyContent: 'center',
-            }}
-          >
-            <Text style={{ fontSize: FONT_SIZE.xs, fontWeight: '600', color: mealType === m ? colors.primary : colors.textSecondary }}>
-              {t(`diary.${m}`)}
-            </Text>
-          </Pressable>
+      {/* Meal selector — 4 chips */}
+      <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 8, marginBottom: SPACING[4] }}>
+        {meals.map((ml) => (
+          <Chip
+            key={ml}
+            label={t(`diary.${ml}`)}
+            selected={mealType === ml}
+            onToggle={() => setMealType(ml)}
+          />
         ))}
       </View>
 
-      {/* Save button */}
-      <Button
-        title={t('scan.add_to', { meal: t(`diary.${mealType}`) })}
-        onPress={handleSave}
+      {/* Save button with checkmark animation */}
+      <SaveButton
+        title={t('scan.save_to_diary')}
+        onSave={handleSave}
         loading={addEntry.isPending}
       />
 
@@ -228,14 +234,14 @@ export function NutritionResultCard() {
         }}
         accessibilityRole="button"
         accessibilityLabel={t('scan.wrong_result')}
-        style={{ alignItems: 'center', marginTop: SPACING.lg, minHeight: MIN_TOUCH, justifyContent: 'center' }}
+        style={{ alignItems: 'center', marginTop: SPACING[4], minHeight: MIN_TOUCH, justifyContent: 'center' }}
       >
-        <Text style={{ fontSize: FONT_SIZE.sm, color: colors.danger, fontWeight: '500' }}>
+        <Text style={{ ...typography.small, color: colors.error, fontWeight: '500' }}>
           {t('scan.wrong_result')}
         </Text>
       </Pressable>
 
-      <Text style={{ fontSize: FONT_SIZE.xs, color: colors.textSecondary, textAlign: 'center', marginTop: SPACING.lg }}>
+      <Text style={{ ...typography.caption, color: colors.textTertiary, textAlign: 'center', marginTop: SPACING[4] }}>
         {t('scan.disclaimer')}
       </Text>
     </ScrollView>

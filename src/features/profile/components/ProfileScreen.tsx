@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { Ionicons } from '@expo/vector-icons';
 import { forwardIcon } from '../../../lib/rtl';
 import * as Haptics from 'expo-haptics';
+import { LinearGradient } from 'expo-linear-gradient';
 import { useColors } from '../../../lib/theme';
 import { useProfile } from '../hooks/useProfile';
 import { useAuthStore } from '../../../stores/authStore';
@@ -21,7 +22,8 @@ import { ListSkeleton } from '../../../components/LoadingSkeleton';
 import { captureException } from '../../../lib/sentry';
 import { track } from '../../../lib/analytics';
 import { exportReport } from '../../../lib/generateReport';
-import { FONT_SIZE, RADIUS, MIN_TOUCH, SPACING } from '../../../lib/constants';
+import { RADIUS, MIN_TOUCH, SPACING, SHADOW } from '../../../lib/constants';
+import { typography } from '../../../lib/typography';
 
 function ExportReportCard() {
   const { t } = useTranslation();
@@ -44,11 +46,11 @@ function ExportReportCard() {
   };
 
   return (
-    <Card style={{ marginBottom: SPACING.lg }}>
-      <Text accessibilityRole="header" style={{ fontSize: FONT_SIZE.md, fontWeight: '600', color: colors.text, marginBottom: SPACING.sm }}>
-        {t('profile.export_report')}
+    <Card style={{ marginBottom: SPACING[3] }}>
+      <Text accessibilityRole="header" style={{ ...typography.overline, color: colors.textTertiary, marginBottom: SPACING[2] }}>
+        {t('profile.export_report').toUpperCase()}
       </Text>
-      <View style={{ flexDirection: 'row', gap: SPACING.sm, marginBottom: SPACING.md }}>
+      <View style={{ flexDirection: 'row', gap: 8, marginBottom: SPACING[3] }}>
         {[7, 30].map((d) => (
           <Pressable
             key={d}
@@ -58,48 +60,40 @@ function ExportReportCard() {
             style={{
               flex: 1,
               minHeight: MIN_TOUCH,
-              paddingVertical: SPACING.sm,
-              borderRadius: RADIUS.md,
-              backgroundColor: selectedPeriod === d ? colors.primaryLight : colors.surface,
+              paddingVertical: 8,
+              borderRadius: RADIUS.full,
+              backgroundColor: selectedPeriod === d ? colors.primarySubtle : colors.surface,
               borderWidth: 1.5,
               borderColor: selectedPeriod === d ? colors.primary : 'transparent',
               alignItems: 'center',
               justifyContent: 'center',
             }}
           >
-            <Text style={{ fontSize: FONT_SIZE.sm, fontWeight: '600', color: selectedPeriod === d ? colors.primary : colors.textSecondary }}>
+            <Text style={{ ...typography.smallMedium, color: selectedPeriod === d ? colors.primary : colors.textSecondary }}>
               {d} {t('report.days')}
             </Text>
           </Pressable>
         ))}
       </View>
-      <Pressable
-        onPress={handleExport}
-        disabled={isExporting}
-        accessibilityRole="button"
-        accessibilityLabel={t('profile.export_report')}
-        style={{
-          flexDirection: 'row',
-          alignItems: 'center',
-          justifyContent: 'center',
-          gap: SPACING.sm,
-          minHeight: MIN_TOUCH,
-          backgroundColor: colors.primary,
-          borderRadius: RADIUS.md,
-          paddingVertical: SPACING.sm,
-          opacity: isExporting ? 0.6 : 1,
-        }}
-      >
-        {isExporting ? (
-          <ActivityIndicator color={colors.card} size="small" />
-        ) : (
-          <Ionicons name="document-text-outline" size={20} color={colors.card} />
-        )}
-        <Text style={{ fontSize: FONT_SIZE.md, fontWeight: '600', color: colors.card }}>
-          {t('profile.export_report')}
-        </Text>
-      </Pressable>
+      <Button title={t('profile.export_report')} onPress={handleExport} loading={isExporting} />
     </Card>
+  );
+}
+
+function ProfileAvatar({ name, email }: { name?: string; email?: string }) {
+  const colors = useColors();
+
+  const initial = (name || email || '?')[0].toUpperCase();
+
+  return (
+    <View style={{ width: 56, height: 56, borderRadius: 28, overflow: 'hidden' }}>
+      <LinearGradient
+        colors={[colors.primary, colors.secondary]}
+        style={{ width: 56, height: 56, alignItems: 'center', justifyContent: 'center' }}
+      >
+        <Text style={{ ...typography.h1, color: colors.textInverse }}>{initial}</Text>
+      </LinearGradient>
+    </View>
   );
 }
 
@@ -114,81 +108,81 @@ export function ProfileScreen() {
 
   return (
     <ScrollView
-      style={{ flex: 1, backgroundColor: colors.background }}
-      contentContainerStyle={{ padding: SPACING.lg, paddingBottom: 100 }}
+      style={{ flex: 1, backgroundColor: colors.bg }}
+      contentContainerStyle={{ padding: SPACING[4], paddingBottom: 100 }}
     >
-      <View style={{ flexDirection: 'row', alignItems: 'center', gap: SPACING.sm, marginBottom: 20 }}>
-        <Text accessibilityRole="header" style={{ fontSize: FONT_SIZE.xxl, fontWeight: '800', color: colors.text }}>
-          {t('profile.title')}
-        </Text>
+      {/* Profile card */}
+      <View style={{ flexDirection: 'row', alignItems: 'center', gap: 14, marginBottom: SPACING[6] }}>
+        <ProfileAvatar name={profile?.display_name} email={user?.email} />
+        <View style={{ flex: 1 }}>
+          <Text style={{ ...typography.h2, color: colors.textPrimary }}>
+            {profile?.display_name || t('profile.title')}
+          </Text>
+          {user?.email && (
+            <Text style={{ ...typography.small, color: colors.textSecondary }}>{user.email}</Text>
+          )}
+          <Pressable onPress={() => router.push('/paywall')} accessibilityRole="button" style={{ flexDirection: 'row', alignItems: 'center', gap: 4, marginTop: 2 }}>
+            <Text style={{ ...typography.caption, color: colors.textSecondary }}>
+              {profile?.plan === 'pro' ? 'Pro plan' : `${t('profile.free_plan')} \u2022 `}
+            </Text>
+            {profile?.plan !== 'pro' && (
+              <Text style={{ ...typography.caption, color: colors.primary }}>{t('profile.upgrade')} \u2192</Text>
+            )}
+          </Pressable>
+        </View>
         {profile?.plan === 'pro' && (
-          <View style={{ backgroundColor: colors.primary, paddingHorizontal: SPACING.sm, paddingVertical: 2, borderRadius: RADIUS.sm }}>
-            <Text style={{ color: colors.textOnPrimary, fontSize: FONT_SIZE.xxs, fontWeight: '700' }}>PRO</Text>
+          <View style={{ backgroundColor: colors.primary, paddingHorizontal: 8, paddingVertical: 2, borderRadius: RADIUS.sm }}>
+            <Text style={{ ...typography.caption, color: colors.textInverse, fontWeight: '700' }}>PRO</Text>
           </View>
         )}
       </View>
 
       {/* Anonymous banner */}
       {isAnonymous && (
-        <Card style={{ marginBottom: 16, backgroundColor: colors.primaryLight }}>
-          <Text style={{ fontSize: FONT_SIZE.sm, color: colors.primary, fontWeight: '500', marginBottom: SPACING.md }}>
+        <Card style={{ marginBottom: SPACING[3], backgroundColor: colors.primarySubtle }}>
+          <Text style={{ ...typography.small, color: colors.primary, marginBottom: SPACING[3] }}>
             {t('profile.save_data')}
           </Text>
-          <Button
-            title={t('profile.create_account')}
-            onPress={() => router.push('/(auth)/register')}
-            variant="primary"
-          />
+          <Button title={t('profile.create_account')} onPress={() => router.push('/(auth)/register')} />
         </Card>
       )}
 
       {/* Daily target */}
       {profile && (
-        <Card style={{ marginBottom: 16, alignItems: 'center' }}>
-          <Text style={{ fontSize: FONT_SIZE.md, color: colors.textSecondary }}>
+        <Card style={{ marginBottom: SPACING[3], alignItems: 'center' }}>
+          <Text style={{ ...typography.body, color: colors.textSecondary }}>
             {t('profile.daily_target', { calories: profile.daily_calories })}
           </Text>
         </Card>
       )}
 
-      {/* Subscription */}
-      <Pressable onPress={() => router.push('/paywall')} accessibilityRole="button" accessibilityLabel={t('profile.subscription')} style={{ minHeight: MIN_TOUCH }}>
-        <Card style={{ marginBottom: 16, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-          <View>
-            <Text style={{ fontSize: FONT_SIZE.md, fontWeight: '600', color: colors.text }}>
-              {t('profile.subscription')}
-            </Text>
-            <Text style={{ fontSize: FONT_SIZE.sm, color: colors.textSecondary }}>
-              {profile?.plan === 'pro' ? t('profile.pro_plan') : t('profile.free_plan')}
-            </Text>
-          </View>
-          <Ionicons name={forwardIcon()} size={20} color={colors.textSecondary} />
-        </Card>
-      </Pressable>
-
-      {/* Goal */}
+      {/* Settings groups */}
+      <Text style={{ ...typography.overline, color: colors.textTertiary, marginBottom: 8, marginTop: SPACING[4] }}>
+        {t('profile.goals_section')}
+      </Text>
       <GoalEditor profile={profile ?? null} />
-
-      {/* Body stats */}
       <BodyEditor profile={profile ?? null} />
 
-      {/* Diet */}
+      <Text style={{ ...typography.overline, color: colors.textTertiary, marginBottom: 8, marginTop: SPACING[4] }}>
+        {t('profile.preferences_section')}
+      </Text>
       <DietEditor profile={profile ?? null} />
-
-      {/* Weight log */}
       <WeightLog />
-
-      {/* PDF Export */}
       <ExportReportCard />
 
-      {/* Settings */}
+      <Text style={{ ...typography.overline, color: colors.textTertiary, marginBottom: 8, marginTop: SPACING[4] }}>
+        {t('profile.settings_section')}
+      </Text>
       <SettingsSection profile={profile ?? null} />
 
       {/* Data export (GDPR Art. 20) */}
+      <Text style={{ ...typography.overline, color: colors.textTertiary, marginBottom: 8, marginTop: SPACING[4] }}>
+        {t('profile.privacy_section')}
+      </Text>
       {!isAnonymous && (
         <Button
           title={t('profile.export_data')}
-          variant="outline"
+          variant="ghost"
           onPress={async () => {
             try {
               const { data: { session } } = await supabase.auth.getSession();
@@ -204,9 +198,7 @@ export function ProfileScreen() {
                     signal: controller.signal,
                   }
                 );
-
                 let res = await makeReq(session.access_token);
-
                 if (res.status === 401) {
                   await supabase.auth.refreshSession();
                   const { data: { session: refreshed } } = await supabase.auth.getSession();
@@ -214,7 +206,6 @@ export function ProfileScreen() {
                     res = await makeReq(refreshed.access_token);
                   }
                 }
-
                 if (!res.ok) throw new Error('Export failed');
                 json = await res.text();
               } finally {
@@ -227,7 +218,7 @@ export function ProfileScreen() {
               captureException(e, { feature: 'data_export' });
             }
           }}
-          style={{ marginTop: SPACING.md }}
+          style={{ marginBottom: 8 }}
         />
       )}
 
@@ -235,22 +226,22 @@ export function ProfileScreen() {
       {!isAnonymous && (
         <Button
           title={t('profile.sign_out')}
-          variant="outline"
+          variant="ghost"
           onPress={() => {
             Alert.alert(t('profile.sign_out'), '', [
               { text: t('common.cancel'), style: 'cancel' },
               { text: t('profile.sign_out'), onPress: signOut },
             ]);
           }}
-          style={{ marginTop: SPACING.lg }}
+          style={{ marginBottom: 8 }}
         />
       )}
 
       {/* Delete account */}
       <DeleteAccountButton />
 
-      {/* Disclaimer */}
-      <Text style={{ fontSize: FONT_SIZE.xs, color: colors.textSecondary, textAlign: 'center', marginTop: SPACING.xl, lineHeight: 16 }}>
+      {/* Version */}
+      <Text style={{ ...typography.caption, color: colors.textTertiary, textAlign: 'center', marginTop: SPACING[6] }}>
         {t('profile.disclaimer')}
       </Text>
     </ScrollView>

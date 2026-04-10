@@ -59,7 +59,8 @@
     "diary": "Günlük",
     "scan": "Tara",
     "stats": "İstatistikler",
-    "profile": "Profil"
+    "profile": "Profil",
+    "fasting": "Oruç"
   },
   "scan": {
     "title": "Yemek tara",
@@ -194,7 +195,12 @@
     "about": "Hakkında",
     "version": "Sürüm {{version}}",
     "disclaimer": "Kaly, besin içeriğini tahmin etmek için yapay zekâ kullanır. Sonuçlar yaklaşıktır. Tıbbi tavsiye değildir.",
-    "export_report": "PDF rapor dışa aktar"
+    "export_report": "PDF rapor dışa aktar",
+    "upgrade": "Yükselt",
+    "goals_section": "Hedefler",
+    "preferences_section": "Tercihler",
+    "settings_section": "Ayarlar",
+    "privacy_section": "Gizlilik"
   },
   "paywall": {
     "title": "Kaly Pro'nun kilidini aç",
@@ -395,5 +401,24 @@
   },
   "export": {
     "sharing_unavailable": "Paylaşım bu cihazda kullanılamıyor"
+  },
+  "suggestions": {
+    "title": "Sizin için yemek fikirleri",
+    "subtitle": "Hedeflerinize ve kalan makrolarınıza göre",
+    "remaining": "Bugün için kalan",
+    "add": "Günlüğe ekle",
+    "unlock": "Daha fazla öneri aç",
+    "pro_desc": "Hedeflerinize özel sınırsız AI yemek fikirleri alın",
+    "refresh": "Önerileri yenile"
+  },
+  "hints": {
+    "fab_scan": "Taramak için dokun, daha fazla seçenek için basılı tut",
+    "open_camera": "Taramak için kamerayı açar",
+    "open_barcode": "Barkod tarayıcıyı açar",
+    "open_search": "Yemek aramasını açar",
+    "open_manual": "Manuel girişi açar",
+    "swipe_delete": "Silmek için basılı tut",
+    "switch_period": "Bu döneme geçer",
+    "save_food": "Bu yemeği günlüğünüze kaydeder"
   }
 }

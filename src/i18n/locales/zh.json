@@ -59,7 +59,8 @@
     "diary": "日记",
     "scan": "扫描",
     "stats": "统计",
-    "profile": "我的"
+    "profile": "我的",
+    "fasting": "禁食"
   },
   "scan": {
     "title": "扫描食物",
@@ -194,7 +195,12 @@
     "about": "关于",
     "version": "版本 {{version}}",
     "disclaimer": "Kaly 使用 AI 估算营养成分，结果为近似值，非医疗建议。",
-    "export_report": "导出PDF报告"
+    "export_report": "导出PDF报告",
+    "upgrade": "升级",
+    "goals_section": "目标",
+    "preferences_section": "偏好",
+    "settings_section": "设置",
+    "privacy_section": "隐私"
   },
   "paywall": {
     "title": "解锁 Kaly Pro",
@@ -395,5 +401,24 @@
   },
   "export": {
     "sharing_unavailable": "此设备不支持共享"
+  },
+  "suggestions": {
+    "title": "为你推荐的膳食",
+    "subtitle": "根据您的目标和剩余宏量营养素",
+    "remaining": "今日剩余",
+    "add": "添加到日记",
+    "unlock": "解锁更多建议",
+    "pro_desc": "获取无限AI膳食建议",
+    "refresh": "刷新建议"
+  },
+  "hints": {
+    "fab_scan": "点击扫描食物，长按查看更多选项",
+    "open_camera": "打开相机扫描食物",
+    "open_barcode": "打开条码扫描器",
+    "open_search": "打开食物搜索",
+    "open_manual": "打开手动输入",
+    "swipe_delete": "长按删除",
+    "switch_period": "切换到此时间段",
+    "save_food": "将此食物保存到日记"
   }
 }

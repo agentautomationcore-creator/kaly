@@ -4,18 +4,27 @@ import { useRouter, useLocalSearchParams } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useTranslation } from 'react-i18next';
 import { Ionicons } from '@expo/vector-icons';
-import { backIcon } from '../src/lib/rtl';
 import { useQueryClient } from '@tanstack/react-query';
 import { useColors } from '../src/lib/theme';
 import { Button } from '../src/components/Button';
+import { Chip } from '../src/components/Chip';
 import { Card } from '../src/components/Card';
-import { FONT_SIZE, RADIUS, MIN_TOUCH, SPACING } from '../src/lib/constants';
+import { RADIUS, MIN_TOUCH, SPACING } from '../src/lib/constants';
+import { typography } from '../src/lib/typography';
 import { supabase } from '../src/lib/supabase';
 import { useAuthStore } from '../src/stores/authStore';
 import { captureException } from '../src/lib/sentry';
 import { track } from '../src/lib/analytics';
 import i18n from '../src/i18n';
 import type { MealType } from '../src/lib/types';
+
+function autoSelectMeal(): MealType {
+  const h = new Date().getHours();
+  if (h < 10) return 'breakfast';
+  if (h < 14) return 'lunch';
+  if (h < 17) return 'snack';
+  return 'dinner';
+}
 
 export default function ManualEntryScreen() {
   const { t } = useTranslation();
@@ -24,18 +33,9 @@ export default function ManualEntryScreen() {
   const qc = useQueryClient();
   const user = useAuthStore((s) => s.user);
   const params = useLocalSearchParams<{
-    mealType?: string;
-    name?: string;
-    brand?: string;
-    calories?: string;
-    protein?: string;
-    carbs?: string;
-    fat?: string;
-    fiber?: string;
-    serving_size?: string;
-    barcode?: string;
-    entry_method?: string;
-    community_product_id?: string;
+    mealType?: string; name?: string; brand?: string; calories?: string;
+    protein?: string; carbs?: string; fat?: string; fiber?: string;
+    serving_size?: string; barcode?: string; entry_method?: string; community_product_id?: string;
   }>();
 
   const [name, setName] = useState(params.name || '');
@@ -43,81 +43,49 @@ export default function ManualEntryScreen() {
   const [protein, setProtein] = useState(params.protein || '');
   const [carbs, setCarbs] = useState(params.carbs || '');
   const [fat, setFat] = useState(params.fat || '');
-  const [fiber, setFiber] = useState(params.fiber || '');
-  const [servingSize, setServingSize] = useState(params.serving_size || t('manual_entry.default_serving'));
   const [saving, setSaving] = useState(false);
 
   const filterNumeric = (text: string) => {
-    // Allow both . and , as decimal separators (EU locales use comma)
-    let cleaned = text.replace(/[^0-9.,]/g, '');
-    // Normalize comma to dot for storage
-    cleaned = cleaned.replace(',', '.');
-    // Allow only one decimal separator
+    let cleaned = text.replace(/[^0-9.,]/g, '').replace(',', '.');
     const parts = cleaned.split('.');
-    if (parts.length > 2) {
-      cleaned = parts[0] + '.' + parts.slice(1).join('');
-    }
+    if (parts.length > 2) cleaned = parts[0] + '.' + parts.slice(1).join('');
     return cleaned;
   };
 
-  const mealType = (params.mealType || 'snack') as MealType;
-  const entryMethod = (params.entry_method || 'manual') as 'search' | 'manual';
   const meals: MealType[] = ['breakfast', 'lunch', 'dinner', 'snack'];
-  const [selectedMeal, setSelectedMeal] = useState<MealType>(mealType);
+  const [selectedMeal, setSelectedMeal] = useState<MealType>((params.mealType as MealType) || autoSelectMeal());
 
   const cal = parseInt(calories) || 0;
-  const hasWarning = entryMethod === 'search' && cal === 0;
+  const canSave = name.trim().length >= 2;
 
   const handleSave = async () => {
-    if (name.trim().length < 2) {
-      Alert.alert(t('common.error'), t('manual_entry.name_too_short'));
-      return;
-    }
+    if (!canSave) { Alert.alert(t('common.error'), t('manual_entry.name_too_short')); return; }
     if (!user) return;
-
     setSaving(true);
     try {
       const today = new Date().toISOString().split('T')[0];
       await supabase.from('diary_entries').insert({
-        user_id: user.id,
-        logged_at: today,
-        meal_type: selectedMeal,
-        food_name: name.trim(),
-        food_name_en: name.trim(),
-        food_items: [],
-        quantity_g: parseInt(servingSize) || null,
-        total_calories: Math.max(0, cal),
+        user_id: user.id, logged_at: today, meal_type: selectedMeal,
+        food_name: name.trim(), food_name_en: name.trim(), food_items: [],
+        quantity_g: null, total_calories: Math.max(0, cal),
         total_protein: Math.max(0, parseFloat(protein) || 0),
         total_carbs: Math.max(0, parseFloat(carbs) || 0),
         total_fat: Math.max(0, parseFloat(fat) || 0),
-        total_fiber: Math.max(0, parseFloat(fiber) || 0),
-        entry_method: entryMethod,
-        edited: false,
+        total_fiber: 0, entry_method: params.entry_method || 'manual', edited: false,
       });
-
-      // Best-effort: community product tracking (non-blocking)
       try {
         if (params.community_product_id) {
           await supabase.rpc('increment_product_use', { p_product_id: params.community_product_id });
-        } else if (entryMethod === 'manual') {
+        } else if ((params.entry_method || 'manual') === 'manual') {
           await supabase.from('user_products').insert({
-            created_by: user.id,
-            name: name.trim(),
-            brand: params.brand || null,
-            barcode: params.barcode || null,
-            calories_per_100g: cal,
-            protein_per_100g: parseFloat(protein) || 0,
-            carbs_per_100g: parseFloat(carbs) || 0,
-            fat_per_100g: parseFloat(fat) || 0,
-            serving_size: servingSize || '100g',
-            language: i18n.language,
+            created_by: user.id, name: name.trim(), brand: params.brand || null,
+            barcode: params.barcode || null, calories_per_100g: cal,
+            protein_per_100g: parseFloat(protein) || 0, carbs_per_100g: parseFloat(carbs) || 0,
+            fat_per_100g: parseFloat(fat) || 0, serving_size: '100g', language: i18n.language,
           });
         }
-      } catch (e) {
-        captureException(e, { feature: 'manual_entry_product_save' });
-      }
-
-      track('meal_logged', { meal_type: selectedMeal, entry_method: entryMethod });
+      } catch (e) { captureException(e, { feature: 'manual_entry_product_save' }); }
+      track('meal_logged', { meal_type: selectedMeal, entry_method: params.entry_method || 'manual' });
       qc.invalidateQueries({ queryKey: ['diary'] });
       router.dismiss();
     } catch (e) {
@@ -129,157 +97,90 @@ export default function ManualEntryScreen() {
   };
 
   const inputStyle = {
-    minHeight: MIN_TOUCH,
-    fontSize: FONT_SIZE.md,
-    color: colors.text,
+    minHeight: 52,
+    fontSize: 16,
+    color: colors.textPrimary,
     backgroundColor: colors.surface,
-    borderRadius: RADIUS.md,
-    paddingHorizontal: SPACING.lg,
+    borderRadius: RADIUS.sm,
+    borderWidth: 1,
+    borderColor: colors.border,
+    paddingHorizontal: SPACING[4],
   };
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: colors.background }}>
+    <SafeAreaView style={{ flex: 1, backgroundColor: colors.bg }}>
       <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
-        {/* Header */}
-        <View style={{ flexDirection: 'row', alignItems: 'center', paddingHorizontal: SPACING.lg, paddingVertical: SPACING.sm }}>
-          <Pressable
-            onPress={() => router.back()}
-            style={{ minHeight: MIN_TOUCH, minWidth: MIN_TOUCH, justifyContent: 'center', alignItems: 'center' }}
-            accessibilityRole="button"
-            accessibilityLabel={t('common.close')}
-          >
-            <Ionicons name={backIcon()} size={24} color={colors.text} />
+        {/* Header: Cancel (left) + Save (right) */}
+        <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingHorizontal: SPACING[4], paddingVertical: SPACING[2] }}>
+          <Pressable onPress={() => router.back()} style={{ minHeight: MIN_TOUCH, justifyContent: 'center' }} accessibilityRole="button" accessibilityLabel={t('common.cancel')}>
+            <Ionicons name="close" size={24} color={colors.textPrimary} />
           </Pressable>
-          <Text style={{ fontSize: FONT_SIZE.xl, fontWeight: '700', color: colors.text, marginStart: SPACING.sm }}>
-            {t('manual_entry.title')}
-          </Text>
+          <Text style={{ ...typography.h3, color: colors.textPrimary }}>{t('manual_entry.title')}</Text>
+          <Pressable onPress={handleSave} disabled={!canSave || saving} style={{ minHeight: MIN_TOUCH, justifyContent: 'center', opacity: canSave ? 1 : 0.4 }} accessibilityRole="button" accessibilityLabel={t('common.save')}>
+            <Text style={{ ...typography.bodyMedium, color: colors.primary }}>{t('common.save')} \u2713</Text>
+          </Pressable>
         </View>
 
-        <ScrollView contentContainerStyle={{ padding: SPACING.lg, gap: SPACING.lg }} keyboardShouldPersistTaps="handled">
-          {/* Meal type selector */}
-          <View style={{ flexDirection: 'row', gap: SPACING.sm }}>
+        <ScrollView contentContainerStyle={{ padding: SPACING[4], gap: SPACING[4] }} keyboardShouldPersistTaps="handled">
+          {/* Meal selector — 4 chips */}
+          <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: SPACING[2] }}>
             {meals.map((m) => (
-              <Pressable
-                key={m}
-                onPress={() => setSelectedMeal(m)}
-                accessibilityLabel={t(`diary.${m}`)}
-                accessibilityRole="button"
-                style={{
-                  flex: 1,
-                  minHeight: MIN_TOUCH,
-                  paddingVertical: SPACING.sm,
-                  borderRadius: RADIUS.md,
-                  backgroundColor: selectedMeal === m ? colors.primaryLight : colors.card,
-                  borderWidth: 1.5,
-                  borderColor: selectedMeal === m ? colors.primary : 'transparent',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                }}
-              >
-                <Text style={{ fontSize: FONT_SIZE.xs, fontWeight: '600', color: selectedMeal === m ? colors.primary : colors.textSecondary }}>
-                  {t(`diary.${m}`)}
-                </Text>
-              </Pressable>
+              <Chip key={m} label={t(`diary.${m}`)} selected={selectedMeal === m} onToggle={() => setSelectedMeal(m)} />
             ))}
           </View>
 
-          {/* Name */}
-          <Card>
-            <Text style={{ fontSize: FONT_SIZE.sm, color: colors.textSecondary, fontWeight: '500', marginBottom: SPACING.xs }}>
+          {/* Food name */}
+          <View>
+            <Text style={{ ...typography.smallMedium, color: colors.textSecondary, marginBottom: SPACING[1] }}>
               {t('manual_entry.food_name')} *
             </Text>
-            <TextInput
-              value={name}
-              onChangeText={setName}
-              placeholder={t('manual_entry.food_name_placeholder')}
-              placeholderTextColor={colors.textSecondary}
-              accessibilityLabel={t('manual_entry.food_name')}
-              style={inputStyle}
-            />
-            {params.brand ? (
-              <Text style={{ fontSize: FONT_SIZE.xs, color: colors.textSecondary, marginTop: SPACING.xs }}>
-                {params.brand}
-              </Text>
-            ) : null}
-          </Card>
-
-          {/* Nutrition warning for empty OpenFoodFacts data */}
-          {hasWarning && (
-            <View style={{ flexDirection: 'row', gap: SPACING.sm, padding: SPACING.md, backgroundColor: colors.warningLight, borderRadius: RADIUS.md }}>
-              <Ionicons name="warning-outline" size={20} color={colors.warning} />
-              <Text style={{ flex: 1, fontSize: FONT_SIZE.sm, color: colors.warning }}>
-                {t('manual_entry.missing_nutrition')}
-              </Text>
-            </View>
-          )}
+            <TextInput value={name} onChangeText={setName} placeholder={t('manual_entry.food_name_placeholder')} placeholderTextColor={colors.textTertiary} accessibilityLabel={t('manual_entry.food_name')} style={inputStyle} />
+          </View>
 
           {/* Calories */}
-          <Card>
-            <Text style={{ fontSize: FONT_SIZE.sm, color: colors.textSecondary, fontWeight: '500', marginBottom: SPACING.xs }}>
-              {t('common.kcal')}
+          <View>
+            <Text style={{ ...typography.smallMedium, color: colors.textSecondary, marginBottom: SPACING[1] }}>
+              {t('common.kcal')} *
             </Text>
-            <TextInput
-              value={calories}
-              onChangeText={(v) => setCalories(filterNumeric(v))}
-              placeholder="0"
-              placeholderTextColor={colors.textSecondary}
-              keyboardType="numeric"
-              accessibilityLabel={t('common.kcal')}
-              style={inputStyle}
-            />
-          </Card>
+            <TextInput value={calories} onChangeText={(v) => setCalories(filterNumeric(v))} placeholder="0" placeholderTextColor={colors.textTertiary} keyboardType="numeric" accessibilityLabel={t('common.kcal')} style={inputStyle} />
+          </View>
 
-          {/* Macros */}
-          <Card>
-            <Text style={{ fontSize: FONT_SIZE.sm, color: colors.textSecondary, fontWeight: '500', marginBottom: SPACING.sm }}>
-              {t('manual_entry.macros')}
+          {/* Macros — 3-column */}
+          <View>
+            <Text style={{ ...typography.smallMedium, color: colors.textSecondary, marginBottom: SPACING[2] }}>
+              {t('manual_entry.macros')} ({t('manual_entry.optional')})
             </Text>
-            <View style={{ gap: SPACING.sm }}>
+            <View style={{ flexDirection: 'row', gap: SPACING[2] }}>
               {[
-                { label: t('stats.protein'), value: protein, setter: setProtein },
-                { label: t('stats.carbs'), value: carbs, setter: setCarbs },
-                { label: t('stats.fat'), value: fat, setter: setFat },
-                { label: t('stats.fiber'), value: fiber, setter: setFiber },
-              ].map(({ label, value, setter }) => (
-                <View key={label} style={{ flexDirection: 'row', alignItems: 'center', gap: SPACING.md }}>
-                  <Text style={{ width: 80, fontSize: FONT_SIZE.sm, color: colors.text }}>{label}</Text>
+                { label: 'P', value: protein, setter: setProtein, color: colors.protein },
+                { label: 'C', value: carbs, setter: setCarbs, color: colors.carbs },
+                { label: 'F', value: fat, setter: setFat, color: colors.fat },
+              ].map(({ label, value, setter, color }) => (
+                <View key={label} style={{ flex: 1 }}>
+                  <Text style={{ ...typography.caption, color, marginBottom: 2 }}>{label} (g)</Text>
                   <TextInput
                     value={value}
                     onChangeText={(v) => setter(filterNumeric(v))}
                     placeholder="0"
-                    placeholderTextColor={colors.textSecondary}
+                    placeholderTextColor={colors.textTertiary}
                     keyboardType="numeric"
-                    accessibilityLabel={`${label} (g)`}
-                    style={{ ...inputStyle, flex: 1 }}
+                    style={{ ...inputStyle, textAlign: 'center' }}
                   />
-                  <Text style={{ fontSize: FONT_SIZE.sm, color: colors.textSecondary }}>g</Text>
                 </View>
               ))}
             </View>
-          </Card>
+          </View>
+        </ScrollView>
 
-          {/* Serving size */}
-          <Card>
-            <Text style={{ fontSize: FONT_SIZE.sm, color: colors.textSecondary, fontWeight: '500', marginBottom: SPACING.xs }}>
-              {t('manual_entry.serving_size')}
-            </Text>
-            <TextInput
-              value={servingSize}
-              onChangeText={setServingSize}
-              placeholder="100g"
-              placeholderTextColor={colors.textSecondary}
-              accessibilityLabel={t('manual_entry.serving_size')}
-              style={inputStyle}
-            />
-          </Card>
-
-          {/* Save button */}
+        {/* Save button — full width at bottom */}
+        <View style={{ padding: SPACING[4] }}>
           <Button
-            title={t('scan.add_to', { meal: t(`diary.${selectedMeal}`) })}
+            title={`${t('scan.add_to', { meal: t(`diary.${selectedMeal}`) })}`}
             onPress={handleSave}
             loading={saving}
+            disabled={!canSave}
           />
-        </ScrollView>
+        </View>
       </KeyboardAvoidingView>
     </SafeAreaView>
   );

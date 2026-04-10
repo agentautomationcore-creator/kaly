@@ -1,11 +1,24 @@
 import React, { useEffect } from 'react';
-import { AppState, Platform } from 'react-native';
+import { ActivityIndicator, AppState, I18nManager, Platform, View } from 'react-native';
 import { Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import { QueryClientProvider } from '@tanstack/react-query';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import Purchases from 'react-native-purchases';
 import { requestTrackingPermissionsAsync } from 'expo-tracking-transparency';
+import {
+  useFonts,
+  PlusJakartaSans_400Regular,
+  PlusJakartaSans_500Medium,
+  PlusJakartaSans_600SemiBold,
+  PlusJakartaSans_700Bold,
+} from '@expo-google-fonts/plus-jakarta-sans';
+import {
+  IBMPlexSansArabic_400Regular,
+  IBMPlexSansArabic_500Medium,
+  IBMPlexSansArabic_600SemiBold,
+  IBMPlexSansArabic_700Bold,
+} from '@expo-google-fonts/ibm-plex-sans-arabic';
 import { queryClient } from '../src/lib/queryClient';
 import { useColors, useThemeMode } from '../src/lib/theme';
 import { ErrorBoundary } from '../src/components/ErrorBoundary';
@@ -17,6 +30,16 @@ import { initSentryIfConsented } from '../src/lib/sentry';
 import '../src/i18n';
 
 export default function RootLayout() {
+  const [fontsLoaded] = useFonts({
+    PlusJakartaSans_400Regular,
+    PlusJakartaSans_500Medium,
+    PlusJakartaSans_600SemiBold,
+    PlusJakartaSans_700Bold,
+    IBMPlexSansArabic_400Regular,
+    IBMPlexSansArabic_500Medium,
+    IBMPlexSansArabic_600SemiBold,
+    IBMPlexSansArabic_700Bold,
+  });
   const colors = useColors();
   const themeMode = useThemeMode();
   const initAuth = useAuthStore((s) => s.init);
@@ -76,6 +99,14 @@ export default function RootLayout() {
     };
   }, []);
 
+  if (!fontsLoaded) {
+    return (
+      <View style={{ flex: 1, backgroundColor: colors.background, alignItems: 'center', justifyContent: 'center' }}>
+        <ActivityIndicator color={colors.primary} />
+      </View>
+    );
+  }
+
   return (
     <ErrorBoundary featureName="root">
       <GestureHandlerRootView style={{ flex: 1, backgroundColor: colors.background }}>
@@ -86,7 +117,7 @@ export default function RootLayout() {
             screenOptions={{
               headerShown: false,
               contentStyle: { backgroundColor: colors.background },
-              animation: 'slide_from_right',
+              animation: I18nManager.isRTL ? 'slide_from_left' : 'slide_from_right',
             }}
           >
             <Stack.Screen name="index" />
@@ -97,6 +128,7 @@ export default function RootLayout() {
             <Stack.Screen name="barcode" options={{ presentation: 'modal', animation: 'slide_from_bottom' }} />
             <Stack.Screen name="food-search" options={{ presentation: 'modal', animation: 'slide_from_bottom' }} />
             <Stack.Screen name="manual-entry" options={{ presentation: 'modal', animation: 'slide_from_bottom' }} />
+            <Stack.Screen name="meal-suggestions" options={{ presentation: 'modal', animation: 'slide_from_bottom' }} />
           </Stack>
         </QueryClientProvider>
       </GestureHandlerRootView>

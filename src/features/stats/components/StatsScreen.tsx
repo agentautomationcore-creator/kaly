@@ -13,9 +13,11 @@ import { CalorieRing } from './CalorieRing';
 import { MacroBars } from './MacroBars';
 import { WeeklyBarChart } from './WeeklyBarChart';
 import { StreakCounter } from './StreakCounter';
+import { SegmentedControl } from '../../../components/SegmentedControl';
 import { Card } from '../../../components/Card';
 import { ListSkeleton } from '../../../components/LoadingSkeleton';
-import { FONT_SIZE, SPACING } from '../../../lib/constants';
+import { SPACING } from '../../../lib/constants';
+import { typography } from '../../../lib/typography';
 import { formatNumber } from '../../../lib/formatNumber';
 
 export function StatsScreen() {
@@ -26,11 +28,11 @@ export function StatsScreen() {
   const today = new Date().toISOString().split('T')[0];
   const { data: todayEntries } = useDiary(today);
   const { data: weekStats, isLoading } = useWeekStats();
+  const [periodIdx, setPeriodIdx] = useState(0);
 
   const { isAvailable: hkAvailable, healthKitEnabled: hkEnabled, getTodaySteps, getTodayActiveCalories } = useHealthKit();
   const [steps, setSteps] = useState(0);
   const [activeCalories, setActiveCalories] = useState(0);
-  // Refresh HealthKit data when screen gains focus (e.g. returning from other tabs)
   useFocusEffect(
     useCallback(() => {
       if (hkAvailable && hkEnabled) {
@@ -54,58 +56,69 @@ export function StatsScreen() {
 
   return (
     <ScrollView
-      style={{ flex: 1, backgroundColor: colors.background }}
-      contentContainerStyle={{ padding: SPACING.lg, paddingBottom: 100 }}
+      style={{ flex: 1, backgroundColor: colors.bg }}
+      contentContainerStyle={{ padding: SPACING[4], paddingBottom: 100 }}
     >
-      {/* Apple Health — steps & active calories */}
+      {/* Title */}
+      <Text style={{ ...typography.title, color: colors.textPrimary, marginBottom: SPACING[4] }}>
+        {t('stats.title')}
+      </Text>
+
+      {/* Period selector */}
+      <View style={{ marginBottom: SPACING[6] }}>
+        <SegmentedControl
+          items={[t('stats.week'), t('stats.month'), t('stats.three_months')]}
+          activeIndex={periodIdx}
+          onChange={setPeriodIdx}
+        />
+      </View>
+
+      {/* Streak */}
+      {showStreak && (
+        <View style={{ marginBottom: SPACING[4] }}>
+          <StreakCounter count={weekStats?.streak || 0} />
+        </View>
+      )}
+
+      {/* Apple Health */}
       {hkAvailable && hkEnabled && (steps > 0 || activeCalories > 0) && (
-        <Card style={{ marginBottom: SPACING.lg}}>
+        <Card style={{ marginBottom: SPACING[4] }}>
           <View style={{ flexDirection: 'row', justifyContent: 'space-around' }}>
             {steps > 0 && (
-              <View style={{ alignItems: 'center', gap: SPACING.xs}}>
+              <View style={{ alignItems: 'center', gap: 4 }}>
                 <Ionicons name="footsteps-outline" size={24} color={colors.primary} />
-                <Text style={{ fontSize: FONT_SIZE.xl, fontWeight: '700', color: colors.text }}>{formatNumber(steps)}</Text>
-                <Text style={{ fontSize: FONT_SIZE.xs, color: colors.textSecondary }}>{t('stats.steps')}</Text>
+                <Text style={{ ...typography.h2, color: colors.textPrimary }}>{formatNumber(steps)}</Text>
+                <Text style={{ ...typography.caption, color: colors.textSecondary }}>{t('stats.steps')}</Text>
               </View>
             )}
             {activeCalories > 0 && (
-              <View style={{ alignItems: 'center', gap: SPACING.xs}}>
+              <View style={{ alignItems: 'center', gap: 4 }}>
                 <Ionicons name="flame-outline" size={24} color={colors.warning} />
-                <Text style={{ fontSize: FONT_SIZE.xl, fontWeight: '700', color: colors.text }}>{formatNumber(activeCalories)}</Text>
-                <Text style={{ fontSize: FONT_SIZE.xs, color: colors.textSecondary }}>{t('stats.active_calories')}</Text>
+                <Text style={{ ...typography.h2, color: colors.textPrimary }}>{formatNumber(activeCalories)}</Text>
+                <Text style={{ ...typography.caption, color: colors.textSecondary }}>{t('stats.active_calories')}</Text>
               </View>
             )}
           </View>
         </Card>
       )}
 
-      {/* Today's calorie ring */}
-      <Card style={{ marginBottom: 16, alignItems: 'center' }}>
-        <Text accessibilityRole="header" style={{ fontSize: FONT_SIZE.md, fontWeight: '600', color: colors.text, marginBottom: SPACING.lg}}>
-          {t('stats.today_calories')}
-        </Text>
+      {/* Calorie ring */}
+      <Card style={{ marginBottom: SPACING[4], alignItems: 'center' }}>
         <CalorieRing current={todayCal} goal={calorieGoal} />
       </Card>
 
       {/* Macro bars */}
-      <Card style={{ marginBottom: SPACING.lg}}>
+      <Card style={{ marginBottom: SPACING[4] }}>
         <MacroBars protein={todayProtein} carbs={todayCarbs} fat={todayFat} proteinGoal={Math.round(proteinGoal)} carbsGoal={Math.round(carbsGoal)} fatGoal={Math.round(fatGoal)} />
       </Card>
 
-      {/* Streak — only shown if enabled in settings */}
-      {showStreak && <StreakCounter count={weekStats?.streak || 0} />}
-
-      {/* Weekly chart */}
-      <Card style={{ marginTop: SPACING.lg}}>
-        <Text accessibilityRole="header" style={{ fontSize: FONT_SIZE.md, fontWeight: '600', color: colors.text, marginBottom: SPACING.lg}}>
-          {t('stats.weekly')}
-        </Text>
+      {/* Average daily + Weekly chart */}
+      <Card>
+        <View style={{ flexDirection: 'row', alignItems: 'baseline', gap: 8, marginBottom: SPACING[3] }}>
+          <Text style={{ ...typography.smallMedium, color: colors.textSecondary }}>{t('stats.avg_calories')}:</Text>
+          <Text style={{ ...typography.h1, color: colors.primary }}>{formatNumber(Math.round(weekStats?.avgCalories || 0))}</Text>
+        </View>
         <WeeklyBarChart days={weekStats?.days || []} goal={calorieGoal} />
-        {weekStats && weekStats.avgCalories > 0 && (
-          <Text style={{ fontSize: FONT_SIZE.sm, color: colors.textSecondary, textAlign: 'center', marginTop: SPACING.md }}>
-            {t('stats.avg_calories')}: {formatNumber(Math.round(weekStats.avgCalories))} {t('common.kcal')}
-          </Text>
-        )}
       </Card>
     </ScrollView>
   );

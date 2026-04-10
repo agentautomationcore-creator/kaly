@@ -1,10 +1,9 @@
-import React, { useState } from 'react';
-import { View, Text, Pressable, Platform } from 'react-native';
+import React, { useRef } from 'react';
+import { View, Text, FlatList, Pressable } from 'react-native';
 import { useTranslation } from 'react-i18next';
-import { Ionicons } from '@expo/vector-icons';
-import { backChevron, forwardIcon } from '../../../lib/rtl';
 import { useColors } from '../../../lib/theme';
-import { FONT_SIZE, RADIUS, MIN_TOUCH, SPACING } from '../../../lib/constants';
+import { RADIUS, SPACING } from '../../../lib/constants';
+import { typography } from '../../../lib/typography';
 
 interface DateNavigatorProps {
   date: string;
@@ -17,82 +16,85 @@ function addDays(dateStr: string, days: number): string {
   return d.toISOString().split('T')[0];
 }
 
-function isToday(dateStr: string): boolean {
-  return dateStr === new Date().toISOString().split('T')[0];
-}
-
 export function DateNavigator({ date, onDateChange }: DateNavigatorProps) {
-  const { t, i18n } = useTranslation();
+  const { i18n } = useTranslation();
   const colors = useColors();
-  const [showPicker, setShowPicker] = useState(false);
+  const listRef = useRef<FlatList>(null);
 
   const today = new Date().toISOString().split('T')[0];
-  const yesterday = addDays(today, -1);
-  const tomorrow = addDays(today, 1);
+  // 7 days centered on today: 3 before + today + 3 after
+  const days = Array.from({ length: 7 }, (_, i) => addDays(today, i - 3));
 
-  let label = date;
-  if (date === today) label = t('diary.today');
-  else if (date === yesterday) label = t('diary.yesterday');
-  else if (date === tomorrow) label = t('diary.tomorrow');
-  else {
-    const d = new Date(date);
-    label = d.toLocaleDateString(i18n.language, { weekday: 'short', month: 'short', day: 'numeric' });
-  }
+  const renderItem = ({ item }: { item: string }) => {
+    const d = new Date(item);
+    const dayName = d.toLocaleDateString(i18n.language, { weekday: 'short' }).slice(0, 3).toUpperCase();
+    const dayNum = d.getDate();
+    const isToday = item === today;
+    const isSelected = item === date;
 
-  // EDGE-5: Quick date picker — last 7 days
-  const quickDates = Array.from({ length: 7 }, (_, i) => addDays(today, -i));
+    return (
+      <Pressable
+        onPress={() => onDateChange(item)}
+        accessibilityRole="button"
+        accessibilityState={{ selected: isSelected }}
+        accessibilityLabel={`${dayName} ${dayNum}`}
+        style={{
+          paddingVertical: 6,
+          paddingHorizontal: 10,
+          borderRadius: RADIUS.sm,
+          minWidth: 48,
+          minHeight: 44,
+          alignItems: 'center',
+          justifyContent: 'center',
+          backgroundColor: isSelected ? colors.primarySubtle : 'transparent',
+        }}
+      >
+        <Text
+          style={{
+            ...typography.overline,
+            color: isSelected ? colors.primary : colors.textTertiary,
+          }}
+        >
+          {dayName}
+        </Text>
+        <Text
+          style={{
+            ...typography.bodyMedium,
+            color: isSelected ? colors.primary : colors.textSecondary,
+            marginTop: 2,
+          }}
+        >
+          {dayNum}
+        </Text>
+        {isToday && (
+          <View
+            style={{
+              width: 4,
+              height: 4,
+              borderRadius: 2,
+              backgroundColor: colors.primary,
+              marginTop: 4,
+            }}
+          />
+        )}
+      </Pressable>
+    );
+  };
 
   return (
-    <View>
-      <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingHorizontal: SPACING.lg, paddingVertical: SPACING.md }}>
-        <Pressable onPress={() => onDateChange(addDays(date, -1))} style={{ padding: SPACING.sm, minHeight: MIN_TOUCH, minWidth: 44, justifyContent: 'center', alignItems: 'center' }} accessibilityLabel={t('diary.yesterday')} accessibilityRole="button">
-          <Ionicons name={backChevron()} size={24} color={colors.text} />
-        </Pressable>
-
-        <Pressable onPress={() => setShowPicker(!showPicker)} style={{ alignItems: 'center', flexDirection: 'row', gap: 6, minHeight: MIN_TOUCH, justifyContent: 'center' }} accessibilityRole="button" accessibilityLabel={label}>
-          <Text style={{ fontSize: FONT_SIZE.lg, fontWeight: '700', color: colors.text }}>{label}</Text>
-          <Ionicons name={showPicker ? 'chevron-up' : 'calendar-outline'} size={16} color={colors.textSecondary} />
-        </Pressable>
-
-        <Pressable
-          onPress={() => onDateChange(addDays(date, 1))}
-          style={{ padding: SPACING.sm, minHeight: MIN_TOUCH, minWidth: 44, justifyContent: 'center', alignItems: 'center' }}
-          disabled={date >= today}
-          accessibilityLabel={t('diary.tomorrow')}
-          accessibilityRole="button"
-        >
-          <Ionicons name={forwardIcon()} size={24} color={date >= today ? colors.border : colors.text} />
-        </Pressable>
-      </View>
-
-      {showPicker && (
-        <View style={{ flexDirection: 'row', justifyContent: 'space-around', paddingHorizontal: SPACING.sm, paddingBottom: SPACING.sm }}>
-          {quickDates.map((d) => {
-            const dayLabel = new Date(d).toLocaleDateString(i18n.language, { weekday: 'short', day: 'numeric' });
-            const isSelected = d === date;
-            return (
-              <Pressable
-                key={d}
-                onPress={() => { onDateChange(d); setShowPicker(false); }}
-                accessibilityRole="button"
-                accessibilityLabel={dayLabel}
-                style={{
-                  paddingVertical: 6,
-                  paddingHorizontal: SPACING.sm,
-                  minHeight: MIN_TOUCH,
-                  justifyContent: 'center',
-                  borderRadius: RADIUS.sm,
-                  backgroundColor: isSelected ? colors.primaryLight : 'transparent',
-                }}
-              >
-                <Text style={{ fontSize: FONT_SIZE.xs, fontWeight: isSelected ? '700' : '400', color: isSelected ? colors.primary : colors.textSecondary, textAlign: 'center' }}>
-                  {dayLabel}
-                </Text>
-              </Pressable>
-            );
-          })}
-        </View>
-      )}
-    </View>
+    <FlatList
+      ref={listRef}
+      data={days}
+      keyExtractor={(item) => item}
+      renderItem={renderItem}
+      horizontal
+      showsHorizontalScrollIndicator={false}
+      contentContainerStyle={{
+        paddingHorizontal: SPACING[6],
+        gap: 4,
+        justifyContent: 'center',
+        flexGrow: 1,
+      }}
+    />
   );
 }

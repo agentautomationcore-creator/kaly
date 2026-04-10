@@ -59,7 +59,8 @@
     "diary": "Diario",
     "scan": "Scansiona",
     "stats": "Statistiche",
-    "profile": "Profilo"
+    "profile": "Profilo",
+    "fasting": "Digiuno"
   },
   "scan": {
     "title": "Scansiona cibo",
@@ -194,7 +195,12 @@
     "about": "Informazioni",
     "version": "Versione {{version}}",
     "disclaimer": "Kaly usa l'IA per stimare il contenuto nutrizionale. I risultati sono approssimativi. Non è un consiglio medico.",
-    "export_report": "Esporta rapporto PDF"
+    "export_report": "Esporta rapporto PDF",
+    "upgrade": "Aggiorna",
+    "goals_section": "Obiettivi",
+    "preferences_section": "Preferenze",
+    "settings_section": "Impostazioni",
+    "privacy_section": "Privacy"
   },
   "paywall": {
     "title": "Sblocca Kaly Pro",
@@ -395,5 +401,24 @@
   },
   "export": {
     "sharing_unavailable": "La condivisione non è disponibile su questo dispositivo"
+  },
+  "suggestions": {
+    "title": "Idee pasto per te",
+    "subtitle": "In base ai tuoi obiettivi e macro rimanenti",
+    "remaining": "Rimanente per oggi",
+    "add": "Aggiungi al diario",
+    "unlock": "Sblocca più suggerimenti",
+    "pro_desc": "Ottieni idee pasto AI illimitate per i tuoi obiettivi",
+    "refresh": "Aggiorna suggerimenti"
+  },
+  "hints": {
+    "fab_scan": "Tocca per scansionare, tieni premuto per altre opzioni",
+    "open_camera": "Apre la fotocamera per scansionare",
+    "open_barcode": "Apre lo scanner codici a barre",
+    "open_search": "Apre la ricerca cibo",
+    "open_manual": "Apre inserimento manuale",
+    "swipe_delete": "Tieni premuto per eliminare",
+    "switch_period": "Passa a questo periodo",
+    "save_food": "Salva questo cibo nel tuo diario"
   }
 }

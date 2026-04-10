@@ -6,17 +6,21 @@ import { useTranslation } from 'react-i18next';
 import { Ionicons } from '@expo/vector-icons';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
+import Animated, { useSharedValue, useAnimatedStyle, withSpring } from 'react-native-reanimated';
 import { useColors } from '../../../lib/theme';
 import { useScanStore } from '../store/scanStore';
 import { useAnalyzeFood } from '../hooks/useAnalyzeFood';
 import { Button } from '../../../components/Button';
 import * as Haptics from 'expo-haptics';
-import { FONT_SIZE, RADIUS, SPACING } from '../../../lib/constants';
+import { RADIUS, SPACING, MIN_TOUCH } from '../../../lib/constants';
+import { typography } from '../../../lib/typography';
 
 interface ScanCameraProps {
   usedToday?: number;
   plan?: string;
 }
+
+const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
 
 export function ScanCamera({ usedToday = 0, plan = 'free' }: ScanCameraProps) {
   const { t } = useTranslation();
@@ -30,14 +34,20 @@ export function ScanCamera({ usedToday = 0, plan = 'free' }: ScanCameraProps) {
   const { mutate: analyze, isPending } = useAnalyzeFood();
   const [facing, setFacing] = useState<'front' | 'back'>('back');
   const canScan = plan !== 'free' || usedToday < 3;
+  const remaining = Math.max(0, 3 - usedToday);
+  const shutterScale = useSharedValue(1);
+
+  const shutterAnimStyle = useAnimatedStyle(() => ({
+    transform: [{ scale: shutterScale.value }],
+  }));
 
   if (!permission) return null;
 
   if (!permission.granted) {
     return (
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', padding: SPACING.xl }}>
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', padding: SPACING[6] }}>
         <Ionicons name="camera-outline" size={64} color={colors.textSecondary} />
-        <Text style={{ fontSize: FONT_SIZE.md, color: colors.textSecondary, textAlign: 'center', marginTop: SPACING.lg, marginBottom: SPACING.xl }}>
+        <Text style={{ ...typography.body, color: colors.textSecondary, textAlign: 'center', marginTop: SPACING[4], marginBottom: SPACING[6] }}>
           {t('errors.no_camera')}
         </Text>
         <Button title={t('scan.grant_camera')} onPress={requestPermission} />
@@ -52,6 +62,7 @@ export function ScanCamera({ usedToday = 0, plan = 'free' }: ScanCameraProps) {
       return;
     }
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
+    shutterScale.value = withSpring(0.92, { damping: 15, stiffness: 200 });
     isCapturing.current = true;
     try {
       const photo = await cameraRef.current.takePictureAsync({ quality: 0.8 });
@@ -60,6 +71,7 @@ export function ScanCamera({ usedToday = 0, plan = 'free' }: ScanCameraProps) {
         analyze(photo.uri);
       }
     } finally {
+      shutterScale.value = withSpring(1, { damping: 15, stiffness: 200 });
       setTimeout(() => { isCapturing.current = false; }, 1000);
     }
   };
@@ -86,58 +98,64 @@ export function ScanCamera({ usedToday = 0, plan = 'free' }: ScanCameraProps) {
   };
 
   return (
-    <View style={{ flex: 1, backgroundColor: colors.background }}>
-      <CameraView
-        ref={cameraRef}
-        style={{ flex: 1 }}
-        facing={facing}
-      >
+    <View style={{ flex: 1, backgroundColor: '#000' }}>
+      <CameraView ref={cameraRef} style={{ flex: 1 }} facing={facing}>
         <StatusBar barStyle="light-content" />
-        {/* Overlay */}
         <View style={{ flex: 1, justifyContent: 'space-between' }}>
-          {/* Close button */}
-          <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'flex-start', paddingTop: insets.top + SPACING.sm, paddingHorizontal: SPACING.lg }}>
+          {/* Top bar — close */}
+          <View style={{ flexDirection: 'row', justifyContent: 'flex-start', paddingTop: insets.top + 8, paddingHorizontal: SPACING[4] }}>
             <Pressable
               onPress={() => {
-                if (router.canGoBack()) {
-                  router.back();
-                } else {
-                  router.replace('/(tabs)/diary');
-                }
+                if (router.canGoBack()) router.back();
+                else router.replace('/(tabs)/diary');
               }}
               style={{
-                width: 44,
-                height: 44,
+                width: MIN_TOUCH,
+                height: MIN_TOUCH,
                 borderRadius: RADIUS.full,
-                backgroundColor: colors.overlay,
+                backgroundColor: 'rgba(0,0,0,0.5)',
                 alignItems: 'center',
                 justifyContent: 'center',
               }}
               accessibilityRole="button"
               accessibilityLabel={t('common.close')}
             >
-              <Ionicons name="close" size={24} color={colors.textOnPrimary} />
+              <Ionicons name="close" size={24} color="#fff" />
             </Pressable>
           </View>
 
-          {/* Top hint */}
-          <View style={{ alignItems: 'center' }}>
-            <View style={{ backgroundColor: colors.overlay, paddingHorizontal: SPACING.xl, paddingVertical: SPACING.md, borderRadius: RADIUS.full }}>
-              <Text style={{ color: colors.card, fontSize: FONT_SIZE.sm, fontWeight: '500' }}>
-                {t('scan.point_camera')}
-              </Text>
+          {/* Corner brackets overlay */}
+          <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+            <View style={{ width: 240, height: 240, position: 'relative' }}>
+              {/* Top-left */}
+              <View style={{ position: 'absolute', top: 0, left: 0, width: 40, height: 40, borderTopWidth: 3, borderLeftWidth: 3, borderColor: 'rgba(255,255,255,0.8)' }} />
+              {/* Top-right */}
+              <View style={{ position: 'absolute', top: 0, right: 0, width: 40, height: 40, borderTopWidth: 3, borderRightWidth: 3, borderColor: 'rgba(255,255,255,0.8)' }} />
+              {/* Bottom-left */}
+              <View style={{ position: 'absolute', bottom: 0, left: 0, width: 40, height: 40, borderBottomWidth: 3, borderLeftWidth: 3, borderColor: 'rgba(255,255,255,0.8)' }} />
+              {/* Bottom-right */}
+              <View style={{ position: 'absolute', bottom: 0, right: 0, width: 40, height: 40, borderBottomWidth: 3, borderRightWidth: 3, borderColor: 'rgba(255,255,255,0.8)' }} />
             </View>
           </View>
 
-          {/* Scan counter for free users */}
+          {/* Scan counter for free */}
           {plan === 'free' && (
-            <Text style={{ color: colors.textOnPrimary, fontSize: FONT_SIZE.sm, textAlign: 'center', marginBottom: SPACING.sm }}>
-              {t('scan.scans_remaining', { remaining: Math.max(0, 3 - usedToday) })}
-            </Text>
+            <View style={{
+              alignSelf: 'center',
+              backgroundColor: 'rgba(0,0,0,0.7)',
+              borderRadius: RADIUS.lg,
+              paddingVertical: 8,
+              paddingHorizontal: 16,
+              marginBottom: 8,
+            }}>
+              <Text style={{ ...typography.small, color: '#fff' }}>
+                {'\uD83D\uDD2E'} {t('scan.scans_remaining', { remaining })}
+              </Text>
+            </View>
           )}
 
           {/* Bottom controls */}
-          <View style={{ paddingBottom: 40, paddingHorizontal: SPACING.xl, gap: SPACING.lg }}>
+          <View style={{ paddingBottom: insets.bottom + 20, paddingHorizontal: SPACING[6] }}>
             <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center', gap: 40 }}>
               {/* Gallery */}
               <Pressable
@@ -145,53 +163,55 @@ export function ScanCamera({ usedToday = 0, plan = 'free' }: ScanCameraProps) {
                 accessibilityLabel={t('scan.choose_gallery')}
                 accessibilityRole="button"
                 style={{
-                  width: 48,
-                  height: 48,
-                  borderRadius: RADIUS.xxl,
-                  backgroundColor: colors.overlay,
+                  width: MIN_TOUCH,
+                  height: MIN_TOUCH,
+                  borderRadius: RADIUS.full,
+                  backgroundColor: 'rgba(0,0,0,0.5)',
                   justifyContent: 'center',
                   alignItems: 'center',
                 }}
               >
-                <Ionicons name="images" size={24} color={colors.card} />
+                <Ionicons name="images" size={22} color="#fff" />
               </Pressable>
 
               {/* Shutter */}
-              <Pressable
+              <AnimatedPressable
                 onPress={takePicture}
                 disabled={isCapturing.current || isPending}
-                style={{
-                  width: 72,
-                  height: 72,
-                  borderRadius: RADIUS.full,
-                  backgroundColor: colors.card,
-                  borderWidth: 4,
-                  borderColor: canScan ? colors.primary : colors.textSecondary,
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  opacity: isPending || !canScan ? 0.4 : 1,
-                }}
+                style={[
+                  {
+                    width: 72,
+                    height: 72,
+                    borderRadius: RADIUS.full,
+                    borderWidth: 4,
+                    borderColor: '#fff',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    opacity: isPending || !canScan ? 0.4 : 1,
+                  },
+                  shutterAnimStyle,
+                ]}
                 accessibilityRole="button"
                 accessibilityLabel={t('scan.take_photo')}
               >
-                <View style={{ width: 56, height: 56, borderRadius: RADIUS.full, backgroundColor: colors.card }} />
-              </Pressable>
+                <View style={{ width: 60, height: 60, borderRadius: 30, backgroundColor: '#fff' }} />
+              </AnimatedPressable>
 
-              {/* Flip */}
+              {/* Barcode */}
               <Pressable
-                onPress={() => setFacing(f => f === 'back' ? 'front' : 'back')}
-                accessibilityLabel={t('scan.flip_camera')}
+                onPress={() => router.push('/barcode')}
+                accessibilityLabel={t('barcode.scan_barcode')}
                 accessibilityRole="button"
                 style={{
-                  width: 48,
-                  height: 48,
-                  borderRadius: RADIUS.xxl,
-                  backgroundColor: colors.overlay,
+                  width: MIN_TOUCH,
+                  height: MIN_TOUCH,
+                  borderRadius: RADIUS.full,
+                  backgroundColor: 'rgba(0,0,0,0.5)',
                   justifyContent: 'center',
                   alignItems: 'center',
                 }}
               >
-                <Ionicons name="camera-reverse" size={24} color={colors.card} />
+                <Ionicons name="barcode-outline" size={22} color="#fff" />
               </Pressable>
             </View>
           </View>
