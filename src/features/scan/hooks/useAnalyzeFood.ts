@@ -32,6 +32,60 @@ function validateScanResult(result: ScanResult): ScanResult {
 
 let activeAbortController: AbortController | null = null;
 
+async function makeAnalyzeRequest(
+  body: Record<string, unknown>,
+  controller: AbortController,
+): Promise<ScanResult> {
+  const { data: { session } } = await supabase.auth.getSession();
+  if (!session) throw new Error('Not authenticated');
+
+  const makeRequest = async (token: string) => fetch(
+    `${process.env.EXPO_PUBLIC_SUPABASE_URL}/functions/v1/analyze-food`,
+    {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({ ...body, language: i18n.language }),
+      signal: controller.signal,
+    }
+  );
+
+  let response = await makeRequest(session.access_token);
+
+  // AUTH-3: Retry once on 401 with refreshed token
+  if (response.status === 401) {
+    const refreshed = await useAuthStore.getState().refreshAndRetry();
+    if (refreshed) {
+      const { data: { session: newSession } } = await supabase.auth.getSession();
+      if (newSession) {
+        response = await makeRequest(newSession.access_token);
+      }
+    }
+  }
+
+  if (response.status === 429) {
+    const data = await response.json();
+    const err = new Error('RATE_LIMIT') as Error & { limit?: number; remaining?: number };
+    err.limit = data.limit;
+    err.remaining = data.remaining;
+    throw err;
+  }
+
+  if (!response.ok) {
+    const data = await response.json().catch(() => ({}));
+    throw new Error(data.error || 'Analysis failed');
+  }
+
+  const result = await response.json();
+  if (result.error === 'not_food') {
+    throw new Error('NOT_FOOD');
+  }
+
+  return validateScanResult(result);
+}
+
 async function analyzeFood(photoUri: string): Promise<ScanResult> {
   // Cancel any previous in-flight request
   if (activeAbortController) {
@@ -43,58 +97,25 @@ async function analyzeFood(photoUri: string): Promise<ScanResult> {
 
   try {
     const base64 = await compressImage(photoUri);
-
-    const { data: { session } } = await supabase.auth.getSession();
-    if (!session) throw new Error('Not authenticated');
-
-    const makeRequest = async (token: string) => fetch(
-      `${process.env.EXPO_PUBLIC_SUPABASE_URL}/functions/v1/analyze-food`,
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({
-          image: base64,
-          language: i18n.language,
-        }),
-        signal: controller.signal,
-      }
-    );
-
-    let response = await makeRequest(session.access_token);
-
-    // AUTH-3: Retry once on 401 with refreshed token
-    if (response.status === 401) {
-      const refreshed = await useAuthStore.getState().refreshAndRetry();
-      if (refreshed) {
-        const { data: { session: newSession } } = await supabase.auth.getSession();
-        if (newSession) {
-          response = await makeRequest(newSession.access_token);
-        }
-      }
+    return await makeAnalyzeRequest({ image: base64 }, controller);
+  } finally {
+    clearTimeout(timeout);
+    if (activeAbortController === controller) {
+      activeAbortController = null;
     }
+  }
+}
 
-    if (response.status === 429) {
-      const data = await response.json();
-      const err = new Error('RATE_LIMIT') as Error & { limit?: number; remaining?: number };
-      err.limit = data.limit;
-      err.remaining = data.remaining;
-      throw err;
-    }
+async function analyzeText(text: string): Promise<ScanResult> {
+  if (activeAbortController) {
+    activeAbortController.abort();
+  }
+  const controller = new AbortController();
+  activeAbortController = controller;
+  const timeout = setTimeout(() => controller.abort(), ANALYZE_TIMEOUT_MS);
 
-    if (!response.ok) {
-      const data = await response.json().catch(() => ({}));
-      throw new Error(data.error || 'Analysis failed');
-    }
-
-    const result = await response.json();
-    if (result.error === 'not_food') {
-      throw new Error('NOT_FOOD');
-    }
-
-    return validateScanResult(result);
+  try {
+    return await makeAnalyzeRequest({ text, type: 'text' }, controller);
   } finally {
     clearTimeout(timeout);
     if (activeAbortController === controller) {
@@ -129,6 +150,29 @@ export function useAnalyzeFood() {
       setError(error.message);
       if (error.message !== 'NOT_FOOD' && error.message !== 'RATE_LIMIT') {
         captureException(error, { feature: 'analyze_food' });
+      }
+    },
+  });
+}
+
+export function useAnalyzeText() {
+  const { setResult, setAnalyzing, setError } = useScanStore();
+
+  return useMutation({
+    mutationFn: analyzeText,
+    onMutate: () => {
+      setAnalyzing(true);
+      setError(null);
+      track('analyze_text');
+    },
+    onSuccess: (data) => {
+      setResult(data);
+      track('text_result', { confidence: data.confidence, items_count: data.items.length });
+    },
+    onError: (error: Error) => {
+      setError(error.message);
+      if (error.message !== 'NOT_FOOD' && error.message !== 'RATE_LIMIT') {
+        captureException(error, { feature: 'analyze_text' });
       }
     },
   });

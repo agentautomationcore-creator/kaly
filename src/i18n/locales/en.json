@@ -411,6 +411,17 @@
     "pro_desc": "Get unlimited AI meal ideas tailored to your goals",
     "refresh": "Refresh suggestions"
   },
+  "text_entry": {
+    "title": "Describe your food",
+    "hint": "Type what you ate — AI will calculate the nutrition",
+    "placeholder": "e.g. chicken breast with rice 300g",
+    "analyze": "Analyze",
+    "not_food": "Doesn't look like a food description. Try again.",
+    "examples_title": "Examples:",
+    "example_1": "Chicken breast with rice 300g",
+    "example_2": "2 eggs, toast with butter, black coffee",
+    "example_3": "Caesar salad with croutons"
+  },
   "hints": {
     "fab_scan": "Tap to scan food, long press for more options",
     "open_camera": "Opens camera to scan food",

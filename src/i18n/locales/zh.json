@@ -411,6 +411,17 @@
     "pro_desc": "获取无限AI膳食建议",
     "refresh": "刷新建议"
   },
+  "text_entry": {
+    "title": "描述你的食物",
+    "hint": "输入你吃了什么 — AI会计算营养成分",
+    "placeholder": "例如：鸡胸肉配米饭 300克",
+    "analyze": "分析",
+    "not_food": "看起来不像食物描述，请重试。",
+    "examples_title": "示例：",
+    "example_1": "鸡胸肉配米饭 300克",
+    "example_2": "2个鸡蛋、黄油吐司、黑咖啡",
+    "example_3": "凯撒沙拉配面包丁"
+  },
   "hints": {
     "fab_scan": "点击扫描食物，长按查看更多选项",
     "open_camera": "打开相机扫描食物",

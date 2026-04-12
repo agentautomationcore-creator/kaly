@@ -411,6 +411,17 @@
     "pro_desc": "Obtenez des idées repas IA illimitées selon vos objectifs",
     "refresh": "Actualiser les suggestions"
   },
+  "text_entry": {
+    "title": "Décrivez votre repas",
+    "hint": "Tapez ce que vous avez mangé — l'IA calculera les valeurs nutritionnelles",
+    "placeholder": "ex. blanc de poulet avec du riz 300g",
+    "analyze": "Analyser",
+    "not_food": "Cela ne ressemble pas à un aliment. Réessayez.",
+    "examples_title": "Exemples :",
+    "example_1": "Blanc de poulet avec du riz 300g",
+    "example_2": "2 œufs, tartine au beurre, café noir",
+    "example_3": "Salade César avec croûtons"
+  },
   "hints": {
     "fab_scan": "Appuyez pour scanner, appui long pour plus d'options",
     "open_camera": "Ouvre l'appareil photo pour scanner",

@@ -411,6 +411,17 @@
     "pro_desc": "Erhalte unbegrenzte KI-Essensideen für deine Ziele",
     "refresh": "Vorschläge aktualisieren"
   },
+  "text_entry": {
+    "title": "Essen beschreiben",
+    "hint": "Beschreibe, was du gegessen hast — die KI berechnet die Nährwerte",
+    "placeholder": "z.B. Hähnchenbrust mit Reis 300g",
+    "analyze": "Analysieren",
+    "not_food": "Das sieht nicht nach einer Essensbeschreibung aus. Versuche es erneut.",
+    "examples_title": "Beispiele:",
+    "example_1": "Hähnchenbrust mit Reis 300g",
+    "example_2": "2 Eier, Toast mit Butter, schwarzer Kaffee",
+    "example_3": "Caesar-Salat mit Croutons"
+  },
   "hints": {
     "fab_scan": "Tippen zum Scannen, lange drücken für mehr Optionen",
     "open_camera": "Öffnet Kamera zum Scannen",

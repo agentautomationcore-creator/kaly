@@ -81,8 +81,17 @@ serve(async (req) => {
       });
     }
 
-    const { image, language = 'en' } = await req.json();
-    if (!image) {
+    const { image, text: foodText, type = 'image', language = 'en' } = await req.json();
+
+    // Validate input based on type
+    if (type === 'text') {
+      if (!foodText || typeof foodText !== 'string' || foodText.trim().length < 2 || foodText.length > 500) {
+        return new Response(JSON.stringify({ error: 'Invalid text input' }), {
+          status: 400,
+          headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+        });
+      }
+    } else if (!image) {
       return new Response(JSON.stringify({ error: 'No image' }), {
         status: 400,
         headers: { ...corsHeaders, 'Content-Type': 'application/json' },
@@ -92,12 +101,14 @@ serve(async (req) => {
     // S9: Validate language against allowlist
     const lang = ALLOWED_LANGUAGES.includes(language) ? language : 'en';
 
-    // 3. Check cache
-    const imageHash = await computeHash(image);
+    // 3. Check cache (image-based for photos, text-based for NLP)
+    const cacheKey = type === 'text'
+      ? await computeHash(foodText.trim().toLowerCase())
+      : await computeHash(image);
     const { data: cached } = await supabase
       .from('nutrition_cache')
       .select('*')
-      .eq('image_hash', imageHash)
+      .eq('image_hash', cacheKey)
       .single();
 
     if (cached) {
@@ -127,35 +138,41 @@ serve(async (req) => {
     }
 
     // S6: Insert pending diary entry BEFORE calling Claude (prevents TOCTOU race)
+    const entryMethod = type === 'text' ? 'text' : 'photo';
     const { data: pending } = await supabase.from('diary_entries').insert({
       user_id: user.id,
       meal_type: 'snack',
       food_name: 'Analyzing...',
       total_calories: 0,
-      entry_method: 'photo',
+      entry_method: entryMethod,
     }).select('id').single();
 
-    // 4. Claude Vision analysis with retry
-    const prompt = buildPrompt(lang);
+    // 4. Claude analysis with retry (Vision for images, text-only for NLP)
+    const isTextMode = type === 'text';
+    const prompt = isTextMode ? buildTextPrompt(lang) : buildPrompt(lang);
     let result: Record<string, unknown>;
 
     for (let attempt = 0; attempt < 2; attempt++) {
       try {
+        const messages = isTextMode
+          ? [{ role: 'user' as const, content: `Analyze this food description: "${foodText.trim()}"` }]
+          : [{
+              role: 'user' as const,
+              content: [
+                { type: 'image' as const, source: { type: 'base64' as const, media_type: 'image/jpeg' as const, data: image } },
+                { type: 'text' as const, text: 'Analyze this food photo.' },
+              ],
+            }];
+
         const response = await anthropic.messages.create({
           model: 'claude-haiku-4-5-20251001',
           max_tokens: 2048,
           system: prompt,
-          messages: [{
-            role: 'user',
-            content: [
-              { type: 'image', source: { type: 'base64', media_type: 'image/jpeg', data: image } },
-              { type: 'text', text: 'Analyze this food photo.' },
-            ],
-          }],
+          messages,
         }, { timeout: 60000 });
 
-        const text = response.content[0].type === 'text' ? response.content[0].text : '';
-        result = JSON.parse(text.replace(/```json\n?|\n?```/g, '').trim());
+        const responseText = response.content[0].type === 'text' ? response.content[0].text : '';
+        result = JSON.parse(responseText.replace(/```json\n?|\n?```/g, '').trim());
         break;
       } catch (e) {
         if (attempt === 1) {
@@ -207,7 +224,7 @@ serve(async (req) => {
       Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!
     );
     await adminClient.from('nutrition_cache').upsert({
-      image_hash: imageHash,
+      image_hash: cacheKey,
       food_name: result!.dish_name,
       food_name_en: result!.dish_name_en,
       food_items: result!.items,
@@ -234,6 +251,36 @@ async function computeHash(base64: string): Promise<string> {
   const data = new TextEncoder().encode(base64);
   const hash = await crypto.subtle.digest('SHA-256', data);
   return Array.from(new Uint8Array(hash)).map(b => b.toString(16).padStart(2, '0')).join('');
+}
+
+function buildTextPrompt(language: string): string {
+  return `You are a nutrition expert parsing a text description of food.
+Return ONLY valid JSON. No markdown, no explanation, no backticks.
+
+RULES:
+- Parse the food description and estimate nutrition accurately
+- If a portion size is specified (e.g., "300g", "2 pieces"), use that
+- If no portion is specified, estimate a standard serving
+- Include HIDDEN ingredients (oil, butter, sauces) if the dish typically has them
+- If the text mentions multiple items, list each as a separate ingredient
+- If the text is NOT about food, return: {"error": "not_food", "message": "Not a food description"}
+- Be conservative with portions (people underestimate by 20-30%)
+
+JSON FORMAT:
+{
+  "dish_name": "Name in ${language}",
+  "dish_name_en": "English name",
+  "total_portion_g": 350,
+  "confidence": 0.85,
+  "total": { "calories": 520, "protein_g": 28.5, "fat_g": 18.2, "carbs_g": 62.1, "fiber_g": 4.3 },
+  "items": [
+    { "name": "Ingredient in ${language}", "name_en": "English", "g": 180, "calories": 290, "protein_g": 24.0, "fat_g": 8.5, "carbs_g": 0, "fiber_g": 0, "confidence": 0.90, "hidden": false }
+  ],
+  "preparation": "grilled",
+  "cuisine": "International",
+  "warnings": [],
+  "notes": "Estimated from text description"
+}`;
 }
 
 function buildPrompt(language: string): string {

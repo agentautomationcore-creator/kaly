@@ -24,7 +24,9 @@ type EventName =
   | 'feedback_submitted'
   | 'report_exported'
   | 'suggest_meal_tapped'
-  | 'suggestion_added';
+  | 'suggestion_added'
+  | 'analyze_text'
+  | 'text_result';
 
 // PostHog client — dynamic import, structural typing
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

@@ -411,6 +411,17 @@
     "pro_desc": "Ottieni idee pasto AI illimitate per i tuoi obiettivi",
     "refresh": "Aggiorna suggerimenti"
   },
+  "text_entry": {
+    "title": "Descrivi il tuo pasto",
+    "hint": "Scrivi cosa hai mangiato — l'IA calcolerà i valori nutrizionali",
+    "placeholder": "es. petto di pollo con riso 300g",
+    "analyze": "Analizza",
+    "not_food": "Non sembra una descrizione di cibo. Riprova.",
+    "examples_title": "Esempi:",
+    "example_1": "Petto di pollo con riso 300g",
+    "example_2": "2 uova, toast con burro, caffè nero",
+    "example_3": "Insalata Caesar con crostini"
+  },
   "hints": {
     "fab_scan": "Tocca per scansionare, tieni premuto per altre opzioni",
     "open_camera": "Apre la fotocamera per scansionare",

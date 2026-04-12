@@ -142,6 +142,7 @@ export function DailyDiary({ date: dateProp }: DailyDiaryProps) {
           <View style={{ gap: SPACING[2], width: '100%' }}>
             {[
               { route: '/(tabs)/scan', icon: 'camera-outline' as const, label: t('scan.take_photo') },
+              { route: '/text-entry', icon: 'chatbubble-ellipses-outline' as const, label: t('text_entry.title') },
               { route: '/barcode', icon: 'barcode-outline' as const, label: t('barcode.scan_barcode') },
               { route: '/food-search', icon: 'search-outline' as const, label: t('food_search.placeholder') },
               { route: '/manual-entry', icon: 'create-outline' as const, label: t('food_search.enter_manually') },

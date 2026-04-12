@@ -20,6 +20,7 @@ export function AddMealSheet({ visible, onClose }: AddMealSheetProps) {
   const options = [
     { icon: 'camera' as const, label: t('scan.take_photo'), action: () => { onClose(); router.push('/(tabs)/scan'); } },
     { icon: 'images' as const, label: t('scan.choose_gallery'), action: () => { onClose(); router.push('/(tabs)/scan'); } },
+    { icon: 'chatbubble-ellipses-outline' as const, label: t('text_entry.title'), action: () => { onClose(); router.push('/text-entry'); } },
     { icon: 'barcode-outline' as const, label: t('barcode.scan_barcode'), action: () => { onClose(); router.push('/barcode'); } },
     { icon: 'search-outline' as const, label: t('food_search.placeholder'), action: () => { onClose(); router.push('/food-search'); } },
     { icon: 'create-outline' as const, label: t('food_search.enter_manually'), action: () => { onClose(); router.push('/manual-entry'); } },

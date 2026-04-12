@@ -34,7 +34,11 @@ function autoSelectMeal(): MealType {
   return 'dinner';
 }
 
-export function NutritionResultCard() {
+interface NutritionResultCardProps {
+  entryMethod?: 'photo' | 'text';
+}
+
+export function NutritionResultCard({ entryMethod = 'photo' }: NutritionResultCardProps) {
   const { t } = useTranslation();
   const colors = useColors();
   const router = useRouter();
@@ -85,13 +89,13 @@ export function NutritionResultCard() {
         total_fat: fat,
         total_fiber: fiber,
         confidence: result.confidence,
-        entry_method: 'photo' as const,
+        entry_method: entryMethod,
         edited: isEdited,
       },
       {
         onSuccess: () => {
           saving.current = false;
-          track('meal_logged', { meal_type: mealType, entry_method: 'photo' });
+          track('meal_logged', { meal_type: mealType, entry_method: entryMethod });
           saveCalories(cal).catch((e) => captureException(e, { feature: 'healthkit_save_calories' }));
           reset();
           router.replace({ pathname: '/(tabs)/diary', params: { saved: '1' } });

@@ -411,6 +411,17 @@
     "pro_desc": "Obtenha ideias de refeições IA ilimitadas para seus objetivos",
     "refresh": "Atualizar sugestões"
   },
+  "text_entry": {
+    "title": "Descreva sua refeição",
+    "hint": "Digite o que você comeu — a IA calculará a nutrição",
+    "placeholder": "ex. peito de frango com arroz 300g",
+    "analyze": "Analisar",
+    "not_food": "Não parece uma descrição de comida. Tente novamente.",
+    "examples_title": "Exemplos:",
+    "example_1": "Peito de frango com arroz 300g",
+    "example_2": "2 ovos, torrada com manteiga, café preto",
+    "example_3": "Salada Caesar com croutons"
+  },
   "hints": {
     "fab_scan": "Toque para escanear, pressione longo para mais opções",
     "open_camera": "Abre câmera para escanear",

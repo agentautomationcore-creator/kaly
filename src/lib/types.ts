@@ -59,7 +59,7 @@ export interface DiaryEntry {
   total_fiber: number;
   photo_url?: string;
   confidence?: number;
-  entry_method: 'photo' | 'barcode' | 'search' | 'manual';
+  entry_method: 'photo' | 'barcode' | 'search' | 'manual' | 'text';
   edited: boolean;
   source_entry_id?: string;
   created_at: string;

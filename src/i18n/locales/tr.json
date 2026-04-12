@@ -411,6 +411,17 @@
     "pro_desc": "Hedeflerinize özel sınırsız AI yemek fikirleri alın",
     "refresh": "Önerileri yenile"
   },
+  "text_entry": {
+    "title": "Yemeğinizi tanımlayın",
+    "hint": "Ne yediğinizi yazın — yapay zeka besin değerlerini hesaplasın",
+    "placeholder": "örn. tavuk göğsü pilavla 300g",
+    "analyze": "Analiz et",
+    "not_food": "Yemek açıklaması gibi görünmüyor. Tekrar deneyin.",
+    "examples_title": "Örnekler:",
+    "example_1": "Tavuk göğsü pilavla 300g",
+    "example_2": "2 yumurta, tereyağlı tost, sade kahve",
+    "example_3": "Sezar salatası krutonlu"
+  },
   "hints": {
     "fab_scan": "Taramak için dokun, daha fazla seçenek için basılı tut",
     "open_camera": "Taramak için kamerayı açar",
