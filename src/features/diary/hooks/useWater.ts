@@ -47,8 +47,23 @@ export function useWater(date: string) {
     },
   });
 
+  const removeGlass = useMutation({
+    mutationFn: async () => {
+      if (!user) throw new Error('Not authenticated');
+      const entries = query.data || [];
+      const last = entries[entries.length - 1];
+      if (!last) return;
+
+      const { error } = await supabase.from('water_log').delete().eq('id', last.id).eq('user_id', user.id);
+      if (error) throw error;
+    },
+    onSuccess: () => {
+      qc.invalidateQueries({ queryKey: ['water', date] });
+    },
+  });
+
   const totalMl = (query.data || []).reduce((sum, e) => sum + e.ml, 0);
   const glasses = Math.floor(totalMl / GLASS_ML);
 
-  return { ...query, totalMl, glasses, addGlass };
+  return { ...query, totalMl, glasses, addGlass, removeGlass };
 }

@@ -17,7 +17,7 @@ interface WaterTrackerProps {
 export function WaterTracker({ date, goalGlasses = 8 }: WaterTrackerProps) {
   const { t } = useTranslation();
   const colors = useColors();
-  const { glasses, addGlass } = useWater(date);
+  const { glasses, addGlass, removeGlass } = useWater(date);
   const { saveWater } = useHealthKit();
 
   const handleAdd = () => {
@@ -69,9 +69,9 @@ export function WaterTracker({ date, goalGlasses = 8 }: WaterTrackerProps) {
         {/* Minus button */}
         <Pressable
           onPress={() => {
-            if (glasses <= 0) return;
+            if (glasses <= 0 || removeGlass.isPending) return;
             Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
-            // Water decrement not in original hook — just visual
+            removeGlass.mutate();
           }}
           style={{
             width: 44,
