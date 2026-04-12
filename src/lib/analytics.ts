@@ -30,7 +30,8 @@ type EventName =
   | 'voice_input_start'
   | 'meal_favorited'
   | 'meal_unfavorited'
-  | 'meal_memory_used';
+  | 'meal_memory_used'
+  | 'goals_recalculated';
 
 // PostHog client — dynamic import, structural typing
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

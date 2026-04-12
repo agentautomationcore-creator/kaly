@@ -16,6 +16,7 @@ import { RecentMeals } from './RecentMeals';
 import { ListSkeleton } from '../../../components/LoadingSkeleton';
 import { useYesterdayMeals } from '../hooks/useYesterdayMeals';
 import { FastingCard } from './FastingCard';
+import { useAdaptiveGoals } from '../../profile/hooks/useAdaptiveGoals';
 import { RADIUS, MIN_TOUCH, SPACING } from '../../../lib/constants';
 import { typography } from '../../../lib/typography';
 import type { MealType } from '../../../lib/types';
@@ -35,6 +36,9 @@ export function DailyDiary({ date: dateProp }: DailyDiaryProps) {
   const currentDate = dateProp || selectedDate;
   const { data: entries, isLoading, refetch } = useDiary(currentDate);
   const { data: yesterdayMeals } = useYesterdayMeals();
+  // Adaptive goals: auto-recalculate weekly based on weight_log
+  useAdaptiveGoals();
+
   const calorieGoal = profile?.daily_calories || 2000;
 
   const [reduceMotion, setReduceMotion] = useState(false);

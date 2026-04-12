@@ -13,6 +13,7 @@ import { supabase } from '../../../lib/supabase';
 import { Card } from '../../../components/Card';
 import { Button } from '../../../components/Button';
 import { GoalEditor } from './GoalEditor';
+import { useAdaptiveGoals } from '../hooks/useAdaptiveGoals';
 import { BodyEditor } from './BodyEditor';
 import { DietEditor } from './DietEditor';
 import { WeightLog } from './WeightLog';
@@ -103,6 +104,7 @@ export function ProfileScreen() {
   const router = useRouter();
   const { data: profile, isLoading } = useProfile();
   const { user, isAnonymous, signOut } = useAuthStore();
+  const { lastRecalcDate, recalcNow } = useAdaptiveGoals();
 
   if (isLoading) return <ListSkeleton count={5} />;
 
@@ -147,12 +149,37 @@ export function ProfileScreen() {
         </Card>
       )}
 
-      {/* Daily target */}
+      {/* Daily target + adaptive goals */}
       {profile && (
-        <Card style={{ marginBottom: SPACING[3], alignItems: 'center' }}>
+        <Card style={{ marginBottom: SPACING[3], alignItems: 'center', gap: SPACING[2] }}>
           <Text style={{ ...typography.body, color: colors.textSecondary }}>
             {t('profile.daily_target', { calories: profile.daily_calories })}
           </Text>
+          <View style={{ flexDirection: 'row', alignItems: 'center', gap: SPACING[2] }}>
+            <Ionicons name="sync-outline" size={14} color={colors.textTertiary} />
+            <Text style={{ ...typography.caption, color: colors.textTertiary }}>
+              {lastRecalcDate
+                ? t('profile.adaptive_last_update', { date: lastRecalcDate })
+                : t('profile.adaptive_auto')}
+            </Text>
+          </View>
+          <Pressable
+            onPress={async () => {
+              Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+              const newCal = await recalcNow();
+              if (newCal) {
+                Alert.alert(t('common.info'), t('profile.adaptive_updated', { calories: newCal }));
+              } else {
+                Alert.alert(t('common.info'), t('profile.adaptive_no_change'));
+              }
+            }}
+            style={{ minHeight: MIN_TOUCH, justifyContent: 'center' }}
+            accessibilityRole="button"
+          >
+            <Text style={{ ...typography.smallMedium, color: colors.primary }}>
+              {t('profile.adaptive_recalc')}
+            </Text>
+          </Pressable>
         </Card>
       )}
 
