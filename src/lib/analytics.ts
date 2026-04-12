@@ -27,7 +27,9 @@ type EventName =
   | 'suggestion_added'
   | 'analyze_text'
   | 'text_result'
-  | 'voice_input_start';
+  | 'voice_input_start'
+  | 'meal_favorited'
+  | 'meal_unfavorited';
 
 // PostHog client — dynamic import, structural typing
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

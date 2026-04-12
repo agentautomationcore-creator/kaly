@@ -96,6 +96,11 @@ export function DailyDiary({ date: dateProp }: DailyDiaryProps) {
         calorieGoal={calorieGoal}
       />
 
+      {/* Quick Add — favorites + recent meals */}
+      <View style={{ marginBottom: SPACING[3] }}>
+        <RecentMeals date={currentDate} />
+      </View>
+
       {/* Meals */}
       {isLoading ? (
         <ListSkeleton count={3} />
@@ -162,11 +167,6 @@ export function DailyDiary({ date: dateProp }: DailyDiaryProps) {
         </View>
       )}
 
-      {entries && entries.length === 0 && (
-        <View style={{ paddingHorizontal: SPACING[6], marginTop: SPACING[4] }}>
-          <RecentMeals date={currentDate} />
-        </View>
-      )}
     </ScrollView>
   );
 }
