@@ -419,6 +419,11 @@
     "pro_desc": "Get unlimited AI meal ideas tailored to your goals",
     "refresh": "Refresh suggestions"
   },
+  "confidence": {
+    "high": "High confidence — nutrition data is reliable",
+    "medium": "Medium confidence — review the ingredients",
+    "low": "Low confidence — consider editing or re-scanning"
+  },
   "meal_memory": {
     "your_usual": "Your usual: {{food}}?",
     "add_usual": "Add your usual {{meal}}: {{food}}",

@@ -419,6 +419,11 @@
     "pro_desc": "Hedeflerinize özel sınırsız AI yemek fikirleri alın",
     "refresh": "Önerileri yenile"
   },
+  "confidence": {
+    "high": "Yüksek güven — besin verileri güvenilir",
+    "medium": "Orta güven — malzemeleri kontrol edin",
+    "low": "Düşük güven — düzenleyin veya tekrar tarayın"
+  },
   "meal_memory": {
     "your_usual": "Her zamanki: {{food}}?",
     "add_usual": "Her zamanki {{meal}} ekle: {{food}}",

@@ -419,6 +419,11 @@
     "pro_desc": "Erhalte unbegrenzte KI-Essensideen für deine Ziele",
     "refresh": "Vorschläge aktualisieren"
   },
+  "confidence": {
+    "high": "Hohe Zuverlässigkeit — Nährwerte sind zuverlässig",
+    "medium": "Mittlere Zuverlässigkeit — überprüfe die Zutaten",
+    "low": "Niedrige Zuverlässigkeit — bearbeite oder scanne erneut"
+  },
   "meal_memory": {
     "your_usual": "Wie gewohnt: {{food}}?",
     "add_usual": "Dein übliches {{meal}} hinzufügen: {{food}}",

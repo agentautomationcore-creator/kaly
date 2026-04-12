@@ -419,6 +419,11 @@
     "pro_desc": "Obtenha ideias de refeições IA ilimitadas para seus objetivos",
     "refresh": "Atualizar sugestões"
   },
+  "confidence": {
+    "high": "Alta confiança — dados nutricionais confiáveis",
+    "medium": "Confiança média — verifique os ingredientes",
+    "low": "Baixa confiança — edite ou escaneie novamente"
+  },
   "meal_memory": {
     "your_usual": "O de sempre: {{food}}?",
     "add_usual": "Adicionar seu {{meal}} habitual: {{food}}",

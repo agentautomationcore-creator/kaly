@@ -61,6 +61,13 @@ export function NutritionResultCard({ entryMethod = 'photo' }: NutritionResultCa
 
   const meals: MealType[] = ['breakfast', 'lunch', 'dinner', 'snack'];
 
+  // Confidence color: green >= 80%, yellow >= 50%, red < 50%
+  const confidenceColor = result.confidence >= 0.8
+    ? colors.success
+    : result.confidence >= 0.5
+      ? colors.warning
+      : colors.error;
+
   const handleSave = () => {
     if (!user || saving.current) return;
     saving.current = true;
@@ -120,19 +127,39 @@ export function NutritionResultCard({ entryMethod = 'photo' }: NutritionResultCa
         <View style={{ width: 40 }} />
       </View>
 
-      {/* Food info */}
-      <View style={{ flexDirection: 'row', alignItems: 'center', gap: 12, marginBottom: SPACING[4] }}>
-        <View style={{ flex: 1 }}>
-          <Text style={{ ...typography.h2, color: colors.textPrimary, marginBottom: 4 }}>
-            {result.dish_name}
+      {/* Food info + confidence score */}
+      <View style={{ marginBottom: SPACING[4] }}>
+        <Text style={{ ...typography.h2, color: colors.textPrimary, marginBottom: SPACING[2] }}>
+          {result.dish_name}
+        </Text>
+
+        {/* Confidence score bar */}
+        <View style={{ flexDirection: 'row', alignItems: 'center', gap: SPACING[2], marginBottom: SPACING[1] }}>
+          <Badge variant="ai" label={entryMethod === 'text' ? 'AI' : 'AI \uD83D\uDCF7'} />
+          <Text style={{ ...typography.smallMedium, color: confidenceColor, fontVariant: ['tabular-nums'] }}>
+            {Math.round(result.confidence * 100)}%
           </Text>
-          <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
-            <Text style={{ ...typography.caption, color: colors.textSecondary }}>
-              AI detected \u2022 {Math.round(result.confidence * 100)}% match
-            </Text>
-            <Badge variant="ai" label="AI \uD83D\uDCF7" />
-          </View>
+          <Text style={{ ...typography.caption, color: colors.textTertiary }}>
+            {t('scan.confidence')}
+          </Text>
         </View>
+        <View style={{ height: 6, borderRadius: RADIUS.full, backgroundColor: colors.border, overflow: 'hidden' }}>
+          <View
+            style={{
+              width: `${Math.min(100, Math.round(result.confidence * 100))}%`,
+              height: '100%',
+              borderRadius: RADIUS.full,
+              backgroundColor: confidenceColor,
+            }}
+          />
+        </View>
+        <Text style={{ ...typography.caption, color: colors.textTertiary, marginTop: SPACING[1] }}>
+          {result.confidence >= 0.8
+            ? t('confidence.high')
+            : result.confidence >= 0.5
+              ? t('confidence.medium')
+              : t('confidence.low')}
+        </Text>
       </View>
 
       {/* Nutrition hero card */}

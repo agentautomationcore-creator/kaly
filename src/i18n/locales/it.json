@@ -419,6 +419,11 @@
     "pro_desc": "Ottieni idee pasto AI illimitate per i tuoi obiettivi",
     "refresh": "Aggiorna suggerimenti"
   },
+  "confidence": {
+    "high": "Alta affidabilità — dati nutrizionali affidabili",
+    "medium": "Media affidabilità — controlla gli ingredienti",
+    "low": "Bassa affidabilità — modifica o riscansiona"
+  },
   "meal_memory": {
     "your_usual": "Il solito: {{food}}?",
     "add_usual": "Aggiungi il tuo {{meal}} solito: {{food}}",

@@ -419,6 +419,11 @@
     "pro_desc": "获取无限AI膳食建议",
     "refresh": "刷新建议"
   },
+  "confidence": {
+    "high": "高置信度 — 营养数据可靠",
+    "medium": "中置信度 — 请检查配料",
+    "low": "低置信度 — 建议编辑或重新扫描"
+  },
   "meal_memory": {
     "your_usual": "老样子：{{food}}？",
     "add_usual": "添加常吃的{{meal}}：{{food}}",
