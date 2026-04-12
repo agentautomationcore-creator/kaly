@@ -414,6 +414,11 @@
     "pro_desc": "Hedeflerinize özel sınırsız AI yemek fikirleri alın",
     "refresh": "Önerileri yenile"
   },
+  "meal_memory": {
+    "your_usual": "Her zamanki: {{food}}?",
+    "add_usual": "Her zamanki {{meal}} ekle: {{food}}",
+    "logged_times": "{{count}} kez kaydedildi"
+  },
   "voice": {
     "start": "Konuşmak için dokunun",
     "stop": "Dinlemeyi durdur",

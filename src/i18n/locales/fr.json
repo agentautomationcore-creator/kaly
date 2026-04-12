@@ -414,6 +414,11 @@
     "pro_desc": "Obtenez des idées repas IA illimitées selon vos objectifs",
     "refresh": "Actualiser les suggestions"
   },
+  "meal_memory": {
+    "your_usual": "Votre habitude : {{food}} ?",
+    "add_usual": "Ajouter votre {{meal}} habituel : {{food}}",
+    "logged_times": "Enregistré {{count}} fois"
+  },
   "voice": {
     "start": "Appuyez pour parler",
     "stop": "Arrêter l'écoute",

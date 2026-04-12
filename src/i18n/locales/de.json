@@ -414,6 +414,11 @@
     "pro_desc": "Erhalte unbegrenzte KI-Essensideen für deine Ziele",
     "refresh": "Vorschläge aktualisieren"
   },
+  "meal_memory": {
+    "your_usual": "Wie gewohnt: {{food}}?",
+    "add_usual": "Dein übliches {{meal}} hinzufügen: {{food}}",
+    "logged_times": "{{count}} Mal protokolliert"
+  },
   "voice": {
     "start": "Tippe zum Sprechen",
     "stop": "Aufnahme stoppen",

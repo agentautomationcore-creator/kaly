@@ -414,6 +414,11 @@
     "pro_desc": "Obtenha ideias de refeições IA ilimitadas para seus objetivos",
     "refresh": "Atualizar sugestões"
   },
+  "meal_memory": {
+    "your_usual": "O de sempre: {{food}}?",
+    "add_usual": "Adicionar seu {{meal}} habitual: {{food}}",
+    "logged_times": "Registrado {{count}} vezes"
+  },
   "voice": {
     "start": "Toque para falar",
     "stop": "Parar de ouvir",

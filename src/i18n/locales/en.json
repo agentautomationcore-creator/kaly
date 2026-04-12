@@ -414,6 +414,11 @@
     "pro_desc": "Get unlimited AI meal ideas tailored to your goals",
     "refresh": "Refresh suggestions"
   },
+  "meal_memory": {
+    "your_usual": "Your usual: {{food}}?",
+    "add_usual": "Add your usual {{meal}}: {{food}}",
+    "logged_times": "Logged {{count}} times"
+  },
   "voice": {
     "start": "Tap to speak",
     "stop": "Stop listening",

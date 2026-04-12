@@ -414,6 +414,11 @@
     "pro_desc": "Ottieni idee pasto AI illimitate per i tuoi obiettivi",
     "refresh": "Aggiorna suggerimenti"
   },
+  "meal_memory": {
+    "your_usual": "Il solito: {{food}}?",
+    "add_usual": "Aggiungi il tuo {{meal}} solito: {{food}}",
+    "logged_times": "Registrato {{count}} volte"
+  },
   "voice": {
     "start": "Tocca per parlare",
     "stop": "Interrompi ascolto",

@@ -414,6 +414,11 @@
     "pro_desc": "获取无限AI膳食建议",
     "refresh": "刷新建议"
   },
+  "meal_memory": {
+    "your_usual": "老样子：{{food}}？",
+    "add_usual": "添加常吃的{{meal}}：{{food}}",
+    "logged_times": "已记录 {{count}} 次"
+  },
   "voice": {
     "start": "点击说话",
     "stop": "停止收听",

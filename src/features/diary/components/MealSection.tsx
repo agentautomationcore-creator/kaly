@@ -7,6 +7,7 @@ import { useQueryClient } from '@tanstack/react-query';
 import { useColors } from '../../../lib/theme';
 import { MealRow } from './MealRow';
 import { MealSuggestionsCard } from './MealSuggestionsCard';
+import { MealMemoryBanner } from './MealMemoryBanner';
 import { RADIUS, MIN_TOUCH, SPACING } from '../../../lib/constants';
 import { typography } from '../../../lib/typography';
 import { formatNumber } from '../../../lib/formatNumber';
@@ -153,6 +154,9 @@ export const MealSection = React.memo(function MealSection({
       {/* Empty state with suggestions */}
       {isEmpty && (
         <>
+          {/* AI meal memory — "Your usual breakfast?" */}
+          <MealMemoryBanner mealType={mealType} date={date} />
+
           {yesterdayEntries && yesterdayEntries.length > 0 && (
             <Pressable
               onPress={handleRepeatYesterday}
