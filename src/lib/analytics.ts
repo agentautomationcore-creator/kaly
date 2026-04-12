@@ -26,7 +26,8 @@ type EventName =
   | 'suggest_meal_tapped'
   | 'suggestion_added'
   | 'analyze_text'
-  | 'text_result';
+  | 'text_result'
+  | 'voice_input_start';
 
 // PostHog client — dynamic import, structural typing
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

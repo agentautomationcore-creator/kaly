@@ -411,6 +411,12 @@
     "pro_desc": "Hedeflerinize özel sınırsız AI yemek fikirleri alın",
     "refresh": "Önerileri yenile"
   },
+  "voice": {
+    "start": "Konuşmak için dokunun",
+    "stop": "Dinlemeyi durdur",
+    "listening": "Dinleniyor...",
+    "permission_denied": "Sesli giriş için mikrofon erişimi gerekli. Ayarlardan etkinleştirin."
+  },
   "text_entry": {
     "title": "Yemeğinizi tanımlayın",
     "hint": "Ne yediğinizi yazın — yapay zeka besin değerlerini hesaplasın",

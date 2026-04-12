@@ -411,6 +411,12 @@
     "pro_desc": "Ottieni idee pasto AI illimitate per i tuoi obiettivi",
     "refresh": "Aggiorna suggerimenti"
   },
+  "voice": {
+    "start": "Tocca per parlare",
+    "stop": "Interrompi ascolto",
+    "listening": "Ascolto...",
+    "permission_denied": "L'accesso al microfono è necessario per l'input vocale. Attivalo nelle Impostazioni."
+  },
   "text_entry": {
     "title": "Descrivi il tuo pasto",
     "hint": "Scrivi cosa hai mangiato — l'IA calcolerà i valori nutrizionali",

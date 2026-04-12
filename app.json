@@ -20,6 +20,8 @@
       "infoPlist": {
         "NSCameraUsageDescription": "Kaly uses the camera to scan your food and calculate calories",
         "NSPhotoLibraryUsageDescription": "Kaly needs photo access to import food images for analysis",
+        "NSMicrophoneUsageDescription": "Kaly uses the microphone to recognize your voice when logging meals",
+        "NSSpeechRecognitionUsageDescription": "Kaly uses speech recognition to convert your voice into a food description for calorie tracking",
         "ITSAppUsesNonExemptEncryption": false,
         "NSUserTrackingUsageDescription": "This allows us to provide a better experience and relevant content."
       },
@@ -132,7 +134,8 @@
           "organization": "doclear",
           "project": "kaly"
         }
-      ]
+      ],
+      "expo-speech-recognition"
     ],
     "updates": {
       "url": "https://u.expo.dev/67f656ee-fffd-4a8d-93b3-f7268c965730"

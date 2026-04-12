@@ -411,6 +411,12 @@
     "pro_desc": "Get unlimited AI meal ideas tailored to your goals",
     "refresh": "Refresh suggestions"
   },
+  "voice": {
+    "start": "Tap to speak",
+    "stop": "Stop listening",
+    "listening": "Listening...",
+    "permission_denied": "Microphone access is needed for voice input. Enable it in Settings."
+  },
   "text_entry": {
     "title": "Describe your food",
     "hint": "Type what you ate — AI will calculate the nutrition",

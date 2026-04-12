@@ -411,6 +411,12 @@
     "pro_desc": "Erhalte unbegrenzte KI-Essensideen für deine Ziele",
     "refresh": "Vorschläge aktualisieren"
   },
+  "voice": {
+    "start": "Tippe zum Sprechen",
+    "stop": "Aufnahme stoppen",
+    "listening": "Höre zu...",
+    "permission_denied": "Mikrofonzugang wird für die Spracheingabe benötigt. Aktiviere ihn in den Einstellungen."
+  },
   "text_entry": {
     "title": "Essen beschreiben",
     "hint": "Beschreibe, was du gegessen hast — die KI berechnet die Nährwerte",

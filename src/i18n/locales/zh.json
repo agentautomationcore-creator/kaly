@@ -411,6 +411,12 @@
     "pro_desc": "获取无限AI膳食建议",
     "refresh": "刷新建议"
   },
+  "voice": {
+    "start": "点击说话",
+    "stop": "停止收听",
+    "listening": "正在收听...",
+    "permission_denied": "语音输入需要麦克风权限，请在设置中开启。"
+  },
   "text_entry": {
     "title": "描述你的食物",
     "hint": "输入你吃了什么 — AI会计算营养成分",

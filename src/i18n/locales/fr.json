@@ -411,6 +411,12 @@
     "pro_desc": "Obtenez des idées repas IA illimitées selon vos objectifs",
     "refresh": "Actualiser les suggestions"
   },
+  "voice": {
+    "start": "Appuyez pour parler",
+    "stop": "Arrêter l'écoute",
+    "listening": "Écoute en cours...",
+    "permission_denied": "L'accès au micro est nécessaire pour la saisie vocale. Activez-le dans Réglages."
+  },
   "text_entry": {
     "title": "Décrivez votre repas",
     "hint": "Tapez ce que vous avez mangé — l'IA calculera les valeurs nutritionnelles",

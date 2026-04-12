@@ -1,9 +1,14 @@
-import React, { useState } from 'react';
-import { View, Text, TextInput, Pressable, KeyboardAvoidingView, Platform, ActivityIndicator } from 'react-native';
+import React, { useState, useCallback } from 'react';
+import { View, Text, TextInput, Pressable, KeyboardAvoidingView, Platform, ActivityIndicator, Alert } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
 import { useTranslation } from 'react-i18next';
 import { Ionicons } from '@expo/vector-icons';
+import {
+  ExpoSpeechRecognitionModule,
+  useSpeechRecognitionEvent,
+} from 'expo-speech-recognition';
+import * as Haptics from 'expo-haptics';
 import { useColors } from '../src/lib/theme';
 import { Button } from '../src/components/Button';
 import { NutritionResultCard } from '../src/features/scan/components/NutritionResultCard';
@@ -11,14 +16,57 @@ import { useAnalyzeText } from '../src/features/scan/hooks/useAnalyzeFood';
 import { useScanStore } from '../src/features/scan/store/scanStore';
 import { RADIUS, MIN_TOUCH, SPACING } from '../src/lib/constants';
 import { typography } from '../src/lib/typography';
+import { track } from '../src/lib/analytics';
+import i18n from '../src/i18n';
 
 export default function TextEntryScreen() {
   const { t } = useTranslation();
   const colors = useColors();
   const router = useRouter();
   const [text, setText] = useState('');
+  const [isListening, setIsListening] = useState(false);
   const analyzeText = useAnalyzeText();
   const { result, isAnalyzing, error, reset } = useScanStore();
+
+  // Speech recognition events
+  useSpeechRecognitionEvent('result', (event) => {
+    const transcript = event.results[0]?.transcript;
+    if (transcript) {
+      setText(transcript);
+    }
+  });
+
+  useSpeechRecognitionEvent('end', () => {
+    setIsListening(false);
+  });
+
+  useSpeechRecognitionEvent('error', () => {
+    setIsListening(false);
+  });
+
+  const handleMicPress = useCallback(async () => {
+    if (isListening) {
+      ExpoSpeechRecognitionModule.stop();
+      setIsListening(false);
+      return;
+    }
+
+    const { granted } = await ExpoSpeechRecognitionModule.requestPermissionsAsync();
+    if (!granted) {
+      Alert.alert(t('common.error'), t('voice.permission_denied'));
+      return;
+    }
+
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
+    track('voice_input_start');
+    setIsListening(true);
+
+    ExpoSpeechRecognitionModule.start({
+      lang: i18n.language,
+      interimResults: true,
+      continuous: false,
+    });
+  }, [isListening, t]);
 
   const canAnalyze = text.trim().length >= 2 && !isAnalyzing;
 
@@ -59,34 +107,70 @@ export default function TextEntryScreen() {
             </Text>
           </View>
 
-          {/* Text input */}
-          <TextInput
-            value={text}
-            onChangeText={setText}
-            placeholder={t('text_entry.placeholder')}
-            placeholderTextColor={colors.textTertiary}
-            multiline
-            maxLength={500}
-            autoFocus
-            style={{
-              minHeight: 120,
-              fontSize: 16,
-              color: colors.textPrimary,
-              backgroundColor: colors.surface,
-              borderRadius: RADIUS.lg,
-              borderWidth: 1,
-              borderColor: colors.border,
-              paddingHorizontal: SPACING[4],
-              paddingVertical: SPACING[3],
-              textAlignVertical: 'top',
-            }}
-            accessibilityLabel={t('text_entry.placeholder')}
-          />
+          {/* Text input with mic button */}
+          <View>
+            <TextInput
+              value={text}
+              onChangeText={setText}
+              placeholder={isListening ? t('voice.listening') : t('text_entry.placeholder')}
+              placeholderTextColor={isListening ? colors.primary : colors.textTertiary}
+              multiline
+              maxLength={500}
+              autoFocus={!isListening}
+              style={{
+                minHeight: 120,
+                fontSize: 16,
+                color: colors.textPrimary,
+                backgroundColor: colors.surface,
+                borderRadius: RADIUS.lg,
+                borderWidth: 1,
+                borderColor: isListening ? colors.primary : colors.border,
+                paddingHorizontal: SPACING[4],
+                paddingVertical: SPACING[3],
+                paddingRight: 56,
+                textAlignVertical: 'top',
+              }}
+              accessibilityLabel={t('text_entry.placeholder')}
+            />
+            {/* Mic button */}
+            <Pressable
+              onPress={handleMicPress}
+              style={{
+                position: 'absolute',
+                right: SPACING[2],
+                top: SPACING[2],
+                width: MIN_TOUCH,
+                height: MIN_TOUCH,
+                borderRadius: RADIUS.full,
+                backgroundColor: isListening ? colors.error : colors.primarySubtle,
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}
+              accessibilityRole="button"
+              accessibilityLabel={isListening ? t('voice.stop') : t('voice.start')}
+            >
+              <Ionicons
+                name={isListening ? 'stop' : 'mic'}
+                size={22}
+                color={isListening ? colors.textInverse : colors.primary}
+              />
+            </Pressable>
+          </View>
 
-          {/* Character count */}
-          <Text style={{ ...typography.caption, color: colors.textTertiary, textAlign: 'right' }}>
-            {text.length}/500
-          </Text>
+          {/* Listening indicator + character count */}
+          <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+            {isListening ? (
+              <View style={{ flexDirection: 'row', alignItems: 'center', gap: SPACING[1] }}>
+                <View style={{ width: 8, height: 8, borderRadius: 4, backgroundColor: colors.error }} />
+                <Text style={{ ...typography.caption, color: colors.error }}>{t('voice.listening')}</Text>
+              </View>
+            ) : (
+              <View />
+            )}
+            <Text style={{ ...typography.caption, color: colors.textTertiary }}>
+              {text.length}/500
+            </Text>
+          </View>
 
           {/* Error */}
           {error && error !== 'NOT_FOOD' && (

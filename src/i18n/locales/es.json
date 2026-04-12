@@ -411,6 +411,12 @@
     "pro_desc": "Obtén ideas de comida IA ilimitadas según tus objetivos",
     "refresh": "Actualizar sugerencias"
   },
+  "voice": {
+    "start": "Toca para hablar",
+    "stop": "Dejar de escuchar",
+    "listening": "Escuchando...",
+    "permission_denied": "Se necesita acceso al micrófono para la entrada de voz. Actívalo en Ajustes."
+  },
   "text_entry": {
     "title": "Describe tu comida",
     "hint": "Escribe lo que comiste — la IA calculará la nutrición",
