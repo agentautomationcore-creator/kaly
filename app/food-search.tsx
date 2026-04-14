@@ -13,6 +13,17 @@ import { RADIUS, MIN_TOUCH, SPACING } from '../src/lib/constants';
 import { typography } from '../src/lib/typography';
 import { formatNumber } from '../src/lib/formatNumber';
 
+/** Decode HTML entities from OpenFoodFacts data */
+function decodeHtml(text: string): string {
+  return text
+    .replace(/&quot;/g, '"')
+    .replace(/&amp;/g, '&')
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>')
+    .replace(/&#39;/g, "'")
+    .replace(/&apos;/g, "'");
+}
+
 export default function FoodSearchScreen() {
   const { t } = useTranslation();
   const colors = useColors();
@@ -61,9 +72,9 @@ export default function FoodSearchScreen() {
         </View>
       )}
       <View style={{ flex: 1 }}>
-        <Text style={{ ...typography.bodyMedium, color: colors.textPrimary }} numberOfLines={1} ellipsizeMode="tail">{item.name}</Text>
+        <Text style={{ ...typography.bodyMedium, color: colors.textPrimary }} numberOfLines={1} ellipsizeMode="tail">{decodeHtml(item.name)}</Text>
         <Text style={{ ...typography.caption, color: colors.textSecondary }}>
-          {formatNumber(item.calories)} {t('common.kcal')} \u2022 {formatNumber(item.protein)}{t('common.g')} {t('common.protein_short')} \u2022 {t('food_search.per_100g')}
+          {formatNumber(item.calories)} {t('common.kcal')} {'\u2022'} {formatNumber(item.protein)}{t('common.g')} {t('common.protein_short')} {'\u2022'} {t('food_search.per_100g')}
         </Text>
       </View>
     </Pressable>
