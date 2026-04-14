@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { View, Text, Pressable, AccessibilityInfo } from 'react-native';
 import Animated, { FadeInDown } from 'react-native-reanimated';
-import { useRouter } from 'expo-router';
+import { useRouter, useFocusEffect } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useTranslation } from 'react-i18next';
 import { useColors } from '../../src/lib/theme';
@@ -44,6 +44,11 @@ export default function GoalScreen() {
   const [navigating, setNavigating] = useState(false);
   const [reduceMotion, setReduceMotion] = useState(false);
   useEffect(() => { AccessibilityInfo.isReduceMotionEnabled().then(setReduceMotion); }, []);
+
+  // Reset navigating lock when screen regains focus (e.g. swipe back)
+  useFocusEffect(useCallback(() => {
+    setNavigating(false);
+  }, []));
 
   const handleSelect = (key: string) => {
     if (navigating) return;
