@@ -79,6 +79,7 @@
     "portion_normal": "1x",
     "portion_large": "2x",
     "add_to_diary": "Ajouter au journal",
+    "save_to_diary": "Enregistrer dans le journal",
     "wrong_result": "C'est faux — corriger",
     "disclaimer": "Estimation IA · Pas un avis médical",
     "confidence": "Confiance",
@@ -138,6 +139,8 @@
     "favorite": "Ajouter aux favoris",
     "unfavorite": "Retirer des favoris",
     "favorites_and_recent": "Favoris et récents",
+    "tap_to_add": "Appuyez pour ajouter {{meal}}",
+    "remove_water": "Retirer un verre",
     "suggest_meal": "Suggérer un repas",
     "suggestions_title": "Suggestions IA",
     "add_suggestion": "Ajouter au journal",
@@ -159,7 +162,16 @@
     "no_data": "Pas assez de données pour le graphique. Commencez à enregistrer vos repas !",
     "weight_input": "Saisir le poids",
     "steps": "Pas",
-    "active_calories": "Cal. actives"
+    "active_calories": "Cal. actives",
+    "week": "Semaine",
+    "month": "Mois",
+    "three_months": "3 mois",
+    "remaining": "{{amount}} kcal restantes",
+    "over_goal": "{{amount}} kcal au-dessus",
+    "of_goal": "sur {{goal}} kcal objectif",
+    "remaining_label": "Restant",
+    "over": "Dépassé",
+    "longest_streak": "Record : {{count}} jours"
   },
   "profile": {
     "title": "Profil",
@@ -322,7 +334,9 @@
     "fat_short": "L",
     "close_modal": "Fermer",
     "clear": "Effacer",
-    "edit": "Modifier"
+    "edit": "Modifier",
+    "back": "Retour",
+    "calories": "calories"
   },
   "errors": {
     "analysis_failed": "L'analyse a échoué. Réessayez.",
@@ -366,7 +380,9 @@
     "no_results": "Aucun résultat",
     "enter_manually": "Saisir manuellement",
     "community": "Communauté",
-    "community_hint": "Ajouté par des utilisateurs"
+    "community_hint": "Ajouté par des utilisateurs",
+    "add_manually": "Ajouter manuellement",
+    "per_100g": "pour 100g"
   },
   "manual_entry": {
     "title": "Ajouter un aliment",
@@ -377,7 +393,8 @@
     "name_required": "Veuillez entrer un nom",
     "missing_nutrition": "Données nutritionnelles incomplètes.",
     "default_serving": "1 portion",
-    "name_too_short": "Le nom doit contenir au moins 2 caractères"
+    "name_too_short": "Le nom doit contenir au moins 2 caractères",
+    "optional": "optionnel"
   },
   "fasting": {
     "title": "Jeûne intermittent",

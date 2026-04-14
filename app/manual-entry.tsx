@@ -152,12 +152,12 @@ export default function ManualEntryScreen() {
             </Text>
             <View style={{ flexDirection: 'row', gap: SPACING[2] }}>
               {[
-                { label: 'P', value: protein, setter: setProtein, color: colors.protein },
-                { label: 'C', value: carbs, setter: setCarbs, color: colors.carbs },
-                { label: 'F', value: fat, setter: setFat, color: colors.fat },
+                { label: t('common.protein_short'), value: protein, setter: setProtein, color: colors.protein },
+                { label: t('common.carbs_short'), value: carbs, setter: setCarbs, color: colors.carbs },
+                { label: t('common.fat_short'), value: fat, setter: setFat, color: colors.fat },
               ].map(({ label, value, setter, color }) => (
                 <View key={label} style={{ flex: 1 }}>
-                  <Text style={{ ...typography.caption, color, marginBottom: 2 }}>{label} (g)</Text>
+                  <Text style={{ ...typography.caption, color, marginBottom: 2 }}>{label} ({t('common.g')})</Text>
                   <TextInput
                     value={value}
                     onChangeText={(v) => setter(filterNumeric(v))}

@@ -79,6 +79,7 @@
     "portion_normal": "1x",
     "portion_large": "2x",
     "add_to_diary": "Adicionar ao diário",
+    "save_to_diary": "Salvar no diário",
     "wrong_result": "Isso está errado — corrigir",
     "disclaimer": "Estimativa de IA · Não é orientação médica",
     "confidence": "Confiança",
@@ -138,6 +139,8 @@
     "favorite": "Adicionar aos favoritos",
     "unfavorite": "Remover dos favoritos",
     "favorites_and_recent": "Favoritos e recentes",
+    "tap_to_add": "Toque para adicionar {{meal}}",
+    "remove_water": "Remover copo",
     "suggest_meal": "Sugerir refeição",
     "suggestions_title": "Sugestões IA",
     "add_suggestion": "Adicionar ao diário",
@@ -159,7 +162,16 @@
     "no_data": "Dados insuficientes para o gráfico. Comece a registrar suas refeições!",
     "weight_input": "Inserir peso",
     "steps": "Passos",
-    "active_calories": "Cal. ativas"
+    "active_calories": "Cal. ativas",
+    "week": "Semana",
+    "month": "Mês",
+    "three_months": "3 meses",
+    "remaining": "{{amount}} kcal restantes",
+    "over_goal": "{{amount}} kcal acima da meta",
+    "of_goal": "de {{goal}} kcal meta",
+    "remaining_label": "Restante",
+    "over": "Acima",
+    "longest_streak": "Recorde: {{count}} dias"
   },
   "profile": {
     "title": "Perfil",
@@ -322,7 +334,9 @@
     "fat_short": "G",
     "close_modal": "Fechar",
     "clear": "Limpar",
-    "edit": "Editar"
+    "edit": "Editar",
+    "back": "Voltar",
+    "calories": "calorias"
   },
   "errors": {
     "analysis_failed": "A análise falhou. Tente novamente.",
@@ -366,7 +380,9 @@
     "no_results": "Nenhum resultado",
     "enter_manually": "Inserir manualmente",
     "community": "Comunidade",
-    "community_hint": "Adicionado por usuários"
+    "community_hint": "Adicionado por usuários",
+    "add_manually": "Adicionar manualmente",
+    "per_100g": "por 100g"
   },
   "manual_entry": {
     "title": "Adicionar comida",
@@ -377,7 +393,8 @@
     "name_required": "Insira um nome",
     "missing_nutrition": "Dados nutricionais incompletos.",
     "default_serving": "1 porção",
-    "name_too_short": "O nome deve ter pelo menos 2 caracteres"
+    "name_too_short": "O nome deve ter pelo menos 2 caracteres",
+    "optional": "opcional"
   },
   "fasting": {
     "title": "Jejum intermitente",

@@ -79,6 +79,7 @@
     "portion_normal": "1x",
     "portion_large": "2x",
     "add_to_diary": "Добавить в дневник",
+    "save_to_diary": "Сохранить в дневник",
     "wrong_result": "Это неверно — исправить",
     "disclaimer": "Оценка ИИ · Не медицинская рекомендация",
     "confidence": "Уверенность",
@@ -140,6 +141,8 @@
     "favorite": "В избранное",
     "unfavorite": "Из избранного",
     "favorites_and_recent": "Избранное и недавнее",
+    "tap_to_add": "Нажмите, чтобы добавить {{meal}}",
+    "remove_water": "Убрать стакан",
     "suggest_meal": "Предложить блюдо",
     "suggestions_title": "Предложения ИИ",
     "add_suggestion": "Добавить в дневник",
@@ -163,7 +166,16 @@
     "no_data": "Недостаточно данных для графика. Начните записывать приёмы пищи!",
     "weight_input": "Введите вес",
     "steps": "Шаги",
-    "active_calories": "Актив. кал."
+    "active_calories": "Актив. кал.",
+    "week": "Неделя",
+    "month": "Месяц",
+    "three_months": "3 месяца",
+    "remaining": "{{amount}} ккал осталось",
+    "over_goal": "{{amount}} ккал сверх нормы",
+    "of_goal": "из {{goal}} ккал цели",
+    "remaining_label": "Осталось",
+    "over": "Сверх нормы",
+    "longest_streak": "Рекорд: {{count}} дней"
   },
   "profile": {
     "title": "Профиль",
@@ -328,7 +340,9 @@
     "fat_short": "Ж",
     "close_modal": "Закрыть",
     "clear": "Очистить",
-    "edit": "Редактировать"
+    "edit": "Редактировать",
+    "back": "Назад",
+    "calories": "калории"
   },
   "errors": {
     "analysis_failed": "Анализ не удался. Попробуйте снова.",
@@ -372,7 +386,9 @@
     "no_results": "Ничего не найдено",
     "enter_manually": "Ввести вручную",
     "community": "Сообщество",
-    "community_hint": "Добавлено пользователями"
+    "community_hint": "Добавлено пользователями",
+    "add_manually": "Добавить вручную",
+    "per_100g": "на 100г"
   },
   "manual_entry": {
     "title": "Добавить еду",
@@ -383,7 +399,8 @@
     "name_required": "Введите название",
     "missing_nutrition": "Данные о питании неполные.",
     "default_serving": "1 порция",
-    "name_too_short": "Название должно содержать минимум 2 символа"
+    "name_too_short": "Название должно содержать минимум 2 символа",
+    "optional": "необязательно"
   },
   "fasting": {
     "title": "Интервальное голодание",

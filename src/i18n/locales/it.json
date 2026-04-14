@@ -79,6 +79,7 @@
     "portion_normal": "1x",
     "portion_large": "2x",
     "add_to_diary": "Aggiungi al diario",
+    "save_to_diary": "Salva nel diario",
     "wrong_result": "Non è corretto — correggi",
     "disclaimer": "Stima IA · Non è un consiglio medico",
     "confidence": "Affidabilità",
@@ -138,6 +139,8 @@
     "favorite": "Aggiungi ai preferiti",
     "unfavorite": "Rimuovi dai preferiti",
     "favorites_and_recent": "Preferiti e recenti",
+    "tap_to_add": "Tocca per aggiungere {{meal}}",
+    "remove_water": "Rimuovi bicchiere",
     "suggest_meal": "Suggerisci un pasto",
     "suggestions_title": "Suggerimenti IA",
     "add_suggestion": "Aggiungi al diario",
@@ -159,7 +162,16 @@
     "no_data": "Non ci sono abbastanza dati per il grafico. Inizia a registrare i pasti!",
     "weight_input": "Inserisci peso",
     "steps": "Passi",
-    "active_calories": "Cal. attive"
+    "active_calories": "Cal. attive",
+    "week": "Settimana",
+    "month": "Mese",
+    "three_months": "3 mesi",
+    "remaining": "{{amount}} kcal rimanenti",
+    "over_goal": "{{amount}} kcal sopra l'obiettivo",
+    "of_goal": "di {{goal}} kcal obiettivo",
+    "remaining_label": "Rimanente",
+    "over": "Sopra",
+    "longest_streak": "Record: {{count}} giorni"
   },
   "profile": {
     "title": "Profilo",
@@ -322,7 +334,9 @@
     "fat_short": "G",
     "close_modal": "Chiudi",
     "clear": "Cancella",
-    "edit": "Modifica"
+    "edit": "Modifica",
+    "back": "Indietro",
+    "calories": "calorie"
   },
   "errors": {
     "analysis_failed": "Analisi non riuscita. Riprova.",
@@ -366,7 +380,9 @@
     "no_results": "Nessun risultato",
     "enter_manually": "Inserisci manualmente",
     "community": "Comunità",
-    "community_hint": "Aggiunto dagli utenti"
+    "community_hint": "Aggiunto dagli utenti",
+    "add_manually": "Aggiungi manualmente",
+    "per_100g": "per 100g"
   },
   "manual_entry": {
     "title": "Aggiungi cibo",
@@ -377,7 +393,8 @@
     "name_required": "Inserisci un nome",
     "missing_nutrition": "Dati nutrizionali incompleti.",
     "default_serving": "1 porzione",
-    "name_too_short": "Il nome deve avere almeno 2 caratteri"
+    "name_too_short": "Il nome deve avere almeno 2 caratteri",
+    "optional": "opzionale"
   },
   "fasting": {
     "title": "Digiuno intermittente",

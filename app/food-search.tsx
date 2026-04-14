@@ -63,7 +63,7 @@ export default function FoodSearchScreen() {
       <View style={{ flex: 1 }}>
         <Text style={{ ...typography.bodyMedium, color: colors.textPrimary }} numberOfLines={1} ellipsizeMode="tail">{item.name}</Text>
         <Text style={{ ...typography.caption, color: colors.textSecondary }}>
-          {formatNumber(item.calories)} {t('common.kcal')} \u2022 {formatNumber(item.protein)}g P \u2022 per 100g
+          {formatNumber(item.calories)} {t('common.kcal')} \u2022 {formatNumber(item.protein)}{t('common.g')} {t('common.protein_short')} \u2022 {t('food_search.per_100g')}
         </Text>
       </View>
     </Pressable>

@@ -79,6 +79,7 @@
     "portion_normal": "1x",
     "portion_large": "2x",
     "add_to_diary": "添加到日记",
+    "save_to_diary": "保存到日记",
     "wrong_result": "结果有误 — 纠正",
     "disclaimer": "AI 估算 · 非医疗建议",
     "confidence": "置信度",
@@ -138,6 +139,8 @@
     "favorite": "添加到收藏",
     "unfavorite": "从收藏移除",
     "favorites_and_recent": "收藏与最近",
+    "tap_to_add": "点击添加{{meal}}",
+    "remove_water": "移除一杯",
     "suggest_meal": "推荐一餐",
     "suggestions_title": "AI建议",
     "add_suggestion": "添加到日记",
@@ -159,7 +162,16 @@
     "no_data": "图表数据不足。开始记录您的用餐吧！",
     "weight_input": "输入体重",
     "steps": "步数",
-    "active_calories": "活动卡路里"
+    "active_calories": "活动卡路里",
+    "week": "周",
+    "month": "月",
+    "three_months": "3个月",
+    "remaining": "剩余 {{amount}} 千卡",
+    "over_goal": "超出目标 {{amount}} 千卡",
+    "of_goal": "目标 {{goal}} 千卡",
+    "remaining_label": "剩余",
+    "over": "超出",
+    "longest_streak": "最长连续：{{count}} 天"
   },
   "profile": {
     "title": "我的",
@@ -322,7 +334,9 @@
     "fat_short": "脂",
     "close_modal": "关闭",
     "clear": "清除",
-    "edit": "编辑"
+    "edit": "编辑",
+    "back": "返回",
+    "calories": "卡路里"
   },
   "errors": {
     "analysis_failed": "分析失败，请重试。",
@@ -366,7 +380,9 @@
     "no_results": "未找到结果",
     "enter_manually": "手动输入",
     "community": "社区",
-    "community_hint": "用户添加"
+    "community_hint": "用户添加",
+    "add_manually": "手动添加",
+    "per_100g": "每100克"
   },
   "manual_entry": {
     "title": "添加食物",
@@ -377,7 +393,8 @@
     "name_required": "请输入食物名称",
     "missing_nutrition": "营养数据不完整。",
     "default_serving": "1份",
-    "name_too_short": "名称至少需要2个字符"
+    "name_too_short": "名称至少需要2个字符",
+    "optional": "可选"
   },
   "fasting": {
     "title": "间歇性断食",

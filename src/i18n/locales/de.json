@@ -79,6 +79,7 @@
     "portion_normal": "1x",
     "portion_large": "2x",
     "add_to_diary": "Zum Tagebuch hinzufügen",
+    "save_to_diary": "Im Tagebuch speichern",
     "wrong_result": "Das stimmt nicht — korrigieren",
     "disclaimer": "KI-Schätzung · Kein medizinischer Rat",
     "confidence": "Zuverlässigkeit",
@@ -138,6 +139,8 @@
     "favorite": "Zu Favoriten",
     "unfavorite": "Aus Favoriten entfernen",
     "favorites_and_recent": "Favoriten & kürzlich",
+    "tap_to_add": "Tippe, um {{meal}} hinzuzufügen",
+    "remove_water": "Glas entfernen",
     "suggest_meal": "Mahlzeit vorschlagen",
     "suggestions_title": "KI-Vorschläge",
     "add_suggestion": "Zum Tagebuch",
@@ -159,7 +162,16 @@
     "no_data": "Nicht genug Daten für das Diagramm. Beginne mit der Erfassung deiner Mahlzeiten!",
     "weight_input": "Gewicht eingeben",
     "steps": "Schritte",
-    "active_calories": "Aktive Kal."
+    "active_calories": "Aktive Kal.",
+    "week": "Woche",
+    "month": "Monat",
+    "three_months": "3 Monate",
+    "remaining": "{{amount}} kcal übrig",
+    "over_goal": "{{amount}} kcal über Ziel",
+    "of_goal": "von {{goal}} kcal Ziel",
+    "remaining_label": "Übrig",
+    "over": "Über Ziel",
+    "longest_streak": "Rekord: {{count}} Tage"
   },
   "profile": {
     "title": "Profil",
@@ -322,7 +334,9 @@
     "fat_short": "F",
     "close_modal": "Schließen",
     "clear": "Löschen",
-    "edit": "Bearbeiten"
+    "edit": "Bearbeiten",
+    "back": "Zurück",
+    "calories": "Kalorien"
   },
   "errors": {
     "analysis_failed": "Analyse fehlgeschlagen. Bitte versuche es erneut.",
@@ -366,7 +380,9 @@
     "no_results": "Keine Ergebnisse",
     "enter_manually": "Manuell eingeben",
     "community": "Community",
-    "community_hint": "Von Nutzern hinzugefügt"
+    "community_hint": "Von Nutzern hinzugefügt",
+    "add_manually": "Manuell hinzufügen",
+    "per_100g": "pro 100g"
   },
   "manual_entry": {
     "title": "Essen hinzufügen",
@@ -377,7 +393,8 @@
     "name_required": "Bitte Name eingeben",
     "missing_nutrition": "Nährwertdaten unvollständig.",
     "default_serving": "1 Portion",
-    "name_too_short": "Name muss mindestens 2 Zeichen haben"
+    "name_too_short": "Name muss mindestens 2 Zeichen haben",
+    "optional": "optional"
   },
   "fasting": {
     "title": "Intervallfasten",

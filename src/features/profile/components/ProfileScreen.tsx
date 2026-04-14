@@ -125,7 +125,7 @@ export function ProfileScreen() {
           )}
           <Pressable onPress={() => router.push('/paywall')} accessibilityRole="button" style={{ flexDirection: 'row', alignItems: 'center', gap: 4, marginTop: 2 }}>
             <Text style={{ ...typography.caption, color: colors.textSecondary }}>
-              {profile?.plan === 'pro' ? 'Pro plan' : `${t('profile.free_plan')} \u2022 `}
+              {profile?.plan === 'pro' ? t('profile.pro_plan') : `${t('profile.free_plan')} \u2022 `}
             </Text>
             {profile?.plan !== 'pro' && (
               <Text style={{ ...typography.caption, color: colors.primary }}>{t('profile.upgrade')} \u2192</Text>

@@ -79,6 +79,7 @@
     "portion_normal": "1x",
     "portion_large": "2x",
     "add_to_diary": "Add to diary",
+    "save_to_diary": "Save to diary",
     "wrong_result": "This is wrong — fix it",
     "disclaimer": "AI estimate · Not medical advice",
     "confidence": "Confidence",
@@ -138,6 +139,8 @@
     "favorite": "Add to favorites",
     "unfavorite": "Remove from favorites",
     "favorites_and_recent": "Favorites & recent",
+    "tap_to_add": "Tap to add {{meal}}",
+    "remove_water": "Remove glass",
     "suggest_meal": "Suggest a meal",
     "suggestions_title": "AI Suggestions",
     "add_suggestion": "Add to diary",
@@ -159,7 +162,16 @@
     "no_data": "Not enough data for chart. Start logging meals!",
     "weight_input": "Enter weight",
     "steps": "Steps",
-    "active_calories": "Active cal."
+    "active_calories": "Active cal.",
+    "week": "Week",
+    "month": "Month",
+    "three_months": "3 months",
+    "remaining": "{{amount}} kcal remaining",
+    "over_goal": "{{amount}} kcal over goal",
+    "of_goal": "of {{goal}} kcal goal",
+    "remaining_label": "Remaining",
+    "over": "Over",
+    "longest_streak": "Longest: {{count}} days"
   },
   "profile": {
     "title": "Profile",
@@ -322,7 +334,9 @@
     "fat_short": "F",
     "close_modal": "Close modal",
     "clear": "Clear",
-    "edit": "Edit"
+    "edit": "Edit",
+    "back": "Back",
+    "calories": "calories"
   },
   "errors": {
     "analysis_failed": "Analysis failed. Please try again.",
@@ -366,7 +380,9 @@
     "no_results": "No results found",
     "enter_manually": "Enter manually",
     "community": "Community",
-    "community_hint": "Added by users like you"
+    "community_hint": "Added by users like you",
+    "add_manually": "Add manually",
+    "per_100g": "per 100g"
   },
   "manual_entry": {
     "title": "Add food",
@@ -377,7 +393,8 @@
     "name_required": "Please enter a food name",
     "missing_nutrition": "Nutrition data incomplete. Please verify or enter manually.",
     "default_serving": "1 serving",
-    "name_too_short": "Name must be at least 2 characters"
+    "name_too_short": "Name must be at least 2 characters",
+    "optional": "optional"
   },
   "fasting": {
     "title": "Intermittent Fasting",
