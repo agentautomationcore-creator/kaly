@@ -11,6 +11,8 @@ import { RADIUS, SPACING, MIN_TOUCH, SHADOW } from '../../src/lib/constants';
 import { typography } from '../../src/lib/typography';
 import { Ionicons } from '@expo/vector-icons';
 import { setLanguage, SUPPORTED_LANGUAGES } from '../../src/i18n';
+import { useAuthStore } from '../../src/stores/authStore';
+import { supabase } from '../../src/lib/supabase';
 
 const PRIVACY_URL = 'https://doclear.app/kaly-privacy';
 const TERMS_URL = 'https://doclear.app/kaly-terms';
@@ -19,9 +21,29 @@ export default function WelcomeScreen() {
   const { t, i18n } = useTranslation();
   const colors = useColors();
   const router = useRouter();
+  const signInAnonymously = useAuthStore((s) => s.signInAnonymously);
   const [reduceMotion, setReduceMotion] = useState(false);
   const [showLangPicker, setShowLangPicker] = useState(false);
+  const [starting, setStarting] = useState(false);
   useEffect(() => { AccessibilityInfo.isReduceMotionEnabled().then(setReduceMotion); }, []);
+
+  const handleStart = async () => {
+    if (starting) return;
+    setStarting(true);
+    try {
+      // Create anonymous user immediately so all onboarding screens have a user
+      const { data: { user: existing } } = await supabase.auth.getUser();
+      if (!existing) {
+        await signInAnonymously();
+      }
+      router.push('/onboarding/goal');
+    } catch {
+      // Even if anon auth fails, let them proceed — diet screen will retry
+      router.push('/onboarding/goal');
+    } finally {
+      setStarting(false);
+    }
+  };
 
   const LANG_NAMES: Record<string, string> = {
     en: 'English', fr: 'Français', ru: 'Русский', de: 'Deutsch',
@@ -125,7 +147,7 @@ export default function WelcomeScreen() {
 
       {/* CTAs */}
       <View style={{ gap: SPACING[3] }}>
-        <Button title={`${t('welcome.cta')} \u2192`} onPress={() => router.push('/onboarding/goal')} gradient />
+        <Button title={`${t('welcome.cta')} \u2192`} onPress={handleStart} loading={starting} gradient />
         <Button title={t('welcome.login')} variant="ghost" onPress={() => router.push('/(auth)/login')} />
 
         {/* Legal */}

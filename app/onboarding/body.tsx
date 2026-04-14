@@ -8,10 +8,6 @@ import { useColors } from '../../src/lib/theme';
 import { Button } from '../../src/components/Button';
 import { IconButton } from '../../src/components/IconButton';
 import { SegmentedControl } from '../../src/components/SegmentedControl';
-import { ConsentModal } from '../../src/components/ConsentModal';
-import { useSettingsStore } from '../../src/stores/settingsStore';
-import { useAuthStore } from '../../src/stores/authStore';
-import { supabase } from '../../src/lib/supabase';
 import { useOnboardingStore } from '../../src/stores/onboardingStore';
 import { RADIUS, MIN_TOUCH, SPACING } from '../../src/lib/constants';
 import { typography } from '../../src/lib/typography';
@@ -28,12 +24,8 @@ export default function BodyScreen() {
   const [weight, setWeight] = useState('');
   const [age, setAge] = useState('');
   const [genderIdx, setGenderIdx] = useState(-1);
-  const healthConsentGiven = useSettingsStore((s) => s.healthConsentGiven);
-  const setHealthConsent = useSettingsStore((s) => s.setHealthConsent);
-  const [showHealthConsent, setShowHealthConsent] = useState(!healthConsentGiven);
-
   const gender = genderIdx >= 0 ? GENDERS[genderIdx] : null;
-  const canContinue = height && weight && age && gender && healthConsentGiven;
+  const canContinue = !!(height && weight && age && gender);
   const [reduceMotion, setReduceMotion] = useState(false);
   useEffect(() => { AccessibilityInfo.isReduceMotionEnabled().then(setReduceMotion); }, []);
 
@@ -123,31 +115,6 @@ export default function BodyScreen() {
         <Button title={t('onboarding.skip')} variant="ghost" onPress={() => router.push('/onboarding/diet')} />
       </View>
 
-      <ConsentModal
-        visible={showHealthConsent}
-        type="health"
-        onAccept={async () => {
-          const user = useAuthStore.getState().user;
-          if (user) {
-            try {
-              const { error: dbError } = await supabase.from('nutrition_profiles').update({
-                health_consent_given: true,
-                health_consent_at: new Date().toISOString(),
-              }).eq('id', user.id);
-              if (dbError) throw dbError;
-            } catch {
-              Alert.alert(t('common.error'), t('consent.save_failed'));
-              return;
-            }
-          }
-          setHealthConsent(true);
-          setShowHealthConsent(false);
-        }}
-        onDecline={() => {
-          setShowHealthConsent(false);
-          if (router.canGoBack()) router.back(); else router.replace('/onboarding/welcome');
-        }}
-      />
     </SafeAreaView>
   );
 }
