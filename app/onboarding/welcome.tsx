@@ -113,13 +113,13 @@ export default function WelcomeScreen() {
           {t('welcome.subtitle')}
         </Animated.Text>
 
-        {/* Social proof */}
+        {/* Social proof — real user count, no fake ratings */}
         <Animated.View
           entering={reduceMotion ? undefined : FadeInUp.duration(500).delay(500)}
           style={{ backgroundColor: colors.surface, borderRadius: RADIUS.lg, paddingVertical: 10, paddingHorizontal: 20, flexDirection: 'row', alignItems: 'center', gap: 8 }}
         >
-          <Text style={{ color: colors.warning, fontSize: 16 }}>{'\u2605\u2605\u2605\u2605\u2605'}</Text>
-          <Text style={{ ...typography.small, color: colors.textSecondary }}>4.8 \u2022 50K+ users</Text>
+          <Ionicons name="sparkles" size={16} color={colors.primary} />
+          <Text style={{ ...typography.small, color: colors.textSecondary }}>{t('welcome.social_proof')}</Text>
         </Animated.View>
       </View>
 

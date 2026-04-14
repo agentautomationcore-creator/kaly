@@ -41,8 +41,19 @@ export default function GoalScreen() {
   const signInAnonymously = useAuthStore((s) => s.signInAnonymously);
   const [selected, setSelected] = useState<string | null>(null);
   const [skipping, setSkipping] = useState(false);
+  const [navigating, setNavigating] = useState(false);
   const [reduceMotion, setReduceMotion] = useState(false);
   useEffect(() => { AccessibilityInfo.isReduceMotionEnabled().then(setReduceMotion); }, []);
+
+  const handleSelect = (key: string) => {
+    if (navigating) return;
+    setSelected(key);
+    setGoal(key as Goal);
+    setNavigating(true);
+    setTimeout(() => {
+      router.push('/onboarding/body');
+    }, 350);
+  };
 
   const handleSkip = async () => {
     setSkipping(true);
@@ -91,17 +102,12 @@ export default function GoalScreen() {
             icon={g.icon}
             title={t(`onboarding.goal_${g.key}`)}
             selected={selected === g.key}
-            onPress={() => setSelected(g.key)}
+            onPress={() => handleSelect(g.key)}
           />
         ))}
       </View>
 
       <View style={{ gap: SPACING[3] }}>
-        <Button
-          title={`${t('onboarding.next')} \u2192`}
-          onPress={() => { if (selected) setGoal(selected as Goal); router.push('/onboarding/body'); }}
-          disabled={!selected}
-        />
         <Pressable
           onPress={handleSkip}
           disabled={skipping}
