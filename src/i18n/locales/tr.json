@@ -404,7 +404,21 @@
     "completed": "Oruç tamamlandı!",
     "hours_suffix": "s",
     "complete_title": "Oruç tamamlandı!",
-    "complete_body": "Tebrikler! Oruç hedefinize ulaştınız."
+    "complete_body": "Tebrikler! Oruç hedefinize ulaştınız.",
+    "elapsed": "geçen",
+    "goal": "hedef",
+    "fed_state": "Beslenme durumu",
+    "fat_burning": "Yağ yakımı",
+    "ketosis": "Ketoz",
+    "deep_ketosis": "Derin ketoz",
+    "autophagy": "Otofaji",
+    "max_autophagy": "Maksimum otofaji",
+    "fed_desc": "Kan şekeri yükselmiş",
+    "fat_burning_desc": "Vücut yağ yakmaya başlıyor",
+    "ketosis_desc": "Keton cisimcikleri üretiliyor",
+    "deep_ketosis_desc": "Gelişmiş yağ metabolizması",
+    "autophagy_desc": "Hücre yenilenmesi başlıyor",
+    "max_autophagy_desc": "En yüksek hücre yenilenmesi"
   },
   "report": {
     "title": "Beslenme Raporu",

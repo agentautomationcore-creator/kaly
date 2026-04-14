@@ -404,7 +404,21 @@
     "completed": "اكتمل الصيام!",
     "hours_suffix": "س",
     "complete_title": "اكتمل الصيام!",
-    "complete_body": "تهانينا! لقد وصلت إلى هدف الصيام."
+    "complete_body": "تهانينا! لقد وصلت إلى هدف الصيام.",
+    "elapsed": "مضى",
+    "goal": "هدف",
+    "fed_state": "حالة التغذية",
+    "fat_burning": "حرق الدهون",
+    "ketosis": "الكيتوزية",
+    "deep_ketosis": "كيتوزية عميقة",
+    "autophagy": "الالتهام الذاتي",
+    "max_autophagy": "التهام ذاتي أقصى",
+    "fed_desc": "ارتفاع سكر الدم",
+    "fat_burning_desc": "الجسم يبدأ بحرق الدهون",
+    "ketosis_desc": "إنتاج الأجسام الكيتونية",
+    "deep_ketosis_desc": "تعزيز أيض الدهون",
+    "autophagy_desc": "بداية تجديد الخلايا",
+    "max_autophagy_desc": "ذروة تجديد الخلايا"
   },
   "report": {
     "title": "تقرير التغذية",

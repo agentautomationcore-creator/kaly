@@ -101,7 +101,7 @@ export default function DietScreen() {
       {/* Progress */}
       <View style={{ flexDirection: 'row', gap: 4, marginHorizontal: SPACING[6], marginBottom: SPACING[6] }}>
         {[0, 1, 2, 3].map((i) => (
-          <View key={i} style={{ flex: 1, height: 4, borderRadius: 2, backgroundColor: i < 3 ? colors.primary : colors.border }} />
+          <View key={i} style={{ flex: 1, height: 4, borderRadius: 2, backgroundColor: i < 4 ? colors.primary : colors.border }} />
         ))}
       </View>
 

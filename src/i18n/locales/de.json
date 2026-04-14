@@ -404,7 +404,21 @@
     "completed": "Fasten abgeschlossen!",
     "hours_suffix": "h",
     "complete_title": "Fasten abgeschlossen!",
-    "complete_body": "Glückwunsch! Du hast dein Fastenziel erreicht."
+    "complete_body": "Glückwunsch! Du hast dein Fastenziel erreicht.",
+    "elapsed": "vergangen",
+    "goal": "Ziel",
+    "fed_state": "Gesättigter Zustand",
+    "fat_burning": "Fettverbrennung",
+    "ketosis": "Ketose",
+    "deep_ketosis": "Tiefe Ketose",
+    "autophagy": "Autophagie",
+    "max_autophagy": "Maximale Autophagie",
+    "fed_desc": "Blutzucker erhöht",
+    "fat_burning_desc": "Körper beginnt Fett zu verbrennen",
+    "ketosis_desc": "Ketonkörper werden produziert",
+    "deep_ketosis_desc": "Erhöhter Fettstoffwechsel",
+    "autophagy_desc": "Zellerneuerung beginnt",
+    "max_autophagy_desc": "Maximale Zellerneuerung"
   },
   "report": {
     "title": "Ernährungsbericht",

@@ -404,7 +404,21 @@
     "completed": "¡Ayuno completado!",
     "hours_suffix": "h",
     "complete_title": "¡Ayuno completado!",
-    "complete_body": "¡Felicidades! Has alcanzado tu meta de ayuno."
+    "complete_body": "¡Felicidades! Has alcanzado tu meta de ayuno.",
+    "elapsed": "transcurrido",
+    "goal": "objetivo",
+    "fed_state": "Estado alimentado",
+    "fat_burning": "Quema de grasas",
+    "ketosis": "Cetosis",
+    "deep_ketosis": "Cetosis profunda",
+    "autophagy": "Autofagia",
+    "max_autophagy": "Autofagia máxima",
+    "fed_desc": "Azúcar en sangre elevado",
+    "fat_burning_desc": "El cuerpo quema grasa",
+    "ketosis_desc": "Producción de cuerpos cetónicos",
+    "deep_ketosis_desc": "Metabolismo de grasas mejorado",
+    "autophagy_desc": "Renovación celular",
+    "max_autophagy_desc": "Pico de renovación celular"
   },
   "report": {
     "title": "Informe nutricional",

@@ -25,13 +25,18 @@ export default function LoginScreen() {
     setLoading(true);
     setError('');
 
-    const { error: authError } = await supabase.auth.signInWithPassword({ email, password });
-    if (authError) {
-      setError(t('auth.invalid_credentials'));
-    } else {
-      router.replace('/(tabs)/diary');
+    try {
+      const { error: authError } = await supabase.auth.signInWithPassword({ email, password });
+      if (authError) {
+        setError(t('auth.invalid_credentials'));
+      } else {
+        router.replace('/(tabs)/diary');
+      }
+    } catch {
+      setError(t('errors.network'));
+    } finally {
+      setLoading(false);
     }
-    setLoading(false);
   };
 
   const handleAppleSignIn = async () => {

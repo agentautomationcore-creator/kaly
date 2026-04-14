@@ -117,7 +117,7 @@ export function Button({
       disabled={disabled || loading}
       style={{
         ...containerStyle,
-        backgroundColor: disabled ? colors.border : bgColor,
+        backgroundColor: disabled ? colors.surface : bgColor,
         ...animatedStyle,
       }}
       accessibilityRole="button"

@@ -192,7 +192,7 @@ export function BarcodeResult({ product, onDone, onScanAgain }: BarcodeResultPro
                 color: colors.text,
               }}
             />
-            <Text style={{ fontSize: FONT_SIZE.sm, color: colors.textSecondary }}>g</Text>
+            <Text style={{ fontSize: FONT_SIZE.sm, color: colors.textSecondary }}>{t('units.g')}</Text>
           </View>
         </Card>
 

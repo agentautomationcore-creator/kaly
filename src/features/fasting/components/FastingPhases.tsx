@@ -2,23 +2,24 @@ import React, { useEffect } from 'react';
 import { View, Text } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import Animated, { useSharedValue, useAnimatedStyle, withRepeat, withSequence, withTiming } from 'react-native-reanimated';
+import { useTranslation } from 'react-i18next';
 import { useColors } from '../../../lib/theme';
 import { RADIUS, SPACING } from '../../../lib/constants';
 import { typography } from '../../../lib/typography';
 
 interface Phase {
-  name: string;
+  nameKey: string;
   hours: number;
-  description: string;
+  descKey: string;
 }
 
 const PHASES: Phase[] = [
-  { name: 'Fed state', hours: 0, description: 'Blood sugar elevated' },
-  { name: 'Early fasting', hours: 4, description: 'Insulin drops, fat burning starts' },
-  { name: 'Fasting', hours: 8, description: 'Glycogen depleting' },
-  { name: 'Fat burning', hours: 12, description: 'Ketosis begins' },
-  { name: 'Deep ketosis', hours: 16, description: 'Autophagy increasing' },
-  { name: 'Extended fast', hours: 20, description: 'Deep autophagy' },
+  { nameKey: 'fasting.fed_state', hours: 0, descKey: 'fasting.fed_desc' },
+  { nameKey: 'fasting.fat_burning', hours: 4, descKey: 'fasting.fat_burning_desc' },
+  { nameKey: 'fasting.ketosis', hours: 8, descKey: 'fasting.ketosis_desc' },
+  { nameKey: 'fasting.fat_burning', hours: 12, descKey: 'fasting.fat_burning_desc' },
+  { nameKey: 'fasting.deep_ketosis', hours: 16, descKey: 'fasting.deep_ketosis_desc' },
+  { nameKey: 'fasting.autophagy', hours: 20, descKey: 'fasting.autophagy_desc' },
 ];
 
 function PulseDot({ color, bgColor }: { color: string; bgColor: string }) {
@@ -50,6 +51,7 @@ interface FastingPhasesProps {
 }
 
 export function FastingPhases({ elapsedHours, targetHours }: FastingPhasesProps) {
+  const { t } = useTranslation();
   const colors = useColors();
 
   const relevantPhases = PHASES.filter((p) => p.hours <= targetHours);
@@ -67,7 +69,7 @@ export function FastingPhases({ elapsedHours, targetHours }: FastingPhasesProps)
         const borderColor = isActive ? colors.fasting : isDone ? colors.primary : colors.border;
 
         return (
-          <View key={phase.name} style={{ flexDirection: 'row', gap: 12 }}>
+          <View key={phase.nameKey} style={{ flexDirection: 'row', gap: 12 }}>
             {/* Timeline line + dot */}
             <View style={{ alignItems: 'center', width: 24 }}>
               {isActive ? (
@@ -102,10 +104,10 @@ export function FastingPhases({ elapsedHours, targetHours }: FastingPhasesProps)
                   color: isFuture ? colors.textTertiary : colors.textPrimary,
                 }}
               >
-                {phase.name} ({phase.hours}h)
+                {t(phase.nameKey)} ({phase.hours}{t('fasting.hours_suffix')})
               </Text>
               <Text style={{ ...typography.caption, color: colors.textSecondary }}>
-                {phase.description}
+                {t(phase.descKey)}
               </Text>
             </View>
           </View>

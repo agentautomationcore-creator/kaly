@@ -404,7 +404,21 @@
     "completed": "Jeûne terminé !",
     "hours_suffix": "h",
     "complete_title": "Jeûne terminé !",
-    "complete_body": "Félicitations ! Vous avez atteint votre objectif de jeûne."
+    "complete_body": "Félicitations ! Vous avez atteint votre objectif de jeûne.",
+    "elapsed": "écoulé",
+    "goal": "objectif",
+    "fed_state": "État nourri",
+    "fat_burning": "Brûlage des graisses",
+    "ketosis": "Cétose",
+    "deep_ketosis": "Cétose profonde",
+    "autophagy": "Autophagie",
+    "max_autophagy": "Autophagie maximale",
+    "fed_desc": "Glycémie élevée",
+    "fat_burning_desc": "Le corps brûle les graisses",
+    "ketosis_desc": "Production de corps cétoniques",
+    "deep_ketosis_desc": "Métabolisme des graisses renforcé",
+    "autophagy_desc": "Renouvellement cellulaire",
+    "max_autophagy_desc": "Pic de renouvellement cellulaire"
   },
   "report": {
     "title": "Rapport nutritionnel",

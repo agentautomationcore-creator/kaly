@@ -404,7 +404,21 @@
     "completed": "Jejum concluído!",
     "hours_suffix": "h",
     "complete_title": "Jejum concluído!",
-    "complete_body": "Parabéns! Você atingiu sua meta de jejum."
+    "complete_body": "Parabéns! Você atingiu sua meta de jejum.",
+    "elapsed": "decorrido",
+    "goal": "objetivo",
+    "fed_state": "Estado alimentado",
+    "fat_burning": "Queima de gordura",
+    "ketosis": "Cetose",
+    "deep_ketosis": "Cetose profunda",
+    "autophagy": "Autofagia",
+    "max_autophagy": "Autofagia máxima",
+    "fed_desc": "Açúcar no sangue elevado",
+    "fat_burning_desc": "Corpo começa a queimar gordura",
+    "ketosis_desc": "Produção de corpos cetônicos",
+    "deep_ketosis_desc": "Metabolismo de gordura aprimorado",
+    "autophagy_desc": "Renovação celular",
+    "max_autophagy_desc": "Pico de renovação celular"
   },
   "report": {
     "title": "Relatório nutricional",

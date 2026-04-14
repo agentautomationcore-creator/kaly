@@ -404,7 +404,21 @@
     "completed": "Fast completed!",
     "hours_suffix": "h",
     "complete_title": "Fasting Complete!",
-    "complete_body": "Congratulations! You reached your fasting goal."
+    "complete_body": "Congratulations! You reached your fasting goal.",
+    "elapsed": "elapsed",
+    "goal": "goal",
+    "fed_state": "Fed state",
+    "fat_burning": "Fat burning",
+    "ketosis": "Ketosis",
+    "deep_ketosis": "Deep ketosis",
+    "autophagy": "Autophagy",
+    "max_autophagy": "Maximum autophagy",
+    "fed_desc": "Blood sugar elevated",
+    "fat_burning_desc": "Body starts burning fat",
+    "ketosis_desc": "Producing ketone bodies",
+    "deep_ketosis_desc": "Enhanced fat metabolism",
+    "autophagy_desc": "Cell renewal begins",
+    "max_autophagy_desc": "Peak cellular renewal"
   },
   "report": {
     "title": "Nutrition Report",

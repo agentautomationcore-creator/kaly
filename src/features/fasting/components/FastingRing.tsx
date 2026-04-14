@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, AccessibilityInfo } from 'react-native';
 import Svg, { Circle, Defs, LinearGradient as SvgGradient, Stop } from 'react-native-svg';
 import Animated, { useSharedValue, useAnimatedProps, withTiming, cancelAnimation } from 'react-native-reanimated';
+import { useTranslation } from 'react-i18next';
 import { useColors } from '../../../lib/theme';
 import { typography } from '../../../lib/typography';
 
@@ -21,6 +22,7 @@ function formatTime(seconds: number): string {
 }
 
 export function FastingRing({ elapsed, targetSeconds, size = 220 }: FastingRingProps) {
+  const { t } = useTranslation();
   const colors = useColors();
   const [reduceMotion, setReduceMotion] = useState(false);
 
@@ -91,10 +93,10 @@ export function FastingRing({ elapsed, targetSeconds, size = 220 }: FastingRingP
           {formatTime(elapsed)}
         </Text>
         <Text style={{ ...typography.small, color: colors.textSecondary }}>
-          elapsed
+          {t('fasting.elapsed')}
         </Text>
         <Text style={{ ...typography.caption, color: colors.textTertiary }}>
-          {targetHours}:{targetMins.toString().padStart(2, '0')} goal
+          {targetHours}:{targetMins.toString().padStart(2, '0')} {t('fasting.goal')}
         </Text>
       </View>
     </View>

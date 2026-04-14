@@ -404,7 +404,21 @@
     "completed": "Digiuno completato!",
     "hours_suffix": "h",
     "complete_title": "Digiuno completato!",
-    "complete_body": "Congratulazioni! Hai raggiunto il tuo obiettivo di digiuno."
+    "complete_body": "Congratulazioni! Hai raggiunto il tuo obiettivo di digiuno.",
+    "elapsed": "trascorso",
+    "goal": "obiettivo",
+    "fed_state": "Stato nutrito",
+    "fat_burning": "Bruciare grassi",
+    "ketosis": "Chetosi",
+    "deep_ketosis": "Chetosi profonda",
+    "autophagy": "Autofagia",
+    "max_autophagy": "Autofagia massima",
+    "fed_desc": "Glicemia elevata",
+    "fat_burning_desc": "Il corpo brucia i grassi",
+    "ketosis_desc": "Produzione di corpi chetonici",
+    "deep_ketosis_desc": "Metabolismo lipidico potenziato",
+    "autophagy_desc": "Rinnovo cellulare",
+    "max_autophagy_desc": "Picco di rinnovo cellulare"
   },
   "report": {
     "title": "Rapporto nutrizionale",

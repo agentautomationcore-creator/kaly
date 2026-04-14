@@ -404,7 +404,21 @@
     "completed": "断食完成！",
     "hours_suffix": "小时",
     "complete_title": "禁食完成！",
-    "complete_body": "恭喜！您已达到禁食目标。"
+    "complete_body": "恭喜！您已达到禁食目标。",
+    "elapsed": "已过",
+    "goal": "目标",
+    "fed_state": "饱腹状态",
+    "fat_burning": "脂肪燃烧",
+    "ketosis": "生酮状态",
+    "deep_ketosis": "深度生酮",
+    "autophagy": "自噬",
+    "max_autophagy": "最大自噬",
+    "fed_desc": "血糖升高",
+    "fat_burning_desc": "身体开始燃烧脂肪",
+    "ketosis_desc": "产生酮体",
+    "deep_ketosis_desc": "增强脂肪代谢",
+    "autophagy_desc": "细胞更新开始",
+    "max_autophagy_desc": "细胞更新高峰"
   },
   "report": {
     "title": "营养报告",

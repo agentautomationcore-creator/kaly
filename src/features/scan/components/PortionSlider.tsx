@@ -39,7 +39,7 @@ export function PortionSlider() {
               style={{
                 fontSize: FONT_SIZE.sm,
                 fontWeight: '600',
-                color: portionMultiplier === p ? colors.card : colors.textSecondary,
+                color: portionMultiplier === p ? colors.textInverse : colors.textSecondary,
               }}
             >
               {p}x
