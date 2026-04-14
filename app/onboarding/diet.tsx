@@ -41,52 +41,76 @@ export default function DietScreen() {
   const handleDone = async () => {
     setLoading(true);
     try {
-      // Only sign in if not already authenticated
-      const { data: { user: existingUser } } = await supabase.auth.getUser();
-      if (!existingUser) {
+      // Ensure we have an authenticated user
+      let userId: string | null = null;
+
+      try {
+        const { data: { session } } = await supabase.auth.getSession();
+        userId = session?.user?.id ?? null;
+      } catch {
+        // Session check failed, will try anonymous sign in
+      }
+
+      if (!userId) {
         await signInAnonymously();
+        const { data: { session } } = await supabase.auth.getSession();
+        userId = session?.user?.id ?? null;
       }
-      const { data: { user } } = await supabase.auth.getUser();
-      if (user) {
-        const ob = useOnboardingStore.getState();
-        const deviceId = Device.modelId || Device.deviceName || 'unknown';
-        let dailyCalories = 2000;
-        let proteinPct = 30;
-        let carbsPct = 40;
-        let fatPct = 30;
-        if (ob.weightKg && ob.heightCm && ob.age && ob.gender) {
-          const tdee = calculateTDEE(ob.weightKg, ob.heightCm, ob.age, ob.gender, ob.activityLevel);
-          dailyCalories = calculateDailyTarget(tdee, ob.goal || 'maintain');
-          const dietKey = diet as DietType;
-          const macros = calculateMacroSplit(dailyCalories, dietKey);
-          proteinPct = Math.round((macros.protein_g * 4 / dailyCalories) * 100);
-          carbsPct = Math.round((macros.carbs_g * 4 / dailyCalories) * 100);
-          fatPct = 100 - proteinPct - carbsPct;
-        }
-        await supabase.from('nutrition_profiles').upsert({
-          id: user.id,
-          diet_type: diet,
-          allergies,
-          onboarding_done: true,
-          display_name: deviceId,
-          goal: ob.goal || 'maintain',
-          height_cm: ob.heightCm,
-          weight_kg: ob.weightKg,
-          age: ob.age,
-          gender: ob.gender,
-          activity_level: ob.activityLevel,
-          daily_calories: dailyCalories,
-          protein_pct: proteinPct,
-          carbs_pct: carbsPct,
-          fat_pct: fatPct,
-        });
-        useOnboardingStore.getState().reset();
+
+      if (!userId) {
+        // Last resort: proceed to diary without saving profile
+        // User will be prompted to sign in when they try to use features
+        router.replace('/(tabs)/diary');
+        return;
       }
+
+      const ob = useOnboardingStore.getState();
+      const deviceId = Device.modelId || Device.deviceName || 'unknown';
+      let dailyCalories = 2000;
+      let proteinPct = 30;
+      let carbsPct = 40;
+      let fatPct = 30;
+      if (ob.weightKg && ob.heightCm && ob.age && ob.gender) {
+        const tdee = calculateTDEE(ob.weightKg, ob.heightCm, ob.age, ob.gender, ob.activityLevel);
+        dailyCalories = calculateDailyTarget(tdee, ob.goal || 'maintain');
+        const dietKey = diet as DietType;
+        const macros = calculateMacroSplit(dailyCalories, dietKey);
+        proteinPct = Math.round((macros.protein_g * 4 / dailyCalories) * 100);
+        carbsPct = Math.round((macros.carbs_g * 4 / dailyCalories) * 100);
+        fatPct = 100 - proteinPct - carbsPct;
+      }
+
+      const { error: upsertError } = await supabase.from('nutrition_profiles').upsert({
+        id: userId,
+        diet_type: diet,
+        allergies,
+        onboarding_done: true,
+        display_name: deviceId,
+        goal: ob.goal || 'maintain',
+        height_cm: ob.heightCm || null,
+        weight_kg: ob.weightKg || null,
+        age: ob.age || null,
+        gender: ob.gender || null,
+        activity_level: ob.activityLevel || 'moderate',
+        daily_calories: dailyCalories,
+        protein_pct: proteinPct,
+        carbs_pct: carbsPct,
+        fat_pct: fatPct,
+      });
+
+      if (upsertError) {
+        captureException(upsertError, { feature: 'onboarding_diet_upsert' });
+        // Profile save failed but don't block — proceed to diary
+      }
+
+      useOnboardingStore.getState().reset();
       track('onboarding_completed');
       router.replace('/(tabs)/diary');
     } catch (e) {
-      Alert.alert(t('common.error'), t('errors.generic'));
+      // Don't block user — proceed to diary even on error
       captureException(e, { feature: 'onboarding_diet' });
+      useOnboardingStore.getState().reset();
+      router.replace('/(tabs)/diary');
     } finally {
       setLoading(false);
     }
