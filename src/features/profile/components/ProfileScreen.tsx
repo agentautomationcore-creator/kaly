@@ -128,7 +128,7 @@ export function ProfileScreen() {
               {profile?.plan === 'pro' ? t('profile.pro_plan') : `${t('profile.free_plan')} \u2022 `}
             </Text>
             {profile?.plan !== 'pro' && (
-              <Text style={{ ...typography.caption, color: colors.primary }}>{t('profile.upgrade')} \u2192</Text>
+              <Text style={{ ...typography.caption, color: colors.primary }}>{t('profile.upgrade')} {'\u2192'}</Text>
             )}
           </Pressable>
         </View>

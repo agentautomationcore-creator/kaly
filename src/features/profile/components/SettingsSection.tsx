@@ -96,9 +96,9 @@ export function SettingsSection({ profile }: SettingsSectionProps) {
               minHeight: MIN_TOUCH,
               paddingVertical: 10,
               borderRadius: RADIUS.md,
-              backgroundColor: themeMode === th ? colors.primaryLight : colors.surface,
+              backgroundColor: themeMode === th ? colors.primarySubtle : colors.surface,
               borderWidth: 1.5,
-              borderColor: themeMode === th ? colors.primary : 'transparent',
+              borderColor: themeMode === th ? colors.primary : colors.border,
               alignItems: 'center',
               justifyContent: 'center',
             }}

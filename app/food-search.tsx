@@ -152,7 +152,7 @@ export default function FoodSearchScreen() {
         accessibilityRole="button" accessibilityLabel={t('food_search.enter_manually')}
       >
         <Text style={{ ...typography.bodyMedium, color: colors.primary }}>
-          {t('food_search.enter_manually')} \u2192
+          {t('food_search.enter_manually')} {'\u2192'}
         </Text>
       </Pressable>
     </SafeAreaView>
