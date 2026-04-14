@@ -81,7 +81,7 @@ export function Button({
     alignItems: 'center',
     justifyContent: 'center',
     paddingHorizontal: 24,
-    opacity: disabled ? 0.5 : 1,
+    opacity: disabled ? 0.6 : 1,
     ...shadowStyle,
     ...style,
   };
@@ -117,7 +117,9 @@ export function Button({
       disabled={disabled || loading}
       style={{
         ...containerStyle,
-        backgroundColor: disabled ? colors.surface : bgColor,
+        backgroundColor: disabled ? colors.surfaceElevated : bgColor,
+        borderWidth: disabled ? 1 : 0,
+        borderColor: disabled ? colors.border : 'transparent',
         ...animatedStyle,
       }}
       accessibilityRole="button"

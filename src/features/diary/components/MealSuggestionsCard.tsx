@@ -10,6 +10,7 @@ import { FONT_SIZE, RADIUS, MIN_TOUCH, SPACING } from '../../../lib/constants';
 import { useMealSuggestions, MealSuggestion } from '../../../hooks/useMealSuggestions';
 import { supabase } from '../../../lib/supabase';
 import { useAuthStore } from '../../../stores/authStore';
+import { useSettingsStore } from '../../../stores/settingsStore';
 import { captureException } from '../../../lib/sentry';
 import { track } from '../../../lib/analytics';
 import { formatNumber } from '../../../lib/formatNumber';
@@ -41,6 +42,7 @@ export function MealSuggestionsCard({
   const qc = useQueryClient();
   const user = useAuthStore((s) => s.user);
   const { suggestions, isLoading, error, hasQueried, suggest, clear } = useMealSuggestions();
+  const aiConsentGiven = useSettingsStore((s) => s.aiConsentGiven);
   const [errorCooldown, setErrorCooldown] = useState(false);
 
   useEffect(() => {
@@ -112,6 +114,9 @@ export function MealSuggestionsCard({
       addingRef.current = false;
     }
   };
+
+  // No AI consent — don't show suggestions at all
+  if (!aiConsentGiven) return null;
 
   // Not yet triggered — show suggest button
   if (suggestions.length === 0 && !isLoading && !error) {

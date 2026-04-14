@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, Pressable, Modal as RNModal, ViewStyle } from 'react-native';
+import { View, Text, Pressable, ScrollView, Modal as RNModal, ViewStyle } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { Ionicons } from '@expo/vector-icons';
 import { useColors } from '../lib/theme';
@@ -63,12 +63,14 @@ export function Modal({ visible, onClose, title, children, style }: ModalProps) 
             <Ionicons name="close" size={20} color={colors.textSecondary} />
           </Pressable>
 
-          {title ? (
-            <Text style={{ fontSize: FONT_SIZE.lg, fontWeight: '700', color: colors.text, marginBottom: SPACING.lg, paddingEnd: 40 }}>
-              {title}
-            </Text>
-          ) : null}
-          {children}
+          <ScrollView showsVerticalScrollIndicator={false} bounces={false}>
+            {title ? (
+              <Text style={{ fontSize: FONT_SIZE.lg, fontWeight: '700', color: colors.text, marginBottom: SPACING.lg, paddingEnd: 40 }}>
+                {title}
+              </Text>
+            ) : null}
+            {children}
+          </ScrollView>
         </Pressable>
       </Pressable>
     </RNModal>
