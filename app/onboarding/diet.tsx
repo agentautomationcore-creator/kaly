@@ -41,7 +41,11 @@ export default function DietScreen() {
   const handleDone = async () => {
     setLoading(true);
     try {
-      await signInAnonymously();
+      // Only sign in if not already authenticated
+      const { data: { user: existingUser } } = await supabase.auth.getUser();
+      if (!existingUser) {
+        await signInAnonymously();
+      }
       const { data: { user } } = await supabase.auth.getUser();
       if (user) {
         const ob = useOnboardingStore.getState();

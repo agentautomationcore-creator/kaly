@@ -63,7 +63,10 @@ export default function GoalScreen() {
   const handleSkip = async () => {
     setSkipping(true);
     try {
-      await signInAnonymously();
+      const { data: { user: existingUser } } = await supabase.auth.getUser();
+      if (!existingUser) {
+        await signInAnonymously();
+      }
       const { data: { user } } = await supabase.auth.getUser();
       if (user) {
         await supabase.from('nutrition_profiles').upsert({

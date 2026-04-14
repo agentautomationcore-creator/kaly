@@ -5,7 +5,7 @@
 export type Gender = 'male' | 'female';
 export type ActivityLevel = 'sedentary' | 'light' | 'moderate' | 'active' | 'very_active';
 export type Goal = 'lose' | 'maintain' | 'gain';
-export type DietType = 'balanced' | 'keto' | 'vegan' | 'vegetarian' | 'paleo' | 'custom';
+export type DietType = 'balanced' | 'keto' | 'vegan' | 'vegetarian' | 'paleo' | 'pescatarian' | 'halal' | 'kosher' | 'custom';
 
 const ACTIVITY_MULTIPLIERS: Record<ActivityLevel, number> = {
   sedentary: 1.2,
@@ -46,12 +46,15 @@ export function calculateMacroSplit(
   diet: DietType
 ): { protein_g: number; carbs_g: number; fat_g: number } {
   const splits: Record<DietType, [number, number, number]> = {
-    balanced:   [0.30, 0.40, 0.30],
-    keto:       [0.25, 0.05, 0.70],
-    vegan:      [0.20, 0.55, 0.25],
-    vegetarian: [0.25, 0.50, 0.25],
-    paleo:      [0.35, 0.25, 0.40],
-    custom:     [0.30, 0.40, 0.30],
+    balanced:     [0.30, 0.40, 0.30],
+    keto:         [0.25, 0.05, 0.70],
+    vegan:        [0.20, 0.55, 0.25],
+    vegetarian:   [0.25, 0.50, 0.25],
+    paleo:        [0.35, 0.25, 0.40],
+    pescatarian:  [0.30, 0.40, 0.30],
+    halal:        [0.30, 0.40, 0.30],
+    kosher:       [0.30, 0.40, 0.30],
+    custom:       [0.30, 0.40, 0.30],
   };
 
   const [pPct, cPct, fPct] = splits[diet] || splits.balanced;
