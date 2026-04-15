@@ -1,11 +1,12 @@
 import React from 'react';
-import { View, Text, Pressable } from 'react-native';
+import { View, Text, Pressable, Alert } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { Ionicons } from '@expo/vector-icons';
 import * as Haptics from 'expo-haptics';
 import { useColors } from '../../../lib/theme';
 import { useWater } from '../hooks/useWater';
 import { useHealthKit } from '../../../hooks/useHealthKit';
+import { captureException } from '../../../lib/sentry';
 import { WATER_GLASS_ML, RADIUS, SPACING } from '../../../lib/constants';
 import { typography } from '../../../lib/typography';
 
@@ -25,6 +26,15 @@ export function WaterTracker({ date, goalGlasses = 8 }: WaterTrackerProps) {
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
     addGlass.mutate(undefined, {
       onSuccess: () => { saveWater(WATER_GLASS_ML).catch(() => {}); },
+      onError: (e) => { captureException(e, { feature: 'water_add' }); },
+    });
+  };
+
+  const handleRemove = () => {
+    if (glasses <= 0 || removeGlass.isPending) return;
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+    removeGlass.mutate(undefined, {
+      onError: (e) => { captureException(e, { feature: 'water_remove' }); },
     });
   };
 
@@ -68,11 +78,7 @@ export function WaterTracker({ date, goalGlasses = 8 }: WaterTrackerProps) {
 
         {/* Minus button */}
         <Pressable
-          onPress={() => {
-            if (glasses <= 0 || removeGlass.isPending) return;
-            Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
-            removeGlass.mutate();
-          }}
+          onPress={handleRemove}
           style={{
             width: 44,
             height: 44,

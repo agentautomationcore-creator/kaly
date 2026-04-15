@@ -67,10 +67,13 @@ export function Button({
     scale.value = withSpring(1, { damping: 15, stiffness: 200 });
   }, [scale]);
 
+  // Disabled text must be readable regardless of background
+  const disabledTxtColor = colors.textSecondary;
+
   const inner = loading ? (
-    <ActivityIndicator color={txtColor} size="small" />
+    <ActivityIndicator color={disabled ? disabledTxtColor : txtColor} size="small" />
   ) : (
-    <Text style={{ ...typography.bodyMedium, color: txtColor, ...textStyle }}>
+    <Text style={{ ...typography.bodyMedium, color: disabled ? disabledTxtColor : txtColor, ...textStyle }}>
       {title}
     </Text>
   );

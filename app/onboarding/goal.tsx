@@ -116,17 +116,7 @@ export default function GoalScreen() {
       </View>
 
       <View style={{ gap: SPACING[3] }}>
-        <Pressable
-          onPress={handleSkip}
-          disabled={skipping}
-          style={{ alignItems: 'center', minHeight: MIN_TOUCH, justifyContent: 'center', opacity: skipping ? 0.5 : 1 }}
-          accessibilityRole="button"
-          accessibilityLabel={t('onboarding.skip')}
-        >
-          <Text style={{ ...typography.small, color: colors.textSecondary }}>
-            {t('onboarding.skip')}
-          </Text>
-        </Pressable>
+        <Button title={t('onboarding.skip')} variant="ghost" onPress={handleSkip} disabled={skipping} loading={skipping} />
       </View>
     </SafeAreaView>
   );

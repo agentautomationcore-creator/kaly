@@ -48,7 +48,7 @@ function ExportReportCard() {
 
   return (
     <Card style={{ marginBottom: SPACING[3] }}>
-      <Text accessibilityRole="header" style={{ ...typography.overline, color: colors.textTertiary, marginBottom: SPACING[2] }}>
+      <Text accessibilityRole="header" style={{ ...typography.overline, color: colors.textSecondary, marginBottom: SPACING[2] }}>
         {t('profile.export_report').toUpperCase()}
       </Text>
       <View style={{ flexDirection: 'row', gap: 8, marginBottom: SPACING[3] }}>
@@ -65,7 +65,7 @@ function ExportReportCard() {
               borderRadius: RADIUS.full,
               backgroundColor: selectedPeriod === d ? colors.primarySubtle : colors.surface,
               borderWidth: 1.5,
-              borderColor: selectedPeriod === d ? colors.primary : 'transparent',
+              borderColor: selectedPeriod === d ? colors.primary : colors.border,
               alignItems: 'center',
               justifyContent: 'center',
             }}
