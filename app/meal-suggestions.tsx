@@ -101,7 +101,7 @@ export default function MealSuggestionsScreen() {
           accessibilityRole="button"
         >
           <Text style={{ ...typography.bodyMedium, color: colors.primary }}>
-            {t('suggestions.refresh')} \uD83D\uDD04
+            {t('suggestions.refresh')} {'\uD83D\uDD04'}
           </Text>
         </Pressable>
       </ScrollView>

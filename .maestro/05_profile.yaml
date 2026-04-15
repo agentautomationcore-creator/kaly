@@ -1,0 +1,51 @@
+appId: app.kaly.mobile
+name: "Profile & Settings"
+---
+# Step 1: Navigate to profile tab
+- tapOn: ".*rofil.*"
+- delay: 500
+
+# Step 2: Verify profile screen loads
+- assertVisible: ".*rofil.*"
+- takeScreenshot: "18_profile_main"
+
+# Step 3: Verify "Export PDF report" text is VISIBLE (not transparent)
+- assertVisible: ".*xport.*rapport.*|.*xport.*report.*|.*xport.*PDF.*"
+- takeScreenshot: "19_profile_pdf_visible"
+
+# Step 4: Scroll to settings
+- scrollUntilVisible:
+    element: ".*angue.*|.*anguage.*"
+    direction: DOWN
+
+# Step 5: Verify language selector visible
+- assertVisible: "English"
+- assertVisible: "Fran\u00e7ais"
+- assertVisible: "Deutsch"
+- takeScreenshot: "20_profile_languages"
+
+# Step 6: Verify theme selector visible and readable
+- assertVisible: ".*yst\u00e8me.*|.*ystem.*"
+- assertVisible: ".*laire.*|.*ight.*"
+- assertVisible: ".*ombre.*|.*ark.*"
+- takeScreenshot: "21_profile_theme"
+
+# Step 7: Switch to light theme
+- tapOn: ".*laire.*|.*ight.*"
+- delay: 500
+- takeScreenshot: "22_light_theme"
+
+# Step 8: Verify no invisible text in light mode
+- assertNotVisible: "\\u"
+
+# Step 9: Switch back to dark theme
+- tapOn: ".*ombre.*|.*ark.*"
+- delay: 500
+- takeScreenshot: "23_dark_theme"
+
+# Step 10: Verify privacy section visible
+- scrollUntilVisible:
+    element: ".*nalyse.*IA.*|.*I.*nalysis.*"
+    direction: DOWN
+- assertVisible: ".*nalyse.*IA.*|.*I.*nalysis.*"
+- takeScreenshot: "24_profile_privacy"

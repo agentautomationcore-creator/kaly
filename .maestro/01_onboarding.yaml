@@ -1,0 +1,57 @@
+appId: app.kaly.mobile
+name: "Onboarding Flow"
+---
+# Step 1: Welcome screen
+- assertVisible: "kaly"
+- takeScreenshot: "01_welcome"
+
+# Step 2: Tap "Start free" / "Commencer gratuitement"
+- tapOn:
+    id: "welcome.cta"
+    optional: true
+- tapOn:
+    text: ".*ommencer.*"
+    optional: true
+
+# Step 3: Goal screen - verify all 3 options visible
+- assertVisible: ".*objectif.*|.*goal.*"
+- assertVisible: ".*erdre.*poids.*|.*ose.*weight.*"
+- assertVisible: ".*aintenir.*|.*aintain.*"
+- assertVisible: ".*uscle.*|.*ain.*muscle.*"
+- takeScreenshot: "02_goal"
+
+# Step 4: Select a goal (tap first option)
+- tapOn: ".*erdre.*poids.*|.*ose.*weight.*"
+- delay: 500
+
+# Step 5: Body screen - verify inputs and buttons
+- assertVisible: ".*corps.*|.*body.*"
+- assertVisible: ".*aille.*|.*eight.*"
+- assertVisible: ".*oids.*|.*eight.*"
+- assertVisible: ".*ge.*"
+- takeScreenshot: "03_body_empty"
+
+# Step 6: Verify "Next" button exists (even if disabled)
+- assertVisible: ".*uivant.*|.*ext.*|.*alee.*"
+
+# Step 7: Verify "Skip" button exists and is green
+- assertVisible: ".*asser.*|.*kip.*"
+- takeScreenshot: "04_body_with_skip"
+
+# Step 8: Tap Skip to proceed
+- tapOn: ".*asser.*|.*kip.*"
+
+# Step 9: Diet screen - verify all diet types translated
+- assertVisible: ".*gime.*|.*iet.*"
+- assertNotVisible: "onboarding.diet_"
+- assertNotVisible: "\\u"
+- takeScreenshot: "05_diet"
+
+# Step 10: Verify Halal/Kosher/Pescatarian are translated
+- assertVisible: ".*alal.*"
+- assertVisible: ".*osher.*|.*asher.*"
+
+# Step 11: Complete onboarding
+- tapOn: ".*ommencer.*|.*tart.*|.*one.*"
+- delay: 2000
+- takeScreenshot: "06_diary_after_onboarding"

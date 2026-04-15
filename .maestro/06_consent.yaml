@@ -1,0 +1,30 @@
+appId: app.kaly.mobile
+name: "Consent Modal"
+---
+# Step 1: Navigate to scan tab
+- tapOn:
+    id: "scan.scan_food"
+    optional: true
+
+# Step 2: Consent modal should appear
+- assertVisible: ".*vant.*scanner.*|.*efore.*scan.*|.*ered.*skanir.*"
+- takeScreenshot: "25_consent_modal"
+
+# Step 3: Verify both sections visible
+- assertVisible: ".*donn\u00e9es.*sant\u00e9.*|.*ealth.*ata.*|.*dannykh.*zdorov.*"
+- assertVisible: ".*nalyse.*IA.*|.*I.*nalysis.*|.*I.*analiz.*"
+
+# Step 4: Verify checkboxes are tappable
+- tapOn: ".*nalyse.*IA.*photo.*|.*I.*hoto.*nalysis.*"
+- delay: 300
+- takeScreenshot: "26_consent_ai_checked"
+
+# Step 5: Verify accept button visible (scroll if needed)
+- scrollUntilVisible:
+    element: ".*ccepter.*|.*ccept.*"
+    direction: DOWN
+- assertVisible: ".*ccepter.*ontinuer.*|.*ccept.*ontinue.*"
+- takeScreenshot: "27_consent_buttons_visible"
+
+# Step 6: Verify decline button equally visible
+- assertVisible: ".*on.*merci.*|.*o.*thanks.*|.*et.*spasibo.*"

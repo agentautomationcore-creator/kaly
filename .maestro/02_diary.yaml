@@ -1,0 +1,37 @@
+appId: app.kaly.mobile
+name: "Diary Screen"
+---
+# Step 1: Verify diary screen loads
+- assertVisible: ".*2.*000.*"
+- takeScreenshot: "07_diary_main"
+
+# Step 2: Verify all 4 meal types visible
+- assertVisible: ".*etit.*d.*jeuner.*|.*reakfast.*"
+- assertVisible: ".*jeuner.*|.*unch.*"
+- assertVisible: ".*ner.*|.*inner.*"
+- assertVisible: ".*ollation.*|.*nack.*"
+- takeScreenshot: "08_diary_meals"
+
+# Step 3: Verify calorie ring visible (number + "Remaining"/"Ostaloss")
+- assertVisible: ".*kcal.*|.*cal.*"
+
+# Step 4: Verify macros bar visible (P/C/F or localized)
+- assertVisible: ".*rot.*|.*elk.*"
+- assertVisible: ".*luc.*|.*arb.*|.*glevod.*"
+- assertVisible: ".*ip.*|.*at.*|.*ir.*"
+
+# Step 5: Verify "Add food" button works
+- tapOn: ".*outer.*aliment.*|.*dd.*food.*|.*obavit.*edu.*"
+- delay: 500
+- takeScreenshot: "09_add_food_options"
+
+# Step 6: Go back
+- pressKey: back
+
+# Step 7: Verify NO raw i18n keys visible
+- assertNotVisible: "diary\\."
+- assertNotVisible: "common\\."
+- assertNotVisible: "scan\\."
+- assertNotVisible: "\\u2022"
+- assertNotVisible: "\\u2192"
+- takeScreenshot: "10_diary_no_raw_keys"

@@ -117,7 +117,7 @@ export default function ManualEntryScreen() {
           </Pressable>
           <Text style={{ ...typography.h3, color: colors.textPrimary }}>{t('manual_entry.title')}</Text>
           <Pressable onPress={handleSave} disabled={!canSave || saving} style={{ minHeight: MIN_TOUCH, justifyContent: 'center', opacity: canSave ? 1 : 0.4 }} accessibilityRole="button" accessibilityLabel={t('common.save')}>
-            <Text style={{ ...typography.bodyMedium, color: colors.primary }}>{t('common.save')} \u2713</Text>
+            <Text style={{ ...typography.bodyMedium, color: colors.primary }}>{t('common.save')} {'\u2713'}</Text>
           </Pressable>
         </View>
 

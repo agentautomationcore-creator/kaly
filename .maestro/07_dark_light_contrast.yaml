@@ -1,0 +1,75 @@
+appId: app.kaly.mobile
+name: "Dark/Light Mode Contrast Check"
+---
+# This test switches between themes and takes screenshots
+# to visually verify all text is readable
+
+# Step 1: Go to profile
+- tapOn: ".*rofil.*"
+- delay: 500
+
+# Step 2: Scroll to theme
+- scrollUntilVisible:
+    element: ".*laire.*|.*ight.*"
+    direction: DOWN
+
+# === DARK MODE ===
+- tapOn: ".*ombre.*|.*ark.*"
+- delay: 500
+
+# Go to diary in dark mode
+- tapOn: ".*ournal.*|.*iary.*|.*nevnik.*"
+- delay: 500
+- takeScreenshot: "28_dark_diary"
+
+# Check no raw unicode
+- assertNotVisible: "\\u2022"
+- assertNotVisible: "\\u2192"
+
+# Go to fasting in dark mode
+- tapOn: ".*e\u00fbne.*|.*asting.*"
+- delay: 500
+- takeScreenshot: "29_dark_fasting"
+
+# Go to stats in dark mode
+- tapOn: ".*tats.*|.*tatist.*"
+- delay: 500
+- takeScreenshot: "30_dark_stats"
+
+# Go to profile in dark mode
+- tapOn: ".*rofil.*"
+- delay: 500
+- takeScreenshot: "31_dark_profile"
+
+# === LIGHT MODE ===
+- scrollUntilVisible:
+    element: ".*laire.*|.*ight.*"
+    direction: DOWN
+- tapOn: ".*laire.*|.*ight.*"
+- delay: 500
+
+# Go to diary in light mode
+- tapOn: ".*ournal.*|.*iary.*"
+- delay: 500
+- takeScreenshot: "32_light_diary"
+
+# Go to fasting in light mode
+- tapOn: ".*e\u00fbne.*|.*asting.*"
+- delay: 500
+- takeScreenshot: "33_light_fasting"
+
+# Go to stats in light mode
+- tapOn: ".*tats.*|.*tatist.*"
+- delay: 500
+- takeScreenshot: "34_light_stats"
+
+# Go to profile in light mode
+- tapOn: ".*rofil.*"
+- delay: 500
+- takeScreenshot: "35_light_profile"
+
+# Reset to system
+- scrollUntilVisible:
+    element: ".*yst\u00e8me.*|.*ystem.*"
+    direction: DOWN
+- tapOn: ".*yst\u00e8me.*|.*ystem.*"

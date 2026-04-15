@@ -1,0 +1,31 @@
+appId: app.kaly.mobile
+name: "Paywall Screen"
+---
+# Step 1: Navigate to profile
+- tapOn: ".*rofil.*"
+- delay: 500
+
+# Step 2: Tap upgrade/plan section
+- tapOn: ".*m\u00e9liorer.*|.*pgrade.*|.*uluchshit.*"
+- delay: 500
+
+# Step 3: Verify paywall loads
+- assertVisible: ".*ro.*|.*remium.*"
+- takeScreenshot: "36_paywall"
+
+# Step 4: Verify prices visible
+- assertVisible: ".*4.*99.*|.*39.*99.*"
+- takeScreenshot: "37_paywall_prices"
+
+# Step 5: Verify "Continue free" button visible
+- assertVisible: ".*ontinuer.*gratuit.*|.*ontinue.*free.*|.*esplatn.*"
+
+# Step 6: Verify terms and privacy links
+- assertVisible: ".*onditions.*|.*erms.*"
+- assertVisible: ".*onfidentialit.*|.*rivacy.*"
+- takeScreenshot: "38_paywall_legal"
+
+# Step 7: Tap continue free
+- tapOn: ".*ontinuer.*gratuit.*|.*ontinue.*free.*"
+- delay: 500
+- takeScreenshot: "39_after_paywall"

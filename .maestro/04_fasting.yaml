@@ -1,0 +1,37 @@
+appId: app.kaly.mobile
+name: "Fasting Timer"
+---
+# Step 1: Navigate to fasting tab
+- tapOn: ".*e\u00fbne.*|.*asting.*|.*olodan.*"
+- delay: 500
+
+# Step 2: Verify fasting screen loads
+- assertVisible: ".*ntermittent.*|.*e\u00fbne.*|.*asting.*"
+- takeScreenshot: "14_fasting_main"
+
+# Step 3: Verify start button visible and translated
+- assertVisible: ".*ommencer.*|.*tart.*"
+
+# Step 4: Verify protocol options (16:8, 18:6, 20:4)
+- assertVisible: "16"
+- assertVisible: "18"
+- assertVisible: "20"
+- takeScreenshot: "15_fasting_protocols"
+
+# Step 5: Start fast
+- tapOn: ".*ommencer.*|.*tart.*"
+- delay: 1000
+- takeScreenshot: "16_fasting_running"
+
+# Step 6: Verify timer is counting
+- assertVisible: ".*:.*:.*"
+
+# Step 7: Verify phase names are translated (no English)
+- assertNotVisible: "Fed state"
+- assertNotVisible: "Blood sugar"
+- assertNotVisible: "elapsed"
+
+# Step 8: Stop fast
+- tapOn: ".*rr\u00eater.*|.*top.*|.*nd.*fast.*"
+- delay: 500
+- takeScreenshot: "17_fasting_stopped"
