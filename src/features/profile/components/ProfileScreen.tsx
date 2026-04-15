@@ -26,6 +26,33 @@ import { exportReport } from '../../../lib/generateReport';
 import { RADIUS, MIN_TOUCH, SPACING, SHADOW } from '../../../lib/constants';
 import { typography } from '../../../lib/typography';
 
+function VersionTap() {
+  const colors = useColors();
+  const router = useRouter();
+  const [taps, setTaps] = React.useState(0);
+  const timerRef = React.useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const handleTap = () => {
+    const next = taps + 1;
+    setTaps(next);
+    if (timerRef.current) clearTimeout(timerRef.current);
+    if (next >= 5) {
+      setTaps(0);
+      router.push('/debug');
+    } else {
+      timerRef.current = setTimeout(() => setTaps(0), 2000);
+    }
+  };
+
+  return (
+    <Pressable onPress={handleTap} style={{ alignItems: 'center', paddingVertical: SPACING[2], minHeight: MIN_TOUCH }}>
+      <Text style={{ ...typography.caption, color: colors.textTertiary }}>
+        v1.0.0 {taps > 0 && taps < 5 ? `(${'*'.repeat(taps)})` : ''}
+      </Text>
+    </Pressable>
+  );
+}
+
 function ExportReportCard() {
   const { t } = useTranslation();
   const colors = useColors();
@@ -267,10 +294,11 @@ export function ProfileScreen() {
       {/* Delete account */}
       <DeleteAccountButton />
 
-      {/* Version */}
+      {/* Version + secret debug access */}
       <Text style={{ ...typography.caption, color: colors.textTertiary, textAlign: 'center', marginTop: SPACING[6] }}>
         {t('profile.disclaimer')}
       </Text>
+      <VersionTap />
     </ScrollView>
   );
 }
